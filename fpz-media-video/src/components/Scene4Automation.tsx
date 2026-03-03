@@ -63,6 +63,15 @@ export const Scene4Automation = () => {
 
   const nodeR = 50;
 
+  const totalFrames = 405;
+  const cameraZoom = interpolate(frame, [0, totalFrames], [1, 1.04], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+  const cameraPanX = Math.sin((frame / fps) * 0.2 * Math.PI) * 8;
+  const cameraPanY = Math.cos((frame / fps) * 0.15 * Math.PI) * 5;
+  const cameraTransform = `scale(${cameraZoom}) translate(${cameraPanX}px, ${cameraPanY}px)`;
+
   return (
     <AbsoluteFill style={{ background: C.bg }}>
       <Particles frame={frame} opacity={0.4} />
@@ -71,97 +80,106 @@ export const Scene4Automation = () => {
       <div
         style={{
           position: "absolute",
-          top: 80,
-          left: 0,
-          right: 0,
-          textAlign: "center",
-          opacity: labelOp,
-          fontFamily: FONTS.body,
-          fontSize: 22,
-          color: C.textMuted,
-          letterSpacing: "0.35em",
-          textTransform: "uppercase",
+          inset: 0,
+          transform: cameraTransform,
+          transformOrigin: "center center",
         }}
       >
-        03 — Automation
-      </div>
+        <div
+          style={{
+            position: "absolute",
+            top: 80,
+            left: 0,
+            right: 0,
+            textAlign: "center",
+            opacity: labelOp,
+            fontFamily: FONTS.body,
+            fontSize: 22,
+            color: C.textMuted,
+            letterSpacing: "0.35em",
+            textTransform: "uppercase",
+          }}
+        >
+          03 — Automation
+        </div>
 
-      <svg
-        style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}
-        viewBox="0 0 1920 1080"
-      >
-        <line
-          x1={NODES[0].x + nodeR}
-          y1={NODE_Y}
-          x2={NODES[1].x - nodeR}
-          y2={NODE_Y}
-          stroke={C.accent}
-          strokeWidth={1.5}
-          strokeDasharray={LINE_LENGTH - nodeR * 2}
-          strokeDashoffset={(LINE_LENGTH - nodeR * 2) * (1 - line1Progress)}
-          opacity={0.5}
-        />
-        <polygon
-          points={`${NODES[1].x - nodeR - 2},${NODE_Y} ${NODES[1].x - nodeR - 14},${NODE_Y - 8} ${NODES[1].x - nodeR - 14},${NODE_Y + 8}`}
-          fill={C.accent}
-          opacity={line1Progress}
-        />
-        <line
-          x1={NODES[1].x + nodeR}
-          y1={NODE_Y}
-          x2={NODES[2].x - nodeR}
-          y2={NODE_Y}
-          stroke={C.accent}
-          strokeWidth={1.5}
-          strokeDasharray={LINE_LENGTH - nodeR * 2}
-          strokeDashoffset={(LINE_LENGTH - nodeR * 2) * (1 - line2Progress)}
-          opacity={0.5}
-        />
-        <polygon
-          points={`${NODES[2].x - nodeR - 2},${NODE_Y} ${NODES[2].x - nodeR - 14},${NODE_Y - 8} ${NODES[2].x - nodeR - 14},${NODE_Y + 8}`}
-          fill={C.accent}
-          opacity={line2Progress}
-        />
-        <circle cx={pulse1X} cy={NODE_Y} r={5} fill={C.text} opacity={pulse1Op} />
-        <circle cx={pulse2X} cy={NODE_Y} r={5} fill={C.text} opacity={pulse2Op} />
-        {NODES.map((node, i) => (
-          <g key={node.label} style={{ opacity: nodeS[i] }}>
-            <circle cx={node.x} cy={NODE_Y} r={nodeR} fill="none" stroke={C.accent} strokeWidth={1.5} opacity={0.7} />
-            <circle cx={node.x} cy={NODE_Y} r={nodeR - 6} fill={C.bgElevated} />
-            <text x={node.x} y={NODE_Y + 6} fill={C.text} fontSize={22} fontWeight="600" textAnchor="middle" fontFamily="sans-serif">
-              {node.label}
+        <svg
+          style={{ position: "absolute", inset: 0, width: "100%", height: "100%" }}
+          viewBox="0 0 1920 1080"
+        >
+          <line
+            x1={NODES[0].x + nodeR}
+            y1={NODE_Y}
+            x2={NODES[1].x - nodeR}
+            y2={NODE_Y}
+            stroke={C.accent}
+            strokeWidth={1.5}
+            strokeDasharray={LINE_LENGTH - nodeR * 2}
+            strokeDashoffset={(LINE_LENGTH - nodeR * 2) * (1 - line1Progress)}
+            opacity={0.5}
+          />
+          <polygon
+            points={`${NODES[1].x - nodeR - 2},${NODE_Y} ${NODES[1].x - nodeR - 14},${NODE_Y - 8} ${NODES[1].x - nodeR - 14},${NODE_Y + 8}`}
+            fill={C.accent}
+            opacity={line1Progress}
+          />
+          <line
+            x1={NODES[1].x + nodeR}
+            y1={NODE_Y}
+            x2={NODES[2].x - nodeR}
+            y2={NODE_Y}
+            stroke={C.accent}
+            strokeWidth={1.5}
+            strokeDasharray={LINE_LENGTH - nodeR * 2}
+            strokeDashoffset={(LINE_LENGTH - nodeR * 2) * (1 - line2Progress)}
+            opacity={0.5}
+          />
+          <polygon
+            points={`${NODES[2].x - nodeR - 2},${NODE_Y} ${NODES[2].x - nodeR - 14},${NODE_Y - 8} ${NODES[2].x - nodeR - 14},${NODE_Y + 8}`}
+            fill={C.accent}
+            opacity={line2Progress}
+          />
+          <circle cx={pulse1X} cy={NODE_Y} r={5} fill={C.text} opacity={pulse1Op} />
+          <circle cx={pulse2X} cy={NODE_Y} r={5} fill={C.text} opacity={pulse2Op} />
+          {NODES.map((node, i) => (
+            <g key={node.label} style={{ opacity: nodeS[i] }}>
+              <circle cx={node.x} cy={NODE_Y} r={nodeR} fill="none" stroke={C.accent} strokeWidth={1.5} opacity={0.7} />
+              <circle cx={node.x} cy={NODE_Y} r={nodeR - 6} fill={C.bgElevated} />
+              <text x={node.x} y={NODE_Y + 6} fill={C.text} fontSize={22} fontWeight="600" textAnchor="middle" fontFamily="sans-serif">
+                {node.label}
+              </text>
+            </g>
+          ))}
+          {NODES.map((node, i) => (
+            <text key={`sub${node.label}`} x={node.x} y={NODE_Y + nodeR + 32} fill={C.textMuted} fontSize={16} textAnchor="middle" fontFamily="sans-serif" opacity={nodeS[i]}>
+              {node.sublabel}
+            </text>
+          ))}
+          <g opacity={statOp} transform={`translate(960, 350) scale(${statScale})`}>
+            <rect x={-100} y={-30} width={200} height={60} rx={8} fill={C.bgElevated} />
+            <rect x={-100} y={-30} width={200} height={60} rx={8} fill="none" stroke={C.accent} strokeWidth={1} opacity={0.4} />
+            <text x={0} y={8} fill={C.accent} fontSize={28} fontWeight="700" textAnchor="middle" fontFamily="sans-serif">
+              +87% Leads
             </text>
           </g>
-        ))}
-        {NODES.map((node, i) => (
-          <text key={`sub${node.label}`} x={node.x} y={NODE_Y + nodeR + 32} fill={C.textMuted} fontSize={16} textAnchor="middle" fontFamily="sans-serif" opacity={nodeS[i]}>
-            {node.sublabel}
-          </text>
-        ))}
-        <g opacity={statOp} transform={`translate(960, 350) scale(${statScale})`}>
-          <rect x={-100} y={-30} width={200} height={60} rx={8} fill={C.bgElevated} />
-          <rect x={-100} y={-30} width={200} height={60} rx={8} fill="none" stroke={C.accent} strokeWidth={1} opacity={0.4} />
-          <text x={0} y={8} fill={C.accent} fontSize={28} fontWeight="700" textAnchor="middle" fontFamily="sans-serif">
-            +87% Leads
-          </text>
-        </g>
-      </svg>
+        </svg>
 
-      <div
-        style={{
-          position: "absolute",
-          bottom: 80,
-          left: 0,
-          right: 0,
-          textAlign: "center",
-          fontFamily: FONTS.display,
-          fontSize: 64,
-          color: C.text,
-          transform: `scale(${headlineScale})`,
-          filter: "drop-shadow(0 0 30px rgba(200,200,200,0.4))",
-        }}
-      >
-        Prozesse, die arbeiten.
+        <div
+          style={{
+            position: "absolute",
+            bottom: 80,
+            left: 0,
+            right: 0,
+            textAlign: "center",
+            fontFamily: FONTS.display,
+            fontSize: 64,
+            color: C.text,
+            transform: `scale(${headlineScale})`,
+            filter: "drop-shadow(0 0 30px rgba(200,200,200,0.4))",
+          }}
+        >
+          Prozesse, die arbeiten.
+        </div>
       </div>
     </AbsoluteFill>
   );

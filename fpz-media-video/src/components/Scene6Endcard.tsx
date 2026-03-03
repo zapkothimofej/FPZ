@@ -54,79 +54,98 @@ export const Scene6Endcard = () => {
     extrapolateRight: "clamp",
   });
 
+  const totalFrames = 180;
+  const cameraZoom = interpolate(frame, [0, totalFrames], [1, 1.04], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+  const cameraPanX = Math.sin((frame / fps) * 0.2 * Math.PI) * 8;
+  const cameraPanY = Math.cos((frame / fps) * 0.15 * Math.PI) * 5;
+  const cameraTransform = `scale(${cameraZoom}) translate(${cameraPanX}px, ${cameraPanY}px)`;
+
   return (
     <AbsoluteFill style={{ background: C.bg }}>
       <Orb frame={frame} opacity={orbOp} radius={300} x={960} y={540} intensity={1.5} />
       <Particles frame={frame} opacity={particleOp} />
 
-      <AbsoluteFill
+      <div
         style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          gap: 16,
+          position: "absolute",
+          inset: 0,
+          transform: cameraTransform,
+          transformOrigin: "center center",
         }}
       >
         <div
           style={{
-            fontFamily: FONTS.display,
-            fontSize: 160,
-            color: C.text,
-            lineHeight: 1,
-            opacity: logoOp,
-            transform: `scale(${logoScale})`,
-            filter: "drop-shadow(0 0 60px rgba(200,200,200,0.5))",
-            letterSpacing: "-0.02em",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            height: "100%",
+            gap: 16,
           }}
         >
-          FPZ.
-        </div>
+          <div
+            style={{
+              fontFamily: FONTS.display,
+              fontSize: 160,
+              color: C.text,
+              lineHeight: 1,
+              opacity: logoOp,
+              transform: `scale(${logoScale})`,
+              filter: "drop-shadow(0 0 60px rgba(200,200,200,0.5))",
+              letterSpacing: "-0.02em",
+            }}
+          >
+            FPZ.
+          </div>
 
-        <div
-          style={{
-            fontFamily: FONTS.body,
-            fontSize: 24,
-            color: C.textMuted,
-            letterSpacing: "0.25em",
-            textTransform: "uppercase",
-            opacity: taglineOp,
-            transform: `translateY(${taglineY}px)`,
-          }}
-        >
-          Media & Marketing
-        </div>
-
-        <div
-          style={{
-            position: "relative",
-            marginTop: 24,
-            opacity: urlOp,
-          }}
-        >
           <div
             style={{
               fontFamily: FONTS.body,
-              fontSize: 28,
-              color: C.accent,
-              letterSpacing: "0.08em",
+              fontSize: 24,
+              color: C.textMuted,
+              letterSpacing: "0.25em",
+              textTransform: "uppercase",
+              opacity: taglineOp,
+              transform: `translateY(${taglineY}px)`,
             }}
           >
-            fpz-media.de
+            Media & Marketing
           </div>
+
           <div
             style={{
-              position: "absolute",
-              bottom: -4,
-              left: 0,
-              height: 1,
-              width: `${underlineW}%`,
-              background: C.accent,
-              boxShadow: `0 0 8px ${C.accent}`,
+              position: "relative",
+              marginTop: 24,
+              opacity: urlOp,
             }}
-          />
+          >
+            <div
+              style={{
+                fontFamily: FONTS.body,
+                fontSize: 28,
+                color: C.accent,
+                letterSpacing: "0.08em",
+              }}
+            >
+              fpz-media.de
+            </div>
+            <div
+              style={{
+                position: "absolute",
+                bottom: -4,
+                left: 0,
+                height: 1,
+                width: `${underlineW}%`,
+                background: C.accent,
+                boxShadow: `0 0 8px ${C.accent}`,
+              }}
+            />
+          </div>
         </div>
-      </AbsoluteFill>
+      </div>
 
       <div
         style={{

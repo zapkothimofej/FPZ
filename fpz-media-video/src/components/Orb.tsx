@@ -1,3 +1,4 @@
+import { useId } from "react";
 import { useVideoConfig } from "remotion";
 import { C } from "../tokens";
 
@@ -19,6 +20,7 @@ export const Orb = ({
   intensity = 1,
 }: OrbProps) => {
   const { fps } = useVideoConfig();
+  const uid = useId().replace(/:/g, "");
   const pulse = Math.sin((frame / fps) * 1.5 * Math.PI) * 0.08 * intensity;
   const driftX = Math.sin((frame / fps) * 0.7 * Math.PI) * 18;
   const driftY = Math.cos((frame / fps) * 0.5 * Math.PI) * 12;
@@ -39,12 +41,12 @@ export const Orb = ({
       viewBox="0 0 1920 1080"
     >
       <defs>
-        <radialGradient id={`orbGrad${x}${y}`} cx="50%" cy="50%" r="50%">
+        <radialGradient id={`orbGrad${uid}`} cx="50%" cy="50%" r="50%">
           <stop offset="0%" stopColor="#ffffff" stopOpacity="0.85" />
           <stop offset="30%" stopColor={C.accent} stopOpacity="0.5" />
           <stop offset="100%" stopColor={C.accent} stopOpacity="0" />
         </radialGradient>
-        <filter id={`orbBlur${x}${y}`}>
+        <filter id={`orbBlur${uid}`}>
           <feGaussianBlur stdDeviation="25" result="blur" />
           <feMerge>
             <feMergeNode in="blur" />
@@ -56,8 +58,8 @@ export const Orb = ({
         cx={cx}
         cy={cy}
         r={r}
-        fill={`url(#orbGrad${x}${y})`}
-        filter={`url(#orbBlur${x}${y})`}
+        fill={`url(#orbGrad${uid})`}
+        filter={`url(#orbBlur${uid})`}
       />
     </svg>
   );

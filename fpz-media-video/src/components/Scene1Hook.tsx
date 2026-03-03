@@ -34,48 +34,67 @@ export const Scene1Hook = () => {
   const scale2 = 1 + (1 - s2) * 3.5;
   const x2 = (1 - s2) * 500;
 
+  const totalFrames = 225;
+  const cameraZoom = interpolate(frame, [0, totalFrames], [1, 1.04], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+  const cameraPanX = Math.sin((frame / fps) * 0.2 * Math.PI) * 8;
+  const cameraPanY = Math.cos((frame / fps) * 0.15 * Math.PI) * 5;
+  const cameraTransform = `scale(${cameraZoom}) translate(${cameraPanX}px, ${cameraPanY}px)`;
+
   return (
     <AbsoluteFill style={{ background: C.bg }}>
       <Orb frame={frame} opacity={orbOp} radius={350} x={960} y={540} />
       <Particles frame={frame} opacity={particleOp} />
-      <AbsoluteFill
+      <div
         style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          gap: 20,
+          position: "absolute",
+          inset: 0,
+          transform: cameraTransform,
+          transformOrigin: "center center",
         }}
       >
         <div
           style={{
-            fontFamily: FONTS.display,
-            fontSize: 110,
-            color: C.text,
-            lineHeight: 1.1,
-            transform: `translateX(${x1}px) scale(${scale1})`,
-            transformOrigin: "center center",
-            filter: "drop-shadow(0 0 40px rgba(200,200,200,0.45))",
-            whiteSpace: "nowrap",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            height: "100%",
+            gap: 20,
           }}
         >
-          Dein Unternehmen.
+          <div
+            style={{
+              fontFamily: FONTS.display,
+              fontSize: 110,
+              color: C.text,
+              lineHeight: 1.1,
+              transform: `translateX(${x1}px) scale(${scale1})`,
+              transformOrigin: "center center",
+              filter: "drop-shadow(0 0 40px rgba(200,200,200,0.45))",
+              whiteSpace: "nowrap",
+            }}
+          >
+            Dein Unternehmen.
+          </div>
+          <div
+            style={{
+              fontFamily: FONTS.display,
+              fontSize: 110,
+              color: C.accent,
+              lineHeight: 1.1,
+              transform: `translateX(${x2}px) scale(${scale2})`,
+              transformOrigin: "center center",
+              filter: "drop-shadow(0 0 50px rgba(200,200,200,0.7))",
+              whiteSpace: "nowrap",
+            }}
+          >
+            Komplett digital.
+          </div>
         </div>
-        <div
-          style={{
-            fontFamily: FONTS.display,
-            fontSize: 110,
-            color: C.accent,
-            lineHeight: 1.1,
-            transform: `translateX(${x2}px) scale(${scale2})`,
-            transformOrigin: "center center",
-            filter: "drop-shadow(0 0 50px rgba(200,200,200,0.7))",
-            whiteSpace: "nowrap",
-          }}
-        >
-          Komplett digital.
-        </div>
-      </AbsoluteFill>
+      </div>
     </AbsoluteFill>
   );
 };

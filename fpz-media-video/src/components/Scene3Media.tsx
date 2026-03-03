@@ -69,6 +69,15 @@ export const Scene3Media = () => {
   const lensX = camX + camW / 2;
   const lensY = camY + camH / 2;
 
+  const totalFrames = 450;
+  const cameraZoom = interpolate(frame, [0, totalFrames], [1, 1.04], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+  const cameraPanX = Math.sin((frame / fps) * 0.2 * Math.PI) * 8;
+  const cameraPanY = Math.cos((frame / fps) * 0.15 * Math.PI) * 5;
+  const cameraTransform = `scale(${cameraZoom}) translate(${cameraPanX}px, ${cameraPanY}px)`;
+
   return (
     <AbsoluteFill style={{ background: C.bg }}>
       <Particles frame={frame} opacity={0.5} />
@@ -77,121 +86,130 @@ export const Scene3Media = () => {
       <div
         style={{
           position: "absolute",
-          top: 80,
-          left: 0,
-          right: 0,
-          textAlign: "center",
-          opacity: labelOp,
-          fontFamily: FONTS.body,
-          fontSize: 22,
-          color: C.textMuted,
-          letterSpacing: "0.35em",
-          textTransform: "uppercase",
-        }}
-      >
-        02 — Foto & Video
-      </div>
-
-      <svg
-        style={{
-          position: "absolute",
           inset: 0,
-          width: "100%",
-          height: "100%",
-          transform: `scale(${shutterPulse})`,
+          transform: cameraTransform,
           transformOrigin: "center center",
         }}
-        viewBox="0 0 1920 1080"
       >
-        <rect x={camX} y={camY} width={camW} height={camH} rx={12} fill="none" stroke={C.accent} strokeWidth={2} strokeDasharray={bodyPerimeter} strokeDashoffset={bodyOffset} />
-        <rect x={camX + 20} y={camY - 30} width={80} height={32} rx={6} fill="none" stroke={C.accent} strokeWidth={1.5} opacity={detailOp} />
-        <circle cx={camX + camW - 35} cy={camY - 14} r={12} fill="none" stroke={C.accent} strokeWidth={1.5} opacity={detailOp} />
-        <circle cx={lensX} cy={lensY} r={80} fill="none" stroke={C.accent} strokeWidth={2} strokeDasharray={lensPerimeter} strokeDashoffset={lensOffset} />
-        <circle cx={lensX} cy={lensY} r={55} fill="none" stroke={C.accent} strokeWidth={1} opacity={innerLensDraw * 0.6} />
-        <circle cx={lensX} cy={lensY} r={52} fill={C.bgElevated} opacity={innerLensDraw * 0.8} />
-        {[0, 60, 120, 180, 240, 300].map((angle) => (
-          <line
-            key={angle}
-            x1={lensX}
-            y1={lensY}
-            x2={lensX + Math.cos((angle * Math.PI) / 180) * 40}
-            y2={lensY + Math.sin((angle * Math.PI) / 180) * 40}
-            stroke={C.border}
-            strokeWidth={1}
-            opacity={innerLensDraw * 0.7}
-          />
-        ))}
-        <circle cx={lensX - 22} cy={lensY - 22} r={8} fill={C.accent} opacity={innerLensDraw * 0.3} />
-        {[0, 10, 20].map((offset) => (
-          <line
-            key={offset}
-            x1={camX + camW - 25}
-            y1={camY + 60 + offset}
-            x2={camX + camW - 10}
-            y2={camY + 60 + offset}
-            stroke={C.border}
-            strokeWidth={1}
-            opacity={detailOp}
-          />
-        ))}
-      </svg>
+        <div
+          style={{
+            position: "absolute",
+            top: 80,
+            left: 0,
+            right: 0,
+            textAlign: "center",
+            opacity: labelOp,
+            fontFamily: FONTS.body,
+            fontSize: 22,
+            color: C.textMuted,
+            letterSpacing: "0.35em",
+            textTransform: "uppercase",
+          }}
+        >
+          02 — Foto & Video
+        </div>
 
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          background: "white",
-          opacity: flashOp,
-          pointerEvents: "none",
-        }}
-      />
+        <svg
+          style={{
+            position: "absolute",
+            inset: 0,
+            width: "100%",
+            height: "100%",
+            transform: `scale(${shutterPulse})`,
+            transformOrigin: "center center",
+          }}
+          viewBox="0 0 1920 1080"
+        >
+          <rect x={camX} y={camY} width={camW} height={camH} rx={12} fill="none" stroke={C.accent} strokeWidth={2} strokeDasharray={bodyPerimeter} strokeDashoffset={bodyOffset} />
+          <rect x={camX + 20} y={camY - 30} width={80} height={32} rx={6} fill="none" stroke={C.accent} strokeWidth={1.5} opacity={detailOp} />
+          <circle cx={camX + camW - 35} cy={camY - 14} r={12} fill="none" stroke={C.accent} strokeWidth={1.5} opacity={detailOp} />
+          <circle cx={lensX} cy={lensY} r={80} fill="none" stroke={C.accent} strokeWidth={2} strokeDasharray={lensPerimeter} strokeDashoffset={lensOffset} />
+          <circle cx={lensX} cy={lensY} r={55} fill="none" stroke={C.accent} strokeWidth={1} opacity={innerLensDraw * 0.6} />
+          <circle cx={lensX} cy={lensY} r={52} fill={C.bgElevated} opacity={innerLensDraw * 0.8} />
+          {[0, 60, 120, 180, 240, 300].map((angle) => (
+            <line
+              key={angle}
+              x1={lensX}
+              y1={lensY}
+              x2={lensX + Math.cos((angle * Math.PI) / 180) * 40}
+              y2={lensY + Math.sin((angle * Math.PI) / 180) * 40}
+              stroke={C.border}
+              strokeWidth={1}
+              opacity={innerLensDraw * 0.7}
+            />
+          ))}
+          <circle cx={lensX - 22} cy={lensY - 22} r={8} fill={C.accent} opacity={innerLensDraw * 0.3} />
+          {[0, 10, 20].map((offset) => (
+            <line
+              key={offset}
+              x1={camX + camW - 25}
+              y1={camY + 60 + offset}
+              x2={camX + camW - 10}
+              y2={camY + 60 + offset}
+              stroke={C.border}
+              strokeWidth={1}
+              opacity={detailOp}
+            />
+          ))}
+        </svg>
 
-      <div
-        style={{
-          position: "absolute",
-          bottom: 140,
-          left: 0,
-          right: 0,
-          display: "flex",
-          justifyContent: "center",
-          gap: 24,
-          opacity: tagOp,
-          transform: `translateY(${tagY}px)`,
-        }}
-      >
-        {["Fotografie", "Videoproduktion", "Reels & Content"].map((tag) => (
-          <div
-            key={tag}
-            style={{
-              fontFamily: FONTS.body,
-              fontSize: 18,
-              color: C.textMuted,
-              border: `1px solid ${C.border}`,
-              padding: "6px 20px",
-              borderRadius: 100,
-              letterSpacing: "0.05em",
-            }}
-          >
-            {tag}
-          </div>
-        ))}
-      </div>
+        <div
+          style={{
+            position: "absolute",
+            inset: 0,
+            background: "white",
+            opacity: flashOp,
+            pointerEvents: "none",
+          }}
+        />
 
-      <div
-        style={{
-          position: "absolute",
-          bottom: 80,
-          left: 0,
-          right: 0,
-          textAlign: "center",
-          fontFamily: FONTS.display,
-          fontSize: 64,
-          color: C.text,
-          transform: `scale(${headlineScale})`,
-          filter: "drop-shadow(0 0 30px rgba(200,200,200,0.4))",
-        }}
-      >
-        Visuals, die überzeugen.
+        <div
+          style={{
+            position: "absolute",
+            bottom: 140,
+            left: 0,
+            right: 0,
+            display: "flex",
+            justifyContent: "center",
+            gap: 24,
+            opacity: tagOp,
+            transform: `translateY(${tagY}px)`,
+          }}
+        >
+          {["Fotografie", "Videoproduktion", "Reels & Content"].map((tag) => (
+            <div
+              key={tag}
+              style={{
+                fontFamily: FONTS.body,
+                fontSize: 18,
+                color: C.textMuted,
+                border: `1px solid ${C.border}`,
+                padding: "6px 20px",
+                borderRadius: 100,
+                letterSpacing: "0.05em",
+              }}
+            >
+              {tag}
+            </div>
+          ))}
+        </div>
+
+        <div
+          style={{
+            position: "absolute",
+            bottom: 80,
+            left: 0,
+            right: 0,
+            textAlign: "center",
+            fontFamily: FONTS.display,
+            fontSize: 64,
+            color: C.text,
+            transform: `scale(${headlineScale})`,
+            filter: "drop-shadow(0 0 30px rgba(200,200,200,0.4))",
+          }}
+        >
+          Visuals, die überzeugen.
+        </div>
       </div>
     </AbsoluteFill>
   );
