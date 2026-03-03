@@ -154,6 +154,8 @@ export function PortfolioSection() {
               style={{ opacity: 0 }}
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
+              role="article"
+              aria-label={`${item.title} — ${item.industry}`}
             >
               <div
                 className="v6-portfolio-inner w-full h-full flex flex-col relative rounded-xl overflow-hidden transition-[box-shadow] duration-300 group-hover:shadow-[var(--v6-shadow-card-hover)]"
@@ -202,6 +204,7 @@ export function PortfolioSection() {
                       strokeWidth="2"
                       strokeLinecap="round"
                       strokeLinejoin="round"
+                      aria-hidden="true"
                     >
                       <path d="M7 17L17 7M17 7H7M17 7v10" />
                     </svg>
@@ -279,6 +282,7 @@ export function PortfolioSection() {
               fill="none"
               stroke="currentColor"
               strokeWidth="2"
+              aria-hidden="true"
             >
               <path d="M7 17L17 7M17 7H7M17 7v10" />
             </svg>

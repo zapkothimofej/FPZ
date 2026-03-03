@@ -20,6 +20,7 @@ export const metadata: Metadata = {
   title: "FPZ Media — V6 Chrom",
   description:
     "Full-Service Digitalagentur für lokale Unternehmen im Ruhrgebiet. Web. Film. Automation.",
+  robots: { index: false, follow: false },
 }
 
 export default function ChromLayout({ children }: { children: React.ReactNode }) {

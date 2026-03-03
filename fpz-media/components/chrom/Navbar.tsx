@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef, useState } from "react"
+import { useRef, useState, useEffect } from "react"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
@@ -40,13 +40,13 @@ function ThemeToggle({ className }: { className?: string }) {
     >
       {isDark ? (
         /* Sun icon */
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" aria-hidden="true">
           <circle cx="12" cy="12" r="5" />
           <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
         </svg>
       ) : (
         /* Moon icon */
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" aria-hidden="true">
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
         </svg>
       )}
@@ -131,6 +131,22 @@ export function Navbar() {
     })
   }
 
+  // Fokus auf ersten Drawer-Link beim Öffnen + Escape-Taste zum Schließen
+  useEffect(() => {
+    if (!open) return
+    const firstLink = drawerRef.current?.querySelector<HTMLElement>("a, button")
+    const timer = setTimeout(() => firstLink?.focus(), 460) // nach GSAP-Animation
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") closeDrawer()
+    }
+    document.addEventListener("keydown", onKeyDown)
+    return () => {
+      clearTimeout(timer)
+      document.removeEventListener("keydown", onKeyDown)
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open])
+
   return (
     <>
       <nav
@@ -188,6 +204,7 @@ export function Navbar() {
             aria-expanded={open}
           >
             <span
+              aria-hidden="true"
               className="block w-6 h-[1.5px] transition-all duration-300 origin-center"
               style={{
                 backgroundColor: "var(--v6-accent)",
@@ -195,6 +212,7 @@ export function Navbar() {
               }}
             />
             <span
+              aria-hidden="true"
               className="block w-6 h-[1.5px] transition-all duration-300"
               style={{
                 backgroundColor: "var(--v6-accent)",
@@ -203,6 +221,7 @@ export function Navbar() {
               }}
             />
             <span
+              aria-hidden="true"
               className="block w-6 h-[1.5px] transition-all duration-300 origin-center"
               style={{
                 backgroundColor: "var(--v6-accent)",
@@ -226,6 +245,9 @@ export function Navbar() {
       {/* Mobile Drawer */}
       <div
         ref={drawerRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Navigation"
         className="fixed top-0 right-0 bottom-0 z-50 md:hidden flex flex-col px-8 pt-24 pb-12"
         style={{
           width: "min(320px, 85vw)",
@@ -237,7 +259,7 @@ export function Navbar() {
         }}
       >
         {/* Drawer Links */}
-        <nav className="flex flex-col gap-1 flex-1">
+        <nav aria-label="Mobile Navigation" className="flex flex-col gap-1 flex-1">
           {NAV_LINKS.map((link) => (
             <a
               key={link.href}
@@ -249,7 +271,7 @@ export function Navbar() {
               onClick={closeDrawer}
             >
               {link.label}
-              <svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
                 <path d="M2 7h10M7 2l5 5-5 5" />
               </svg>
             </a>

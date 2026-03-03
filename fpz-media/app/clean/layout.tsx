@@ -20,6 +20,7 @@ export const metadata: Metadata = {
   title: "FPZ Media — V7",
   description:
     "Full-Service Digitalagentur für lokale Unternehmen im Ruhrgebiet. Web. Film. Automation.",
+  robots: { index: false, follow: false },
 }
 
 export default function CleanLayout({ children }: { children: React.ReactNode }) {

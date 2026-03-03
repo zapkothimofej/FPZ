@@ -127,6 +127,7 @@ export function ContactForm({ accentColor, className, lang = "en" }: ContactForm
             strokeWidth="2.5"
             strokeLinecap="round"
             strokeLinejoin="round"
+            aria-hidden="true"
           >
             <polyline points="20 6 9 17 4 12" />
           </svg>
@@ -276,10 +277,14 @@ export function ContactForm({ accentColor, className, lang = "en" }: ContactForm
         />
       </div>
 
-      {/* Error message */}
-      {formState === "error" && (
-        <p className="text-red-400 text-sm">{errorMessage}</p>
-      )}
+      {/* Error message — aria-live damit Screen Reader benachrichtigt wird */}
+      <p
+        role="alert"
+        aria-live="assertive"
+        className="text-red-400 text-sm min-h-[1.25rem]"
+      >
+        {formState === "error" ? errorMessage : ""}
+      </p>
 
       {/* Submit */}
       <button
@@ -289,7 +294,7 @@ export function ContactForm({ accentColor, className, lang = "en" }: ContactForm
         style={{ backgroundColor: accentColor }}
       >
         {isLoading ? (
-          <span className="flex items-center justify-center gap-2">
+          <span className="flex items-center justify-center gap-2" aria-live="polite" aria-busy="true">
             <svg
               className="animate-spin"
               width="16"
@@ -298,6 +303,7 @@ export function ContactForm({ accentColor, className, lang = "en" }: ContactForm
               fill="none"
               stroke="currentColor"
               strokeWidth="2.5"
+              aria-hidden="true"
             >
               <circle cx="12" cy="12" r="10" strokeOpacity="0.25" />
               <path d="M12 2a10 10 0 0 1 10 10" />

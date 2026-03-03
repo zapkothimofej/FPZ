@@ -26,7 +26,7 @@ export function Footer() {
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
           <Logo color="var(--v6-accent)" size="sm" />
 
-          <nav className="flex flex-wrap gap-6">
+          <nav aria-label="Footer Navigation" className="flex flex-wrap gap-6">
             {NAV_LINKS.map((link) => (
               <a
                 key={link.href}

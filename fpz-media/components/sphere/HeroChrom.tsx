@@ -15,9 +15,9 @@ const MARQUEE_TEXT = "WEBENTWICKLUNG · MEDIENPRODUKTION · AUTOMATION · RUHRGE
 
 export function HeroChrom() {
   const containerRef = useRef<HTMLElement>(null)
-  const word1Ref = useRef<HTMLDivElement>(null)
-  const word2Ref = useRef<HTMLDivElement>(null)
-  const word3Ref = useRef<HTMLDivElement>(null)
+  const word1Ref = useRef<HTMLElement>(null)
+  const word2Ref = useRef<HTMLElement>(null)
+  const word3Ref = useRef<HTMLElement>(null)
   const subRef = useRef<HTMLParagraphElement>(null)
   const ctaRef = useRef<HTMLDivElement>(null)
   const scrollRef = useRef<number>(0)
@@ -135,33 +135,33 @@ export function HeroChrom() {
         </div>
       </div>
 
-      {/* Words */}
-      <div
-        className="px-8 md:px-16 lg:px-24 pt-16 pb-8 flex flex-col leading-none"
-        style={{ position: "relative", zIndex: 2 }}
+      {/* Words — h1 für SEO, span für GSAP-Animierbarkeit */}
+      <h1
+        className="px-8 md:px-16 lg:px-24 pt-16 pb-8 flex flex-col leading-none m-0"
+        style={{ position: "relative", zIndex: 2, fontWeight: "normal" }}
       >
-        <div
+        <span
           ref={word1Ref}
           className="block font-[family-name:var(--font-display)] italic will-change-transform"
           style={{ fontSize: "clamp(44px, 13vw, 240px)", color: "var(--v6-text)", lineHeight: 0.9, opacity: 0 }}
         >
           Lokal.
-        </div>
-        <div
+        </span>
+        <span
           ref={word2Ref}
           className="block font-[family-name:var(--font-display)] will-change-transform self-end md:self-center text-right md:text-center"
           style={{ fontSize: "clamp(44px, 13vw, 240px)", color: "var(--v6-text)", lineHeight: 0.9, opacity: 0 }}
         >
           Digital.
-        </div>
-        <div
+        </span>
+        <span
           ref={word3Ref}
           className="block font-[family-name:var(--font-display)] italic will-change-transform self-end"
           style={{ fontSize: "clamp(44px, 13vw, 240px)", color: "var(--v6-accent)", lineHeight: 0.9, opacity: 0 }}
         >
           Komplett.
-        </div>
-      </div>
+        </span>
+      </h1>
 
       {/* Sub + CTA */}
       <div
@@ -196,7 +196,7 @@ export function HeroChrom() {
               className="flex items-center justify-center w-10 h-10 border transition-all duration-300 group-hover:bg-[var(--v6-accent)] group-hover:text-[var(--v6-text-on-accent)]"
               style={{ borderColor: "var(--v6-accent)" }}
             >
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
                 <path d="M2 7h10M7 2l5 5-5 5" />
               </svg>
             </span>
