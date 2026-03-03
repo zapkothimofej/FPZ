@@ -21,11 +21,6 @@ export const Scene4Automation = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  const fadeIn = interpolate(frame, [0, 30], [0, 1], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-  });
-
   const labelOp = interpolate(frame, [10, 50], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
@@ -66,15 +61,10 @@ export const Scene4Automation = () => {
   const headlineS = spring({ frame: frame - 280, fps, config: { damping: 18, stiffness: 120 } });
   const headlineScale = 1 + (1 - headlineS) * 1.5;
 
-  const fadeOut = interpolate(frame, [320, 360], [1, 0], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-  });
-
   const nodeR = 50;
 
   return (
-    <AbsoluteFill style={{ background: C.bg, opacity: fadeIn * fadeOut }}>
+    <AbsoluteFill style={{ background: C.bg }}>
       <Particles frame={frame} opacity={0.4} />
       <Orb frame={frame} opacity={0.15} radius={220} x={960} y={540} />
 

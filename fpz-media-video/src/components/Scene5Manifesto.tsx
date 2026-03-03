@@ -13,11 +13,6 @@ export const Scene5Manifesto = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  const fadeIn = interpolate(frame, [0, 30], [0, 1], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-  });
-
   const orbIntensity = interpolate(frame, [0, 120], [0.5, 2], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
@@ -42,18 +37,13 @@ export const Scene5Manifesto = () => {
     extrapolateRight: "clamp",
   });
 
-  const fadeOut = interpolate(frame, [200, 240], [1, 0], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-  });
-
   const particleOp = interpolate(frame, [0, 30], [0, 0.8], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
 
   return (
-    <AbsoluteFill style={{ background: C.bg, opacity: fadeIn * fadeOut }}>
+    <AbsoluteFill style={{ background: C.bg }}>
       <Orb frame={frame} opacity={orbOp} radius={380} x={960} y={540} intensity={orbIntensity} />
       <Particles frame={frame} opacity={particleOp} />
       <AbsoluteFill

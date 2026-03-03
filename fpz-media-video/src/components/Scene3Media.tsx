@@ -13,11 +13,6 @@ export const Scene3Media = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  const fadeIn = interpolate(frame, [0, 30], [0, 1], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-  });
-
   const labelOp = interpolate(frame, [10, 50], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
@@ -67,11 +62,6 @@ export const Scene3Media = () => {
   const headlineS = spring({ frame: frame - 330, fps, config: { damping: 18, stiffness: 120 } });
   const headlineScale = 1 + (1 - headlineS) * 1.5;
 
-  const fadeOut = interpolate(frame, [380, 420], [1, 0], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-  });
-
   const camX = 800;
   const camY = 370;
   const camW = 320;
@@ -80,7 +70,7 @@ export const Scene3Media = () => {
   const lensY = camY + camH / 2;
 
   return (
-    <AbsoluteFill style={{ background: C.bg, opacity: fadeIn * fadeOut }}>
+    <AbsoluteFill style={{ background: C.bg }}>
       <Particles frame={frame} opacity={0.5} />
       <Orb frame={frame} opacity={0.2} radius={260} x={960} y={580} />
 
