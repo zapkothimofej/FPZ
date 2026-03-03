@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { DM_Serif_Display, DM_Sans } from "next/font/google"
 import { GrainOverlay } from "@/components/GrainOverlay"
 import { V6ThemeProvider } from "@/components/ThemeProvider"
+import { JsonLd } from "@/components/JsonLd"
 import "@/app/v6-theme.css"
 
 import { Navbar }           from "@/components/Navbar"
@@ -28,14 +29,16 @@ const body = DM_Sans({
 })
 
 export const metadata: Metadata = {
-  title: "FPZ Media",
+  title: "FPZ Media – Webentwicklung, Film & Automation im Ruhrgebiet",
   description:
-    "Full-Service Digitalagentur für lokale Unternehmen im Ruhrgebiet. Web. Film. Automation.",
+    "Full-Service Digitalagentur für lokale Unternehmen im Ruhrgebiet. Moderne Websites ab 699 €, Imagefilme und n8n-Automatisierung aus einer Hand.",
+  alternates: { canonical: "/" },
 }
 
 export default function HomePage() {
   return (
     <div className={`${display.variable} ${body.variable} antialiased`}>
+      <JsonLd />
       <V6ThemeProvider>
         <GrainOverlay />
         <main>
