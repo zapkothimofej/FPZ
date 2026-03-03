@@ -13,50 +13,43 @@ export const Scene6Endcard = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  // FPZ. logo spring in
   const logoS = spring({ frame, fps, config: { damping: 18, stiffness: 120 } });
   const logoScale = 1 + (1 - logoS) * 1.5;
-  const logoOp = interpolate(frame, [0, 12], [0, 1], {
+  const logoOp = interpolate(frame, [0, 24], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
 
-  // Tagline slides up
-  const taglineOp = interpolate(frame, [15, 32], [0, 1], {
+  const taglineOp = interpolate(frame, [30, 64], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
-  const taglineY = interpolate(frame, [15, 32], [20, 0], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-  });
-
-  // URL appears
-  const urlOp = interpolate(frame, [28, 45], [0, 1], {
+  const taglineY = interpolate(frame, [30, 64], [20, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
 
-  // URL underline scan: 0→100% width from frame 40 to 60
-  const underlineW = interpolate(frame, [40, 60], [0, 100], {
+  const urlOp = interpolate(frame, [56, 90], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
 
-  // Orb fades out
-  const orbOp = interpolate(frame, [0, 15, 65, 80], [0, 0.35, 0.35, 0], {
+  const underlineW = interpolate(frame, [80, 120], [0, 100], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
 
-  // Particles fade
-  const particleOp = interpolate(frame, [0, 15, 65, 80], [0, 0.6, 0.6, 0], {
+  const orbOp = interpolate(frame, [0, 30, 130, 160], [0, 0.35, 0.35, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
 
-  // Global blackout
-  const blackout = interpolate(frame, [72, 90], [0, 1], {
+  const particleOp = interpolate(frame, [0, 30, 130, 160], [0, 0.6, 0.6, 0], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+
+  const blackout = interpolate(frame, [144, 180], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
@@ -75,7 +68,6 @@ export const Scene6Endcard = () => {
           gap: 16,
         }}
       >
-        {/* FPZ. */}
         <div
           style={{
             fontFamily: FONTS.display,
@@ -91,7 +83,6 @@ export const Scene6Endcard = () => {
           FPZ.
         </div>
 
-        {/* Tagline */}
         <div
           style={{
             fontFamily: FONTS.body,
@@ -106,7 +97,6 @@ export const Scene6Endcard = () => {
           Media & Marketing
         </div>
 
-        {/* URL with scan underline */}
         <div
           style={{
             position: "relative",
@@ -138,7 +128,6 @@ export const Scene6Endcard = () => {
         </div>
       </AbsoluteFill>
 
-      {/* Blackout overlay */}
       <div
         style={{
           position: "absolute",

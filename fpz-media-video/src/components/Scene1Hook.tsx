@@ -13,23 +13,21 @@ export const Scene1Hook = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  const particleOp = interpolate(frame, [0, 20], [0, 1], {
+  const particleOp = interpolate(frame, [0, 40], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
-  const orbOp = interpolate(frame, [0, 30], [0, 0.25], {
+  const orbOp = interpolate(frame, [0, 60], [0, 0.25], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
 
-  // Line 1: "Dein Unternehmen." — crashes from top-left, scale 4→1
   const s1 = spring({ frame, fps, config: { damping: 16, stiffness: 110 } });
   const scale1 = 1 + (1 - s1) * 3.5;
   const x1 = (1 - s1) * -500;
 
-  // Line 2: "Komplett digital." — crashes from bottom-right, 18fr delay
   const s2 = spring({
-    frame: frame - 18,
+    frame: frame - 36,
     fps,
     config: { damping: 16, stiffness: 110 },
   });

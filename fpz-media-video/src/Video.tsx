@@ -10,22 +10,22 @@ import { Scene6Endcard } from "./components/Scene6Endcard";
 export const FPZVideo = () => (
   <AbsoluteFill>
     <Series>
-      <Series.Sequence durationInFrames={90}>
+      <Series.Sequence durationInFrames={180}>
         <Scene1Hook />
       </Series.Sequence>
-      <Series.Sequence durationInFrames={210}>
+      <Series.Sequence durationInFrames={420}>
         <Scene2Web />
       </Series.Sequence>
-      <Series.Sequence durationInFrames={210}>
+      <Series.Sequence durationInFrames={420}>
         <Scene3Media />
       </Series.Sequence>
-      <Series.Sequence durationInFrames={180}>
+      <Series.Sequence durationInFrames={360}>
         <Scene4Automation />
       </Series.Sequence>
-      <Series.Sequence durationInFrames={120}>
+      <Series.Sequence durationInFrames={240}>
         <Scene5Manifesto />
       </Series.Sequence>
-      <Series.Sequence durationInFrames={90}>
+      <Series.Sequence durationInFrames={180}>
         <Scene6Endcard />
       </Series.Sequence>
     </Series>

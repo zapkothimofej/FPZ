@@ -7,8 +7,8 @@ export const RemotionRoot = () => (
     <Composition
       id="FPZMediaAd"
       component={FPZVideo}
-      durationInFrames={900}
-      fps={30}
+      durationInFrames={1800}
+      fps={60}
       width={1920}
       height={1080}
     />

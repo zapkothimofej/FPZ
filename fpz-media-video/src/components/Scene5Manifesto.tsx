@@ -13,41 +13,36 @@ export const Scene5Manifesto = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  // Orb intensifies
-  const orbIntensity = interpolate(frame, [0, 60], [0.5, 2], {
+  const orbIntensity = interpolate(frame, [0, 120], [0.5, 2], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
-  const orbOp = interpolate(frame, [0, 20], [0, 0.5], {
+  const orbOp = interpolate(frame, [0, 40], [0, 0.5], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
 
-  // "UNFAIREN" crashes in from scale 4
   const s1 = spring({ frame, fps, config: { damping: 14, stiffness: 100 } });
   const scale1 = 1 + (1 - s1) * 3.5;
 
-  // "VORTEIL." crashes in from scale 4, 12fr delay
-  const s2 = spring({ frame: frame - 12, fps, config: { damping: 14, stiffness: 100 } });
+  const s2 = spring({ frame: frame - 24, fps, config: { damping: 14, stiffness: 100 } });
   const scale2 = 1 + (1 - s2) * 3.5;
 
-  // Subtext fades in
-  const subOp = interpolate(frame, [55, 80], [0, 1], {
+  const subOp = interpolate(frame, [110, 160], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
-  const subY = interpolate(frame, [55, 80], [20, 0], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-  });
-
-  // Fade out
-  const fadeOut = interpolate(frame, [100, 120], [1, 0], {
+  const subY = interpolate(frame, [110, 160], [20, 0], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
 
-  const particleOp = interpolate(frame, [0, 15], [0, 0.8], {
+  const fadeOut = interpolate(frame, [200, 240], [1, 0], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+
+  const particleOp = interpolate(frame, [0, 30], [0, 0.8], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
