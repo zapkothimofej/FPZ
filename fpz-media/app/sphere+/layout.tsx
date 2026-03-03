@@ -20,6 +20,7 @@ export const metadata: Metadata = {
   title: "FPZ Media — Sphere+",
   description:
     "Full-Service Digitalagentur für lokale Unternehmen im Ruhrgebiet. Web. Film. Automation.",
+  robots: { index: false, follow: false },
 }
 
 export default function SpherePlusLayout({ children }: { children: React.ReactNode }) {

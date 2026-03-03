@@ -18,6 +18,7 @@ export const metadata: Metadata = {
   title: "FPZ Media — V2 Stahl",
   description:
     "Full-service digital agency for local businesses in the Ruhrgebiet. Web. Film. Automation.",
+  robots: { index: false, follow: false },
 }
 
 export default function GsapLayout({ children }: { children: React.ReactNode }) {

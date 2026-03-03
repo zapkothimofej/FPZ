@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef, useState } from "react"
+import { useRef, useState, useEffect } from "react"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
@@ -40,13 +40,13 @@ function ThemeToggle({ className }: { className?: string }) {
     >
       {isDark ? (
         /* Sun icon */
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+        <svg aria-hidden="true" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
           <circle cx="12" cy="12" r="5" />
           <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
         </svg>
       ) : (
         /* Moon icon */
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+        <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
         </svg>
       )}
@@ -131,6 +131,58 @@ export function Navbar() {
     })
   }
 
+  // Focus first drawer element after open animation
+  useEffect(() => {
+    if (!open || !drawerRef.current) return
+    const timeout = setTimeout(() => {
+      const firstFocusable = drawerRef.current?.querySelector<HTMLElement>(
+        'a[href], button:not([disabled])'
+      )
+      firstFocusable?.focus()
+    }, 250)
+    return () => clearTimeout(timeout)
+  }, [open])
+
+  // Escape key closes drawer; Tab key is trapped inside drawer
+  useEffect(() => {
+    if (!open) return
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        if (!drawerRef.current) return
+        gsap.to(drawerRef.current, {
+          x: "100%",
+          opacity: 0,
+          duration: 0.35,
+          ease: "power3.in",
+          onComplete: () => setOpen(false),
+        })
+        return
+      }
+
+      if (e.key === "Tab" && drawerRef.current) {
+        const focusable = Array.from(
+          drawerRef.current.querySelectorAll<HTMLElement>(
+            'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+          )
+        )
+        if (focusable.length === 0) return
+        const first = focusable[0]
+        const last = focusable[focusable.length - 1]
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault()
+          last.focus()
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault()
+          first.focus()
+        }
+      }
+    }
+
+    document.addEventListener("keydown", handleKeyDown)
+    return () => document.removeEventListener("keydown", handleKeyDown)
+  }, [open])
+
   return (
     <>
       <nav
@@ -186,8 +238,10 @@ export function Navbar() {
             onClick={toggleDrawer}
             aria-label={open ? "Menü schließen" : "Menü öffnen"}
             aria-expanded={open}
+            aria-controls="mobile-drawer"
           >
             <span
+              aria-hidden="true"
               className="block w-6 h-[1.5px] transition-all duration-300 origin-center"
               style={{
                 backgroundColor: "var(--v6-accent)",
@@ -195,6 +249,7 @@ export function Navbar() {
               }}
             />
             <span
+              aria-hidden="true"
               className="block w-6 h-[1.5px] transition-all duration-300"
               style={{
                 backgroundColor: "var(--v6-accent)",
@@ -203,6 +258,7 @@ export function Navbar() {
               }}
             />
             <span
+              aria-hidden="true"
               className="block w-6 h-[1.5px] transition-all duration-300 origin-center"
               style={{
                 backgroundColor: "var(--v6-accent)",
@@ -219,13 +275,17 @@ export function Navbar() {
           className="fixed inset-0 z-40 md:hidden"
           style={{ backgroundColor: "rgba(0,0,0,0.5)", backdropFilter: "blur(4px)" }}
           onClick={closeDrawer}
-          aria-hidden
+          aria-hidden="true"
         />
       )}
 
       {/* Mobile Drawer */}
       <div
+        id="mobile-drawer"
         ref={drawerRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Navigation"
         className="fixed top-0 right-0 bottom-0 z-50 md:hidden flex flex-col px-8 pt-24 pb-12"
         style={{
           width: "min(320px, 85vw)",
@@ -237,7 +297,7 @@ export function Navbar() {
         }}
       >
         {/* Drawer Links */}
-        <nav className="flex flex-col gap-1 flex-1">
+        <nav aria-label="Mobile Navigation" className="flex flex-col gap-1 flex-1">
           {NAV_LINKS.map((link) => (
             <a
               key={link.href}
@@ -249,7 +309,7 @@ export function Navbar() {
               onClick={closeDrawer}
             >
               {link.label}
-              <svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <svg aria-hidden="true" width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5">
                 <path d="M2 7h10M7 2l5 5-5 5" />
               </svg>
             </a>

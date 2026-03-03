@@ -150,6 +150,9 @@ export function PortfolioSection() {
           {portfolioPlaceholders.map((item) => (
             <div
               key={item.id}
+              role="article"
+              tabIndex={0}
+              aria-label={`Projekt: ${item.title} — ${item.industry}`}
               className={`v6-portfolio-card group cursor-pointer overflow-hidden rounded-xl ${getSizeClasses(item.size)} ${getHeight(item.size)}`}
               style={{ opacity: 0 }}
               onMouseEnter={handleMouseEnter}
@@ -186,6 +189,7 @@ export function PortfolioSection() {
                     {String(item.id).padStart(2, "0")}
                   </span>
                   <span
+                    aria-hidden="true"
                     className="v6-portfolio-arrow absolute bottom-4 right-4 flex items-center justify-center w-10 h-10 rounded-full border opacity-0 transition-colors duration-200 group-hover:bg-[var(--v6-accent)] group-hover:text-[var(--v6-text-on-accent)] group-hover:border-[var(--v6-accent)]"
                     style={{
                       borderColor: "var(--v6-border)",
@@ -194,6 +198,7 @@ export function PortfolioSection() {
                     }}
                   >
                     <svg
+                      aria-hidden="true"
                       width="16"
                       height="16"
                       viewBox="0 0 24 24"
@@ -273,6 +278,7 @@ export function PortfolioSection() {
           >
             Projekt anfragen
             <svg
+              aria-hidden="true"
               width="12"
               height="12"
               viewBox="0 0 24 24"

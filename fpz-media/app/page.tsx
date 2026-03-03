@@ -28,9 +28,36 @@ const body = DM_Sans({
 })
 
 export const metadata: Metadata = {
-  title: "FPZ Media",
+  title: "FPZ Media — Webentwicklung, Film & Automation im Ruhrgebiet",
   description:
-    "Full-Service Digitalagentur für lokale Unternehmen im Ruhrgebiet. Web. Film. Automation.",
+    "FPZ Media ist Ihre Full-Service Digitalagentur im Ruhrgebiet — professionelle Webentwicklung, Filmproduktion und intelligente Automation für lokale Unternehmen in NRW.",
+  alternates: {
+    canonical: "https://fpz-media.de",
+  },
+  openGraph: {
+    title: "FPZ Media — Webentwicklung, Film & Automation im Ruhrgebiet",
+    description:
+      "Full-Service Digitalagentur im Ruhrgebiet. Professionelle Webentwicklung, Filmproduktion und Automation für lokale Unternehmen in NRW.",
+    url: "https://fpz-media.de",
+    siteName: "FPZ Media",
+    locale: "de_DE",
+    type: "website",
+    images: [
+      {
+        url: "https://fpz-media.de/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "FPZ Media — Digitalagentur Ruhrgebiet",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "FPZ Media — Webentwicklung, Film & Automation im Ruhrgebiet",
+    description:
+      "Full-Service Digitalagentur im Ruhrgebiet. Web. Film. Automation.",
+    images: ["https://fpz-media.de/og-image.jpg"],
+  },
 }
 
 export default function HomePage() {
@@ -38,7 +65,7 @@ export default function HomePage() {
     <div className={`${display.variable} ${body.variable} antialiased`}>
       <V6ThemeProvider>
         <GrainOverlay />
-        <main>
+        <main id="main-content">
           <Navbar />
           <HeroChrom />
           <ManifestoSection />

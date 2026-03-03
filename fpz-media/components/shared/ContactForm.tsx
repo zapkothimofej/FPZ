@@ -119,6 +119,7 @@ export function ContactForm({ accentColor, className, lang = "en" }: ContactForm
           style={{ backgroundColor: `${accentColor}20`, border: `1px solid ${accentColor}` }}
         >
           <svg
+            aria-hidden="true"
             width="24"
             height="24"
             viewBox="0 0 24 24"
@@ -165,12 +166,13 @@ export function ContactForm({ accentColor, className, lang = "en" }: ContactForm
             name="name"
             type="text"
             required
+            aria-required="true"
             disabled={isLoading}
             placeholder="Max Mustermann"
-            className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus-visible:border-transparent"
+            className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-2"
             style={
               {
-                "--tw-ring-color": `${accentColor}50`,
+                "--tw-ring-color": `${accentColor}80`,
               } as React.CSSProperties
             }
           />
@@ -184,12 +186,13 @@ export function ContactForm({ accentColor, className, lang = "en" }: ContactForm
             name="email"
             type="email"
             required
+            aria-required="true"
             disabled={isLoading}
             placeholder="max@beispiel.de"
-            className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus-visible:border-transparent"
+            className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-2"
             style={
               {
-                "--tw-ring-color": `${accentColor}50`,
+                "--tw-ring-color": `${accentColor}80`,
               } as React.CSSProperties
             }
           />
@@ -208,7 +211,7 @@ export function ContactForm({ accentColor, className, lang = "en" }: ContactForm
             type="tel"
             disabled={isLoading}
             placeholder="+49 123 456789"
-            className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus-visible:border-transparent"
+            className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-2"
           />
         </div>
         <div className="flex flex-col gap-2">
@@ -221,7 +224,7 @@ export function ContactForm({ accentColor, className, lang = "en" }: ContactForm
             type="text"
             disabled={isLoading}
             placeholder="Musterfirma GmbH"
-            className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus-visible:border-transparent"
+            className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-2"
           />
         </div>
       </div>
@@ -234,7 +237,7 @@ export function ContactForm({ accentColor, className, lang = "en" }: ContactForm
         <Select value={service} onValueChange={setService} disabled={isLoading}>
           <SelectTrigger
             id="service"
-            className="w-full bg-white/5 border-white/10 text-white data-[placeholder]:text-white/30 focus-visible:border-transparent"
+            className="w-full bg-white/5 border-white/10 text-white data-[placeholder]:text-white/30 focus-visible:ring-2"
           >
             <SelectValue placeholder={t.servicePlaceholder} />
           </SelectTrigger>
@@ -264,33 +267,38 @@ export function ContactForm({ accentColor, className, lang = "en" }: ContactForm
           id="message"
           name="message"
           required
+          aria-required="true"
           disabled={isLoading}
           rows={5}
           placeholder={t.messagePlaceholder}
-          className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus-visible:border-transparent resize-none"
+          className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-2 resize-none"
           style={
             {
-              "--tw-ring-color": `${accentColor}50`,
+              "--tw-ring-color": `${accentColor}80`,
             } as React.CSSProperties
           }
         />
       </div>
 
-      {/* Error message */}
+      {/* Error message — role="alert" so screen readers announce it immediately */}
       {formState === "error" && (
-        <p className="text-red-400 text-sm">{errorMessage}</p>
+        <p role="alert" aria-live="assertive" className="text-red-400 text-sm">
+          {errorMessage}
+        </p>
       )}
 
       {/* Submit */}
       <button
         type="submit"
         disabled={isLoading}
-        className="relative mt-1 h-11 px-8 rounded-md text-sm font-semibold text-black transition-opacity disabled:opacity-60 disabled:cursor-not-allowed"
+        aria-busy={isLoading}
+        className="relative mt-1 h-11 px-8 rounded-md text-sm font-semibold text-black transition-opacity disabled:opacity-60 disabled:cursor-not-allowed focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2"
         style={{ backgroundColor: accentColor }}
       >
         {isLoading ? (
           <span className="flex items-center justify-center gap-2">
             <svg
+              aria-hidden="true"
               className="animate-spin"
               width="16"
               height="16"

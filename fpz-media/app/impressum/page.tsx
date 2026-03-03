@@ -17,6 +17,7 @@ export default function ImpressumPage() {
           className="inline-flex items-center gap-2 text-white/40 hover:text-white/80 text-sm transition-colors mb-12"
         >
           <svg
+            aria-hidden="true"
             width="16"
             height="16"
             viewBox="0 0 24 24"
@@ -28,7 +29,7 @@ export default function ImpressumPage() {
           >
             <path d="M19 12H5M12 5l-7 7 7 7" />
           </svg>
-          Back to home
+          Zurück zur Startseite
         </Link>
 
         <h1 className="text-white text-4xl font-bold mb-8">Impressum</h1>
