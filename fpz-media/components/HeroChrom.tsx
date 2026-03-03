@@ -1,11 +1,17 @@
 "use client"
 
-import { useRef } from "react"
+import { useRef, useEffect } from "react"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
+import dynamic from "next/dynamic"
 import { manifesto } from "@/lib/content-de"
 
-const MARQUEE_TEXT = "WEBENTWICKLUNG \u00b7 MEDIENPRODUKTION \u00b7 AUTOMATION \u00b7 RUHRGEBIET \u00b7 "
+const ChromeSphere = dynamic(
+  () => import("@/components/ChromeSphere").then((m) => m.ChromeSphere),
+  { ssr: false }
+)
+
+const MARQUEE_TEXT = "WEBENTWICKLUNG · MEDIENPRODUKTION · AUTOMATION · RUHRGEBIET · "
 
 export function HeroChrom() {
   const containerRef = useRef<HTMLElement>(null)
@@ -14,6 +20,15 @@ export function HeroChrom() {
   const word3Ref = useRef<HTMLDivElement>(null)
   const subRef = useRef<HTMLParagraphElement>(null)
   const ctaRef = useRef<HTMLDivElement>(null)
+  const scrollRef = useRef<number>(0)
+
+  useEffect(() => {
+    const onScroll = () => {
+      scrollRef.current = Math.min(1, Math.max(0, window.scrollY / 700))
+    }
+    window.addEventListener("scroll", onScroll, { passive: true })
+    return () => window.removeEventListener("scroll", onScroll)
+  }, [])
 
   useGSAP(
     () => {
@@ -42,7 +57,47 @@ export function HeroChrom() {
         backgroundColor: "var(--v6-bg)",
       }}
     >
-      {/* Bottom fade gradient */}
+      {/* Chrome sphere — fades in after mount so HDR has time to load before appearing */}
+      <div
+        className="absolute inset-0 z-0 pointer-events-none"
+        style={{ animation: "sphere-fadein 1.2s ease 0.4s both" }}
+      >
+        <ChromeSphere scrollRef={scrollRef} />
+      </div>
+      <style>{`
+        @keyframes sphere-fadein { from { opacity: 0; } to { opacity: 1; } }
+      `}</style>
+
+      {/* Left-to-right gradient so text stays readable — stronger on mobile */}
+      <div
+        aria-hidden
+        className="mobile-hero-gradient"
+        style={{
+          position: "absolute",
+          inset: 0,
+          background:
+            "linear-gradient(to right, var(--v6-bg) 30%, color-mix(in srgb, var(--v6-bg) 55%, transparent) 60%, color-mix(in srgb, var(--v6-bg) 10%, transparent) 100%)",
+          pointerEvents: "none",
+          zIndex: 1,
+        }}
+      />
+      {/* Extra top gradient on mobile so sphere doesn't bleed into text area */}
+      <div
+        aria-hidden
+        className="block md:hidden"
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          height: "50%",
+          background: "linear-gradient(to bottom, var(--v6-bg) 0%, transparent 100%)",
+          pointerEvents: "none",
+          zIndex: 1,
+        }}
+      />
+
+      {/* Bottom fade */}
       <div
         aria-hidden
         style={{
@@ -57,13 +112,13 @@ export function HeroChrom() {
         }}
       />
 
-      {/* Marquee ticker */}
+      {/* Marquee */}
       <div
         className="absolute top-20 left-0 right-0 overflow-hidden select-none"
         style={{ zIndex: 2 }}
         aria-hidden
       >
-        <div className="flex whitespace-nowrap" style={{ willChange: "transform" }}>
+        <div className="flex whitespace-nowrap">
           <span
             className="inline-flex shrink-0 animate-[stahl-marquee_18s_linear_infinite]"
             style={{ color: "var(--v6-accent)", fontSize: "11px", letterSpacing: "0.2em", opacity: 0.4 }}
@@ -88,21 +143,21 @@ export function HeroChrom() {
         <div
           ref={word1Ref}
           className="block font-[family-name:var(--font-display)] italic will-change-transform"
-          style={{ fontSize: "clamp(80px, 18vw, 240px)", color: "var(--v6-text)", lineHeight: 0.9, opacity: 0 }}
+          style={{ fontSize: "clamp(44px, 13vw, 240px)", color: "var(--v6-text)", lineHeight: 0.9, opacity: 0 }}
         >
           Lokal.
         </div>
         <div
           ref={word2Ref}
           className="block font-[family-name:var(--font-display)] will-change-transform self-end md:self-center text-right md:text-center"
-          style={{ fontSize: "clamp(80px, 18vw, 240px)", color: "var(--v6-text)", lineHeight: 0.9, opacity: 0 }}
+          style={{ fontSize: "clamp(44px, 13vw, 240px)", color: "var(--v6-text)", lineHeight: 0.9, opacity: 0 }}
         >
           Digital.
         </div>
         <div
           ref={word3Ref}
           className="block font-[family-name:var(--font-display)] italic will-change-transform self-end"
-          style={{ fontSize: "clamp(80px, 18vw, 240px)", color: "var(--v6-accent)", lineHeight: 0.9, opacity: 0 }}
+          style={{ fontSize: "clamp(44px, 13vw, 240px)", color: "var(--v6-accent)", lineHeight: 0.9, opacity: 0 }}
         >
           Komplett.
         </div>

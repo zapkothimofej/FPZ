@@ -59,7 +59,7 @@ export function ProcessSection() {
     <section
       ref={sectionRef}
       id="process"
-      className="relative py-32 px-8 md:px-16 lg:px-24"
+      className="relative py-16 md:py-32 px-8 md:px-16 lg:px-24"
       style={{ backgroundColor: "var(--v6-bg)" }}
     >
       <div className="max-w-5xl mx-auto">
@@ -106,13 +106,27 @@ export function ProcessSection() {
           </div>
 
           {/* Steps */}
-          <div className="flex flex-col gap-24 flex-1 pb-8">
+          <div className="flex flex-col gap-16 md:gap-24 flex-1 pb-8">
             {processSteps.map((item) => (
               <div
                 key={item.step}
-                className="v6-process-step relative"
+                className="v6-process-step relative overflow-hidden"
                 style={{ opacity: 0 }}
               >
+                {/* Ghost step number — background decoration, right side, behind content */}
+                <span
+                  className="absolute right-0 top-1/2 -translate-y-1/2 font-[family-name:var(--font-display)] select-none pointer-events-none leading-none"
+                  style={{
+                    fontSize: "clamp(120px, 18vw, 220px)",
+                    color: "var(--v6-accent)",
+                    opacity: 0.04,
+                    zIndex: 0,
+                  }}
+                  aria-hidden
+                >
+                  {item.step}
+                </span>
+
                 {/* Dot zentriert auf der Timeline-Linie — mr-12=48px mobile, mr-20=80px desktop */}
                 {/* left = -(gap + 0.5px Linie + 6.5px halber Dot) */}
                 <div
@@ -131,40 +145,24 @@ export function ProcessSection() {
 
                 {/* Step label */}
                 <p
-                  className="text-[11px] tracking-[0.2em] uppercase mb-3 font-[family-name:var(--font-body)]"
+                  className="relative z-10 text-[11px] tracking-[0.2em] uppercase mb-3 font-[family-name:var(--font-body)]"
                   style={{ color: "var(--v6-text-muted)" }}
                 >
                   Schritt {item.step}
                 </p>
 
-                {/* Large ghost number behind title */}
-                <div className="relative">
-                  <span
-                    className="absolute -left-4 top-0 font-[family-name:var(--font-display)] select-none pointer-events-none leading-none"
-                    style={{
-                      fontSize: "clamp(80px, 12vw, 160px)",
-                      color: "var(--v6-accent)",
-                      opacity: 0.05,
-                      lineHeight: 1,
-                    }}
-                    aria-hidden
-                  >
-                    {item.step}
-                  </span>
-
-                  <h3
-                    className="relative font-[family-name:var(--font-display)] mb-4"
-                    style={{
-                      fontSize: "clamp(28px, 4vw, 52px)",
-                      color: "var(--v6-text)",
-                    }}
-                  >
-                    {item.title}
-                  </h3>
-                </div>
+                <h3
+                  className="relative z-10 font-[family-name:var(--font-display)] mb-4"
+                  style={{
+                    fontSize: "clamp(28px, 4vw, 52px)",
+                    color: "var(--v6-text)",
+                  }}
+                >
+                  {item.title}
+                </h3>
 
                 <p
-                  className="text-base leading-relaxed max-w-lg"
+                  className="relative z-10 text-base leading-relaxed max-w-lg"
                   style={{ color: "var(--v6-text-muted)", fontFamily: "var(--font-body)" }}
                 >
                   {item.description}

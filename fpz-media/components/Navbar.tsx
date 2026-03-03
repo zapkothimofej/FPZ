@@ -5,7 +5,7 @@ import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { Logo } from "@/components/shared/Logo"
-import { useV6Theme } from "@/app/chrom/ThemeProvider"
+import { useV6Theme } from "@/components/ThemeProvider"
 
 gsap.registerPlugin(ScrollTrigger)
 
