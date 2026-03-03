@@ -17,6 +17,22 @@ export const metadata: Metadata = {
   title: "FPZ Media – Webentwicklung, Film & Automation im Ruhrgebiet",
   description:
     "Full-Service Digitalagentur für lokale Unternehmen im Ruhrgebiet. Moderne Websites, Imagefilme und n8n-Automatisierung aus einer Hand.",
+  icons: { icon: "/favicon.ico" },
+  openGraph: {
+    title: "FPZ Media – Webentwicklung, Film & Automation",
+    description:
+      "Full-Service Digitalagentur für lokale Unternehmen im Ruhrgebiet. Web. Film. Automation.",
+    url: "https://fpz-media.de",
+    siteName: "FPZ Media",
+    locale: "de_DE",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "FPZ Media – Webentwicklung, Film & Automation",
+    description:
+      "Full-Service Digitalagentur für lokale Unternehmen im Ruhrgebiet. Web. Film. Automation.",
+  },
 };
 
 export default function RootLayout({

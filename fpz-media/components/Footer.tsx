@@ -1,5 +1,3 @@
-"use client"
-
 import { Logo } from "@/components/shared/Logo"
 
 const NAV_LINKS = [
@@ -31,14 +29,8 @@ export function Footer() {
               <a
                 key={link.href}
                 href={link.href}
-                className="text-[12px] tracking-[0.08em] uppercase transition-colors duration-200"
-                style={{ color: "var(--v6-text-muted)", fontFamily: "var(--font-body)" }}
-                onMouseEnter={(e) =>
-                  ((e.currentTarget as HTMLAnchorElement).style.color = "var(--v6-accent)")
-                }
-                onMouseLeave={(e) =>
-                  ((e.currentTarget as HTMLAnchorElement).style.color = "var(--v6-text-muted)")
-                }
+                className="text-[12px] tracking-[0.08em] uppercase transition-colors duration-200 text-[var(--v6-text-muted)] hover:text-[var(--v6-accent)]"
+                style={{ fontFamily: "var(--font-body)" }}
               >
                 {link.label}
               </a>
@@ -61,27 +53,15 @@ export function Footer() {
           <div className="flex gap-6">
             <a
               href="/impressum"
-              className="text-[12px] transition-colors duration-200"
-              style={{ color: "var(--v6-text-muted)", fontFamily: "var(--font-body)" }}
-              onMouseEnter={(e) =>
-                ((e.currentTarget as HTMLAnchorElement).style.color = "var(--v6-accent)")
-              }
-              onMouseLeave={(e) =>
-                ((e.currentTarget as HTMLAnchorElement).style.color = "var(--v6-text-muted)")
-              }
+              className="text-[12px] transition-colors duration-200 text-[var(--v6-text-muted)] hover:text-[var(--v6-accent)]"
+              style={{ fontFamily: "var(--font-body)" }}
             >
               Impressum
             </a>
             <a
               href="/datenschutz"
-              className="text-[12px] transition-colors duration-200"
-              style={{ color: "var(--v6-text-muted)", fontFamily: "var(--font-body)" }}
-              onMouseEnter={(e) =>
-                ((e.currentTarget as HTMLAnchorElement).style.color = "var(--v6-accent)")
-              }
-              onMouseLeave={(e) =>
-                ((e.currentTarget as HTMLAnchorElement).style.color = "var(--v6-text-muted)")
-              }
+              className="text-[12px] transition-colors duration-200 text-[var(--v6-text-muted)] hover:text-[var(--v6-accent)]"
+              style={{ fontFamily: "var(--font-body)" }}
             >
               Datenschutz
             </a>

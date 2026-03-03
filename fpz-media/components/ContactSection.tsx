@@ -125,14 +125,8 @@ export function ContactSection() {
                 </p>
                 <a
                   href="mailto:hallo@fpz-media.de"
-                  className="text-sm transition-colors duration-200"
-                  style={{ color: "var(--v6-accent)", fontFamily: "var(--font-body)" }}
-                  onMouseEnter={(e) =>
-                    ((e.currentTarget as HTMLAnchorElement).style.color = "var(--v6-text)")
-                  }
-                  onMouseLeave={(e) =>
-                    ((e.currentTarget as HTMLAnchorElement).style.color = "var(--v6-accent)")
-                  }
+                  className="text-sm transition-colors duration-200 text-[var(--v6-accent)] hover:text-[var(--v6-text)]"
+                  style={{ fontFamily: "var(--font-body)" }}
                 >
                   hallo@fpz-media.de
                 </a>
@@ -159,20 +153,19 @@ export function ContactSection() {
 
             {/* Social links */}
             <div className="flex gap-6">
-              {["Instagram", "LinkedIn"].map((social) => (
+              {[
+                { label: "Instagram", href: "https://instagram.com/fpzmedia" },
+                { label: "LinkedIn", href: "https://linkedin.com/company/fpzmedia" },
+              ].map((social) => (
                 <a
-                  key={social}
-                  href="#"
-                  className="text-[11px] tracking-[0.1em] uppercase transition-colors duration-200"
-                  style={{ color: "var(--v6-text-muted)", fontFamily: "var(--font-body)" }}
-                  onMouseEnter={(e) =>
-                    ((e.currentTarget as HTMLAnchorElement).style.color = "var(--v6-accent)")
-                  }
-                  onMouseLeave={(e) =>
-                    ((e.currentTarget as HTMLAnchorElement).style.color = "var(--v6-text-muted)")
-                  }
+                  key={social.label}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[11px] tracking-[0.1em] uppercase transition-colors duration-200 text-[var(--v6-text-muted)] hover:text-[var(--v6-accent)]"
+                  style={{ fontFamily: "var(--font-body)" }}
                 >
-                  {social}
+                  {social.label}
                 </a>
               ))}
             </div>

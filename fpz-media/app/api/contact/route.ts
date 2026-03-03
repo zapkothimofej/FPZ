@@ -8,7 +8,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
   }
 
-  const webhookUrl = process.env.NEXT_PUBLIC_N8N_WEBHOOK_URL
+  const webhookUrl = process.env.N8N_WEBHOOK_URL
   if (!webhookUrl) {
     return NextResponse.json({ error: "Webhook not configured" }, { status: 500 })
   }
@@ -29,7 +29,8 @@ export async function POST(req: NextRequest) {
       }),
     })
     return NextResponse.json({ success: true })
-  } catch {
+  } catch (err) {
+    console.error("[contact] Webhook failed:", err)
     return NextResponse.json({ error: "Failed to send" }, { status: 500 })
   }
 }
