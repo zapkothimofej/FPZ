@@ -3,7 +3,7 @@ import { TransitionSeries, linearTiming } from "@remotion/transitions";
 import { slide } from "@remotion/transitions/slide";
 import { wipe } from "@remotion/transitions/wipe";
 import { flip } from "@remotion/transitions/flip";
-import { clock } from "@remotion/transitions/clock";
+import { clockWipe } from "@remotion/transitions/clock-wipe";
 import { GrainOverlay } from "./components/GrainOverlay";
 import { Scene1Hook } from "./components/Scene1Hook";
 import { Scene2Web } from "./components/Scene2Web";
@@ -42,7 +42,7 @@ export const FPZVideo = () => (
         <Scene4Automation />
       </TransitionSeries.Sequence>
       <TransitionSeries.Transition
-        presentation={clock({ direction: "counterclockwise" })}
+        presentation={clockWipe({ width: 1920, height: 1080 })}
         timing={linearTiming({ durationInFrames: 45 })}
       />
       <TransitionSeries.Sequence durationInFrames={270}>
