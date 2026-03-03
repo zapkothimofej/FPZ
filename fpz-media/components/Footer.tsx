@@ -71,7 +71,7 @@ export function Footer() {
         {/* Version tag */}
         <p
           className="text-[11px] text-center"
-          style={{ color: "#333333", fontFamily: "var(--font-body)", letterSpacing: "0.15em" }}
+          style={{ color: "var(--v6-text-muted)", fontFamily: "var(--font-body)", letterSpacing: "0.15em", opacity: 0.4 }}
         >
           V6 CHROM — FPZ-MEDIA.DE
         </p>

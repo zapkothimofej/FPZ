@@ -96,12 +96,12 @@ export function ServicesSection() {
     <div ref={wrapperRef} id="services" style={{ height: "130vh" }}>
       <section className="sticky top-0 overflow-hidden" style={{ height: "100vh" }}>
 
-        {/* Label */}
-        <div className="absolute top-8 left-8 md:left-16 lg:left-24 z-10 pointer-events-none" aria-hidden>
-          <p className="text-[11px] tracking-[0.2em] uppercase"
-            style={{ color: "var(--v6-text-muted)", fontFamily: "var(--font-body)" }}>
-            Unsere Leistungen — Scroll
-          </p>
+        {/* Section heading (visible as label, semantic h2 for SEO) */}
+        <div className="absolute top-8 left-8 md:left-16 lg:left-24 z-10 pointer-events-none">
+          <h2 className="text-[11px] tracking-[0.2em] uppercase"
+            style={{ color: "var(--v6-text-muted)", fontFamily: "var(--font-body)", fontWeight: "normal" }}>
+            Unsere Leistungen
+          </h2>
         </div>
 
         {/* Dots */}
@@ -155,10 +155,10 @@ export function ServicesSection() {
                   style={{ color: "var(--v6-text-muted)", fontFamily: "var(--font-body)" }}>
                   {service.number} / {String(services.length).padStart(2, "0")}
                 </p>
-                <h2 className="font-[family-name:var(--font-display)] mb-6 tracking-tight"
+                <h3 className="font-[family-name:var(--font-display)] mb-6 tracking-tight"
                   style={{ fontSize: "clamp(56px, 9vw, 130px)", color: "var(--v6-text)", lineHeight: 0.92 }}>
                   {service.title}
-                </h2>
+                </h3>
                 <p className="mb-8 italic"
                   style={{ color: "var(--v6-accent)", fontFamily: "var(--font-display)", fontSize: "clamp(20px, 2.5vw, 32px)" }}>
                   {service.headline}
@@ -183,7 +183,7 @@ export function ServicesSection() {
                 <div className="absolute bottom-10 right-14 flex items-center gap-2 animate-pulse"
                   style={{ color: "var(--v6-text-muted)", fontSize: "11px", letterSpacing: "0.15em", fontWeight: 600 }}>
                   <span>SCROLLEN ZUM ENTDECKEN</span>
-                  <svg width="28" height="10" viewBox="0 0 28 10" fill="none" stroke="currentColor" strokeWidth="1.5">
+                  <svg width="28" height="10" viewBox="0 0 28 10" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
                     <path d="M0 5h26M21 1l6 4-6 4" />
                   </svg>
                 </div>

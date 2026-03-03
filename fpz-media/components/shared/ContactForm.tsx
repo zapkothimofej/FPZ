@@ -278,7 +278,7 @@ export function ContactForm({ accentColor, className, lang = "en" }: ContactForm
 
       {/* Error message */}
       {formState === "error" && (
-        <p className="text-red-400 text-sm">{errorMessage}</p>
+        <p className="text-red-400 text-sm" role="alert">{errorMessage}</p>
       )}
 
       {/* Submit */}
