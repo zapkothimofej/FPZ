@@ -23,29 +23,16 @@ function ThemeToggle({ className }: { className?: string }) {
   return (
     <button
       onClick={toggleTheme}
-      className={`flex items-center justify-center w-9 h-9 border transition-all duration-300 ${className ?? ""}`}
-      style={{ borderColor: "var(--v6-border)", color: "var(--v6-text-muted)" }}
+      className={`flex items-center justify-center w-9 h-9 border transition-all duration-300 border-[var(--v6-border)] text-[var(--v6-text-muted)] hover:border-[var(--v6-accent)] hover:text-[var(--v6-accent)] ${className ?? ""}`}
       aria-label={isDark ? "Helles Design aktivieren" : "Dunkles Design aktivieren"}
       title={isDark ? "Light Mode" : "Dark Mode"}
-      onMouseEnter={(e) => {
-        const el = e.currentTarget as HTMLButtonElement
-        el.style.borderColor = "var(--v6-accent)"
-        el.style.color = "var(--v6-accent)"
-      }}
-      onMouseLeave={(e) => {
-        const el = e.currentTarget as HTMLButtonElement
-        el.style.borderColor = "var(--v6-border)"
-        el.style.color = "var(--v6-text-muted)"
-      }}
     >
       {isDark ? (
-        /* Sun icon */
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
           <circle cx="12" cy="12" r="5" />
           <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" />
         </svg>
       ) : (
-        /* Moon icon */
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
         </svg>
@@ -146,10 +133,7 @@ export function Navbar() {
             <a
               key={link.href}
               href={link.href}
-              className="text-[13px] tracking-[0.08em] uppercase font-medium transition-colors duration-200"
-              style={{ color: "var(--v6-text-muted)" }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "var(--v6-text)")}
-              onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "var(--v6-text-muted)")}
+              className="text-[13px] tracking-[0.08em] uppercase font-medium transition-colors duration-200 text-[var(--v6-text-muted)] hover:text-[var(--v6-text)]"
             >
               {link.label}
             </a>
@@ -161,18 +145,7 @@ export function Navbar() {
           <ThemeToggle />
           <a
             href="#contact"
-            className="inline-flex items-center h-9 px-5 text-[12px] tracking-[0.1em] uppercase font-semibold border transition-all duration-300"
-            style={{ borderColor: "var(--v6-accent)", color: "var(--v6-accent)" }}
-            onMouseEnter={(e) => {
-              const el = e.currentTarget as HTMLAnchorElement
-              el.style.backgroundColor = "var(--v6-accent)"
-              el.style.color = "var(--v6-text-on-accent)"
-            }}
-            onMouseLeave={(e) => {
-              const el = e.currentTarget as HTMLAnchorElement
-              el.style.backgroundColor = "transparent"
-              el.style.color = "var(--v6-accent)"
-            }}
+            className="inline-flex items-center h-9 px-5 text-[12px] tracking-[0.1em] uppercase font-semibold border transition-all duration-300 border-[var(--v6-accent)] text-[var(--v6-accent)] hover:bg-[var(--v6-accent)] hover:text-[var(--v6-text-on-accent)]"
           >
             Projekt starten
           </a>
@@ -242,10 +215,7 @@ export function Navbar() {
             <a
               key={link.href}
               href={link.href}
-              className="v6-drawer-link flex items-center justify-between py-4 border-b text-[15px] tracking-[0.06em] uppercase font-medium transition-colors duration-200"
-              style={{ color: "var(--v6-text-muted)", borderColor: "var(--v6-border)" }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "var(--v6-text)")}
-              onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "var(--v6-text-muted)")}
+              className="v6-drawer-link flex items-center justify-between py-4 border-b text-[15px] tracking-[0.06em] uppercase font-medium transition-colors duration-200 text-[var(--v6-text-muted)] hover:text-[var(--v6-text)] border-[var(--v6-border)]"
               onClick={closeDrawer}
             >
               {link.label}
@@ -259,18 +229,7 @@ export function Navbar() {
         {/* Drawer CTA */}
         <a
           href="#contact"
-          className="v6-drawer-link flex items-center justify-center h-12 text-[13px] tracking-[0.1em] uppercase font-semibold border transition-all duration-300"
-          style={{ borderColor: "var(--v6-accent)", color: "var(--v6-accent)" }}
-          onMouseEnter={(e) => {
-            const el = e.currentTarget as HTMLAnchorElement
-            el.style.backgroundColor = "var(--v6-accent)"
-            el.style.color = "var(--v6-text-on-accent)"
-          }}
-          onMouseLeave={(e) => {
-            const el = e.currentTarget as HTMLAnchorElement
-            el.style.backgroundColor = "transparent"
-            el.style.color = "var(--v6-accent)"
-          }}
+          className="v6-drawer-link flex items-center justify-center h-12 text-[13px] tracking-[0.1em] uppercase font-semibold border transition-all duration-300 border-[var(--v6-accent)] text-[var(--v6-accent)] hover:bg-[var(--v6-accent)] hover:text-[var(--v6-text-on-accent)]"
           onClick={closeDrawer}
         >
           Projekt starten
