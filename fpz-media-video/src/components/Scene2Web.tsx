@@ -13,6 +13,11 @@ export const Scene2Web = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
+  const fadeIn = interpolate(frame, [0, 30], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+
   const labelOp = interpolate(frame, [10, 50], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
@@ -56,7 +61,7 @@ export const Scene2Web = () => {
   const bh = 500;
 
   return (
-    <AbsoluteFill style={{ background: C.bg, opacity: fadeOut }}>
+    <AbsoluteFill style={{ background: C.bg, opacity: fadeIn * fadeOut }}>
       <Particles frame={frame} opacity={0.5} />
       <Orb frame={frame} opacity={0.2} radius={280} x={960} y={600} />
 

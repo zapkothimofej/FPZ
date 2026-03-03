@@ -13,6 +13,11 @@ export const Scene6Endcard = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
+  const fadeIn = interpolate(frame, [0, 30], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+
   const logoS = spring({ frame, fps, config: { damping: 18, stiffness: 120 } });
   const logoScale = 1 + (1 - logoS) * 1.5;
   const logoOp = interpolate(frame, [0, 24], [0, 1], {
@@ -55,7 +60,7 @@ export const Scene6Endcard = () => {
   });
 
   return (
-    <AbsoluteFill style={{ background: C.bg }}>
+    <AbsoluteFill style={{ background: C.bg, opacity: fadeIn }}>
       <Orb frame={frame} opacity={orbOp} radius={300} x={960} y={540} intensity={1.5} />
       <Particles frame={frame} opacity={particleOp} />
 

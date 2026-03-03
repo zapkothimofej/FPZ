@@ -13,6 +13,15 @@ export const Scene1Hook = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
+  const fadeIn = interpolate(frame, [0, 30], [0, 1], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+  const fadeOut = interpolate(frame, [150, 180], [1, 0], {
+    extrapolateLeft: "clamp",
+    extrapolateRight: "clamp",
+  });
+
   const particleOp = interpolate(frame, [0, 40], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
@@ -35,7 +44,7 @@ export const Scene1Hook = () => {
   const x2 = (1 - s2) * 500;
 
   return (
-    <AbsoluteFill style={{ background: C.bg }}>
+    <AbsoluteFill style={{ background: C.bg, opacity: fadeIn * fadeOut }}>
       <Orb frame={frame} opacity={orbOp} radius={350} x={960} y={540} />
       <Particles frame={frame} opacity={particleOp} />
       <AbsoluteFill
