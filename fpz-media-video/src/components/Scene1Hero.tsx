@@ -64,7 +64,7 @@ export const Scene1Hero = () => {
           inset: 0,
           zIndex: 1,
           background:
-            "linear-gradient(to right, #0a0a0a 30%, rgba(10,10,10,0.55) 60%, rgba(10,10,10,0.1) 100%)",
+            `linear-gradient(to right, ${C.bg} 30%, rgba(10,10,10,0.55) 60%, rgba(10,10,10,0.1) 100%)`,
           pointerEvents: "none",
         }}
       />

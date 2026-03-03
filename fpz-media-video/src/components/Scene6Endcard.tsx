@@ -19,7 +19,7 @@ export const Scene6Endcard = () => {
     to: 1,
   });
 
-  const taglineOp = interpolate(frame, [25, 50], [0, 1], {
+  const taglineOp = interpolate(frame, [25, 38], [0, 1], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
