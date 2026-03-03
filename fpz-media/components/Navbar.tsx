@@ -5,7 +5,7 @@ import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { Logo } from "@/components/shared/Logo"
-import { useV6Theme } from "@/app/chrom/ThemeProvider"
+import { useV6Theme } from "@/components/ThemeProvider"
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -23,20 +23,9 @@ function ThemeToggle({ className }: { className?: string }) {
   return (
     <button
       onClick={toggleTheme}
-      className={`flex items-center justify-center w-9 h-9 border transition-all duration-300 ${className ?? ""}`}
-      style={{ borderColor: "var(--v6-border)", color: "var(--v6-text-muted)" }}
+      className={`flex items-center justify-center w-9 h-9 border transition-all duration-300 border-[var(--v6-border)] text-[var(--v6-text-muted)] hover:border-[var(--v6-accent)] hover:text-[var(--v6-accent)] ${className ?? ""}`}
       aria-label={isDark ? "Helles Design aktivieren" : "Dunkles Design aktivieren"}
       title={isDark ? "Light Mode" : "Dark Mode"}
-      onMouseEnter={(e) => {
-        const el = e.currentTarget as HTMLButtonElement
-        el.style.borderColor = "var(--v6-accent)"
-        el.style.color = "var(--v6-accent)"
-      }}
-      onMouseLeave={(e) => {
-        const el = e.currentTarget as HTMLButtonElement
-        el.style.borderColor = "var(--v6-border)"
-        el.style.color = "var(--v6-text-muted)"
-      }}
     >
       {isDark ? (
         /* Sun icon */
@@ -198,10 +187,7 @@ export function Navbar() {
             <a
               key={link.href}
               href={link.href}
-              className="text-[13px] tracking-[0.08em] uppercase font-medium transition-colors duration-200"
-              style={{ color: "var(--v6-text-muted)" }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "var(--v6-text)")}
-              onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "var(--v6-text-muted)")}
+              className="text-[13px] tracking-[0.08em] uppercase font-medium transition-colors duration-200 text-[var(--v6-text-muted)] hover:text-[var(--v6-text)]"
             >
               {link.label}
             </a>
@@ -213,18 +199,7 @@ export function Navbar() {
           <ThemeToggle />
           <a
             href="#contact"
-            className="inline-flex items-center h-9 px-5 text-[12px] tracking-[0.1em] uppercase font-semibold border transition-all duration-300"
-            style={{ borderColor: "var(--v6-accent)", color: "var(--v6-accent)" }}
-            onMouseEnter={(e) => {
-              const el = e.currentTarget as HTMLAnchorElement
-              el.style.backgroundColor = "var(--v6-accent)"
-              el.style.color = "var(--v6-text-on-accent)"
-            }}
-            onMouseLeave={(e) => {
-              const el = e.currentTarget as HTMLAnchorElement
-              el.style.backgroundColor = "transparent"
-              el.style.color = "var(--v6-accent)"
-            }}
+            className="inline-flex items-center h-9 px-5 text-[12px] tracking-[0.1em] uppercase font-semibold border transition-all duration-300 border-[var(--v6-accent)] text-[var(--v6-accent)] hover:bg-[var(--v6-accent)] hover:text-[var(--v6-text-on-accent)]"
           >
             Projekt starten
           </a>
@@ -302,10 +277,7 @@ export function Navbar() {
             <a
               key={link.href}
               href={link.href}
-              className="v6-drawer-link flex items-center justify-between py-4 border-b text-[15px] tracking-[0.06em] uppercase font-medium transition-colors duration-200"
-              style={{ color: "var(--v6-text-muted)", borderColor: "var(--v6-border)" }}
-              onMouseEnter={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "var(--v6-text)")}
-              onMouseLeave={(e) => ((e.currentTarget as HTMLAnchorElement).style.color = "var(--v6-text-muted)")}
+              className="v6-drawer-link flex items-center justify-between py-4 border-b text-[15px] tracking-[0.06em] uppercase font-medium transition-colors duration-200 text-[var(--v6-text-muted)] hover:text-[var(--v6-text)] border-[var(--v6-border)]"
               onClick={closeDrawer}
             >
               {link.label}
@@ -319,18 +291,7 @@ export function Navbar() {
         {/* Drawer CTA */}
         <a
           href="#contact"
-          className="v6-drawer-link flex items-center justify-center h-12 text-[13px] tracking-[0.1em] uppercase font-semibold border transition-all duration-300"
-          style={{ borderColor: "var(--v6-accent)", color: "var(--v6-accent)" }}
-          onMouseEnter={(e) => {
-            const el = e.currentTarget as HTMLAnchorElement
-            el.style.backgroundColor = "var(--v6-accent)"
-            el.style.color = "var(--v6-text-on-accent)"
-          }}
-          onMouseLeave={(e) => {
-            const el = e.currentTarget as HTMLAnchorElement
-            el.style.backgroundColor = "transparent"
-            el.style.color = "var(--v6-accent)"
-          }}
+          className="v6-drawer-link flex items-center justify-center h-12 text-[13px] tracking-[0.1em] uppercase font-semibold border transition-all duration-300 border-[var(--v6-accent)] text-[var(--v6-accent)] hover:bg-[var(--v6-accent)] hover:text-[var(--v6-text-on-accent)]"
           onClick={closeDrawer}
         >
           Projekt starten

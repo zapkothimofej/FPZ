@@ -2,7 +2,10 @@ import Link from "next/link"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "Datenschutzerklärung — FPZ Media",
+  title: "Datenschutzerklärung",
+  description: "Datenschutzerklärung der FPZ Media Digitalagentur. Informationen zum Umgang mit personenbezogenen Daten.",
+  robots: { index: false, follow: true },
+  alternates: { canonical: "/datenschutz" },
 }
 
 export default function DatenschutzPage() {
@@ -11,7 +14,7 @@ export default function DatenschutzPage() {
       style={{ backgroundColor: "#111111", minHeight: "100vh" }}
       className="flex flex-col"
     >
-      <div className="max-w-2xl mx-auto px-6 py-20 w-full">
+      <article className="max-w-2xl mx-auto px-6 py-20 w-full">
         <Link
           href="/"
           className="inline-flex items-center gap-2 text-white/40 hover:text-white/80 text-sm transition-colors mb-12"
@@ -26,6 +29,7 @@ export default function DatenschutzPage() {
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
+            aria-hidden="true"
           >
             <path d="M19 12H5M12 5l-7 7 7 7" />
           </svg>
@@ -36,10 +40,8 @@ export default function DatenschutzPage() {
 
         <p className="text-white/60 text-lg leading-relaxed">
           Inhalt folgt in Kürze.
-          <br />
-          <span className="text-white/40">Content coming soon.</span>
         </p>
-      </div>
+      </article>
     </div>
   )
 }

@@ -6,7 +6,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
-        disallow: ["/chrom/", "/clean/", "/gsap/", "/sphere/", "/sphere+/"],
+        disallow: ["/api/"],
       },
     ],
     sitemap: "https://fpz-media.de/sitemap.xml",

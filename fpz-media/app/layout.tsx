@@ -3,9 +3,34 @@ import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "FPZ Media — Webentwicklung, Film & Automation im Ruhrgebiet",
+  metadataBase: new URL("https://fpz-media.de"),
+  title: {
+    default: "FPZ Media — Webentwicklung, Film & Automation im Ruhrgebiet",
+    template: "%s | FPZ Media",
+  },
   description:
     "FPZ Media ist Ihre Full-Service Digitalagentur im Ruhrgebiet — professionelle Webentwicklung, Filmproduktion und intelligente Automation für lokale Unternehmen in NRW.",
+  keywords: [
+    "Webentwicklung Ruhrgebiet",
+    "Digitalagentur Ruhrgebiet",
+    "Webdesign Ruhrgebiet",
+    "Imagefilm Ruhrgebiet",
+    "n8n Automation",
+    "Next.js Agentur",
+    "Website erstellen lassen",
+    "Filmproduktion NRW",
+    "SEO Ruhrgebiet",
+    "Webseite für Unternehmen",
+  ],
+  authors: [{ name: "FPZ Media", url: "https://fpz-media.de" }],
+  creator: "FPZ Media",
+  publisher: "FPZ Media",
+  icons: { icon: "/favicon.ico" },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-snippet": -1, "max-image-preview": "large" },
+  },
 };
 
 export default function RootLayout({

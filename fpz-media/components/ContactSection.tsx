@@ -75,8 +75,8 @@ export function ContactSection() {
     <section
       ref={sectionRef}
       id="contact"
-      className="py-32 px-8 md:px-16 lg:px-24"
-      style={{ backgroundColor: "#0a0a0a", borderTop: "1px solid #222222" }}
+      className="py-16 md:py-32 px-8 md:px-16 lg:px-24"
+      style={{ backgroundColor: "var(--v6-bg)", borderTop: "1px solid var(--v6-border)" }}
     >
       <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 lg:gap-32">
         {/* Left: heading + contact info */}
@@ -84,55 +84,49 @@ export function ContactSection() {
           <div>
             <p
               className="text-[11px] tracking-[0.2em] uppercase mb-6"
-              style={{ color: "#707070", fontFamily: "var(--font-body)" }}
+              style={{ color: "var(--v6-text-muted)", fontFamily: "var(--font-body)" }}
             >
-              Get in Touch
+              Kontakt aufnehmen
             </p>
             <h2
               ref={headingRef}
               className="font-[family-name:var(--font-display)] italic"
               style={{
                 fontSize: "clamp(40px, 7vw, 96px)",
-                color: "#ebebeb",
+                color: "var(--v6-text)",
                 lineHeight: 1.05,
                 opacity: 0,
               }}
             >
-              Let&apos;s build
+              Lass uns
               <br />
-              something
+              etwas
               <br />
-              <span style={{ color: "#c8c8c8" }}>exceptional.</span>
+              <span style={{ color: "var(--v6-accent)" }}>Geniales bauen.</span>
             </h2>
           </div>
 
           <div ref={infoRef} className="flex flex-col gap-6" style={{ opacity: 0 }}>
             <p
               className="text-base leading-relaxed max-w-sm"
-              style={{ color: "#707070", fontFamily: "var(--font-body)" }}
+              style={{ color: "var(--v6-text-muted)", fontFamily: "var(--font-body)" }}
             >
-              Based in the Ruhrgebiet. Available everywhere. Drop us a message
-              and we&apos;ll get back to you within 24 hours.
+              Ansässig im Ruhrgebiet. Überall verfügbar. Schreib uns eine Nachricht
+              und wir melden uns innerhalb von 24 Stunden zurück.
             </p>
 
             <div className="flex flex-col gap-4">
               <div>
                 <p
                   className="text-[10px] tracking-[0.15em] uppercase mb-1"
-                  style={{ color: "#707070", fontFamily: "var(--font-body)" }}
+                  style={{ color: "var(--v6-text-muted)", fontFamily: "var(--font-body)" }}
                 >
-                  Email
+                  E-Mail
                 </p>
                 <a
                   href="mailto:hallo@fpz-media.de"
-                  className="text-sm transition-colors duration-200"
-                  style={{ color: "#c8c8c8", fontFamily: "var(--font-body)" }}
-                  onMouseEnter={(e) =>
-                    ((e.currentTarget as HTMLAnchorElement).style.color = "#ebebeb")
-                  }
-                  onMouseLeave={(e) =>
-                    ((e.currentTarget as HTMLAnchorElement).style.color = "#c8c8c8")
-                  }
+                  className="text-sm transition-colors duration-200 text-[var(--v6-accent)] hover:text-[var(--v6-text)]"
+                  style={{ fontFamily: "var(--font-body)" }}
                 >
                   hallo@fpz-media.de
                 </a>
@@ -141,38 +135,37 @@ export function ContactSection() {
               <div>
                 <p
                   className="text-[10px] tracking-[0.15em] uppercase mb-1"
-                  style={{ color: "#707070", fontFamily: "var(--font-body)" }}
+                  style={{ color: "var(--v6-text-muted)", fontFamily: "var(--font-body)" }}
                 >
-                  Location
+                  Standort
                 </p>
                 <span
                   className="text-sm"
-                  style={{ color: "#c8c8c8", fontFamily: "var(--font-body)" }}
+                  style={{ color: "var(--v6-accent)", fontFamily: "var(--font-body)" }}
                 >
-                  Ruhrgebiet, NRW, Germany
+                  Ruhrgebiet, NRW, Deutschland
                 </span>
               </div>
             </div>
 
-            {/* Thin separator */}
-            <div style={{ height: "1px", backgroundColor: "#222222", width: "100%" }} />
+            {/* Separator */}
+            <div style={{ height: "1px", backgroundColor: "var(--v6-border)", width: "100%" }} />
 
-            {/* Social links placeholder */}
+            {/* Social links */}
             <div className="flex gap-6">
-              {["Instagram", "LinkedIn"].map((social) => (
+              {[
+                { label: "Instagram", href: "https://instagram.com/fpzmedia" },
+                { label: "LinkedIn", href: "https://linkedin.com/company/fpzmedia" },
+              ].map((social) => (
                 <a
-                  key={social}
-                  href="#"
-                  className="text-[11px] tracking-[0.1em] uppercase transition-colors duration-200"
-                  style={{ color: "#707070", fontFamily: "var(--font-body)" }}
-                  onMouseEnter={(e) =>
-                    ((e.currentTarget as HTMLAnchorElement).style.color = "#c8c8c8")
-                  }
-                  onMouseLeave={(e) =>
-                    ((e.currentTarget as HTMLAnchorElement).style.color = "#707070")
-                  }
+                  key={social.label}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[11px] tracking-[0.1em] uppercase transition-colors duration-200 text-[var(--v6-text-muted)] hover:text-[var(--v6-accent)]"
+                  style={{ fontFamily: "var(--font-body)" }}
                 >
-                  {social}
+                  {social.label}
                 </a>
               ))}
             </div>
@@ -181,9 +174,11 @@ export function ContactSection() {
 
         {/* Right: Contact form */}
         <div ref={formRef} style={{ opacity: 0 }}>
-          <ContactForm accentColor="#c8c8c8" />
+          <ContactForm accentColor="var(--v6-accent)" lang="de" />
         </div>
       </div>
     </section>
   )
 }
+
+export default ContactSection

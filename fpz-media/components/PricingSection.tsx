@@ -215,6 +215,7 @@ export function PricingSection() {
                       stroke="var(--v6-accent)"
                       strokeWidth="1.5"
                       strokeLinecap="round"
+                      aria-hidden="true"
                     >
                       <polyline points="2 7 5.5 10.5 12 3.5" />
                     </svg>
@@ -226,7 +227,11 @@ export function PricingSection() {
               {/* CTA */}
               <a
                 href="#contact"
-                className="mt-10 flex items-center justify-center h-11 text-[13px] tracking-[0.08em] uppercase font-semibold transition-all duration-300"
+                className={`mt-10 flex items-center justify-center h-11 text-[13px] tracking-[0.08em] uppercase font-semibold transition-all duration-300 ${
+                  plan.highlighted
+                    ? ""
+                    : "hover:border-[var(--v6-accent)]"
+                }`}
                 style={
                   plan.highlighted
                     ? {
@@ -240,18 +245,6 @@ export function PricingSection() {
                         border: "1px solid var(--v6-border)",
                       }
                 }
-                onMouseEnter={(e) => {
-                  const el = e.currentTarget as HTMLAnchorElement
-                  if (!plan.highlighted) {
-                    el.style.borderColor = "var(--v6-accent)"
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  const el = e.currentTarget as HTMLAnchorElement
-                  if (!plan.highlighted) {
-                    el.style.borderColor = "var(--v6-border)"
-                  }
-                }}
               >
                 {plan.cta}
               </a>

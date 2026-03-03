@@ -1,19 +1,20 @@
 import type { Metadata } from "next"
 import { DM_Serif_Display, DM_Sans } from "next/font/google"
-import { GrainOverlay } from "@/components/chrom/GrainOverlay"
-import { V6ThemeProvider } from "@/app/chrom/ThemeProvider"
-import "@/app/chrom/v6-theme.css"
+import { GrainOverlay } from "@/components/GrainOverlay"
+import { V6ThemeProvider } from "@/components/ThemeProvider"
+import { JsonLd } from "@/components/JsonLd"
+import "@/app/v6-theme.css"
 
-import { Navbar }           from "@/components/chrom/Navbar"
-import { HeroChrom }        from "@/components/sphere/HeroChrom"
-import { ManifestoSection } from "@/components/clean/ManifestoSection"
-import { ServicesSection }  from "@/components/clean/ServicesSection"
-import { ProcessSection }   from "@/components/clean/ProcessSection"
-import { StatsSection }     from "@/components/chrom/StatsSection"
-import { PricingSection }   from "@/components/chrom/PricingSection"
-import { PortfolioSection } from "@/components/chrom/PortfolioSection"
-import { ContactSection }   from "@/components/chrom/ContactSection"
-import { Footer }           from "@/components/chrom/Footer"
+import { Navbar }           from "@/components/Navbar"
+import { HeroChrom }        from "@/components/HeroChrom"
+import { ManifestoSection } from "@/components/ManifestoSection"
+import { ServicesSection }  from "@/components/ServicesSection"
+import { ProcessSection }   from "@/components/ProcessSection"
+import { StatsSection }     from "@/components/StatsSection"
+import { PricingSection }   from "@/components/PricingSection"
+import { PortfolioSection } from "@/components/PortfolioSection"
+import { ContactSection }   from "@/components/ContactSection"
+import { Footer }           from "@/components/Footer"
 
 const display = DM_Serif_Display({
   subsets: ["latin"],
@@ -63,6 +64,7 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <div className={`${display.variable} ${body.variable} antialiased`}>
+      <JsonLd />
       <V6ThemeProvider>
         <GrainOverlay />
         <main id="main-content">

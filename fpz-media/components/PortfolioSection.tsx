@@ -207,6 +207,7 @@ export function PortfolioSection() {
                       strokeWidth="2"
                       strokeLinecap="round"
                       strokeLinejoin="round"
+                      aria-hidden="true"
                     >
                       <path d="M7 17L17 7M17 7H7M17 7v10" />
                     </svg>
@@ -285,6 +286,7 @@ export function PortfolioSection() {
               fill="none"
               stroke="currentColor"
               strokeWidth="2"
+              aria-hidden="true"
             >
               <path d="M7 17L17 7M17 7H7M17 7v10" />
             </svg>

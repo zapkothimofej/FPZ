@@ -5,25 +5,21 @@ import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import dynamic from "next/dynamic"
 import { manifesto } from "@/lib/content-de"
-import { CSSphere } from "./CSSphere"
 
 const ChromeSphere = dynamic(
-  () => import("@/components/sphere/ChromeSphere").then((m) => m.ChromeSphere),
+  () => import("@/components/ChromeSphere").then((m) => m.ChromeSphere),
   { ssr: false }
 )
 
 const MARQUEE_TEXT = "WEBENTWICKLUNG · MEDIENPRODUKTION · AUTOMATION · RUHRGEBIET · "
 
-export function HeroSpherePlus() {
+export function HeroChrom() {
   const containerRef = useRef<HTMLElement>(null)
-  const word1Ref = useRef<HTMLDivElement>(null)
-  const word2Ref = useRef<HTMLDivElement>(null)
-  const word3Ref = useRef<HTMLDivElement>(null)
+  const word1Ref = useRef<HTMLSpanElement>(null)
+  const word2Ref = useRef<HTMLSpanElement>(null)
+  const word3Ref = useRef<HTMLSpanElement>(null)
   const subRef = useRef<HTMLParagraphElement>(null)
   const ctaRef = useRef<HTMLDivElement>(null)
-  const orb1Ref = useRef<HTMLDivElement>(null)
-  const orb2Ref = useRef<HTMLDivElement>(null)
-  const orb3Ref = useRef<HTMLDivElement>(null)
   const scrollRef = useRef<number>(0)
 
   useEffect(() => {
@@ -43,26 +39,6 @@ export function HeroSpherePlus() {
         .fromTo(word3Ref.current, { y: "8vh", opacity: 0 }, { y: 0, opacity: 1, duration: 1.1 }, "-=0.85")
         .fromTo(subRef.current, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8 }, "-=0.4")
         .fromTo(ctaRef.current, { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.7 }, "-=0.5")
-
-      // Extra orbs pop in with bounce
-      tl.fromTo(
-        orb1Ref.current,
-        { scale: 0, opacity: 0 },
-        { scale: 1, opacity: 1, duration: 1.2, ease: "elastic.out(1, 0.4)" },
-        "-=1.0"
-      )
-        .fromTo(
-          orb2Ref.current,
-          { scale: 0, opacity: 0 },
-          { scale: 1, opacity: 1, duration: 1.4, ease: "elastic.out(1, 0.4)" },
-          "-=0.9"
-        )
-        .fromTo(
-          orb3Ref.current,
-          { scale: 0, opacity: 0 },
-          { scale: 1, opacity: 1, duration: 1.0, ease: "elastic.out(1, 0.5)" },
-          "-=1.0"
-        )
     },
     { scope: containerRef }
   )
@@ -81,74 +57,21 @@ export function HeroSpherePlus() {
         backgroundColor: "var(--v6-bg)",
       }}
     >
-      {/* Main chrome sphere (WebGL) */}
+      {/* Chrome sphere — fades in after mount so HDR has time to load before appearing */}
       <div
         className="absolute inset-0 z-0 pointer-events-none"
         style={{ animation: "sphere-fadein 1.2s ease 0.4s both" }}
       >
         <ChromeSphere scrollRef={scrollRef} />
       </div>
-
-      {/* Extra orb — top-right cluster, medium */}
-      <div
-        ref={orb1Ref}
-        aria-hidden
-        style={{
-          position: "absolute",
-          top: "12%",
-          right: "2%",
-          opacity: 0,
-          zIndex: 1,
-          pointerEvents: "none",
-          animation: "cssphere-float 10s ease-in-out 0.6s infinite",
-        }}
-      >
-        <CSSphere size={88} opacity={0.55} glow />
-      </div>
-
-      {/* Extra orb — below-right of main sphere */}
-      <div
-        ref={orb2Ref}
-        aria-hidden
-        style={{
-          position: "absolute",
-          top: "58%",
-          right: "8%",
-          opacity: 0,
-          zIndex: 1,
-          pointerEvents: "none",
-          animation: "cssphere-float 13s ease-in-out 2s infinite",
-        }}
-      >
-        <CSSphere size={48} opacity={0.4} />
-      </div>
-
-      {/* Extra orb — far top-right tiny accent */}
-      <div
-        ref={orb3Ref}
-        aria-hidden
-        style={{
-          position: "absolute",
-          top: "30%",
-          right: "18%",
-          opacity: 0,
-          zIndex: 1,
-          pointerEvents: "none",
-          animation: "cssphere-pulse 8s ease-in-out 1s infinite",
-        }}
-      >
-        <CSSphere size={22} opacity={0.6} glow />
-      </div>
-
       <style>{`
-        @keyframes sphere-fadein  { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes cssphere-float { 0%, 100% { transform: translateY(0px);  } 50% { transform: translateY(-16px); } }
-        @keyframes cssphere-pulse { 0%, 100% { transform: scale(1);   opacity: 0.6; } 50% { transform: scale(1.15); opacity: 0.3; } }
+        @keyframes sphere-fadein { from { opacity: 0; } to { opacity: 1; } }
       `}</style>
 
-      {/* Gradient overlay: keeps text readable */}
+      {/* Left-to-right gradient so text stays readable — stronger on mobile */}
       <div
-        aria-hidden
+        aria-hidden="true"
+        className="mobile-hero-gradient"
         style={{
           position: "absolute",
           inset: 0,
@@ -158,10 +81,25 @@ export function HeroSpherePlus() {
           zIndex: 1,
         }}
       />
+      {/* Extra top gradient on mobile so sphere doesn't bleed into text area */}
+      <div
+        aria-hidden="true"
+        className="block md:hidden"
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          height: "50%",
+          background: "linear-gradient(to bottom, var(--v6-bg) 0%, transparent 100%)",
+          pointerEvents: "none",
+          zIndex: 1,
+        }}
+      />
 
       {/* Bottom fade */}
       <div
-        aria-hidden
+        aria-hidden="true"
         style={{
           position: "absolute",
           bottom: 0,
@@ -178,7 +116,7 @@ export function HeroSpherePlus() {
       <div
         className="absolute top-20 left-0 right-0 overflow-hidden select-none"
         style={{ zIndex: 2 }}
-        aria-hidden
+        aria-hidden="true"
       >
         <div className="flex whitespace-nowrap">
           <span
@@ -190,40 +128,40 @@ export function HeroSpherePlus() {
           <span
             className="inline-flex shrink-0 animate-[stahl-marquee_18s_linear_infinite]"
             style={{ color: "var(--v6-accent)", fontSize: "11px", letterSpacing: "0.2em", opacity: 0.4 }}
-            aria-hidden
+            aria-hidden="true"
           >
             {MARQUEE_TEXT}{MARQUEE_TEXT}{MARQUEE_TEXT}{MARQUEE_TEXT}
           </span>
         </div>
       </div>
 
-      {/* Words */}
-      <div
+      {/* H1 Heading — three animated words */}
+      <h1
         className="px-8 md:px-16 lg:px-24 pt-16 pb-8 flex flex-col leading-none"
-        style={{ position: "relative", zIndex: 2 }}
+        style={{ position: "relative", zIndex: 2, margin: 0 }}
       >
-        <div
+        <span
           ref={word1Ref}
           className="block font-[family-name:var(--font-display)] italic will-change-transform"
-          style={{ fontSize: "clamp(80px, 18vw, 240px)", color: "var(--v6-text)", lineHeight: 0.9, opacity: 0 }}
+          style={{ fontSize: "clamp(44px, 13vw, 240px)", color: "var(--v6-text)", lineHeight: 0.9, opacity: 0 }}
         >
           Lokal.
-        </div>
-        <div
+        </span>
+        <span
           ref={word2Ref}
           className="block font-[family-name:var(--font-display)] will-change-transform self-end md:self-center text-right md:text-center"
-          style={{ fontSize: "clamp(80px, 18vw, 240px)", color: "var(--v6-text)", lineHeight: 0.9, opacity: 0 }}
+          style={{ fontSize: "clamp(44px, 13vw, 240px)", color: "var(--v6-text)", lineHeight: 0.9, opacity: 0 }}
         >
           Digital.
-        </div>
-        <div
+        </span>
+        <span
           ref={word3Ref}
           className="block font-[family-name:var(--font-display)] italic will-change-transform self-end"
-          style={{ fontSize: "clamp(80px, 18vw, 240px)", color: "var(--v6-accent)", lineHeight: 0.9, opacity: 0 }}
+          style={{ fontSize: "clamp(44px, 13vw, 240px)", color: "var(--v6-accent)", lineHeight: 0.9, opacity: 0 }}
         >
           Komplett.
-        </div>
-      </div>
+        </span>
+      </h1>
 
       {/* Sub + CTA */}
       <div
@@ -258,7 +196,7 @@ export function HeroSpherePlus() {
               className="flex items-center justify-center w-10 h-10 border transition-all duration-300 group-hover:bg-[var(--v6-accent)] group-hover:text-[var(--v6-text-on-accent)]"
               style={{ borderColor: "var(--v6-accent)" }}
             >
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5">
                 <path d="M2 7h10M7 2l5 5-5 5" />
               </svg>
             </span>
@@ -269,4 +207,4 @@ export function HeroSpherePlus() {
   )
 }
 
-export default HeroSpherePlus
+export default HeroChrom
