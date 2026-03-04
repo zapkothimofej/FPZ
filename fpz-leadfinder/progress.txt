@@ -434,3 +434,24 @@ TypeCheck: 0 Fehler.
 - Created: src/app/settings/actions.ts (saveSettings Server Action with upsert)
 - Created: src/components/settings/SettingsForm.tsx (API key fields with show/hide/test, city checkboxes, scoring weight sliders, stats card)
 - TypeCheck: 0 Fehler
+US-032 abgeschlossen. Commit `828548a`.
+
+**Was erstellt:**
+- `src/app/settings/page.tsx` — Server Component, lädt Settings + 4 Statistik-Counts + letzten Scan
+- `src/app/settings/actions.ts` — `saveSettings` Server Action mit Prisma upsert
+- `src/components/settings/SettingsForm.tsx` — API-Key-Felder (show/hide + Groq-Test), Stadt-Checkboxen, Scoring-Gewichtungs-Slider mit Summen-Validierung, Stats-Card
+--- Iteration 33 started at 23:22:35 ---
+--- Iteration 33 completed ---
+
+## US-033: Toast Notifications und Sonner Setup — DONE
+- No files modified (all toast calls already implemented in previous iterations)
+- Verified: Toaster in layout.tsx (position="bottom-right" theme="dark" richColors) — ✅ US-004
+- Verified: StatusDropdown.tsx — toast.success/error ✅
+- Verified: LeadNotes.tsx — toast.success/error ✅
+- Verified: BriefingView.tsx — toast.success/error ✅
+- Verified: ScriptView.tsx — toast.success/error + copy toast ✅
+- Verified: ScanForm.tsx — toast.info/success/error ✅
+- Verified: SettingsForm.tsx — toast.success/error ✅
+- Verified: ExportSection.tsx — toast.success ✅
+- Verified: LeadDetailActions.tsx — toast.info/success/error ✅
+- TypeCheck: 0 Fehler

@@ -664,8 +664,8 @@
         "Typecheck passes"
       ],
       "priority": 33,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "Alle Toast-Aufrufe waren bereits aus vorherigen Iterationen vorhanden: Toaster in layout.tsx (US-004), StatusDropdown, LeadNotes, BriefingView, ScriptView, ScanForm, SettingsForm, ExportSection, LeadDetailActions alle mit korrekten toast.success/error/info-Aufrufen. TypeCheck: 0 Fehler."
     },
     {
       "id": "US-034",
