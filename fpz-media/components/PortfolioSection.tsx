@@ -8,12 +8,14 @@ import { portfolioPlaceholders } from "@/lib/content-de"
 
 gsap.registerPlugin(ScrollTrigger)
 
-const CARD_GRADIENTS: Record<string, string> = {
-  large:
-    "linear-gradient(135deg, var(--v6-bg-elevated) 0%, var(--v6-border) 50%, transparent 100%)",
-  medium:
-    "linear-gradient(160deg, var(--v6-bg) 0%, var(--v6-bg-elevated) 40%, var(--v6-border) 100%)",
-  small: "linear-gradient(180deg, var(--v6-bg-elevated) 0%, var(--v6-bg) 100%)",
+// Per-card gradient variants — each card gets a distinct colour accent
+const CARD_GRADIENTS: Record<number, string> = {
+  1: "linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #0f3460 100%)",
+  2: "linear-gradient(150deg, #1a1a1a 0%, #2d1b1b 40%, #4a1515 100%)",
+  3: "linear-gradient(160deg, #0d1f0d 0%, #1a2e1a 40%, #0d3320 100%)",
+  4: "linear-gradient(140deg, #1e1a0f 0%, #2e2510 40%, #3d3010 100%)",
+  5: "linear-gradient(155deg, #1a0d2e 0%, #2d1b4a 40%, #3d1560 100%)",
+  6: "linear-gradient(165deg, #0d1e2e 0%, #0f2d3d 40%, #103d4a 100%)",
 }
 
 export function PortfolioSection() {
@@ -152,7 +154,7 @@ export function PortfolioSection() {
               key={item.id}
               role="article"
               tabIndex={0}
-              aria-label={`Projekt: ${item.title} — ${item.industry}`}
+              aria-label={`Projekt: ${item.title} — ${item.industry} (demnächst)`}
               className={`v6-portfolio-card group cursor-pointer overflow-hidden rounded-xl ${getSizeClasses(item.size)} ${getHeight(item.size)}`}
               style={{ opacity: 0 }}
               onMouseEnter={handleMouseEnter}
@@ -171,7 +173,7 @@ export function PortfolioSection() {
                 <div
                   className={`relative shrink-0 ${getPreviewHeight(item.size)}`}
                   style={{
-                    background: CARD_GRADIENTS[item.size] || CARD_GRADIENTS.small,
+                    background: CARD_GRADIENTS[item.id] ?? "linear-gradient(180deg, var(--v6-bg-elevated) 0%, var(--v6-bg) 100%)",
                   }}
                 >
                   <div
@@ -181,9 +183,22 @@ export function PortfolioSection() {
                         "repeating-linear-gradient(0deg, transparent 0, transparent 19px, var(--v6-border) 20px), repeating-linear-gradient(90deg, transparent 0, transparent 19px, var(--v6-border) 20px)",
                     }}
                   />
+                  {/* Demnächst-Badge */}
+                  <span
+                    className="absolute top-4 left-4 text-[10px] tracking-[0.14em] uppercase px-2.5 py-1 rounded-md font-semibold"
+                    style={{
+                      backgroundColor: "rgba(255,255,255,0.08)",
+                      color: "rgba(255,255,255,0.5)",
+                      border: "1px solid rgba(255,255,255,0.12)",
+                      fontFamily: "var(--font-body)",
+                      backdropFilter: "blur(4px)",
+                    }}
+                  >
+                    Demnächst
+                  </span>
                   <span
                     className="absolute top-4 right-4 font-[family-name:var(--font-display)] text-[clamp(28px,4vw,56px)] leading-none select-none"
-                    style={{ color: "var(--v6-accent)", opacity: 0.15 }}
+                    style={{ color: "rgba(255,255,255,0.1)", opacity: 0.8 }}
                     aria-hidden
                   >
                     {String(item.id).padStart(2, "0")}
@@ -207,7 +222,6 @@ export function PortfolioSection() {
                       strokeWidth="2"
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      aria-hidden="true"
                     >
                       <path d="M7 17L17 7M17 7H7M17 7v10" />
                     </svg>
@@ -256,6 +270,66 @@ export function PortfolioSection() {
               </div>
             </div>
           ))}
+
+          {/* CTA-Karte: Dein Projekt hier? */}
+          <div
+            role="article"
+            className={`v6-portfolio-card group overflow-hidden rounded-xl ${getSizeClasses("small")} ${getHeight("small")}`}
+            style={{ opacity: 0 }}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          >
+            <a
+              href="#contact"
+              className="v6-portfolio-inner w-full h-full flex flex-col items-center justify-center relative rounded-xl overflow-hidden transition-[box-shadow] duration-300 group-hover:shadow-[var(--v6-shadow-card-hover)]"
+              style={{
+                display: "flex",
+                background: "linear-gradient(135deg, var(--v6-bg) 0%, var(--v6-bg-elevated) 100%)",
+                minHeight: "inherit",
+                height: "100%",
+                border: "1px dashed var(--v6-border)",
+                textDecoration: "none",
+              }}
+              aria-label="Dein Projekt hier? Jetzt anfragen"
+            >
+              <div
+                className="w-10 h-10 rounded-full flex items-center justify-center mb-4 transition-colors duration-200 group-hover:bg-[var(--v6-accent)]"
+                style={{ border: "1px solid var(--v6-border)" }}
+              >
+                <svg
+                  aria-hidden="true"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  style={{ color: "var(--v6-accent)" }}
+                >
+                  <path d="M12 5v14M5 12h14" />
+                </svg>
+              </div>
+              <p
+                className="font-[family-name:var(--font-display)] text-center px-6"
+                style={{
+                  fontSize: "clamp(16px, 2vw, 22px)",
+                  color: "var(--v6-text)",
+                  lineHeight: 1.3,
+                  letterSpacing: "-0.01em",
+                }}
+              >
+                Dein Projekt hier?
+              </p>
+              <p
+                className="text-[11px] tracking-[0.1em] uppercase mt-2"
+                style={{ color: "var(--v6-accent)", fontFamily: "var(--font-body)" }}
+              >
+                Jetzt anfragen →
+              </p>
+            </a>
+          </div>
         </div>
 
         {/* Footer */}
@@ -286,7 +360,6 @@ export function PortfolioSection() {
               fill="none"
               stroke="currentColor"
               strokeWidth="2"
-              aria-hidden="true"
             >
               <path d="M7 17L17 7M17 7H7M17 7v10" />
             </svg>

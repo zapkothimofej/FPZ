@@ -24,7 +24,13 @@ export function V6ThemeProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const stored = localStorage.getItem(STORAGE_KEY) as Theme | null
-    if (stored === "light" || stored === "dark") setThemeState(stored)
+    if (stored === "light" || stored === "dark") {
+      setThemeState(stored)
+    } else {
+      // No stored preference → fall back to system preference
+      const mq = window.matchMedia("(prefers-color-scheme: light)")
+      setThemeState(mq.matches ? "light" : "dark")
+    }
     setMounted(true)
   }, [])
 
@@ -32,6 +38,17 @@ export function V6ThemeProvider({ children }: { children: React.ReactNode }) {
     if (!mounted) return
     localStorage.setItem(STORAGE_KEY, theme)
   }, [theme, mounted])
+
+  // Cross-tab sync: pick up theme changes made in other tabs
+  useEffect(() => {
+    const handleStorage = (e: StorageEvent) => {
+      if (e.key === STORAGE_KEY && (e.newValue === "light" || e.newValue === "dark")) {
+        setThemeState(e.newValue)
+      }
+    }
+    window.addEventListener("storage", handleStorage)
+    return () => window.removeEventListener("storage", handleStorage)
+  }, [])
 
   const setTheme = (t: Theme) => setThemeState(t)
   const toggleTheme = () => setThemeState((prev) => (prev === "dark" ? "light" : "dark"))

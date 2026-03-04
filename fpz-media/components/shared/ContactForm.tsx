@@ -41,6 +41,8 @@ const DE = {
   sendButton: "Nachricht senden",
   errorGeneric: "Etwas ist schiefgelaufen.",
   errorNetwork: "Netzwerkfehler. Bitte erneut versuchen.",
+  errorTimeout: "Zeitüberschreitung. Bitte in Kürze erneut versuchen.",
+  retrying: "Erneuter Versuch…",
 }
 const EN = {
   successTitle: "Message sent!",
@@ -64,15 +66,33 @@ const EN = {
   sendButton: "Send Message",
   errorGeneric: "Something went wrong.",
   errorNetwork: "Network error. Please try again.",
+  errorTimeout: "Request timed out. Please try again shortly.",
+  retrying: "Retrying…",
 }
 
-type FormState = "idle" | "loading" | "success" | "error"
+type FormState = "idle" | "loading" | "retrying" | "success" | "error"
 
 export function ContactForm({ accentColor, className, lang = "en" }: ContactFormProps) {
   const t = lang === "de" ? DE : EN
   const [formState, setFormState] = useState<FormState>("idle")
   const [errorMessage, setErrorMessage] = useState("")
   const [service, setService] = useState("")
+
+  async function attemptFetch(payload: object): Promise<Response> {
+    const controller = new AbortController()
+    const timeoutId = setTimeout(() => controller.abort(), 10_000)
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+        signal: controller.signal,
+      })
+      return res
+    } finally {
+      clearTimeout(timeoutId)
+    }
+  }
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -89,26 +109,32 @@ export function ContactForm({ accentColor, className, lang = "en" }: ContactForm
       service,
     }
 
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      })
+    const tryRequest = async (isRetry: boolean): Promise<void> => {
+      try {
+        const res = await attemptFetch(payload)
+        const data = await res.json()
 
-      const data = await res.json()
+        if (!res.ok) {
+          setErrorMessage(data.error ?? t.errorGeneric)
+          setFormState("error")
+          return
+        }
 
-      if (!res.ok) {
-        setErrorMessage(data.error ?? t.errorGeneric)
+        setFormState("success")
+      } catch (err) {
+        const isTimeout = err instanceof DOMException && err.name === "AbortError"
+        if (!isRetry) {
+          // 1x retry after 2s
+          setFormState("retrying")
+          await new Promise((resolve) => setTimeout(resolve, 2000))
+          return tryRequest(true)
+        }
+        setErrorMessage(isTimeout ? t.errorTimeout : t.errorNetwork)
         setFormState("error")
-        return
       }
-
-      setFormState("success")
-    } catch {
-      setErrorMessage(t.errorNetwork)
-      setFormState("error")
     }
+
+    await tryRequest(false)
   }
 
   if (formState === "success") {
@@ -147,7 +173,7 @@ export function ContactForm({ accentColor, className, lang = "en" }: ContactForm
     )
   }
 
-  const isLoading = formState === "loading"
+  const isLoading = formState === "loading" || formState === "retrying"
 
   return (
     <form
@@ -310,7 +336,7 @@ export function ContactForm({ accentColor, className, lang = "en" }: ContactForm
               <circle cx="12" cy="12" r="10" strokeOpacity="0.25" />
               <path d="M12 2a10 10 0 0 1 10 10" />
             </svg>
-            {t.sending}
+            {formState === "retrying" ? t.retrying : t.sending}
           </span>
         ) : (
           t.sendButton
