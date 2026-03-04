@@ -1,16 +1,3 @@
-import { Composition } from "remotion";
-import { FPZVideo } from "./Video";
-import "./tokens";
+import React from "react";
 
-export const RemotionRoot = () => (
-  <>
-    <Composition
-      id="FPZMediaAd"
-      component={FPZVideo}
-      durationInFrames={1800}
-      fps={60}
-      width={1920}
-      height={1080}
-    />
-  </>
-);
+export const RemotionRoot = (): React.ReactElement => <></>;
