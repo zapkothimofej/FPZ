@@ -419,3 +419,18 @@ US-030 abgeschlossen. Erstellt:
 - Created: src/app/scan/page.tsx (Server Component, Metadata, ScanLog History-Tabelle mit letzten 10 Scans)
 - Created: src/components/scan/ScanForm.tsx (Client Component: Stadt-Auswahl Grid, Alle/Keine Buttons, Scan-Button, Polling alle 2s, Fortschritts-Card, Ergebnis-Card)
 - TypeCheck: 0 Fehler
+US-031 abgeschlossen. Commit `133b27a`.
+
+**Was erstellt:**
+- `src/app/scan/page.tsx` — Server Component mit Metadata, lädt letzte 10 ScanLogs für History-Tabelle
+- `src/components/scan/ScanForm.tsx` — Client Component mit Stadt-Auswahl Grid (Alle/Keine Buttons, Checkboxen), Scan-Button, Polling alle 2s auf `/api/scan/status`, Fortschritts-Card und Ergebnis-Card
+
+TypeCheck: 0 Fehler.
+--- Iteration 32 started at 23:21:08 ---
+--- Iteration 32 completed ---
+
+## US-032: Einstellungen Seite — DONE
+- Created: src/app/settings/page.tsx (Server Component, loads settings + stats + lastScan)
+- Created: src/app/settings/actions.ts (saveSettings Server Action with upsert)
+- Created: src/components/settings/SettingsForm.tsx (API key fields with show/hide/test, city checkboxes, scoring weight sliders, stats card)
+- TypeCheck: 0 Fehler

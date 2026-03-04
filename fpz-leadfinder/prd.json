@@ -650,8 +650,8 @@
         "Verify in browser using dev-browser skill"
       ],
       "priority": 32,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "Settings page with API key management, default cities, scoring weights, and stats. Server Action for upsert."
     },
     {
       "id": "US-033",
