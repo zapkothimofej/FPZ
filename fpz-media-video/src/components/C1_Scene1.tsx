@@ -1,27 +1,11 @@
-import { AbsoluteFill, Easing, interpolate, useCurrentFrame } from "remotion";
+import { AbsoluteFill, interpolate, useCurrentFrame } from "remotion";
 import { FONTS } from "../tokens";
-
-const DURATION = 325;
-const EASE = Easing.bezier(0.25, 0.1, 0.25, 1);
-
-const fadeIn = (frame: number, start: number, end: number) =>
-  interpolate(frame, [start, end], [0, 1], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-    easing: EASE,
-  });
-
-const slideY = (frame: number, start: number, end: number, from = 20, to = 0) =>
-  interpolate(frame, [start, end], [from, to], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-    easing: EASE,
-  });
+import { SCENE_DURATION, fadeIn, slideY } from "../utils/animation";
 
 export const C1_Scene1 = () => {
   const frame = useCurrentFrame();
 
-  const scale = interpolate(frame, [0, DURATION], [1, 1.005], {
+  const scale = interpolate(frame, [0, SCENE_DURATION], [1, 1.005], {
     extrapolateLeft: "clamp",
     extrapolateRight: "clamp",
   });
