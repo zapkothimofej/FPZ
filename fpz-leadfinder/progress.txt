@@ -394,3 +394,18 @@ US-028 abgeschlossen. Commit `a112a37`.
 - Created: src/app/api/export/pdf/[leadId]/route.ts (GET /api/export/pdf/[leadId] — lädt Lead mit Relations, generiert PDF, sendet als Download)
 - Fix: Buffer → new Uint8Array(pdfBuffer) für NextResponse (BodyInit Compatibility)
 - TypeCheck: 0 Fehler
+US-029 abgeschlossen.
+
+**Was erstellt:**
+- `src/lib/export/pdf.ts` — `generateLeadPDF()`: 4-seitiges PDF (Deckblatt mit farbigem Score, Kontaktdaten + 9-Kategorie-Score-Tabelle via autoTable, Briefing mit Schwachstellen, Verkaufsskript mit Einwand-Tabelle)
+- `src/app/api/export/pdf/[leadId]/route.ts` — `GET /api/export/pdf/[leadId]`: lädt Lead mit allen Relations, generiert PDF, sendet als Download
+
+**Fix:** `Buffer` → `new Uint8Array(pdfBuffer)` für `NextResponse`-Kompatibilität (TypeScript `BodyInit`).
+--- Iteration 30 started at 23:18:15 ---
+--- Iteration 30 completed ---
+
+## US-030: CSV Export — DONE
+- Created: src/lib/export/csv.ts (generateLeadCSV — UTF-8 BOM, Semikolon-Delimiter, escapeCSV für RFC-konforme Escaping)
+- Created: src/app/api/export/csv/route.ts (GET /api/export/csv mit Filtern: city/category/status/minScore/maxScore/search/ids)
+- Fix: Prisma import von @/generated/prisma/client statt @prisma/client
+- TypeCheck: 0 Fehler
