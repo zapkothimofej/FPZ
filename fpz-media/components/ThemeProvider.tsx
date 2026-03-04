@@ -19,30 +19,27 @@ export function useV6Theme() {
 }
 
 export function V6ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setThemeState] = useState<Theme>("dark")
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
+  // Lazy initializer: runs only on client (typeof window guard for SSR safety)
+  const [theme, setThemeState] = useState<Theme>(() => {
+    if (typeof window === "undefined") return "dark"
     const stored = localStorage.getItem(STORAGE_KEY) as Theme | null
-    if (stored === "light" || stored === "dark") {
-      setThemeState(stored)
-      setMounted(true)
-      return
-    }
+    if (stored === "light" || stored === "dark") return stored
+    return window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark"
+  })
 
-    // No explicit choice → follow system preference live
+  // Persist theme changes
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY, theme)
+  }, [theme])
+
+  // Follow OS preference live — only when the user has no explicit stored preference
+  useEffect(() => {
+    if (localStorage.getItem(STORAGE_KEY)) return
     const mq = window.matchMedia("(prefers-color-scheme: light)")
-    setThemeState(mq.matches ? "light" : "dark")
-    setMounted(true)
     const handleMq = (e: MediaQueryListEvent) => setThemeState(e.matches ? "light" : "dark")
     mq.addEventListener("change", handleMq)
     return () => mq.removeEventListener("change", handleMq)
   }, [])
-
-  useEffect(() => {
-    if (!mounted) return
-    localStorage.setItem(STORAGE_KEY, theme)
-  }, [theme, mounted])
 
   // Cross-tab sync: pick up theme changes made in other tabs
   useEffect(() => {
@@ -61,7 +58,8 @@ export function V6ThemeProvider({ children }: { children: React.ReactNode }) {
   return (
     <ThemeContext.Provider value={{ theme, setTheme, toggleTheme }}>
       <div
-        data-theme={mounted ? theme : "dark"}
+        data-theme={theme}
+        suppressHydrationWarning
         className="min-h-screen transition-colors duration-300"
         style={{
           backgroundColor: "var(--v6-bg)",
