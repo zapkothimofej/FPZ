@@ -328,8 +328,8 @@
         "Verify in browser using dev-browser skill"
       ],
       "priority": 15,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "ScriptView.tsx erstellt mit Timeline-Layout (6 Steps: Begrüßung, Hook, Pain Points, Lösung, Termin, Einwandbehandlung), Copy-Button, Neu-generieren-Button, 4 States (kein Briefing, kein Skript, generierung läuft, Skript vorhanden). TypeCheck: 0 Fehler."
     },
     {
       "id": "US-016",

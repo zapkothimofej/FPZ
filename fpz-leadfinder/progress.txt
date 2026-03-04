@@ -208,3 +208,17 @@ US-013 abgeschlossen. Commit `0513018`.
 - Created: src/components/leads/BriefingView.tsx (4 States: kein Briefing+keine Analyse / kein Briefing+Analyse vorhanden / Generierung läuft / Briefing vorhanden)
 - Created: src/app/api/briefing/generate/route.ts (Stub, 501 Not Implemented)
 - Verified: npx tsc --noEmit — 0 Fehler
+US-014 abgeschlossen. Commit `015bbb4`.
+
+**Was erstellt:**
+- `src/components/leads/BriefingView.tsx` — 4 States (kein Briefing+keine Analyse / kein Briefing+Analyse vorhanden / Generierung läuft / Briefing vorhanden), alle Sections (Zusammenfassung, Schwachstellen, Vorschläge, Aufwand, Gesprächseinstieg mit Copy-Button, Abschluss-Potential-Balken)
+- `src/app/api/briefing/generate/route.ts` — Stub (501), vollständige Implementierung folgt in US-021
+
+TypeCheck: 0 Fehler.
+--- Iteration 15 started at 22:53:21 ---
+
+US-015 DONE (2026-03-04):
+Files created:
+- `src/components/leads/ScriptView.tsx` — Timeline-Layout mit 6 Steps (Begrüßung/Phone/blue, Hook/Zap/yellow, Pain Points/AlertTriangle/red, Lösung/Lightbulb/green, Termin/Calendar/blue, Einwandbehandlung/Shield/zinc), shadcn Accordion für Einwände, Copy-Button für fullScript, Neu-generieren-Button, 4 States (kein Briefing, kein Skript, generierung läuft, Skript vorhanden)
+
+TypeCheck: 0 Fehler.
