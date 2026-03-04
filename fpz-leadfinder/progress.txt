@@ -1,0 +1,15 @@
+# Ralph Progress — FPZ LeadFinder
+# Auto-updated by ralph.sh
+
+--- Iteration 1 started at 22:19:10 ---
+--- Iteration 1 started at 22:24:22 ---
+
+## US-001: Next.js 16 Projekt initialisieren — DONE
+- Modified: src/app/layout.tsx (Geist font, dark mode, LeadFinder metadata)
+- Modified: src/app/page.tsx (LeadFinder placeholder)
+- Modified: src/app/globals.css (dark mode defaults + shadcn CSS vars + custom scrollbar)
+- Created: src/lib/utils.ts (cn helper)
+- Created: .env (from .env.example)
+- Created: directory structure with .gitkeep (scrapers, analyzers, ai, db, export, dashboard, leads, briefing, script, shared, types)
+- Installed: shadcn/ui with 20 components (button, card, badge, input, select, dropdown-menu, dialog, tooltip, skeleton, separator, sheet, tabs, accordion, slider, checkbox, textarea, progress, alert-dialog, popover, command)
+- Verified: npx tsc --noEmit — 0 errors

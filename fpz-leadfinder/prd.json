@@ -1,0 +1,904 @@
+{
+  "project": "FPZ LeadFinder",
+  "branchName": "ralph/leadfinder",
+  "description": "Internes Sales-Tool für FPC-Media: Automatisch Leads im Ruhrgebiet finden, Websites bewerten, KI-Briefings + Verkaufsskripte, Mini-CRM, PDF/CSV Export, Android App.",
+  "userStories": [
+    {
+      "id": "US-001",
+      "title": "Next.js 16 Projekt initialisieren",
+      "description": "Erstelle das komplette Grundprojekt in fpz-leadfinder/ mit allen Dependencies, Configs und Ordnerstruktur.",
+      "acceptanceCriteria": [
+        "Führe aus: cd D:/FPZ && npx create-next-app@latest fpz-leadfinder --typescript --tailwind --eslint --app --src-dir --import-alias '@/*' --use-npm",
+        "Falls create-next-app Probleme macht: Erstelle das Projekt manuell mit package.json, tsconfig.json, next.config.ts, src/app/layout.tsx, src/app/page.tsx",
+        "In fpz-leadfinder/package.json setze name auf 'fpz-leadfinder' und füge scripts hinzu: \"db:push\": \"prisma db push\", \"db:studio\": \"prisma studio\", \"db:generate\": \"prisma generate\", \"db:seed\": \"npx tsx prisma/seed.ts\"",
+        "Installiere Dependencies via npm install: prisma @prisma/client groq-sdk cheerio recharts jspdf jspdf-autotable lucide-react class-variance-authority clsx tailwind-merge @tanstack/react-table sonner",
+        "Installiere DevDependencies via npm install -D: @types/node @types/react @types/react-dom typescript eslint @tailwindcss/postcss tsx",
+        "Initialisiere shadcn: npx shadcn@latest init — wähle Style 'default', baseColor 'zinc', CSS variables yes. Falls interaktiv nicht geht, erstelle components.json manuell mit: { \"$schema\": \"https://ui.shadcn.com/schema.json\", \"style\": \"default\", \"rsc\": true, \"tsx\": true, \"tailwind\": { \"config\": \"tailwind.config.ts\", \"css\": \"src/app/globals.css\", \"baseColor\": \"zinc\", \"cssVariables\": true }, \"aliases\": { \"components\": \"@/components\", \"utils\": \"@/lib/utils\", \"ui\": \"@/components/ui\", \"lib\": \"@/lib\", \"hooks\": \"@/hooks\" } }",
+        "Installiere shadcn Komponenten einzeln: npx shadcn@latest add button card badge table input select dropdown-menu dialog tooltip skeleton separator sheet tabs accordion slider checkbox textarea progress alert-dialog popover command",
+        "Erstelle src/lib/utils.ts mit: import { type ClassValue, clsx } from 'clsx'; import { twMerge } from 'tailwind-merge'; export function cn(...inputs: ClassValue[]) { return twMerge(clsx(inputs)); }",
+        "In tsconfig.json setze: { \"compilerOptions\": { \"strict\": true, \"noUncheckedIndexedAccess\": true, \"target\": \"ES2017\", \"lib\": [\"dom\", \"dom.iterable\", \"esnext\"], \"allowJs\": true, \"skipLibCheck\": true, \"esModuleInterop\": true, \"allowSyntheticDefaultImports\": true, \"forceConsistentCasingInFileNames\": true, \"noEmit\": true, \"incremental\": true, \"module\": \"esnext\", \"moduleResolution\": \"bundler\", \"resolveJsonModule\": true, \"isolatedModules\": true, \"jsx\": \"preserve\", \"plugins\": [{ \"name\": \"next\" }], \"paths\": { \"@/*\": [\"./src/*\"] } }, \"include\": [\"next-env.d.ts\", \"**/*.ts\", \"**/*.tsx\", \".next/types/**/*.ts\"], \"exclude\": [\"node_modules\"] }",
+        "Erstelle diese leeren Ordner (mit .gitkeep): src/lib/scrapers/, src/lib/analyzers/, src/lib/ai/, src/lib/db/, src/lib/export/, src/components/dashboard/, src/components/leads/, src/components/briefing/, src/components/script/, src/components/shared/, src/types/",
+        "Erstelle .env.example mit exakt diesen Zeilen: DATABASE_URL='file:./dev.db'\\nGROQ_API_KEY='gsk_your_key_here'\\nHUGGINGFACE_TOKEN='hf_your_token_here'\\nCRON_SECRET='your-cron-secret-here'\\nNEXT_PUBLIC_APP_VERSION='0.1.0'",
+        "Kopiere .env.example zu .env (gleicher Inhalt)",
+        "In .gitignore füge hinzu: node_modules/\\n.next/\\n.env\\n.env.local\\nprisma/dev.db\\nprisma/dev.db-journal\\n*.tsbuildinfo\\n.vercel/",
+        "Erstelle src/app/globals.css mit Tailwind v4 Imports und Dark Mode Defaults: @import 'tailwindcss'; :root { color-scheme: dark; } body { @apply bg-zinc-950 text-zinc-50 antialiased; }",
+        "In src/app/layout.tsx: import globals.css, setze <html lang='de' className='dark'>, importiere Geist Font via next/font/google: const geist = Geist({ subsets: ['latin'] }), body className: geist.className + ' min-h-screen bg-zinc-950 text-zinc-50'",
+        "src/app/page.tsx: Einfacher Placeholder — export default function Home() { return <div className='p-8'><h1 className='text-3xl font-bold'>LeadFinder</h1><p className='text-zinc-400 mt-2'>Dashboard kommt hier.</p></div>; }",
+        "Führe aus: npm run dev — Seite muss auf http://localhost:3000 laden ohne Fehler",
+        "Führe aus: npx tsc --noEmit — Keine TypeScript Fehler",
+        "Typecheck passes"
+      ],
+      "priority": 1,
+      "passes": true,
+      "notes": "Project initialized with Next.js 16, shadcn/ui (20 components), Prisma, all dependencies installed. tsconfig strict mode, directory structure, .env, globals.css with dark mode + custom scrollbar."
+    },
+    {
+      "id": "US-002",
+      "title": "Prisma Schema mit allen Models und Indexes",
+      "description": "Erstelle das vollständige Datenbankschema mit 6 Models, Enums, Relations, Unique Constraints und Indexes.",
+      "acceptanceCriteria": [
+        "Führe aus: cd fpz-leadfinder && npx prisma init --datasource-provider sqlite",
+        "Ersetze prisma/schema.prisma mit exakt diesem Inhalt:\n\ngenerator client {\n  provider = \"prisma-client-js\"\n}\n\ndatasource db {\n  provider = \"sqlite\"\n  url      = env(\"DATABASE_URL\")\n}\n\nenum LeadStatus {\n  NEW\n  CONTACTED\n  OFFER_SENT\n  WON\n  REJECTED\n  ARCHIVED\n}\n\nenum LeadSource {\n  OSM\n  GOOGLE_MAPS\n  MANUAL\n}\n\nenum EffortLevel {\n  SMALL\n  MEDIUM\n  LARGE\n}\n\nmodel Lead {\n  id            String          @id @default(cuid())\n  name          String\n  address       String\n  city          String\n  zip           String?\n  phone         String?\n  email         String?\n  website       String?\n  category      String\n  subcategory   String?\n  googleMapsUrl String?\n  openingHours  String?\n  latitude      Float?\n  longitude     Float?\n  source        LeadSource      @default(OSM)\n  status        LeadStatus      @default(NEW)\n  overallScore  Int?\n  notes         String?\n  createdAt     DateTime        @default(now())\n  updatedAt     DateTime        @updatedAt\n  analysis      WebsiteAnalysis?\n  briefing      Briefing?\n  salesScript   SalesScript?\n\n  @@unique([name, address, city])\n  @@index([city])\n  @@index([status])\n  @@index([overallScore])\n  @@index([category])\n  @@index([createdAt])\n}",
+        "Füge Model WebsiteAnalysis hinzu:\n\nmodel WebsiteAnalysis {\n  id                 String   @id @default(cuid())\n  leadId             String   @unique\n  lead               Lead     @relation(fields: [leadId], references: [id], onDelete: Cascade)\n  performanceScore   Int      @default(0)\n  seoScore           Int      @default(0)\n  mobileScore        Int      @default(0)\n  securityScore      Int      @default(0)\n  designScore        Int      @default(0)\n  techScore          Int      @default(0)\n  ageScore           Int      @default(0)\n  accessibilityScore Int      @default(0)\n  contentScore       Int      @default(0)\n  overallScore       Int      @default(0)\n  details            String?  // JSON string\n  screenshotUrl      String?\n  techStack          String?  // JSON string\n  analyzedAt         DateTime @default(now())\n}",
+        "Füge Model Briefing hinzu:\n\nmodel Briefing {\n  id          String      @id @default(cuid())\n  leadId      String      @unique\n  lead        Lead        @relation(fields: [leadId], references: [id], onDelete: Cascade)\n  summary     String\n  weaknesses  String      // JSON string: Array<{ title: string, severity: string, description: string }>\n  suggestions String      // JSON string: Array<{ title: string, description: string, service: string }>\n  effort      EffortLevel @default(MEDIUM)\n  opener      String\n  riskScore   Int         @default(5)\n  fullText    String\n  generatedAt DateTime    @default(now())\n}",
+        "Füge Model SalesScript hinzu:\n\nmodel SalesScript {\n  id            String   @id @default(cuid())\n  leadId        String   @unique\n  lead          Lead     @relation(fields: [leadId], references: [id], onDelete: Cascade)\n  greeting      String\n  hook          String\n  painPoints    String   // JSON string: string[]\n  solution      String\n  callToAction  String\n  objections    String   // JSON string: Array<{ objection: string, response: string }>\n  fullScript    String\n  generatedAt   DateTime @default(now())\n}",
+        "Füge Model ScanLog hinzu:\n\nmodel ScanLog {\n  id           String    @id @default(cuid())\n  cities       String    // JSON string: string[]\n  newLeads     Int       @default(0)\n  updatedLeads Int       @default(0)\n  errors       Int       @default(0)\n  duration     Int       @default(0) // Sekunden\n  status       String    @default(\"running\") // running | completed | failed\n  startedAt    DateTime  @default(now())\n  completedAt  DateTime?\n}",
+        "Füge Model Settings hinzu:\n\nmodel Settings {\n  id                String   @id @default(\"default\")\n  groqApiKey        String?\n  huggingfaceToken  String?\n  defaultCities     String?  // JSON string: string[]\n  scoringWeights    String?  // JSON string: Record<string, number>\n  updatedAt         DateTime @updatedAt\n}",
+        "WICHTIG: SQLite unterstützt keine nativen Enums — Prisma mappt sie als Strings. Das ist korrekt so.",
+        "WICHTIG: SQLite unterstützt kein Json Type — nutze String und parse/stringify manuell. NICHT Json als Type verwenden.",
+        "Erstelle src/lib/db/client.ts mit exakt diesem Inhalt:\n\nimport { PrismaClient } from '@prisma/client';\n\nconst globalForPrisma = globalThis as unknown as { prisma: PrismaClient | undefined };\n\nexport const prisma = globalForPrisma.prisma ?? new PrismaClient();\n\nif (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma;\n\nexport default prisma;",
+        "Führe aus: npx prisma db push — muss erfolgreich die DB erstellen",
+        "Führe aus: npx prisma generate — muss den Client generieren",
+        "Führe aus: npx tsc --noEmit — keine Fehler",
+        "Typecheck passes"
+      ],
+      "priority": 2,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-003",
+      "title": "TypeScript Types, Constants und Utilities",
+      "description": "Erstelle zentrale Types, Konstanten (20 Städte mit Koordinaten, 30+ Kategorien, Score Weights) und Helper-Funktionen.",
+      "acceptanceCriteria": [
+        "Erstelle src/types/index.ts mit diesen Exports:\n\nexport type { Lead, WebsiteAnalysis, Briefing, SalesScript, ScanLog, Settings } from '@prisma/client';\nexport { LeadStatus, LeadSource, EffortLevel } from '@prisma/client';\n\nexport type ScoreCategory = 'performance' | 'seo' | 'mobile' | 'security' | 'design' | 'tech' | 'age' | 'accessibility' | 'content';\n\nexport type ScoreColor = 'red' | 'yellow' | 'green' | 'gray';\n\nexport interface City {\n  name: string;\n  lat: number;\n  lng: number;\n  radius: number; // km\n}\n\nexport interface AnalysisResult {\n  score: number;\n  details: Record<string, unknown>;\n}\n\nexport interface ScanResult {\n  newLeads: number;\n  updatedLeads: number;\n  errors: number;\n  duration: number;\n}\n\nexport interface ScrapedLead {\n  name: string;\n  address: string;\n  city: string;\n  zip?: string;\n  phone?: string;\n  email?: string;\n  website?: string;\n  category: string;\n  subcategory?: string;\n  googleMapsUrl?: string;\n  openingHours?: string;\n  latitude?: number;\n  longitude?: number;\n  source: 'OSM' | 'GOOGLE_MAPS' | 'MANUAL';\n}\n\nexport interface LeadWithRelations {\n  // Lead mit optionalen Relations\n  analysis: WebsiteAnalysis | null;\n  briefing: Briefing | null;\n  salesScript: SalesScript | null;\n}\n\nexport interface PaginatedResponse<T> {\n  data: T[];\n  total: number;\n  page: number;\n  totalPages: number;\n  limit: number;\n}",
+        "Erstelle src/lib/constants.ts mit RUHRGEBIET_CITIES als City[] Array — exakt diese 20 Städte mit Koordinaten: { name: 'Bochum', lat: 51.4818, lng: 7.2162, radius: 8 }, { name: 'Dortmund', lat: 51.5136, lng: 7.4653, radius: 12 }, { name: 'Essen', lat: 51.4556, lng: 7.0116, radius: 11 }, { name: 'Duisburg', lat: 51.4344, lng: 6.7623, radius: 10 }, { name: 'Gelsenkirchen', lat: 51.5177, lng: 7.0857, radius: 7 }, { name: 'Oberhausen', lat: 51.4963, lng: 6.8528, radius: 6 }, { name: 'Mülheim an der Ruhr', lat: 51.4272, lng: 6.8825, radius: 5 }, { name: 'Herne', lat: 51.5369, lng: 7.2211, radius: 5 }, { name: 'Hagen', lat: 51.3671, lng: 7.4633, radius: 8 }, { name: 'Hamm', lat: 51.6739, lng: 7.8160, radius: 8 }, { name: 'Witten', lat: 51.4370, lng: 7.3350, radius: 5 }, { name: 'Hattingen', lat: 51.3989, lng: 7.1853, radius: 4 }, { name: 'Recklinghausen', lat: 51.6141, lng: 7.1979, radius: 6 }, { name: 'Bottrop', lat: 51.5247, lng: 6.9286, radius: 5 }, { name: 'Marl', lat: 51.6561, lng: 7.0903, radius: 5 }, { name: 'Castrop-Rauxel', lat: 51.5547, lng: 7.3117, radius: 4 }, { name: 'Gladbeck', lat: 51.5706, lng: 6.9856, radius: 4 }, { name: 'Lünen', lat: 51.6166, lng: 7.5286, radius: 5 }, { name: 'Unna', lat: 51.5347, lng: 7.6889, radius: 5 }, { name: 'Schwerte', lat: 51.4464, lng: 7.5681, radius: 4 }",
+        "In constants.ts füge BUSINESS_CATEGORIES als string[] hinzu mit exakt diesen 35 Einträgen: 'Restaurant', 'Café', 'Bäckerei', 'Metzgerei', 'Friseur', 'Kosmetikstudio', 'Zahnarzt', 'Arzt', 'Apotheke', 'Physiotherapie', 'Rechtsanwalt', 'Steuerberater', 'Versicherung', 'Immobilienmakler', 'Handwerker', 'Elektriker', 'Klempner', 'Maler', 'Dachdecker', 'Autowerkstatt', 'Fahrschule', 'Fitnessstudio', 'Optiker', 'Blumenladen', 'Reinigung', 'Schlüsseldienst', 'Fotograf', 'Reisebüro', 'Tierarzt', 'Buchhandlung', 'Juwelier', 'Schuhgeschäft', 'Bekleidungsgeschäft', 'Möbelhaus', 'Hotel'",
+        "In constants.ts füge SCORE_WEIGHTS hinzu: export const SCORE_WEIGHTS: Record<ScoreCategory, number> = { performance: 0.15, seo: 0.15, mobile: 0.15, security: 0.10, design: 0.15, tech: 0.10, age: 0.05, accessibility: 0.10, content: 0.05 } as const;",
+        "In constants.ts füge SCORE_THRESHOLDS hinzu: export const SCORE_THRESHOLDS = { red: 40, yellow: 70 } as const;",
+        "In constants.ts füge STATUS_CONFIG hinzu: export const STATUS_CONFIG: Record<LeadStatus, { label: string; color: string; bgColor: string; textColor: string }> = { NEW: { label: 'Neu', color: '#6b7280', bgColor: 'bg-zinc-700', textColor: 'text-zinc-300' }, CONTACTED: { label: 'Kontaktiert', color: '#3b82f6', bgColor: 'bg-blue-500/20', textColor: 'text-blue-400' }, OFFER_SENT: { label: 'Angebot', color: '#f59e0b', bgColor: 'bg-yellow-500/20', textColor: 'text-yellow-400' }, WON: { label: 'Gewonnen', color: '#22c55e', bgColor: 'bg-green-500/20', textColor: 'text-green-400' }, REJECTED: { label: 'Abgelehnt', color: '#ef4444', bgColor: 'bg-red-500/20', textColor: 'text-red-400' }, ARCHIVED: { label: 'Archiviert', color: '#9ca3af', bgColor: 'bg-zinc-600/20', textColor: 'text-zinc-400' } };",
+        "In constants.ts füge OSM_CATEGORY_MAP hinzu: export const OSM_CATEGORY_MAP: Record<string, string> = { bakery: 'Bäckerei', restaurant: 'Restaurant', cafe: 'Café', bar: 'Bar', fast_food: 'Schnellimbiss', hairdresser: 'Friseur', beauty: 'Kosmetikstudio', dentist: 'Zahnarzt', doctors: 'Arzt', pharmacy: 'Apotheke', physiotherapist: 'Physiotherapie', lawyer: 'Rechtsanwalt', tax_advisor: 'Steuerberater', insurance: 'Versicherung', estate_agent: 'Immobilienmakler', electrician: 'Elektriker', plumber: 'Klempner', painter: 'Maler', car_repair: 'Autowerkstatt', driving_school: 'Fahrschule', fitness_centre: 'Fitnessstudio', optician: 'Optiker', florist: 'Blumenladen', dry_cleaning: 'Reinigung', locksmith: 'Schlüsseldienst', photographer: 'Fotograf', travel_agency: 'Reisebüro', veterinary: 'Tierarzt', books: 'Buchhandlung', jewelry: 'Juwelier', shoes: 'Schuhgeschäft', clothes: 'Bekleidungsgeschäft', furniture: 'Möbelhaus', hotel: 'Hotel', supermarket: 'Supermarkt' };",
+        "Aktualisiere src/lib/utils.ts — füge hinzu:\n\nimport { SCORE_THRESHOLDS } from './constants';\nimport type { ScoreColor } from '@/types';\n\nexport function getScoreColor(score: number | null | undefined): ScoreColor {\n  if (score == null) return 'gray';\n  if (score <= SCORE_THRESHOLDS.red) return 'red';\n  if (score <= SCORE_THRESHOLDS.yellow) return 'yellow';\n  return 'green';\n}\n\nexport function getScoreColorClass(score: number | null | undefined): string {\n  const color = getScoreColor(score);\n  const map: Record<ScoreColor, string> = { red: 'text-red-500', yellow: 'text-yellow-500', green: 'text-green-500', gray: 'text-zinc-500' };\n  return map[color];\n}\n\nexport function getScoreBgClass(score: number | null | undefined): string {\n  const color = getScoreColor(score);\n  const map: Record<ScoreColor, string> = { red: 'bg-red-500', yellow: 'bg-yellow-500', green: 'bg-green-500', gray: 'bg-zinc-600' };\n  return map[color];\n}\n\nexport function formatDate(date: Date | string): string {\n  return new Intl.DateTimeFormat('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric' }).format(new Date(date));\n}\n\nexport function formatDateTime(date: Date | string): string {\n  return new Intl.DateTimeFormat('de-DE', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }).format(new Date(date));\n}\n\nexport function truncate(str: string, len: number): string {\n  if (str.length <= len) return str;\n  return str.slice(0, len) + '...';\n}\n\nexport function slugify(str: string): string {\n  return str.toLowerCase().replace(/[äÄ]/g, 'ae').replace(/[öÖ]/g, 'oe').replace(/[üÜ]/g, 'ue').replace(/ß/g, 'ss').replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');\n}\n\nexport function parseJsonSafe<T>(json: string | null | undefined, fallback: T): T {\n  if (!json) return fallback;\n  try { return JSON.parse(json) as T; } catch { return fallback; }\n}",
+        "Führe aus: npx tsc --noEmit — keine Fehler",
+        "Typecheck passes"
+      ],
+      "priority": 3,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-004",
+      "title": "App Layout mit Sidebar und Dark Mode",
+      "description": "Erstelle das Root Layout mit collapsible Sidebar-Navigation links, Top-Bar oben, und responsive Bottom-Tab-Bar auf Mobile.",
+      "acceptanceCriteria": [
+        "Erstelle src/components/shared/Sidebar.tsx als 'use client' Component mit diesem Verhalten: State 'collapsed' (boolean, default false), gespeichert in localStorage key 'sidebar-collapsed'. Sidebar ist ein <aside> Element, position fixed, left 0, top 0, height 100vh, z-index 40. Breite: collapsed ? 64px : 256px, transition-all duration-300. Background: bg-zinc-900, border-right: border-r border-zinc-800.",
+        "Sidebar Inhalt von oben nach unten: 1) Logo-Bereich (h-16, flex items-center, px-4): Text 'LF' wenn collapsed, 'LeadFinder' wenn expanded (text-lg font-bold text-zinc-50). 2) Navigation (<nav>, flex-1, py-4): 4 NavItems als <Link> Elemente. 3) Collapse-Button ganz unten (p-4): Button mit ChevronLeft Icon (wenn expanded) oder ChevronRight Icon (wenn collapsed), onClick togglet collapsed State und speichert in localStorage.",
+        "NavItems Array: [{ href: '/', label: 'Dashboard', icon: Home }, { href: '/leads', label: 'Leads', icon: Users }, { href: '/scan', label: 'Scan', icon: Search }, { href: '/settings', label: 'Einstellungen', icon: Settings }] — Icons von lucide-react.",
+        "Jeder NavItem: <Link href={href} className={cn('flex items-center gap-3 px-3 py-2 mx-2 rounded-lg text-sm transition-colors', isActive ? 'bg-zinc-800 text-zinc-50 font-medium' : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/50')}> — isActive wird bestimmt via usePathname() === href (für '/' exact match, für andere startsWith). Wenn collapsed: nur Icon anzeigen (mx-auto), mit shadcn Tooltip das den label zeigt on hover.",
+        "Erstelle src/components/shared/MobileNav.tsx als 'use client' Component: Nur sichtbar unter md breakpoint (className='md:hidden fixed bottom-0 left-0 right-0 z-40 h-16 bg-zinc-900 border-t border-zinc-800 flex items-center justify-around'). 4 NavItems als <Link>, jedes: flex flex-col items-center gap-1, Icon (size 20) + Label (text-xs). Active State: text-blue-400, inactive: text-zinc-500.",
+        "Erstelle src/components/shared/TopBar.tsx als Component: <header className='h-16 border-b border-zinc-800 bg-zinc-900/80 backdrop-blur-sm flex items-center justify-between px-6 sticky top-0 z-30'>. Links: aktueller Seitentitel (bestimmt aus pathname: '/' → 'Dashboard', '/leads' → 'Leads', '/scan' → 'Scan', '/settings' → 'Einstellungen', '/leads/[id]' → 'Lead Details'). Rechts: Text 'FPC-Media' in text-sm text-zinc-500.",
+        "Aktualisiere src/app/layout.tsx: Importiere Sidebar, MobileNav, TopBar und Toaster (von sonner). Struktur: <html lang='de' className='dark'><body className={cn(geist.className, 'min-h-screen bg-zinc-950 text-zinc-50')}><div className='flex'><Sidebar /><div className='flex-1 md:ml-[var(--sidebar-width)]'><TopBar /><main className='p-4 md:p-6 pb-20 md:pb-6'>{children}</main></div></div><MobileNav /><Toaster position='bottom-right' theme='dark' richColors /></body></html>. Nutze CSS Variable --sidebar-width die sich mit collapsed State ändert (via Context oder CSS).",
+        "Erstelle src/components/shared/SidebarContext.tsx: React Context der collapsed State teilt zwischen Sidebar und Layout. Provider wrappet children in layout.tsx. useSidebar() Hook returned { collapsed, toggleCollapsed }. State persistiert in localStorage.",
+        "Teste: Sidebar expandiert/collapsed klappt, Navigation Links funktionieren, Mobile zeigt Bottom-Tab statt Sidebar, TopBar zeigt korrekten Seitentitel.",
+        "Führe aus: npx tsc --noEmit — keine Fehler",
+        "Typecheck passes",
+        "Verify in browser using dev-browser skill"
+      ],
+      "priority": 4,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-005",
+      "title": "Dashboard Statistik-Cards",
+      "description": "Erstelle 4 Stat-Cards auf dem Dashboard die Gesamt-Leads, Neue heute, Kontaktiert und Gewonnen mit Trend-Indikator zeigen.",
+      "acceptanceCriteria": [
+        "Erstelle src/lib/db/queries.ts mit diesen Query-Funktionen (alle nutzen prisma aus db/client.ts):\n\nexport async function getDashboardStats() {\n  const now = new Date();\n  const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());\n  const weekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);\n  const yesterdayStart = new Date(todayStart.getTime() - 24 * 60 * 60 * 1000);\n\n  const [total, newToday, contacted, won, totalWeekAgo, newYesterday, contactedWeekAgo, wonWeekAgo] = await Promise.all([\n    prisma.lead.count(),\n    prisma.lead.count({ where: { createdAt: { gte: todayStart } } }),\n    prisma.lead.count({ where: { status: 'CONTACTED' } }),\n    prisma.lead.count({ where: { status: 'WON' } }),\n    prisma.lead.count({ where: { createdAt: { lt: weekAgo } } }),\n    prisma.lead.count({ where: { createdAt: { gte: yesterdayStart, lt: todayStart } } }),\n    prisma.lead.count({ where: { status: 'CONTACTED', updatedAt: { lt: weekAgo } } }),\n    prisma.lead.count({ where: { status: 'WON', updatedAt: { lt: weekAgo } } }),\n  ]);\n\n  return {\n    total: { value: total, trend: total - totalWeekAgo },\n    newToday: { value: newToday, trend: newToday - newYesterday },\n    contacted: { value: contacted, trend: contacted - contactedWeekAgo },\n    won: { value: won, trend: won - wonWeekAgo },\n  };\n}",
+        "Erstelle src/components/dashboard/StatCards.tsx als Server Component (kein 'use client'). Ruft getDashboardStats() auf. Rendert 4 Cards in <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4'>.",
+        "Jede Card nutzt shadcn Card: <Card className='bg-zinc-900 border-zinc-800'><CardContent className='p-6'>. Inhalt: Zeile 1: <div className='flex items-center gap-2 text-sm text-zinc-400'><Icon className='h-4 w-4' /><span>{title}</span></div>. Zeile 2: <p className='text-3xl font-bold mt-2 {colorClass}'>{value}</p>. Zeile 3: <div className='flex items-center gap-1 mt-1 text-sm'>{trend > 0 ? <ArrowUp className='h-3 w-3 text-green-500' /> : trend < 0 ? <ArrowDown className='h-3 w-3 text-red-500' /> : <Minus className='h-3 w-3 text-zinc-500' />}<span className={trend > 0 ? 'text-green-500' : trend < 0 ? 'text-red-500' : 'text-zinc-500'}>{trend > 0 ? '+' : ''}{trend} diese Woche</span></div>.",
+        "Card Konfigurationen: 1) title='Gesamt Leads', icon=Users, colorClass='text-zinc-50'. 2) title='Neue heute', icon=UserPlus, colorClass='text-blue-400'. 3) title='Kontaktiert', icon=PhoneCall, colorClass='text-yellow-400'. 4) title='Gewonnen', icon=Trophy, colorClass='text-green-400'. Alle Icons von lucide-react.",
+        "Erstelle src/components/dashboard/StatCardsSkeleton.tsx: Gleiche Grid-Struktur, 4x shadcn <Skeleton className='h-[120px] bg-zinc-800 rounded-xl' />.",
+        "Führe aus: npx tsc --noEmit — keine Fehler",
+        "Typecheck passes",
+        "Verify in browser using dev-browser skill"
+      ],
+      "priority": 5,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-006",
+      "title": "Dashboard Stadt-Chart",
+      "description": "Erstelle ein horizontales Bar-Chart das die Top 10 Städte nach Lead-Anzahl zeigt mit Recharts.",
+      "acceptanceCriteria": [
+        "Füge Query zu src/lib/db/queries.ts hinzu:\n\nexport async function getCityDistribution() {\n  const results = await prisma.lead.groupBy({ by: ['city'], _count: { city: true }, orderBy: { _count: { city: 'desc' } }, take: 10 });\n  return results.map(r => ({ city: r.city, count: r._count.city }));\n}",
+        "Erstelle src/components/dashboard/CityChart.tsx als 'use client' Component. Props: data: { city: string; count: number }[]. Nutzt Recharts: import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts'.",
+        "Chart-Konfiguration: <ResponsiveContainer width='100%' height={350}><BarChart data={data} layout='vertical' margin={{ top: 5, right: 30, left: 80, bottom: 5 }}><XAxis type='number' stroke='#71717a' fontSize={12} /><YAxis type='category' dataKey='city' stroke='#71717a' fontSize={12} width={75} /><Tooltip contentStyle={{ backgroundColor: '#27272a', border: '1px solid #3f3f46', borderRadius: '8px', color: '#fafafa' }} formatter={(value: number) => [`${value} Leads`, 'Anzahl']} /><Bar dataKey='count' radius={[0, 4, 4, 0]} fill='#3b82f6' /></BarChart></ResponsiveContainer>.",
+        "Klick auf Bar: onClick Handler auf <Bar> mit onClick={(data) => router.push(`/leads?city=${data.city}`)} — importiere useRouter von next/navigation.",
+        "Wrapper: <Card className='bg-zinc-900 border-zinc-800'><CardHeader><CardTitle className='text-lg font-semibold text-zinc-100'>Leads nach Stadt</CardTitle></CardHeader><CardContent>{data.length > 0 ? <Chart /> : <EmptyState />}</CardContent></Card>.",
+        "Empty State: <div className='flex flex-col items-center justify-center py-12 text-zinc-500'><Search className='h-8 w-8 mb-2' /><p>Noch keine Leads vorhanden.</p><Link href='/scan' className='text-blue-400 hover:text-blue-300 mt-1 text-sm'>Starte einen Scan →</Link></div>.",
+        "Erstelle Wrapper-Component src/components/dashboard/CityChartWrapper.tsx als Server Component: Ruft getCityDistribution() auf und gibt data als Prop an CityChart weiter.",
+        "Führe aus: npx tsc --noEmit — keine Fehler",
+        "Typecheck passes",
+        "Verify in browser using dev-browser skill"
+      ],
+      "priority": 6,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-007",
+      "title": "Dashboard Letzte Leads Liste",
+      "description": "Erstelle eine kompakte Liste der 10 neuesten Leads mit Score-Ampel und Status-Badge auf dem Dashboard.",
+      "acceptanceCriteria": [
+        "Füge Query zu src/lib/db/queries.ts hinzu:\n\nexport async function getRecentLeads(limit = 10) {\n  return prisma.lead.findMany({ orderBy: { createdAt: 'desc' }, take: limit, include: { analysis: { select: { overallScore: true } } } });\n}",
+        "Erstelle src/components/dashboard/RecentLeads.tsx als Server Component. Ruft getRecentLeads() auf.",
+        "Wrapper: <Card className='bg-zinc-900 border-zinc-800'><CardHeader className='flex flex-row items-center justify-between'><CardTitle className='text-lg font-semibold text-zinc-100'>Neueste Leads</CardTitle><Link href='/leads' className='text-sm text-blue-400 hover:text-blue-300'>Alle anzeigen →</Link></CardHeader><CardContent>...</CardContent></Card>.",
+        "Lead-Liste: <div className='space-y-1'>. Jeder Lead als <Link href={`/leads/${lead.id}`} className='flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-zinc-800/50 transition-colors group'>.",
+        "Pro Lead-Row von links nach rechts: 1) Score-Dot: <div className={cn('h-2.5 w-2.5 rounded-full shrink-0', getScoreBgClass(lead.overallScore))} /> — nutze getScoreBgClass aus utils. 2) Firmenname: <span className='font-medium text-zinc-100 text-sm truncate flex-1'>{lead.name}</span>. 3) Stadt: <span className='text-xs text-zinc-500 hidden sm:inline'>{lead.city}</span>. 4) Branche-Badge: <Badge variant='secondary' className='bg-zinc-800 text-zinc-300 text-xs hidden md:inline-flex'>{lead.category}</Badge>. 5) Wenn lead.website null: <Badge className='bg-red-500/20 text-red-400 text-xs'>Keine Website</Badge>. Sonst: Score-Zahl <span className={cn('text-xs font-medium', getScoreColorClass(lead.overallScore))}>{lead.overallScore ?? '—'}</span>. 6) Status-Badge: <Badge className={cn('text-xs', STATUS_CONFIG[lead.status].bgColor, STATUS_CONFIG[lead.status].textColor)}>{STATUS_CONFIG[lead.status].label}</Badge>.",
+        "Empty State (wenn keine Leads): <div className='flex flex-col items-center justify-center py-12 text-zinc-500'><Users className='h-8 w-8 mb-2' /><p className='text-sm'>Keine Leads vorhanden.</p><p className='text-xs mt-1'>Starte einen Scan um Leads zu finden.</p></div>.",
+        "Führe aus: npx tsc --noEmit — keine Fehler",
+        "Typecheck passes",
+        "Verify in browser using dev-browser skill"
+      ],
+      "priority": 7,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-008",
+      "title": "Dashboard Pipeline Funnel",
+      "description": "Erstelle eine horizontale Pipeline-Ansicht die zeigt wie viele Leads in jedem Status sind mit Conversion-Raten.",
+      "acceptanceCriteria": [
+        "Füge Query zu src/lib/db/queries.ts hinzu:\n\nexport async function getPipelineStats() {\n  const results = await prisma.lead.groupBy({ by: ['status'], _count: { status: true } });\n  const map = Object.fromEntries(results.map(r => [r.status, r._count.status])) as Record<string, number>;\n  return {\n    new: map['NEW'] ?? 0,\n    contacted: map['CONTACTED'] ?? 0,\n    offerSent: map['OFFER_SENT'] ?? 0,\n    won: map['WON'] ?? 0,\n    rejected: map['REJECTED'] ?? 0,\n  };\n}",
+        "Erstelle src/components/dashboard/Pipeline.tsx als Server Component. Ruft getPipelineStats() auf.",
+        "Wrapper: <Card className='bg-zinc-900 border-zinc-800'><CardHeader><CardTitle className='text-lg font-semibold text-zinc-100'>Sales Pipeline</CardTitle></CardHeader><CardContent>...</CardContent></Card>.",
+        "Pipeline Layout: <div className='flex items-center justify-between gap-2'> mit 4 Steps und 3 Pfeilen dazwischen.",
+        "Jeder Step: <Link href={`/leads?status=${statusKey}`} className='flex-1 flex flex-col items-center gap-1 p-4 rounded-lg hover:bg-zinc-800/30 transition-colors cursor-pointer'>. Inhalt: <div className={cn('text-2xl font-bold', colorClass)}>{count}</div>, <div className='text-xs text-zinc-400'>{label}</div>, <div className='text-[10px] text-zinc-600'>{conversionPercent}%</div>.",
+        "Steps config: 1) Neu — count=pipeline.new, colorClass='text-zinc-300', statusKey='NEW'. 2) Kontaktiert — count=pipeline.contacted, colorClass='text-blue-400', statusKey='CONTACTED', conversion = pipeline.new > 0 ? Math.round(pipeline.contacted / pipeline.new * 100) : 0. 3) Angebot — count=pipeline.offerSent, colorClass='text-yellow-400', statusKey='OFFER_SENT', conversion from contacted. 4) Gewonnen — count=pipeline.won, colorClass='text-green-400', statusKey='WON', conversion from offerSent.",
+        "Pfeil zwischen Steps: <ChevronRight className='h-5 w-5 text-zinc-700 shrink-0' /> (lucide-react).",
+        "Responsive: Auf Mobile (unter sm) 2x2 Grid statt horizontal: className='grid grid-cols-2 sm:flex sm:items-center sm:justify-between gap-2'.",
+        "Führe aus: npx tsc --noEmit — keine Fehler",
+        "Typecheck passes",
+        "Verify in browser using dev-browser skill"
+      ],
+      "priority": 8,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-009",
+      "title": "Dashboard Layout zusammensetzen",
+      "description": "Kombiniere alle Dashboard-Widgets in einem Grid-Layout mit Suspense Boundaries auf der Startseite.",
+      "acceptanceCriteria": [
+        "Aktualisiere src/app/page.tsx zu einer Server Component die alle Dashboard-Komponenten importiert und in einem Layout anordnet.",
+        "Importiere: Suspense von 'react', StatCards, StatCardsSkeleton, CityChartWrapper, RecentLeads, Pipeline, und Skeleton von shadcn.",
+        "Layout-Struktur:\n<div className='space-y-6'>\n  <Suspense fallback={<StatCardsSkeleton />}>\n    <StatCards />\n  </Suspense>\n  <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>\n    <Suspense fallback={<Skeleton className='h-[420px] bg-zinc-900 rounded-xl' />}>\n      <CityChartWrapper />\n    </Suspense>\n    <Suspense fallback={<Skeleton className='h-[420px] bg-zinc-900 rounded-xl' />}>\n      <Pipeline />\n    </Suspense>\n  </div>\n  <Suspense fallback={<Skeleton className='h-[400px] bg-zinc-900 rounded-xl' />}>\n    <RecentLeads />\n  </Suspense>\n</div>",
+        "Metadata: export const metadata = { title: 'Dashboard — LeadFinder', description: 'FPC-Media Lead-Finder Dashboard' };",
+        "Teste: Dashboard Seite rendert alle 4 Widgets, Skeletons blitzen kurz auf, dann laden die echten Daten (bei leerer DB: Empty States).",
+        "Führe aus: npx tsc --noEmit — keine Fehler",
+        "Typecheck passes",
+        "Verify in browser using dev-browser skill"
+      ],
+      "priority": 9,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-010",
+      "title": "Lead-Liste DataTable mit Sortierung und Pagination",
+      "description": "Erstelle die /leads Seite mit einer sortierbaren, paginierten DataTable via @tanstack/react-table und einer API Route für Daten.",
+      "acceptanceCriteria": [
+        "Erstelle src/app/api/leads/route.ts mit GET Handler. Akzeptiert searchParams: page (default '1'), limit (default '25'), sort (default 'overallScore'), order (default 'asc'), city (komma-separiert), category (komma-separiert), status (komma-separiert), minScore, maxScore, search. Baut Prisma where-Clause: { AND: [city ? { city: { in: cities } } : {}, category ? { category: { in: categories } } : {}, status ? { status: { in: statuses } } : {}, minScore ? { overallScore: { gte: Number(minScore) } } : {}, maxScore ? { overallScore: { lte: Number(maxScore) } } : {}, search ? { OR: [{ name: { contains: search } }, { address: { contains: search } }] } : {}] }. Prisma query: findMany mit where, orderBy: { [sort]: order }, skip: (page-1)*limit, take: limit, include: { analysis: { select: { overallScore: true } } }. Auch: prisma.lead.count({ where }) für total. Return: NextResponse.json({ data: leads, total, page: Number(page), totalPages: Math.ceil(total/Number(limit)), limit: Number(limit) }).",
+        "Erstelle src/components/leads/columns.tsx: Definiert ColumnDef[] für @tanstack/react-table. Spalten: 1) 'name' — header: 'Name', cell: ({ row }) => <span className='font-medium text-zinc-100'>{row.original.name}</span>, enableSorting: true. 2) 'city' — header: 'Stadt', cell: text-zinc-300, enableSorting: true. 3) 'category' — header: 'Branche', cell: <Badge variant='secondary' className='bg-zinc-800 text-zinc-300 text-xs'>{value}</Badge>. 4) 'website' — header: 'Website', cell: wenn vorhanden <Globe className='h-4 w-4 text-green-500' /> sonst <X className='h-4 w-4 text-red-500' />. 5) 'overallScore' — header: 'Score', cell: <div className='flex items-center gap-2'><div className={cn('h-2 w-2 rounded-full', getScoreBgClass(value))} /><span className={getScoreColorClass(value)}>{value ?? '—'}</span></div>, enableSorting: true. 6) 'status' — header: 'Status', cell: <Badge className={cn(STATUS_CONFIG[value].bgColor, STATUS_CONFIG[value].textColor, 'text-xs')}>{STATUS_CONFIG[value].label}</Badge>. 7) 'createdAt' — header: 'Erstellt', cell: <span className='text-zinc-500 text-xs'>{formatDate(value)}</span>, enableSorting: true.",
+        "Erstelle src/components/leads/LeadTable.tsx als 'use client' Component. Props: initialData: PaginatedResponse<Lead>. Nutzt useReactTable mit getCoreRowModel, getSortedRowModel. State: sorting (SortingState), pagination. Rendert shadcn <Table>: <TableHeader> mit <TableHead onClick sort toggle> (Pfeil-Icon für Sortierrichtung), <TableBody> mit <TableRow> pro Lead. Jede Row ist klickbar: onClick={() => router.push(`/leads/${row.original.id}`)} className='cursor-pointer hover:bg-zinc-800/50 transition-colors'.",
+        "Pagination unter der Tabelle: <div className='flex items-center justify-between py-4'>. Links: <span className='text-sm text-zinc-400'>Seite {page} von {totalPages} ({total} Leads)</span>. Rechts: <div className='flex gap-2'><Button variant='outline' size='sm' disabled={page<=1} onClick={prevPage}>Zurück</Button><Button variant='outline' size='sm' disabled={page>=totalPages} onClick={nextPage}>Weiter</Button></div>. Pagination fetcht neue Daten via API Route.",
+        "Erstelle src/components/leads/LeadTableSkeleton.tsx: Tabellen-Skeleton mit 10 Rows, jede Row hat 7 Skeleton-Zellen.",
+        "Erstelle src/app/leads/page.tsx als Server Component: Fetcht initiale Daten via direkte Prisma Query (nicht API Route — Server Components können direkt DB zugreifen). Übergibt als Props an LeadTable. Metadata: { title: 'Leads — LeadFinder' }.",
+        "Führe aus: npx tsc --noEmit — keine Fehler",
+        "Typecheck passes",
+        "Verify in browser using dev-browser skill"
+      ],
+      "priority": 10,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-011",
+      "title": "Lead-Liste Filter-Bar mit Multi-Select und Suche",
+      "description": "Erstelle eine Filter-Bar über der Lead-Tabelle mit Multi-Select Dropdowns für Stadt/Branche/Status, Score-Slider und Freitext-Suche. Alle Filter persistieren als URL searchParams.",
+      "acceptanceCriteria": [
+        "Erstelle src/components/leads/LeadFilters.tsx als 'use client' Component. Nutzt useSearchParams() und useRouter() von next/navigation.",
+        "Layout: <div className='flex flex-wrap items-center gap-3 mb-4'>. Auf Mobile (unter md): Vertikal gestapelt (flex-col).",
+        "Suche: <div className='relative flex-1 min-w-[200px]'><Search className='absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-500' /><Input placeholder='Leads suchen...' className='pl-9 bg-zinc-900 border-zinc-800 text-zinc-100 placeholder:text-zinc-500' value={search} onChange={handleSearch} /></div>. Debounce 300ms via setTimeout — bei jedem Keystroke: clearTimeout, neuer setTimeout der nach 300ms router.push mit updated searchParams aufruft.",
+        "Stadt-Filter: Nutze shadcn Popover + Command (Combobox Pattern). Trigger: <Button variant='outline' className='bg-zinc-900 border-zinc-800 text-zinc-300'><MapPin className='h-4 w-4 mr-2' />{selectedCities.length > 0 ? `${selectedCities.length} Städte` : 'Stadt'}<ChevronDown className='h-4 w-4 ml-2' /></Button>. Popover Content: <Command><CommandInput placeholder='Stadt suchen...' /><CommandList><CommandEmpty>Keine Stadt gefunden.</CommandEmpty><CommandGroup>{RUHRGEBIET_CITIES.map(city => <CommandItem key={city.name} onSelect={toggleCity}><Checkbox checked={selectedCities.includes(city.name)} className='mr-2' />{city.name}</CommandItem>)}</CommandGroup></CommandList></Command>. Ausgewählte Städte werden als komma-separierter String in URL-Param 'city' geschrieben.",
+        "Branche-Filter: Gleiche Combobox-Struktur wie Stadt, aber mit BUSINESS_CATEGORIES. URL-Param: 'category'. Trigger zeigt '{n} Branchen' oder 'Branche'.",
+        "Status-Filter: Gleiche Combobox-Struktur, Optionen aus LeadStatus enum mit farbigen Dots: <div className={cn('h-2 w-2 rounded-full mr-2', STATUS_CONFIG[status].bgColor.replace('/20', ''))} /> neben jedem Label. URL-Param: 'status'.",
+        "Score-Range: <div className='flex items-center gap-2 min-w-[200px]'><span className='text-xs text-zinc-500'>Score:</span><Slider min={0} max={100} step={1} value={[minScore, maxScore]} onValueChange={handleScoreChange} className='flex-1' /><span className='text-xs text-zinc-400 w-16 text-right'>{minScore}–{maxScore}</span></div>. URL-Params: 'minScore', 'maxScore'. Nur in URL schreiben wenn nicht 0-100 (Default).",
+        "Reset-Button: Nur sichtbar wenn mindestens ein Filter aktiv: <Button variant='ghost' size='sm' className='text-zinc-500 hover:text-zinc-300' onClick={resetFilters}><X className='h-3 w-3 mr-1' />Zurücksetzen</Button>. resetFilters: router.push('/leads') ohne searchParams.",
+        "Ergebnis-Count: <p className='text-sm text-zinc-500 mt-2'>{total} Leads gefunden</p> unter der Filter-Bar. total wird als Prop von der Seite übergeben.",
+        "URL-Sync: Beim Mount (useEffect) alle Filter aus searchParams lesen und State setzen. Bei jeder Filter-Änderung: neue searchParams bauen und router.push('/leads?' + params.toString(), { scroll: false }) aufrufen — scroll: false damit die Seite nicht springt.",
+        "Führe aus: npx tsc --noEmit — keine Fehler",
+        "Typecheck passes",
+        "Verify in browser using dev-browser skill"
+      ],
+      "priority": 11,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-012",
+      "title": "Lead-Detail Kontaktdaten, Status und Notizen",
+      "description": "Erstelle die /leads/[id] Seite mit Kontakt-Card, Status-Dropdown (speichert sofort via Server Action) und Notiz-Feld.",
+      "acceptanceCriteria": [
+        "Erstelle src/app/leads/[id]/page.tsx als Server Component. Parameter: params: Promise<{ id: string }>. Query: prisma.lead.findUnique({ where: { id }, include: { analysis: true, briefing: true, salesScript: true } }). Wenn null: import { notFound } from 'next/navigation' und return notFound().",
+        "Metadata: export async function generateMetadata({ params }) { const { id } = await params; const lead = await prisma.lead.findUnique({ where: { id }, select: { name: true } }); return { title: lead ? `${lead.name} — LeadFinder` : 'Lead nicht gefunden' }; }",
+        "Layout: <div className='space-y-6'>. Zeile 1: Zurück-Button + Header. Zeile 2: Kontakt-Card. Zeile 3: Tabs (kommt in US-016).",
+        "Zurück-Button: <Link href='/leads' className='inline-flex items-center gap-1 text-sm text-zinc-400 hover:text-zinc-200 transition-colors mb-4'><ArrowLeft className='h-4 w-4' />Zurück zur Liste</Link>.",
+        "Header: <div className='flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4'><div><h1 className='text-2xl sm:text-3xl font-bold text-zinc-50'>{lead.name}</h1><div className='flex items-center gap-2 mt-1'><span className='text-zinc-400'>{lead.city}</span><Badge className='bg-zinc-800 text-zinc-300 text-xs'>{lead.category}</Badge><Badge className={cn('text-xs', lead.source === 'OSM' ? 'bg-blue-500/20 text-blue-400' : lead.source === 'GOOGLE_MAPS' ? 'bg-red-500/20 text-red-400' : 'bg-zinc-700 text-zinc-300')}>{lead.source}</Badge></div></div><StatusDropdown leadId={lead.id} currentStatus={lead.status} /></div>.",
+        "Erstelle src/components/leads/StatusDropdown.tsx als 'use client' Component. Props: leadId, currentStatus. Nutzt shadcn Select: <Select value={status} onValueChange={handleChange}><SelectTrigger className='w-[180px] bg-zinc-900 border-zinc-800'><SelectValue /></SelectTrigger><SelectContent className='bg-zinc-900 border-zinc-800'>{Object.entries(STATUS_CONFIG).map(([key, config]) => <SelectItem key={key} value={key}><div className='flex items-center gap-2'><div className={cn('h-2 w-2 rounded-full', config.bgColor.replace('/20', ''))} />{config.label}</div></SelectItem>)}</SelectContent></Select>. handleChange: ruft Server Action updateLeadStatus auf, zeigt Toast bei Erfolg/Fehler.",
+        "Erstelle src/app/leads/[id]/actions.ts mit 'use server'. Zwei Server Actions:\n\nexport async function updateLeadStatus(leadId: string, status: LeadStatus) {\n  await prisma.lead.update({ where: { id: leadId }, data: { status } });\n  revalidatePath(`/leads/${leadId}`);\n  revalidatePath('/leads');\n  revalidatePath('/');\n}\n\nexport async function updateLeadNotes(leadId: string, notes: string) {\n  await prisma.lead.update({ where: { id: leadId }, data: { notes } });\n  revalidatePath(`/leads/${leadId}`);\n}",
+        "Kontakt-Card: <Card className='bg-zinc-900 border-zinc-800'><CardContent className='p-6 grid grid-cols-1 md:grid-cols-2 gap-4'>. Items: 1) Adresse: <div className='flex items-start gap-3'><MapPin className='h-4 w-4 mt-1 text-zinc-500 shrink-0' /><div><p className='text-sm text-zinc-400'>Adresse</p>{lead.googleMapsUrl ? <a href={lead.googleMapsUrl} target='_blank' className='text-zinc-100 hover:text-blue-400 transition-colors'>{lead.address}{lead.zip ? `, ${lead.zip}` : ''} {lead.city}</a> : <p className='text-zinc-100'>{lead.address}, {lead.city}</p>}</div></div>. 2) Telefon: Phone Icon, wenn vorhanden: <a href={`tel:${lead.phone}`} className='text-zinc-100 hover:text-blue-400'>{lead.phone}</a>, sonst <span className='text-zinc-600'>Nicht verfügbar</span>. 3) Website: Globe Icon, wenn vorhanden: <a href={lead.website} target='_blank' className='text-blue-400 hover:text-blue-300 truncate'>{lead.website}</a>, sonst <span className='text-red-400'>Keine Website</span>. 4) Email: Mail Icon, analog zu Telefon. 5) Öffnungszeiten: Clock Icon, wenn vorhanden anzeigen.</CardContent></Card>.",
+        "Erstelle src/components/leads/LeadNotes.tsx als 'use client' Component. Props: leadId, initialNotes. Textarea: <Textarea placeholder='Notizen zum Lead...' className='bg-zinc-900 border-zinc-800 text-zinc-100 placeholder:text-zinc-600 min-h-[100px]' value={notes} onChange={e => setNotes(e.target.value)} onBlur={handleSave} />. handleSave: Wenn notes !== initialNotes → rufe Server Action updateLeadNotes auf, Toast 'Notiz gespeichert'. Debounce nicht nötig da onBlur.",
+        "Meta-Info am Ende: <div className='flex gap-4 text-xs text-zinc-600 mt-4'><span>Erstellt: {formatDateTime(lead.createdAt)}</span><span>Aktualisiert: {formatDateTime(lead.updatedAt)}</span></div>.",
+        "Führe aus: npx tsc --noEmit — keine Fehler",
+        "Typecheck passes",
+        "Verify in browser using dev-browser skill"
+      ],
+      "priority": 12,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-013",
+      "title": "Score-Ring Komponente und Score-Übersicht",
+      "description": "Erstelle eine wiederverwendbare ScoreRing SVG-Komponente und die Score-Übersicht mit 9 Kategorien im Grid.",
+      "acceptanceCriteria": [
+        "Erstelle src/components/shared/ScoreRing.tsx als 'use client' Component. Props: { score: number | null; size?: 'sm' | 'md' | 'lg'; label?: string; showLabel?: boolean; animated?: boolean }. Size-Map: sm = 56px, md = 80px, lg = 120px. StrokeWidth-Map: sm = 4, md = 5, lg = 6.",
+        "SVG Implementierung: const radius = (sizePx - strokeWidth * 2) / 2; const circumference = 2 * Math.PI * radius; const progress = score != null ? (score / 100) * circumference : 0; const offset = circumference - progress; const colorMap: Record<ScoreColor, string> = { red: '#ef4444', yellow: '#eab308', green: '#22c55e', gray: '#52525b' }; const strokeColor = colorMap[getScoreColor(score)];",
+        "SVG Markup: <div className='flex flex-col items-center gap-1'><svg width={sizePx} height={sizePx} className='transform -rotate-90'><circle cx={sizePx/2} cy={sizePx/2} r={radius} stroke='#27272a' strokeWidth={strokeWidth} fill='none' /><circle cx={sizePx/2} cy={sizePx/2} r={radius} stroke={strokeColor} strokeWidth={strokeWidth} fill='none' strokeLinecap='round' strokeDasharray={circumference} strokeDashoffset={offset} className={animated ? 'transition-all duration-1000 ease-out' : ''} /></svg><div className='absolute inset-0 flex items-center justify-center' style={{ width: sizePx, height: sizePx }}><span className={cn('font-bold', size === 'lg' ? 'text-3xl' : size === 'md' ? 'text-xl' : 'text-sm', `text-${getScoreColor(score) === 'gray' ? 'zinc-500' : getScoreColor(score) + '-500'}`)}>{score ?? '—'}</span></div>{showLabel && label && <span className='text-xs text-zinc-400 text-center'>{label}</span>}</div>. Container ist relative positioniert für die absolute Zahl-Positionierung.",
+        "Erstelle src/components/leads/ScoreOverview.tsx als 'use client' Component. Props: { analysis: WebsiteAnalysis | null; website: string | null; leadId: string }.",
+        "State 'Keine Website': Wenn website null → <Card className='bg-zinc-900 border-zinc-800'><CardContent className='flex flex-col items-center justify-center py-12'><Briefcase className='h-12 w-12 text-yellow-500 mb-3' /><h3 className='text-lg font-semibold text-zinc-100'>Keine Website vorhanden</h3><p className='text-sm text-zinc-400 mt-1 text-center max-w-md'>Dieses Unternehmen hat keine Website. Das ist eine hervorragende Sales-Chance — biete eine komplette Neuerstellung an!</p></CardContent></Card>.",
+        "State 'Nicht analysiert': Wenn analysis null aber website vorhanden → Gleiche Card-Struktur mit: <BarChart3 className='h-12 w-12 text-zinc-600 mb-3' /><h3>Website noch nicht analysiert</h3><p>Starte die Analyse um detaillierte Scores zu erhalten.</p><Button onClick={handleAnalyze} className='mt-4'>Website analysieren</Button>. handleAnalyze: fetch POST /api/analyze mit { leadId }, setLoading(true), bei Success reload.",
+        "State 'Analyse vorhanden': <div className='space-y-6'>. Oben: Gesamt-Score als ScoreRing size='lg' mit label='Gesamt'. Darunter: <div className='grid grid-cols-2 sm:grid-cols-3 gap-4'> mit 9 Kategorie-Ringen (size='sm'): [{ key: 'performanceScore', label: 'Performance' }, { key: 'seoScore', label: 'SEO' }, { key: 'mobileScore', label: 'Mobile' }, { key: 'securityScore', label: 'Sicherheit' }, { key: 'designScore', label: 'Design' }, { key: 'techScore', label: 'Technik' }, { key: 'ageScore', label: 'Alter' }, { key: 'accessibilityScore', label: 'Barrierefreiheit' }, { key: 'contentScore', label: 'Content' }]. Jeder Ring: <div className='flex flex-col items-center gap-2 p-3 rounded-lg hover:bg-zinc-800/30 transition-colors cursor-pointer' onClick={() => toggleDetail(key)}><ScoreRing score={analysis[key]} size='sm' /><span className='text-xs text-zinc-400'>{label}</span></div>.",
+        "Detail-Expansion: Wenn auf eine Kategorie geklickt, zeige darunter die Details aus analysis.details (JSON parsed). Details als Key-Value Liste: <div className='bg-zinc-800/30 rounded-lg p-3 mt-2 text-xs text-zinc-300 space-y-1'>. Jeder Detail-Eintrag: <div className='flex justify-between'><span>{key}</span><span className='text-zinc-400'>{value}</span></div>.",
+        "Loading State: Wenn Analyse läuft (isAnalyzing state) → Spinner overlay: <div className='flex flex-col items-center justify-center py-12'><Loader2 className='h-8 w-8 animate-spin text-blue-500' /><p className='text-sm text-zinc-400 mt-3'>Website wird analysiert...</p></div>.",
+        "Führe aus: npx tsc --noEmit — keine Fehler",
+        "Typecheck passes",
+        "Verify in browser using dev-browser skill"
+      ],
+      "priority": 13,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-014",
+      "title": "Briefing-Anzeige mit KI-Generierung",
+      "description": "Erstelle die Briefing-View Komponente die das KI-generierte Briefing anzeigt mit allen Sections und Generierungs-Buttons.",
+      "acceptanceCriteria": [
+        "Erstelle src/components/leads/BriefingView.tsx als 'use client' Component. Props: { briefing: Briefing | null; leadId: string; hasAnalysis: boolean }.",
+        "State 'Kein Briefing + keine Analyse': <div className='flex flex-col items-center py-12'><FileText className='h-12 w-12 text-zinc-600 mb-3' /><h3 className='text-lg font-semibold text-zinc-100'>Briefing nicht verfügbar</h3><p className='text-sm text-zinc-400 mt-1'>Die Website muss zuerst analysiert werden bevor ein Briefing generiert werden kann.</p></div>.",
+        "State 'Kein Briefing + Analyse vorhanden': Gleiche Struktur aber mit Button: <Button onClick={handleGenerate} className='mt-4'><Sparkles className='h-4 w-4 mr-2' />Briefing generieren</Button>.",
+        "handleGenerate: setIsGenerating(true), fetch POST /api/briefing/generate mit { leadId }, bei Success: toast.success('Briefing erfolgreich generiert'), router.refresh(). Bei Error: toast.error(`Fehler: ${error.message}`). Finally: setIsGenerating(false).",
+        "State 'Generierung läuft': <div className='flex flex-col items-center py-12'><Loader2 className='h-8 w-8 animate-spin text-blue-500' /><p className='text-sm text-zinc-400 mt-3'>KI generiert Briefing...</p><p className='text-xs text-zinc-600 mt-1'>Das kann bis zu 15 Sekunden dauern.</p></div>.",
+        "State 'Briefing vorhanden': Header mit 'Neu generieren' Button: <div className='flex items-center justify-between mb-4'><h3 className='text-lg font-semibold text-zinc-100'>Sales-Briefing</h3><Button variant='outline' size='sm' onClick={handleGenerate} disabled={isGenerating}><RefreshCw className={cn('h-3 w-3 mr-1', isGenerating && 'animate-spin')} />Neu generieren</Button></div>.",
+        "Section 1 'Zusammenfassung': <div className='bg-zinc-800/50 border-l-4 border-blue-500 rounded-r-lg p-4 mb-4'><p className='text-zinc-200 text-sm leading-relaxed'>{briefing.summary}</p></div>.",
+        "Section 2 'Schwachstellen': <div className='mb-4'><h4 className='text-sm font-medium text-zinc-300 mb-2'>Schwachstellen</h4><div className='space-y-2'>. Jede Weakness (aus parseJsonSafe(briefing.weaknesses, [])): <div className='flex items-start gap-3 p-3 rounded-lg bg-zinc-800/20'><Badge className={cn('text-xs shrink-0 mt-0.5', severity === 'critical' ? 'bg-red-500/20 text-red-400' : severity === 'high' ? 'bg-orange-500/20 text-orange-400' : severity === 'medium' ? 'bg-yellow-500/20 text-yellow-400' : 'bg-zinc-700 text-zinc-300')}>{severity === 'critical' ? 'Kritisch' : severity === 'high' ? 'Hoch' : severity === 'medium' ? 'Mittel' : 'Niedrig'}</Badge><div><p className='text-sm font-medium text-zinc-100'>{w.title}</p><p className='text-xs text-zinc-400 mt-0.5'>{w.description}</p></div></div>.",
+        "Section 3 'Verbesserungsvorschläge': <div className='mb-4'><h4 className='text-sm font-medium text-zinc-300 mb-2'>Was FPC-Media anbieten kann</h4><div className='space-y-2'>. Jeder Suggestion: <div className='flex items-start gap-2 p-2'><CheckCircle2 className='h-4 w-4 text-green-500 shrink-0 mt-0.5' /><div><p className='text-sm text-zinc-100'>{s.title}</p><p className='text-xs text-zinc-400'>{s.description}</p></div></div>.",
+        "Section 4 'Aufwand': <div className='flex items-center gap-2 mb-4'><span className='text-sm text-zinc-400'>Geschätzter Aufwand:</span><Badge className={cn('text-xs', briefing.effort === 'SMALL' ? 'bg-green-500/20 text-green-400' : briefing.effort === 'MEDIUM' ? 'bg-yellow-500/20 text-yellow-400' : 'bg-red-500/20 text-red-400')}>{briefing.effort === 'SMALL' ? 'Gering (1–2 Tage)' : briefing.effort === 'MEDIUM' ? 'Mittel (3–5 Tage)' : 'Hoch (1–2 Wochen)'}</Badge></div>.",
+        "Section 5 'Gesprächseinstieg': Zitat-Box (bg-zinc-800 rounded-lg p-4 border-l-4 border-green-500 mb-4 relative group) mit briefing.opener Text in italic. Copy-Button oben rechts (opacity-0, group-hover:opacity-100), onClick kopiert opener in Zwischenablage + Toast.",
+        "Section 6 'Risiko-Score': Horizontaler Balken (flex items-center gap-3). Label 'Abschluss-Potential'. Progress-Bar: Breite = (10 - riskScore) * 10 Prozent. Farbe: riskScore 1-3 = gruen (#22c55e, Label 'Hoch'), 4-6 = gelb (#eab308, 'Mittel'), 7-10 = rot (#ef4444, 'Niedrig'). riskScore 1 = bestes Potential, 10 = schlechtestes.",
+        "Führe aus: npx tsc --noEmit — keine Fehler",
+        "Typecheck passes",
+        "Verify in browser using dev-browser skill"
+      ],
+      "priority": 14,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-015",
+      "title": "Verkaufsskript als Step-by-Step Telefonat-Leitfaden",
+      "description": "Erstelle die Skript-View Komponente als visuellen Telefonat-Leitfaden mit Timeline, Einwandbehandlung und Copy-Funktion.",
+      "acceptanceCriteria": [
+        "Erstelle src/components/leads/ScriptView.tsx als 'use client' Component. Props: { script: SalesScript | null; leadId: string; hasBriefing: boolean }.",
+        "States ohne Skript: Analog zu BriefingView — 'Briefing muss zuerst generiert werden' oder 'Skript generieren' Button. handleGenerate: fetch POST /api/script/generate mit { leadId }.",
+        "Copy-Button oben rechts: <Button variant='outline' size='sm' onClick={() => { navigator.clipboard.writeText(script.fullScript); toast.success('Skript in Zwischenablage kopiert'); }}><Copy className='h-3 w-3 mr-1' />Skript kopieren</Button>. Daneben: 'Neu generieren' Button wie bei Briefing.",
+        "Timeline-Layout: <div className='relative pl-8 space-y-6'>. Vertikale Linie links: <div className='absolute left-3 top-2 bottom-2 w-px bg-zinc-800' /> (pseudo-element oder absolute div).",
+        "Jeder Step hat diese Struktur: <div className='relative'><div className='absolute -left-8 top-1 flex items-center justify-center w-6 h-6 rounded-full bg-zinc-900 border-2 border-{stepColor}'><StepIcon className='h-3 w-3 text-{stepColor}' /></div><div className='pb-2'><h4 className='text-sm font-medium text-{stepColor} mb-1'>{stepLabel}</h4><div className='text-sm text-zinc-200 leading-relaxed bg-zinc-800/30 rounded-lg p-3'>{stepContent}</div></div></div>.",
+        "Step 1 'Begrüßung': Icon=Phone, color=blue-400, label='1. Begrüßung', content=script.greeting als Text.",
+        "Step 2 'Hook': Icon=Zap, color=yellow-400, label='2. Hook — Aufmerksamkeit gewinnen', content=<div className='bg-yellow-500/5 border border-yellow-500/20 rounded-lg p-3'>{script.hook}</div>.",
+        "Step 3 'Pain Points': Icon=AlertTriangle, color=red-400, label='3. Probleme ansprechen', content=<ul className='space-y-1.5'>. Jeder painPoint (aus parseJsonSafe): <li className='flex items-start gap-2'><ChevronRight className='h-4 w-4 text-red-400 shrink-0 mt-0.5' /><span>{point}</span></li>.",
+        "Step 4 'Lösung': Icon=Lightbulb, color=green-400, label='4. Unsere Lösung', content=script.solution als Text.",
+        "Step 5 'Nächster Schritt': Icon=Calendar, color=blue-400, label='5. Termin vereinbaren', content=script.callToAction als Text.",
+        "Step 6 'Einwandbehandlung': Icon=Shield, color=zinc-400, label='6. Einwandbehandlung'. Content: shadcn Accordion: <Accordion type='single' collapsible className='space-y-1'>. Jeder Einwand (aus parseJsonSafe(script.objections, [])): <AccordionItem value={i.toString()} className='border-zinc-800 bg-zinc-800/20 rounded-lg px-3'><AccordionTrigger className='text-sm text-zinc-300 hover:text-zinc-100 py-2.5'><div className='flex items-center gap-2'><MessageSquare className='h-3 w-3 text-zinc-500' />\"{obj.objection}\"</div></AccordionTrigger><AccordionContent className='text-sm text-zinc-400 pb-3'>{obj.response}</AccordionContent></AccordionItem>.",
+        "Hinweis unter dem Skript: <p className='text-xs text-zinc-600 mt-6 text-center'>Skript basiert auf der Analyse vom {formatDate(script.generatedAt)}. Klicke \"Neu generieren\" für aktuelle Daten.</p>.",
+        "Führe aus: npx tsc --noEmit — keine Fehler",
+        "Typecheck passes",
+        "Verify in browser using dev-browser skill"
+      ],
+      "priority": 15,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-016",
+      "title": "Lead-Detail Gesamtlayout mit Tabs",
+      "description": "Kombiniere alle Detail-Komponenten (Score, Briefing, Skript, Export) in einem Tab-Layout auf der Lead-Detail Seite.",
+      "acceptanceCriteria": [
+        "Aktualisiere src/app/leads/[id]/page.tsx: Nach der Kontakt-Card und Notes füge ein Tab-System hinzu.",
+        "Nutze shadcn Tabs: <Tabs defaultValue={defaultTab} className='mt-6'><TabsList className='bg-zinc-900 border border-zinc-800'><TabsTrigger value='analyse' className='data-[state=active]:bg-zinc-800'><BarChart3 className='h-4 w-4 mr-2' />Analyse</TabsTrigger><TabsTrigger value='briefing'><FileText className='h-4 w-4 mr-2' />Briefing</TabsTrigger><TabsTrigger value='skript'><Phone className='h-4 w-4 mr-2' />Skript</TabsTrigger><TabsTrigger value='export'><Download className='h-4 w-4 mr-2' />Export</TabsTrigger></TabsList>.",
+        "Tab Contents: <TabsContent value='analyse'><ScoreOverview analysis={lead.analysis} website={lead.website} leadId={lead.id} /></TabsContent><TabsContent value='briefing'><BriefingView briefing={lead.briefing} leadId={lead.id} hasAnalysis={!!lead.analysis} /></TabsContent><TabsContent value='skript'><ScriptView script={lead.salesScript} leadId={lead.id} hasBriefing={!!lead.briefing} /></TabsContent><TabsContent value='export'><ExportSection leadId={lead.id} leadName={lead.name} hasData={!!lead.briefing} /></TabsContent>.",
+        "defaultTab Logik: const defaultTab = lead.analysis ? 'analyse' : lead.briefing ? 'briefing' : 'analyse';",
+        "Erstelle src/components/leads/ExportSection.tsx als 'use client' Component: <Card className='bg-zinc-900 border-zinc-800'><CardContent className='p-6 flex flex-col items-center gap-4'><FileDown className='h-12 w-12 text-zinc-600' /><h3 className='text-lg font-semibold text-zinc-100'>Export</h3><p className='text-sm text-zinc-400 text-center'>Lade das vollständige Briefing und Skript als PDF herunter.</p><div className='flex gap-3'><Button onClick={() => window.open(`/api/export/pdf/${leadId}`, '_blank')} disabled={!hasData}><FileDown className='h-4 w-4 mr-2' />PDF herunterladen</Button></div>{!hasData && <p className='text-xs text-zinc-600'>Generiere zuerst ein Briefing um den Export zu nutzen.</p>}</CardContent></Card>.",
+        "Action-Buttons oben rechts im Header (neben StatusDropdown): <div className='flex gap-2'><Button variant='outline' size='sm' onClick={handleGenerateAll} disabled={!lead.website}><Sparkles className='h-3 w-3 mr-2' />Alles generieren</Button><Button variant='outline' size='sm' className='text-red-400 hover:text-red-300 hover:bg-red-500/10' onClick={() => setShowDeleteDialog(true)}><Trash2 className='h-3 w-3 mr-2' />Löschen</Button></div>. handleGenerateAll: Sequentiell 1) analyze, 2) briefing, 3) script aufrufen mit Loading-Feedback.",
+        "Delete Dialog: shadcn AlertDialog: 'Lead {name} wirklich löschen? Alle zugehörigen Analysen, Briefings und Skripte werden ebenfalls gelöscht. Diese Aktion kann nicht rückgängig gemacht werden.' Cancel + 'Löschen' (destructive). Ruft Server Action deleteLead auf, dann router.push('/leads').",
+        "Server Action in actions.ts hinzufügen: export async function deleteLead(leadId: string) { await prisma.lead.delete({ where: { id: leadId } }); revalidatePath('/leads'); revalidatePath('/'); }",
+        "Führe aus: npx tsc --noEmit — keine Fehler",
+        "Typecheck passes",
+        "Verify in browser using dev-browser skill"
+      ],
+      "priority": 16,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-017",
+      "title": "OpenStreetMap Overpass API Scraper",
+      "description": "Erstelle den OSM Scraper der Unternehmen aus der Overpass API für alle 20 Ruhrgebiet-Städte extrahiert.",
+      "acceptanceCriteria": [
+        "Erstelle src/lib/scrapers/osm.ts mit exakt diesen Exports und Implementierungen:",
+        "const OVERPASS_API = 'https://overpass-api.de/api/interpreter';",
+        "function buildOverpassQuery(cityName: string): string — Baut diese Query: `[out:json][timeout:60]; area[name=\"${cityName}\"][admin_level~\"6|8\"]->.city; ( node[\"shop\"](area.city); node[\"office\"](area.city); node[\"amenity\"~\"restaurant|cafe|bar|fast_food|pharmacy|doctors|dentist|veterinary|bank|fuel|driving_school\"](area.city); node[\"craft\"](area.city); node[\"healthcare\"](area.city); node[\"tourism\"~\"hotel|guest_house\"](area.city); ); out body;`",
+        "function parseOSMNode(node: OSMNode): ScrapedLead | null — Extrahiert: name aus node.tags?.name (return null wenn kein name), address aus node.tags?.['addr:street'] + ' ' + (node.tags?.['addr:housenumber'] ?? '') (return null wenn kein addr:street), city aus node.tags?.['addr:city'] ?? cityName (Parameter), zip aus node.tags?.['addr:postcode'], phone aus node.tags?.phone ?? node.tags?.['contact:phone'], email aus node.tags?.email ?? node.tags?.['contact:email'], website aus node.tags?.website ?? node.tags?.['contact:website']. Kategorie: Bestimme aus Tags — wenn node.tags?.shop → category = OSM_CATEGORY_MAP[node.tags.shop] ?? node.tags.shop, subcategory = node.tags.shop. Analog für amenity, craft, office, healthcare, tourism. latitude = node.lat, longitude = node.lon.",
+        "export async function scrapeOSM(cities: City[]): Promise<{ leads: ScrapedLead[]; errors: string[] }> — Iteriert über cities. Pro Stadt: 1) fetch(OVERPASS_API, { method: 'POST', body: 'data=' + encodeURIComponent(buildOverpassQuery(city.name)), headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, signal: AbortSignal.timeout(60000) }). 2) Parse JSON response: response.elements als Array. 3) Map jedes element durch parseOSMNode, filter nulls. 4) Zwischen Städten: await new Promise(r => setTimeout(r, 5000)) — 5 Sekunden Pause (Overpass Fair Use). 5) Bei Fehler (429, 503, Timeout): logge in errors Array, überspringe Stadt, mache weiter.",
+        "Return: { leads: alle ScrapedLeads gesammelt, errors: Array von Error-Messages }.",
+        "Type-Definition für OSM Response: interface OSMNode { type: string; id: number; lat: number; lon: number; tags?: Record<string, string>; }. interface OSMResponse { elements: OSMNode[]; }.",
+        "Führe aus: npx tsc --noEmit — keine Fehler",
+        "Typecheck passes"
+      ],
+      "priority": 17,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-018",
+      "title": "Google Maps HTTP Scraper als Fallback",
+      "description": "Erstelle einen Google Maps Scraper der via HTTP (ohne Puppeteer/Browser) Unternehmen sucht — als Fallback wenn OSM wenig Ergebnisse hat.",
+      "acceptanceCriteria": [
+        "Erstelle src/lib/scrapers/google-maps.ts mit diesen Exports:",
+        "WICHTIG: Google Maps Scraping via HTTP ist unzuverlässig da Google häufig Änderungen macht. Diese Implementierung ist ein Best-Effort Fallback. Wenn Google blockt, logge Warning und returne leeres Array — NICHT die App crashen.",
+        "const USER_AGENTS: string[] = Array mit 5 verschiedenen realistischen User-Agent Strings (Chrome Windows, Chrome Mac, Firefox, Safari, Edge).",
+        "function getRandomUserAgent(): string — Returned zufälligen User-Agent aus dem Array.",
+        "export async function scrapeGoogleMaps(city: string, categories: string[]): Promise<{ leads: ScrapedLead[]; errors: string[] }> — Für jede Kategorie: 1) Baue Such-URL: `https://www.google.com/maps/search/${encodeURIComponent(category + ' ' + city)}/`. 2) fetch mit { headers: { 'User-Agent': getRandomUserAgent(), 'Accept-Language': 'de-DE,de;q=0.9' }, signal: AbortSignal.timeout(15000) }. 3) Versuche aus dem HTML Response Geschäftsdaten zu extrahieren — suche nach JSON-LD Patterns oder bekannten Google Maps HTML Patterns. 4) Zwischen Requests: await new Promise(r => setTimeout(r, 2000 + Math.random() * 2000)) — 2-4 Sekunden Random-Delay.",
+        "Extraktion: Da Google Maps HTML komplex ist und sich ändert, nutze eine robuste Regex/Pattern-Matching Strategie: Suche nach window.APP_INITIALIZATION_STATE oder ähnlichen JSON Blöcken im HTML. Parse Namen, Adressen, Telefonnummern, Website-URLs daraus. Wenn Parsing fehlschlägt → logge Warning, returne was gefunden wurde.",
+        "Pro gefundenem Unternehmen: Erstelle ScrapedLead mit source: 'GOOGLE_MAPS', versuche googleMapsUrl zu extrahieren.",
+        "Error Handling: Wenn fetch 429 oder Response enthält 'unusual traffic' oder CAPTCHA-Hinweise → logge 'Google Maps Rate Limited für {city}/{category}' in errors Array, breche ab und returne was bisher gefunden wurde.",
+        "Return: { leads: ScrapedLead[], errors: string[] }.",
+        "Führe aus: npx tsc --noEmit — keine Fehler",
+        "Typecheck passes"
+      ],
+      "priority": 18,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-019",
+      "title": "Scraper Orchestrierung mit API Routes und Status-Tracking",
+      "description": "Erstelle die zentrale Scan-Steuerung die OSM + Google Maps koordiniert, Ergebnisse in DB speichert, und API Routes für Start/Status bereitstellt.",
+      "acceptanceCriteria": [
+        "Erstelle src/lib/scrapers/index.ts mit:\n\nexport async function runScan(cityNames: string[]): Promise<{ scanLogId: string }> {\n  const cities = RUHRGEBIET_CITIES.filter(c => cityNames.includes(c.name));\n  if (cities.length === 0) throw new Error('Keine gültigen Städte ausgewählt');\n\n  // ScanLog erstellen\n  const scanLog = await prisma.scanLog.create({ data: { cities: JSON.stringify(cityNames), status: 'running' } });\n  const startTime = Date.now();\n\n  try {\n    // Phase 1: OSM Scraping\n    const osmResult = await scrapeOSM(cities);\n    let allLeads = osmResult.leads;\n    let allErrors = osmResult.errors;\n\n    // Phase 2: Google Maps für Städte mit wenig OSM-Ergebnissen (<10)\n    const osmCityCounts = new Map<string, number>();\n    for (const lead of osmResult.leads) {\n      osmCityCounts.set(lead.city, (osmCityCounts.get(lead.city) ?? 0) + 1);\n    }\n    const lowCities = cities.filter(c => (osmCityCounts.get(c.name) ?? 0) < 10);\n    if (lowCities.length > 0) {\n      const gmResult = await scrapeGoogleMaps(lowCities[0].name, BUSINESS_CATEGORIES.slice(0, 10));\n      allLeads = [...allLeads, ...gmResult.leads];\n      allErrors = [...allErrors, ...gmResult.errors];\n    }\n\n    // Phase 3: In DB speichern (upsert, Duplikat-Schutz)\n    let newCount = 0, updateCount = 0;\n    for (const lead of allLeads) {\n      const result = await prisma.lead.upsert({\n        where: { name_address_city: { name: lead.name, address: lead.address, city: lead.city } },\n        create: { ...lead, source: lead.source as LeadSource },\n        update: { phone: lead.phone, website: lead.website, email: lead.email },\n      });\n      // Wenn createdAt === updatedAt (±1s) → neu, sonst update\n      if (Math.abs(result.createdAt.getTime() - result.updatedAt.getTime()) < 1000) newCount++;\n      else updateCount++;\n    }\n\n    // ScanLog updaten\n    await prisma.scanLog.update({\n      where: { id: scanLog.id },\n      data: { status: 'completed', newLeads: newCount, updatedLeads: updateCount, errors: allErrors.length, duration: Math.round((Date.now() - startTime) / 1000), completedAt: new Date() }\n    });\n    return { scanLogId: scanLog.id };\n  } catch (error) {\n    await prisma.scanLog.update({ where: { id: scanLog.id }, data: { status: 'failed', errors: 1, duration: Math.round((Date.now() - startTime) / 1000), completedAt: new Date() } });\n    throw error;\n  }\n}",
+        "Erstelle src/app/api/scan/route.ts: POST Handler — Body: { cities: string[] }. Validiere dass cities ein Array ist. Starte runScan OHNE await (fire-and-forget): runScan(cities).catch(err => console.error('Scan failed:', err)). Returne sofort: NextResponse.json({ status: 'started', message: 'Scan gestartet' }).",
+        "Erstelle src/app/api/scan/status/route.ts: GET Handler — Lade letzten ScanLog: prisma.scanLog.findFirst({ orderBy: { startedAt: 'desc' } }). Returne als JSON. Wenn keiner existiert: { status: 'idle', message: 'Kein Scan durchgeführt' }.",
+        "Führe aus: npx tsc --noEmit — keine Fehler",
+        "Typecheck passes"
+      ],
+      "priority": 19,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-020",
+      "title": "Performance Analyzer via PageSpeed Insights API",
+      "description": "Erstelle den Performance-Analyzer der Google PageSpeed Insights API (gratis, kein Key) nutzt um Performance, SEO und Accessibility Scores zu messen.",
+      "acceptanceCriteria": [
+        "Erstelle src/lib/analyzers/lighthouse.ts mit:\n\ninterface PerformanceResult {\n  performanceScore: number;\n  seoScore: number;\n  accessibilityScore: number;\n  bestPracticesScore: number;\n  details: {\n    fcp: number;      // First Contentful Paint in ms\n    lcp: number;      // Largest Contentful Paint in ms\n    tbt: number;      // Total Blocking Time in ms\n    cls: number;      // Cumulative Layout Shift (unitless)\n    speedIndex: number; // Speed Index in ms\n    interactive: number; // Time to Interactive in ms\n  };\n}\n\nexport async function analyzePerformance(url: string): Promise<PerformanceResult>",
+        "Implementierung: const apiUrl = `https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(url)}&strategy=mobile&category=performance&category=seo&category=accessibility&category=best-practices`;",
+        "Fetch mit AbortSignal.timeout(30000). Response als JSON parsen.",
+        "Score-Extraktion: const lhr = json.lighthouseResult; performanceScore = Math.round((lhr?.categories?.performance?.score ?? 0) * 100); seoScore = Math.round((lhr?.categories?.seo?.score ?? 0) * 100); accessibilityScore = Math.round((lhr?.categories?.accessibility?.score ?? 0) * 100); bestPracticesScore = Math.round((lhr?.categories?.['best-practices']?.score ?? 0) * 100);",
+        "Detail-Extraktion: const audits = lhr?.audits ?? {}; details = { fcp: audits['first-contentful-paint']?.numericValue ?? 0, lcp: audits['largest-contentful-paint']?.numericValue ?? 0, tbt: audits['total-blocking-time']?.numericValue ?? 0, cls: audits['cumulative-layout-shift']?.numericValue ?? 0, speedIndex: audits['speed-index']?.numericValue ?? 0, interactive: audits['interactive']?.numericValue ?? 0 };",
+        "Error Handling: try/catch um den gesamten Aufruf. Bei Fehler → return { performanceScore: 0, seoScore: 0, accessibilityScore: 0, bestPracticesScore: 0, details: { fcp: 0, lcp: 0, tbt: 0, cls: 0, speedIndex: 0, interactive: 0 } }. Logge den Fehler via console.error.",
+        "Führe aus: npx tsc --noEmit — keine Fehler",
+        "Typecheck passes"
+      ],
+      "priority": 20,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-021",
+      "title": "SEO Analyzer via HTML Scraping",
+      "description": "Erstelle den SEO-Analyzer der 11 gewichtete Checks auf der HTML-Struktur durchführt.",
+      "acceptanceCriteria": [
+        "Erstelle src/lib/analyzers/seo.ts. Installiere cheerio falls noch nicht: npm install cheerio. Import: import * as cheerio from 'cheerio';",
+        "Export: export async function analyzeSEO(url: string): Promise<{ score: number; details: Record<string, unknown> }>",
+        "Lade HTML: const response = await fetch(url, { signal: AbortSignal.timeout(15000), headers: { 'User-Agent': 'Mozilla/5.0 (compatible; FPZBot/1.0)' } }); const html = await response.text(); const $ = cheerio.load(html);",
+        "Check 1 (15%): Meta Title — const title = $('title').text().trim(); const titleOk = title.length >= 30 && title.length <= 60; const titleExists = title.length > 0; Score: titleExists && titleOk ? 1 : titleExists ? 0.5 : 0;",
+        "Check 2 (15%): Meta Description — const desc = $('meta[name=\"description\"]').attr('content')?.trim() ?? ''; const descOk = desc.length >= 120 && desc.length <= 160; Score analog.",
+        "Check 3 (10%): H1 — const h1s = $('h1'); Score: h1s.length === 1 ? 1 : h1s.length > 1 ? 0.5 : 0;",
+        "Check 4 (5%): H2 — Score: $('h2').length >= 2 ? 1 : $('h2').length === 1 ? 0.5 : 0;",
+        "Check 5 (10%): Alt-Texte — const imgs = $('img').length; const imgsWithAlt = $('img[alt]').filter((_, el) => $(el).attr('alt')!.trim().length > 0).length; Score: imgs === 0 ? 1 : imgsWithAlt / imgs;",
+        "Check 6 (10%): Sitemap — try { const res = await fetch(new URL('/sitemap.xml', url).href, { method: 'HEAD', signal: AbortSignal.timeout(5000) }); Score: res.ok ? 1 : 0; } catch { Score: 0; }",
+        "Check 7 (5%): robots.txt — Analog zu Sitemap mit /robots.txt.",
+        "Check 8 (5%): Canonical — Score: $('link[rel=\"canonical\"]').length > 0 ? 1 : 0;",
+        "Check 9 (10%): Open Graph — const ogTags = $('meta[property^=\"og:\"]').length; Score: ogTags >= 3 ? 1 : ogTags > 0 ? 0.5 : 0;",
+        "Check 10 (10%): JSON-LD — const jsonLd = $('script[type=\"application/ld+json\"]'); let jsonLdValid = false; jsonLd.each((_, el) => { try { JSON.parse($(el).html() ?? ''); jsonLdValid = true; } catch {} }); Score: jsonLdValid ? 1 : 0;",
+        "Check 11 (5%): Lang-Attribut — Score: $('html').attr('lang') ? 1 : 0;",
+        "Gesamt-Score: Math.round(sum of (checkScore * weight) * 100). Details: { title: { text: title, length: title.length, optimal: titleOk }, description: { text: truncate(desc, 50), length: desc.length, optimal: descOk }, h1Count: h1s.length, h2Count: $('h2').length, imagesTotal: imgs, imagesWithAlt: imgsWithAlt, hasSitemap, hasRobotsTxt, hasCanonical, ogTagCount: ogTags, hasJsonLd: jsonLdValid, hasLangAttr: !!$('html').attr('lang') }.",
+        "Typecheck passes"
+      ],
+      "priority": 21,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-022",
+      "title": "Security und Tech-Stack Analyzer",
+      "description": "Erstelle Analyzer für Security-Headers (HTTPS, HSTS, CSP etc.) und Tech-Stack-Erkennung (CMS, Framework, Server).",
+      "acceptanceCriteria": [
+        "Erstelle src/lib/analyzers/security.ts: export async function analyzeSecurity(url: string): Promise<{ score: number; details: Record<string, unknown> }>",
+        "Fetch: const response = await fetch(url, { signal: AbortSignal.timeout(10000), redirect: 'follow' });",
+        "Check 1 (25%): HTTPS — Score: url.startsWith('https://') || response.url.startsWith('https://') ? 1 : 0;",
+        "Check 2 (20%): HSTS — Score: response.headers.has('strict-transport-security') ? 1 : 0;",
+        "Check 3 (15%): X-Frame-Options — Score: response.headers.has('x-frame-options') ? 1 : 0;",
+        "Check 4 (15%): X-Content-Type-Options — Score: response.headers.get('x-content-type-options') === 'nosniff' ? 1 : 0;",
+        "Check 5 (15%): CSP — Score: response.headers.has('content-security-policy') ? 1 : 0;",
+        "Check 6 (10%): X-XSS-Protection — Score: response.headers.has('x-xss-protection') ? 1 : 0;",
+        "Gesamt: Math.round(gewichtete Summe * 100). Details: Record mit jedem Header-Wert.",
+        "Erstelle src/lib/analyzers/tech-stack.ts: export async function analyzeTechStack(url: string, html: string): Promise<{ score: number; details: { cms: string | null; cmsVersion: string | null; framework: string | null; server: string | null; jsLibraries: string[] } }>",
+        "CMS-Erkennung aus HTML Patterns: WordPress: html.includes('wp-content') || html.includes('wp-includes') || /meta.*generator.*WordPress/i.test(html) → cms='WordPress', Version aus meta generator Tag regex. Wix: html.includes('wix.com') → 'Wix'. Squarespace: html.includes('squarespace.com') → 'Squarespace'. Jimdo: /jimdo/i.test(html) → 'Jimdo'. Joomla: html.includes('/media/jui/') || /generator.*Joomla/i.test(html) → 'Joomla'. Shopify: html.includes('cdn.shopify.com') → 'Shopify'. Drupal: html.includes('sites/default/files') → 'Drupal'. TYPO3: html.includes('typo3') → 'TYPO3'. Webflow: html.includes('webflow.com') → 'Webflow'.",
+        "Framework-Erkennung: React: html.includes('__NEXT_DATA__') || html.includes('_next/') → 'Next.js'. html.includes('__NUXT__') → 'Nuxt'. html.includes('react-root') || html.includes('data-reactroot') → 'React'. /ng-version/i.test(html) → 'Angular'. html.includes('__vue') → 'Vue'.",
+        "JS Libraries: jQuery: /jquery[.-]?\\d/i.test(html) → push 'jQuery'. Bootstrap: /bootstrap\\.min\\.(css|js)/i.test(html) → push 'Bootstrap'.",
+        "Server: Aus fetch response.headers.get('server') ?? null.",
+        "Tech Score: Next.js/Nuxt/React/Vue/Angular = 90. WordPress aktuell (Version >= 6) = 70. WordPress alt = 40. Wix/Jimdo/Webflow = 50. Shopify = 75. Squarespace = 60. Kein CMS erkannt + jQuery = 30. Kein CMS + kein Framework = 50. Default: 50.",
+        "Typecheck passes"
+      ],
+      "priority": 22,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-023",
+      "title": "Design-Alter und Content Analyzer",
+      "description": "Erstelle Analyzer für Design-Modernität, Website-Alter und Content-Qualität (letzteres per KI via Groq).",
+      "acceptanceCriteria": [
+        "Erstelle src/lib/analyzers/design.ts: export async function analyzeDesign(url: string, html: string): Promise<{ score: number; details: Record<string, unknown> }>",
+        "Check 1 (25%): Viewport Meta — const $ = cheerio.load(html); Score: $('meta[name=\"viewport\"]').length > 0 ? 1 : 0;",
+        "Check 2 (20%): Kein Tabellen-Layout — const tables = $('table').length; const tablesInMain = $('main table, article table, .content table, #content table').length; Score: tables === 0 ? 1 : tables === tablesInMain ? 0.8 : tables > 5 ? 0 : 0.5; (Tabellen in Main könnten Datentabellen sein)",
+        "Check 3 (10%): Kein Flash — Score: html.includes('application/x-shockwave-flash') || html.includes('.swf') ? 0 : 1;",
+        "Check 4 (15%): Wenig Inline Styles — const elements = $('*').length; const withStyle = $('[style]').length; const ratio = elements > 0 ? withStyle / elements : 0; Score: ratio < 0.05 ? 1 : ratio < 0.15 ? 0.6 : 0.3;",
+        "Check 5 (15%): Modern CSS — Score: html.includes('flexbox') || html.includes('display:flex') || html.includes('display: flex') || html.includes('display:grid') || html.includes('display: grid') || html.includes('tailwind') ? 1 : 0.3;",
+        "Check 6 (15%): Web Fonts — Score: html.includes('fonts.googleapis.com') || html.includes('fonts.gstatic.com') || html.includes('@font-face') || html.includes('typekit.net') ? 1 : 0.3;",
+        "Erstelle src/lib/analyzers/age.ts: export async function analyzeAge(url: string, html: string): Promise<{ score: number; details: Record<string, unknown> }>",
+        "Check 1 (30%): Copyright-Jahr — const $ = cheerio.load(html); const footerText = $('footer').text(); const yearMatch = footerText.match(/©\\s*(20\\d{2})/i) ?? footerText.match(/copyright\\s*(20\\d{2})/i); const copyrightYear = yearMatch ? Number(yearMatch[1]) : null; const currentYear = new Date().getFullYear(); Score: copyrightYear ? Math.max(0, 1 - (currentYear - copyrightYear) * 0.15) : 0.5;",
+        "Check 2 (20%): Last-Modified — Aus fetch response headers. Score analog zu Copyright-Jahr.",
+        "Check 3 (20%): Generator Version — $('meta[name=\"generator\"]').attr('content'). Parse Version-Nummer. Neuere = besserer Score.",
+        "Check 4 (30%): Wayback Machine — fetch(`https://archive.org/wayback/available?url=${encodeURIComponent(url)}`, { signal: AbortSignal.timeout(5000) }). Parse closest.timestamp (Format: YYYYMMDDHHmmss). Je älter die erste Archivierung desto etablierter. Score: Wenn jünger als 1 Jahr = 0.3 (neue Website, könnte schlecht sein), 1-3 Jahre = 0.8, 3-10 Jahre = 1, >10 Jahre = 0.7 (könnte veraltet sein). Bei Fehler: Score 0.5.",
+        "Erstelle src/lib/analyzers/content.ts: export async function analyzeContent(url: string, html: string): Promise<{ score: number; details: Record<string, unknown> }>",
+        "Text extrahieren: const $ = cheerio.load(html); let text = $('main').text() || $('article').text() || $('[role=\"main\"]').text() || $('body').text(); text = text.replace(/\\s+/g, ' ').trim().slice(0, 2000);",
+        "Wenn text.length < 50: return { score: 20, details: { error: 'Zu wenig Text auf der Seite', textLength: text.length } };",
+        "KI-Bewertung: Importiere generateText von lib/ai (wird in US-025 erstellt). WENN lib/ai noch nicht existiert → implementiere einen einfachen Groq-Aufruf direkt hier als Fallback. Prompt: `Bewerte diesen deutschen Website-Text. Antworte NUR als JSON: {\"spelling\": 0-100, \"currentness\": 0-100, \"professionalism\": 0-100, \"clarity\": 0-100, \"completeness\": 0-100, \"overall\": 0-100, \"summary\": \"kurze Begründung\"}\\n\\nText:\\n${text}`",
+        "Parse KI-Response als JSON. Bei Parse-Fehler: versuche Regex /\\{[^}]+\\}/ zu matchen. Bei totalem Fehler: return { score: 50, details: { error: 'KI-Bewertung fehlgeschlagen' } }.",
+        "Typecheck passes"
+      ],
+      "priority": 23,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-024",
+      "title": "Analyse-Orchestrierung mit paralleler Pipeline und Scoring",
+      "description": "Erstelle die zentrale Pipeline die alle Analyzer parallel aufruft, Gesamtscore berechnet und in DB speichert.",
+      "acceptanceCriteria": [
+        "Erstelle src/lib/analyzers/scoring.ts:\n\nexport function calculateOverallScore(scores: Partial<Record<ScoreCategory, number>>, weights: Record<ScoreCategory, number> = SCORE_WEIGHTS): number {\n  let totalWeight = 0;\n  let weightedSum = 0;\n  for (const [key, weight] of Object.entries(weights)) {\n    const score = scores[key as ScoreCategory];\n    if (score != null) { weightedSum += score * weight; totalWeight += weight; }\n  }\n  return totalWeight > 0 ? Math.round(weightedSum / totalWeight) : 0;\n}",
+        "Erstelle src/lib/analyzers/index.ts:\n\nexport async function analyzeWebsite(leadId: string): Promise<WebsiteAnalysis> {\n  const lead = await prisma.lead.findUnique({ where: { id: leadId } });\n  if (!lead) throw new Error('Lead nicht gefunden');\n  if (!lead.website) throw new Error('Lead hat keine Website');\n\n  const url = lead.website.startsWith('http') ? lead.website : `https://${lead.website}`;\n\n  // HTML einmal laden für alle Analyzer die es brauchen\n  let html = '';\n  let headers = new Headers();\n  try {\n    const res = await fetch(url, { signal: AbortSignal.timeout(15000), headers: { 'User-Agent': 'Mozilla/5.0 (compatible; FPZBot/1.0)' } });\n    html = await res.text();\n    headers = res.headers;\n  } catch (err) {\n    console.error('HTML fetch failed:', err);\n  }\n\n  // Alle Analyzer parallel\n  const [perfResult, seoResult, secResult, techResult, designResult, ageResult, contentResult] = await Promise.allSettled([\n    analyzePerformance(url),\n    analyzeSEO(url),\n    analyzeSecurity(url),\n    analyzeTechStack(url, html),\n    analyzeDesign(url, html),\n    analyzeAge(url, html),\n    analyzeContent(url, html),\n  ]);\n\n  // Scores extrahieren (0 bei Fehler)\n  const getScore = (result: PromiseSettledResult<AnalysisResult>, key?: string) =>\n    result.status === 'fulfilled' ? (key ? (result.value as Record<string, unknown>)[key] as number : result.value.score) : 0;\n\n  const perf = perfResult.status === 'fulfilled' ? perfResult.value : null;\n  const scores = {\n    performanceScore: perf?.performanceScore ?? 0,\n    seoScore: Math.round(((getScore(seoResult) + (perf?.seoScore ?? 0)) / (perf ? 2 : 1))),\n    mobileScore: perf?.accessibilityScore ?? getScore(designResult),\n    securityScore: getScore(secResult),\n    designScore: getScore(designResult),\n    techScore: getScore(techResult),\n    ageScore: getScore(ageResult),\n    accessibilityScore: perf?.accessibilityScore ?? 0,\n    contentScore: getScore(contentResult),\n  };\n\n  const overallScore = calculateOverallScore({\n    performance: scores.performanceScore,\n    seo: scores.seoScore,\n    mobile: scores.mobileScore,\n    security: scores.securityScore,\n    design: scores.designScore,\n    tech: scores.techScore,\n    age: scores.ageScore,\n    accessibility: scores.accessibilityScore,\n    content: scores.contentScore,\n  });\n\n  // Alle Details sammeln\n  const allDetails = {\n    performance: perfResult.status === 'fulfilled' ? perfResult.value : { error: String(perfResult.reason) },\n    seo: seoResult.status === 'fulfilled' ? seoResult.value.details : { error: String(seoResult.reason) },\n    security: secResult.status === 'fulfilled' ? secResult.value.details : { error: String(secResult.reason) },\n    techStack: techResult.status === 'fulfilled' ? techResult.value.details : { error: String(techResult.reason) },\n    design: designResult.status === 'fulfilled' ? designResult.value.details : { error: String(designResult.reason) },\n    age: ageResult.status === 'fulfilled' ? ageResult.value.details : { error: String(ageResult.reason) },\n    content: contentResult.status === 'fulfilled' ? contentResult.value.details : { error: String(contentResult.reason) },\n  };\n\n  // In DB speichern (upsert)\n  const analysis = await prisma.websiteAnalysis.upsert({\n    where: { leadId },\n    create: { leadId, ...scores, overallScore, details: JSON.stringify(allDetails), techStack: techResult.status === 'fulfilled' ? JSON.stringify(techResult.value.details) : null },\n    update: { ...scores, overallScore, details: JSON.stringify(allDetails), techStack: techResult.status === 'fulfilled' ? JSON.stringify(techResult.value.details) : null, analyzedAt: new Date() },\n  });\n\n  // Lead overallScore updaten\n  await prisma.lead.update({ where: { id: leadId }, data: { overallScore } });\n\n  return analysis;\n}",
+        "Erstelle src/app/api/analyze/route.ts: POST Handler — Body { leadId: string }. Ruft analyzeWebsite auf. Return: WebsiteAnalysis als JSON. Error: 400 wenn kein leadId, 404 wenn Lead nicht gefunden, 422 wenn keine Website, 500 bei sonstigem Fehler.",
+        "Erstelle src/app/api/analyze/batch/route.ts: POST Handler — Body { leadIds: string[] }. Iteriert SEQUENTIELL (nicht parallel, wegen Rate Limits): for (const id of leadIds) { try { await analyzeWebsite(id); completed++; } catch { failed++; } }. Return: { completed, failed }.",
+        "Typecheck passes"
+      ],
+      "priority": 24,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-025",
+      "title": "Groq KI Client mit HuggingFace Fallback",
+      "description": "Erstelle den KI-Client der Groq als primären Provider nutzt und auf HuggingFace zurückfällt bei Rate Limits.",
+      "acceptanceCriteria": [
+        "Erstelle src/lib/ai/groq.ts:\n\nimport Groq from 'groq-sdk';\n\nexport class RateLimitError extends Error { constructor(message: string) { super(message); this.name = 'RateLimitError'; } }\n\nexport async function generateWithGroq(prompt: string, systemPrompt: string): Promise<string> {\n  const apiKey = process.env.GROQ_API_KEY;\n  if (!apiKey || apiKey === 'gsk_your_key_here') throw new Error('GROQ_API_KEY nicht konfiguriert');\n\n  const groq = new Groq({ apiKey });\n\n  try {\n    const completion = await groq.chat.completions.create({\n      model: 'llama-3.3-70b-versatile',\n      messages: [{ role: 'system', content: systemPrompt }, { role: 'user', content: prompt }],\n      temperature: 0.3,\n      max_tokens: 2000,\n    });\n    return completion.choices[0]?.message?.content ?? '';\n  } catch (error: unknown) {\n    if (error instanceof Error && 'status' in error && (error as { status: number }).status === 429) {\n      throw new RateLimitError('Groq Rate Limit erreicht');\n    }\n    throw error;\n  }\n}",
+        "Erstelle src/lib/ai/huggingface.ts:\n\nexport async function generateWithHuggingFace(prompt: string, systemPrompt: string): Promise<string> {\n  const token = process.env.HUGGINGFACE_TOKEN;\n  if (!token || token === 'hf_your_token_here') throw new Error('HUGGINGFACE_TOKEN nicht konfiguriert');\n\n  const response = await fetch('https://api-inference.huggingface.co/models/mistralai/Mixtral-8x7B-Instruct-v0.1', {\n    method: 'POST',\n    headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },\n    body: JSON.stringify({ inputs: `<s>[INST] ${systemPrompt}\\n\\n${prompt} [/INST]`, parameters: { max_new_tokens: 2000, temperature: 0.3 } }),\n    signal: AbortSignal.timeout(30000),\n  });\n\n  if (!response.ok) throw new Error(`HuggingFace Error: ${response.status} ${response.statusText}`);\n  const result = await response.json();\n  return Array.isArray(result) ? result[0]?.generated_text ?? '' : result?.generated_text ?? '';\n}",
+        "Erstelle src/lib/ai/index.ts:\n\nimport { generateWithGroq, RateLimitError } from './groq';\nimport { generateWithHuggingFace } from './huggingface';\n\nexport async function generateText(prompt: string, systemPrompt: string): Promise<string> {\n  // Versuch 1: Groq\n  try { return await generateWithGroq(prompt, systemPrompt); }\n  catch (error) {\n    if (!(error instanceof RateLimitError)) throw error;\n    console.warn('Groq Rate Limited, Fallback auf HuggingFace...');\n  }\n\n  // Versuch 2: HuggingFace\n  await new Promise(r => setTimeout(r, 1000));\n  try { return await generateWithHuggingFace(prompt, systemPrompt); }\n  catch (hfError) { console.warn('HuggingFace fehlgeschlagen, letzter Versuch Groq...'); }\n\n  // Versuch 3: Groq Retry\n  await new Promise(r => setTimeout(r, 2000));\n  return await generateWithGroq(prompt, systemPrompt);\n}",
+        "Typecheck passes"
+      ],
+      "priority": 25,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-026",
+      "title": "KI Briefing-Generierung",
+      "description": "Erstelle die Briefing-Generierung die Lead-Daten und Analyse an die KI sendet und ein strukturiertes Briefing zurückbekommt.",
+      "acceptanceCriteria": [
+        "Erstelle src/lib/ai/briefing.ts:\n\nexport async function generateBriefing(lead: Lead, analysis: WebsiteAnalysis): Promise<{ summary: string; weaknesses: Array<{ title: string; severity: string; description: string }>; suggestions: Array<{ title: string; description: string; service: string }>; effort: 'SMALL' | 'MEDIUM' | 'LARGE'; opener: string; riskScore: number; fullText: string }>\n\nSystem Prompt: 'Du bist ein erfahrener Sales-Berater für die Webdesign-Agentur FPC-Media im Ruhrgebiet. FPC-Media bietet drei Dienstleistungen an: 1) Webentwicklung (moderne, schnelle Websites), 2) Medienproduktion (Fotografie, Imagefilme), 3) Automatisierung (n8n Workflows). Erstelle ein Sales-Briefing für einen potenziellen Kunden. Antworte NUR als valides JSON ohne Markdown-Codeblocks.'\n\nUser Prompt baut dynamisch: 'Erstelle ein Briefing für: Firma: {lead.name}, Branche: {lead.category}, Stadt: {lead.city}, Website: {lead.website}. Website-Analyse Scores (0-100): Performance: {analysis.performanceScore}, SEO: {analysis.seoScore}, Mobile: {analysis.mobileScore}, Sicherheit: {analysis.securityScore}, Design: {analysis.designScore}, Technik: {analysis.techScore}, Alter: {analysis.ageScore}, Barrierefreiheit: {analysis.accessibilityScore}, Content: {analysis.contentScore}, GESAMT: {analysis.overallScore}. Details: {analysis.details}. Antworte als JSON: { \"summary\": \"2-3 Sätze Zusammenfassung\", \"weaknesses\": [{ \"title\": \"Kurzer Titel\", \"severity\": \"critical|high|medium|low\", \"description\": \"Beschreibung\" }], \"suggestions\": [{ \"title\": \"Maßnahme\", \"description\": \"Was FPC-Media machen kann\", \"service\": \"web|media|automation\" }], \"effort\": \"SMALL|MEDIUM|LARGE\", \"opener\": \"Personalisierter Gesprächseinstieg für Telefonat\", \"riskScore\": 1-10 }'",
+        "JSON Parsing: const text = await generateText(userPrompt, systemPrompt); Versuche JSON.parse(text). Wenn Fehler: Versuche Regex const match = text.match(/\\{[\\s\\S]*\\}/); if (match) JSON.parse(match[0]). Wenn immer noch Fehler: throw new Error('KI-Response ist kein valides JSON').",
+        "fullText generieren: Baue lesbaren Plaintext aus den JSON-Daten zusammen: 'BRIEFING: {lead.name}\\n\\n{summary}\\n\\nSchwachstellen:\\n{weaknesses als nummerierte Liste}\\n\\nVorschläge:\\n{suggestions als Liste}\\n\\nAufwand: {effort}\\nGesprächseinstieg: {opener}'",
+        "Erstelle src/app/api/briefing/generate/route.ts: POST Body { leadId }. Lade Lead + Analysis. Wenn keine Analysis: return 400 'Website muss zuerst analysiert werden'. Generiere Briefing. Speichere via prisma.briefing.upsert (weaknesses und suggestions als JSON.stringify). Returne Briefing als JSON.",
+        "Typecheck passes"
+      ],
+      "priority": 26,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-027",
+      "title": "KI Verkaufsskript-Generierung",
+      "description": "Erstelle die Skript-Generierung die basierend auf Lead, Analyse und Briefing ein deutsches Verkaufsskript erstellt.",
+      "acceptanceCriteria": [
+        "Erstelle src/lib/ai/script.ts: export async function generateSalesScript(lead: Lead, analysis: WebsiteAnalysis, briefing: Briefing): Promise<{ greeting: string; hook: string; painPoints: string[]; solution: string; callToAction: string; objections: Array<{ objection: string; response: string }>; fullScript: string }>",
+        "System Prompt: 'Du bist ein Vertriebstrainer und schreibst Telefonskripte für die Webdesign-Agentur FPC-Media im Ruhrgebiet. Die Skripte sind auf Deutsch, professionell aber freundlich und nicht zu förmlich. Der Anrufer heißt Stevan. FPC-Media bietet: Webentwicklung, Medienproduktion (Foto/Video), Automatisierung. Antworte NUR als valides JSON ohne Markdown-Codeblocks.'",
+        "User Prompt: 'Erstelle ein Telefonskript für: Firma: {lead.name}, Branche: {lead.category}, Stadt: {lead.city}, Telefon: {lead.phone ?? \"unbekannt\"}, Top-Schwachstellen: {briefing.weaknesses als Text}, Gesprächseinstieg-Idee: {briefing.opener}. Das Skript MUSS mindestens 4 Einwandbehandlungen enthalten: \"Wir haben kein Budget\", \"Wir haben schon eine Website\", \"Wir haben schon jemanden\", \"Wir brauchen keine Website\". Antworte als JSON: { \"greeting\": \"Begrüßung\", \"hook\": \"Aufhänger bezogen auf konkretes Problem\", \"painPoints\": [\"Problem 1\", \"Problem 2\", \"Problem 3\"], \"solution\": \"Was FPC-Media anbieten kann\", \"callToAction\": \"Terminvereinbarung\", \"objections\": [{ \"objection\": \"Einwand\", \"response\": \"Antwort\" }] }'",
+        "JSON Parsing: Gleiche robuste Logik wie bei Briefing.",
+        "fullScript generieren: 'VERKAUFSSKRIPT: {lead.name}\\n\\n[BEGRÜSSUNG]\\n{greeting}\\n\\n[HOOK]\\n{hook}\\n\\n[PROBLEME ANSPRECHEN]\\n{painPoints als Bullets}\\n\\n[UNSERE LÖSUNG]\\n{solution}\\n\\n[NÄCHSTER SCHRITT]\\n{callToAction}\\n\\n[EINWANDBEHANDLUNG]\\n{objections als Einwand→Antwort}'",
+        "Erstelle src/app/api/script/generate/route.ts: POST Body { leadId }. Lade Lead + Analysis + Briefing. Wenn kein Briefing: 400 'Briefing muss zuerst generiert werden'. Generiere Script. Speichere via prisma.salesScript.upsert. Returne als JSON.",
+        "Typecheck passes"
+      ],
+      "priority": 27,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-028",
+      "title": "Täglicher Cron Job",
+      "description": "Erstelle den Vercel Cron Endpoint der täglich neue Leads scrapt, analysiert und Briefings generiert.",
+      "acceptanceCriteria": [
+        "Erstelle src/app/api/cron/route.ts: export async function GET(request: Request) { const authHeader = request.headers.get('Authorization'); if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });",
+        "Cron Ablauf: 1) Default-Städte laden (aus Settings oder RUHRGEBIET_CITIES.map(c=>c.name).slice(0,5) für erste 5 Städte), 2) runScan(cities) aufrufen, 3) Neue Leads mit Website aber ohne Analysis laden: prisma.lead.findMany({ where: { website: { not: null }, analysis: null }, take: 20 }), 4) Für jeden: await analyzeWebsite(lead.id) mit try/catch, 5) Analysierte Leads mit Score < 70 ohne Briefing: prisma.lead.findMany({ where: { overallScore: { lt: 70 }, briefing: null, analysis: { isNot: null } }, take: 10, include: { analysis: true } }), 6) Für jeden: generateBriefing + DB save mit try/catch. Return summary JSON.",
+        "Erstelle vercel.json in fpz-leadfinder/: { \"crons\": [{ \"path\": \"/api/cron\", \"schedule\": \"0 3 * * *\" }] }",
+        "Typecheck passes"
+      ],
+      "priority": 28,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-029",
+      "title": "PDF Export",
+      "description": "Erstelle PDF-Generierung mit jsPDF die Kontaktdaten, Scores, Briefing und Skript als 4-seitiges PDF rendert.",
+      "acceptanceCriteria": [
+        "Erstelle src/lib/export/pdf.ts: import jsPDF from 'jspdf'; import 'jspdf-autotable';",
+        "export async function generateLeadPDF(lead: Lead & { analysis: WebsiteAnalysis | null; briefing: Briefing | null; salesScript: SalesScript | null }): Promise<Buffer>",
+        "Seite 1 (Deckblatt): doc.setFontSize(24); doc.text('FPC-Media', 20, 30); doc.setFontSize(10); doc.text('Sales-Briefing', 20, 38); doc.setFontSize(20); doc.text(lead.name, 20, 60); doc.setFontSize(12); doc.text(`${lead.city} | ${lead.category}`, 20, 70); doc.text(`Erstellt: ${formatDate(new Date())}`, 20, 80); Wenn overallScore: Großer Score-Text mit Farbe.",
+        "Seite 2 (Kontakt + Scores): doc.addPage(); Kontaktdaten als Tabelle (autoTable). Score-Tabelle: 9 Rows mit Kategorie | Score | Bewertung (Gut/Mittel/Schlecht).",
+        "Seite 3 (Briefing): doc.addPage(); Wenn briefing vorhanden: Zusammenfassung, Schwachstellen als nummerierte Liste, Vorschläge als Liste, Aufwand, Risiko-Score.",
+        "Seite 4 (Skript): doc.addPage(); Wenn salesScript vorhanden: Alle 6 Steps als Text-Blöcke, Einwandbehandlung als Tabelle.",
+        "Footer auf jeder Seite: doc.setFontSize(8); doc.text('FPC-Media | fpc-media.com', 20, 285); doc.text(`Seite ${pageNum}`, 190, 285);",
+        "Return: Buffer.from(doc.output('arraybuffer'));",
+        "Erstelle src/app/api/export/pdf/[leadId]/route.ts: GET Handler. Lade Lead mit allen Relations. Generiere PDF. Return: new NextResponse(pdfBuffer, { headers: { 'Content-Type': 'application/pdf', 'Content-Disposition': `attachment; filename=\"Lead-${slugify(lead.name)}-Briefing.pdf\"` } }).",
+        "Typecheck passes",
+        "Verify in browser using dev-browser skill"
+      ],
+      "priority": 29,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-030",
+      "title": "CSV Export",
+      "description": "Erstelle CSV-Export der gefilterten Lead-Liste mit UTF-8 BOM und Semikolon-Delimiter für deutsche Excel-Versionen.",
+      "acceptanceCriteria": [
+        "Erstelle src/lib/export/csv.ts:\n\nexport function generateLeadCSV(leads: Lead[]): string {\n  const BOM = '\\uFEFF';\n  const headers = ['Name', 'Adresse', 'Stadt', 'PLZ', 'Telefon', 'Email', 'Website', 'Branche', 'Score', 'Status', 'Erstellt'].join(';');\n  const rows = leads.map(lead => [\n    escapeCSV(lead.name),\n    escapeCSV(lead.address),\n    escapeCSV(lead.city),\n    escapeCSV(lead.zip ?? ''),\n    escapeCSV(lead.phone ?? ''),\n    escapeCSV(lead.email ?? ''),\n    escapeCSV(lead.website ?? ''),\n    escapeCSV(lead.category),\n    String(lead.overallScore ?? ''),\n    STATUS_CONFIG[lead.status]?.label ?? lead.status,\n    formatDate(lead.createdAt),\n  ].join(';'));\n  return BOM + headers + '\\n' + rows.join('\\n');\n}\n\nfunction escapeCSV(value: string): string {\n  if (value.includes(';') || value.includes('\"') || value.includes('\\n')) {\n    return '\"' + value.replace(/\"/g, '\"\"') + '\"';\n  }\n  return value;\n}",
+        "Erstelle src/app/api/export/csv/route.ts: GET Handler. Lese Filter aus searchParams (gleiche wie Lead-Liste API). Baue Prisma where-Clause. Lade alle Leads (kein Limit). Generiere CSV. Return: new NextResponse(csv, { headers: { 'Content-Type': 'text/csv; charset=utf-8', 'Content-Disposition': `attachment; filename=\"FPZ-Leads-${formatDate(new Date())}.csv\"` } }).",
+        "Typecheck passes",
+        "Verify in browser using dev-browser skill"
+      ],
+      "priority": 30,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-031",
+      "title": "Scan-Seite mit Stadt-Auswahl und Fortschritt",
+      "description": "Erstelle die /scan Seite mit Stadt-Checkboxen, Scan-Button, Live-Fortschritt via Polling und Scan-History.",
+      "acceptanceCriteria": [
+        "Erstelle src/app/scan/page.tsx: Metadata: { title: 'Scan — LeadFinder' }. Lade letzte 10 ScanLogs aus DB für History.",
+        "Erstelle src/components/scan/ScanForm.tsx als 'use client' Component.",
+        "Stadt-Auswahl: <div className='grid grid-cols-2 md:grid-cols-4 gap-2'>. Jede Stadt: <label className='flex items-center gap-2 p-2 rounded-lg bg-zinc-900 border border-zinc-800 hover:border-zinc-700 cursor-pointer transition-colors'><Checkbox checked={selected} onCheckedChange={toggle} /><span className='text-sm text-zinc-300'>{city.name}</span></label>. Buttons oben: 'Alle auswählen' und 'Keine auswählen'.",
+        "Scan starten: <Button onClick={startScan} disabled={selectedCities.length === 0 || isScanning} className='w-full mt-4'>{isScanning ? <><Loader2 className='h-4 w-4 mr-2 animate-spin' />Scan läuft...</> : <><Search className='h-4 w-4 mr-2' />Scan starten ({selectedCities.length} Städte)</>}</Button>.",
+        "startScan: fetch POST /api/scan mit { cities: selectedCities }. Dann: Starte Polling alle 2 Sekunden auf GET /api/scan/status. Zeige Fortschritt: <Card className='bg-zinc-900 border-zinc-800 mt-4'><CardContent className='p-6'><div className='flex items-center gap-3'><Loader2 className='h-5 w-5 animate-spin text-blue-500' /><div><p className='text-sm font-medium text-zinc-100'>Scan läuft...</p><p className='text-xs text-zinc-400'>Bereits {scanStatus.newLeads} neue Leads gefunden</p></div></div><Progress value={estimatedProgress} className='mt-3' /></CardContent></Card>.",
+        "Scan fertig (status === 'completed'): Stoppe Polling. Zeige Ergebnis: <Card className='bg-green-500/10 border-green-500/20 mt-4'><CardContent className='p-6'><div className='flex items-center gap-3'><CheckCircle2 className='h-6 w-6 text-green-500' /><div><p className='font-medium text-zinc-100'>Scan abgeschlossen</p><p className='text-sm text-zinc-400'>{result.newLeads} neue Leads, {result.updatedLeads} aktualisiert, {result.errors} Fehler, Dauer: {result.duration}s</p></div></div><Button onClick={() => router.push('/leads?sort=createdAt&order=desc')} className='mt-3'>Neue Leads anzeigen →</Button></CardContent></Card>.",
+        "Scan-History: <Card className='bg-zinc-900 border-zinc-800 mt-6'><CardHeader><CardTitle>Scan-History</CardTitle></CardHeader><CardContent>Tabelle: Datum | Städte | Neue Leads | Dauer | Status (Badge). Letzte 10 Scans.</CardContent></Card>.",
+        "Typecheck passes",
+        "Verify in browser using dev-browser skill"
+      ],
+      "priority": 31,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-032",
+      "title": "Einstellungen Seite",
+      "description": "Erstelle /settings mit API Key Konfiguration, Standard-Städte, Scoring-Gewichte und App-Info.",
+      "acceptanceCriteria": [
+        "Erstelle src/app/settings/page.tsx: Lade Settings aus DB. Lade DB-Statistiken (Lead count, analyzed count, briefing count etc.).",
+        "Erstelle src/components/settings/SettingsForm.tsx als 'use client' Component.",
+        "Section 'API Schlüssel': <Card>. Groq: <div className='space-y-2'><label className='text-sm text-zinc-400'>Groq API Key</label><div className='relative'><Input type={showGroq ? 'text' : 'password'} value={groqKey} onChange={...} className='bg-zinc-900 border-zinc-800 pr-20' /><Button variant='ghost' size='sm' className='absolute right-10 top-1/2 -translate-y-1/2' onClick={toggleShowGroq}>{showGroq ? <EyeOff /> : <Eye />}</Button><Button variant='ghost' size='sm' className='absolute right-1 top-1/2 -translate-y-1/2' onClick={testGroq}>{groqOk === true ? <Check className='text-green-500' /> : groqOk === false ? <X className='text-red-500' /> : <Zap />}</Button></div></div>. Analog für HuggingFace.",
+        "Section 'Standard-Städte': Gleiche Checkbox-Grid wie Scan-Seite aber für Default-Konfiguration.",
+        "Section 'Scoring-Gewichtung': 9 Slider, einer pro ScoreCategory. <div className='space-y-3'>{categories.map(cat => <div key={cat} className='flex items-center gap-3'><span className='text-sm text-zinc-400 w-28'>{cat.label}</span><Slider min={0} max={30} step={1} value={[weights[cat.key]]} onValueChange={v => updateWeight(cat.key, v[0])} className='flex-1' /><span className='text-sm text-zinc-300 w-10 text-right'>{weights[cat.key]}%</span></div>)}. Summe anzeigen: <div className={cn('text-sm mt-2', sumIs100 ? 'text-green-500' : 'text-red-500')}>Summe: {sum}% {!sumIs100 && '(muss 100% sein)'}</div>. Reset-Button.",
+        "Section 'Über': App-Version, letzter Scan (Datum + Ergebnis), DB-Statistiken (Leads: X, Analysiert: Y, Briefings: Z, Skripte: W).",
+        "Save: Server Action saveSettings die alles in Settings Tabelle upserted.",
+        "Typecheck passes",
+        "Verify in browser using dev-browser skill"
+      ],
+      "priority": 32,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-033",
+      "title": "Toast Notifications und Sonner Setup",
+      "description": "Konfiguriere Sonner Toasts und stelle sicher dass alle Aktionen Feedback-Toasts zeigen.",
+      "acceptanceCriteria": [
+        "Sonner sollte bereits in layout.tsx eingebunden sein (US-004). Wenn nicht: <Toaster position='bottom-right' theme='dark' richColors /> in layout.tsx body einfügen.",
+        "Gehe durch ALLE bisherigen Komponenten und stelle sicher dass toast() Aufrufe vorhanden sind bei: StatusDropdown → toast.success('Status aktualisiert'), LeadNotes → toast.success('Notiz gespeichert'), BriefingView → toast.success('Briefing generiert') / toast.error(...), ScriptView → toast.success('Skript generiert') / Copy → toast.success('Skript kopiert'), ScanForm → toast.info('Scan gestartet') / toast.success('Scan abgeschlossen'), SettingsForm → toast.success('Einstellungen gespeichert') / Test → toast.success('Verbindung erfolgreich') / toast.error('Verbindung fehlgeschlagen'), ExportSection → toast.success('Download gestartet'), Lead Delete → toast.success('Lead gelöscht').",
+        "Importiere { toast } from 'sonner' in jeder Komponente die Toasts braucht.",
+        "Typecheck passes"
+      ],
+      "priority": 33,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-034",
+      "title": "Seed Data für Entwicklung",
+      "description": "Erstelle ein Seed-Script das 50 realistische Leads, Analysen, Briefings und Skripte generiert.",
+      "acceptanceCriteria": [
+        "Erstelle prisma/seed.ts (TypeScript, ausgeführt via npx tsx).",
+        "Import prisma client. Lösche zuerst alle Seed-Daten: await prisma.salesScript.deleteMany({}); await prisma.briefing.deleteMany({}); await prisma.websiteAnalysis.deleteMany({}); await prisma.lead.deleteMany({}); await prisma.scanLog.deleteMany({});",
+        "Generiere 50 Leads: Mix aus Städten (Bochum 20%, Dortmund 15%, Essen 15%, Rest verteilt), verschiedene Branchen aus BUSINESS_CATEGORIES, 60% mit Website (fiktive URLs wie 'https://www.baeckerei-mueller-bochum.de'), 40% ohne. Verschiedene Status: 50% NEW, 20% CONTACTED, 15% OFFER_SENT, 10% WON, 5% REJECTED. Realistische deutsche Namen: 'Bäckerei Müller', 'Zahnarztpraxis Dr. Schmidt', 'Restaurant Da Luigi', 'Friseur Haargenau', 'Autowerkstatt Krause' etc.",
+        "Generiere 10 WebsiteAnalysis Records für Leads mit Website: Realistische Scores (Performance 30-90, SEO 20-80, etc.), details als JSON String mit plausiblen Werten.",
+        "Generiere 5 Briefing Records: Realistische deutsche Texte für summary, weaknesses JSON, suggestions JSON, opener.",
+        "Generiere 3 SalesScript Records: Realistische deutsche Skripte mit greeting, hook, painPoints, solution, objections.",
+        "Generiere 2 ScanLog Records: Einer 'completed' (vor 1 Tag), einer 'completed' (vor 1 Woche).",
+        "Generiere 1 Settings Record mit Default-Werten.",
+        "In package.json prüfen dass 'db:seed': 'npx tsx prisma/seed.ts' vorhanden ist.",
+        "Seed-Script läuft fehlerfrei: npm run db:seed",
+        "Typecheck passes"
+      ],
+      "priority": 34,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-035",
+      "title": "Error Boundaries und Loading States",
+      "description": "Erstelle Error Boundaries, 404 Seite und Loading Skeletons für alle Routen.",
+      "acceptanceCriteria": [
+        "Erstelle src/app/error.tsx: 'use client'. Props: { error: Error; reset: () => void }. Layout: Zentriert auf Seite, <AlertTriangle className='h-12 w-12 text-red-500 mb-4' />, <h2 className='text-xl font-semibold text-zinc-100'>Etwas ist schiefgelaufen</h2>, {process.env.NODE_ENV === 'development' && <pre className='text-xs text-red-400 mt-2 max-w-lg overflow-auto'>{error.message}</pre>}, <div className='flex gap-3 mt-4'><Button onClick={reset}>Erneut versuchen</Button><Button variant='outline' asChild><Link href='/'>Zum Dashboard</Link></Button></div>.",
+        "Erstelle src/app/not-found.tsx: <div className='flex flex-col items-center justify-center min-h-[60vh]'><Search className='h-12 w-12 text-zinc-600 mb-4' /><h2 className='text-xl font-semibold text-zinc-100'>Seite nicht gefunden</h2><p className='text-zinc-400 mt-1'>Die angeforderte Seite existiert nicht.</p><Button variant='outline' className='mt-4' asChild><Link href='/'>Zum Dashboard</Link></Button></div>.",
+        "Erstelle src/app/loading.tsx: <div className='flex items-center justify-center min-h-[60vh]'><Loader2 className='h-8 w-8 animate-spin text-zinc-600' /></div>.",
+        "Erstelle src/app/leads/loading.tsx: StatCardsSkeleton-artige Skeleton für die Lead-Tabelle (Filter-Bar Skeleton + 10 Table Row Skeletons).",
+        "Erstelle src/app/leads/[id]/loading.tsx: Header Skeleton + Tabs Skeleton.",
+        "Erstelle src/app/leads/[id]/error.tsx: Wie global error.tsx aber mit 'Lead konnte nicht geladen werden' Text.",
+        "Erstelle src/app/scan/loading.tsx: Skeleton der Scan-Seite.",
+        "Erstelle src/app/settings/loading.tsx: Skeleton der Settings-Seite.",
+        "Typecheck passes",
+        "Verify in browser using dev-browser skill"
+      ],
+      "priority": 35,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-036",
+      "title": "Lead löschen und Bulk-Aktionen",
+      "description": "Implementiere Einzel-Löschung auf der Detail-Seite und Bulk-Aktionen (Status ändern, Analysieren, Löschen) auf der Lead-Liste.",
+      "acceptanceCriteria": [
+        "Lead-Detail Löschen: Sollte bereits in US-016 implementiert sein (AlertDialog + Server Action deleteLead). Falls nicht: Nachholen. Teste dass Cascade Delete funktioniert (Analysis, Briefing, Script werden mit gelöscht).",
+        "Lead-Tabelle Bulk: Füge eine Checkbox-Spalte als erste Spalte in columns.tsx hinzu. Header: <Checkbox checked={table.getIsAllPageRowsSelected()} onCheckedChange={table.toggleAllPageRowsSelected} />. Cell: <Checkbox checked={row.getIsSelected()} onCheckedChange={row.toggleSelected} onClick={e => e.stopPropagation()} /> (stopPropagation damit Row-Click nicht triggert).",
+        "Erstelle src/components/leads/BulkActions.tsx als 'use client' Component. Props: { selectedIds: string[]; onClear: () => void }. Nur sichtbar wenn selectedIds.length > 0. Layout: <div className='fixed bottom-4 left-1/2 -translate-x-1/2 z-50 bg-zinc-900 border border-zinc-700 rounded-xl shadow-xl px-4 py-3 flex items-center gap-3'>.",
+        "Inhalt: <span className='text-sm text-zinc-300'>{selectedIds.length} ausgewählt</span><Separator orientation='vertical' className='h-6' />. Buttons: 1) 'Status ändern' — DropdownMenu mit allen Status-Optionen, onClick: Server Action bulkUpdateStatus. 2) 'Analysieren' — Button, onClick: fetch POST /api/analyze/batch. 3) 'CSV Export' — Button, onClick: window.open('/api/export/csv?ids=' + selectedIds.join(',')). 4) 'Löschen' — Button variant='destructive', öffnet AlertDialog 'X Leads wirklich löschen?', onClick: Server Action bulkDelete.",
+        "Server Actions in src/app/leads/actions.ts:\nexport async function bulkUpdateStatus(leadIds: string[], status: LeadStatus) { await prisma.lead.updateMany({ where: { id: { in: leadIds } }, data: { status } }); revalidatePath('/leads'); revalidatePath('/'); }\nexport async function bulkDelete(leadIds: string[]) { await prisma.lead.deleteMany({ where: { id: { in: leadIds } } }); revalidatePath('/leads'); revalidatePath('/'); }",
+        "Nach Bulk-Aktion: Toast mit Ergebnis, Selection zurücksetzen via onClear().",
+        "Typecheck passes",
+        "Verify in browser using dev-browser skill"
+      ],
+      "priority": 36,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-037",
+      "title": "Lead manuell hinzufügen",
+      "description": "Erstelle ein Formular in einem Dialog zum manuellen Hinzufügen von Leads auf der Lead-Liste Seite.",
+      "acceptanceCriteria": [
+        "Erstelle src/components/leads/AddLeadDialog.tsx als 'use client' Component.",
+        "Trigger: <Button onClick={() => setOpen(true)}><Plus className='h-4 w-4 mr-2' />Lead hinzufügen</Button>. Platzierung: Auf der Leads-Seite oben rechts neben den Filtern.",
+        "Dialog: shadcn Dialog. Titel: 'Lead manuell hinzufügen'. Content: Formular mit den Feldern: Name (Input, required), Adresse (Input, required), Stadt (Select aus RUHRGEBIET_CITIES, required), PLZ (Input, optional), Telefon (Input, optional), Email (Input, optional, type='email'), Website (Input, optional, placeholder='https://...'), Branche (Select aus BUSINESS_CATEGORIES, required), Google Maps URL (Input, optional), Öffnungszeiten (Input, optional), Notizen (Textarea, optional).",
+        "Validierung: Client-side — Name, Adresse, Stadt, Branche required. Website wenn angegeben muss mit http:// oder https:// starten. Email wenn angegeben muss @ enthalten. Fehler als rote Texte unter den Feldern.",
+        "Submit: Server Action createLead in src/app/leads/actions.ts:\nexport async function createLead(data: { name: string; address: string; city: string; zip?: string; phone?: string; email?: string; website?: string; category: string; googleMapsUrl?: string; openingHours?: string; notes?: string }) { const lead = await prisma.lead.create({ data: { ...data, source: 'MANUAL', status: 'NEW' } }); revalidatePath('/leads'); revalidatePath('/'); return lead; }",
+        "Nach Erstellen: Dialog schließen, Toast 'Lead erstellt', Optional: router.push(`/leads/${lead.id}`) um direkt zum neuen Lead zu navigieren.",
+        "Typecheck passes",
+        "Verify in browser using dev-browser skill"
+      ],
+      "priority": 37,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-038",
+      "title": "Keyboard Shortcuts",
+      "description": "Implementiere globale Keyboard Shortcuts für Navigation und häufige Aktionen.",
+      "acceptanceCriteria": [
+        "Erstelle src/components/shared/KeyboardShortcuts.tsx als 'use client' Component. Eingebunden in layout.tsx.",
+        "useEffect mit keydown Event Listener auf document. Ignoriere Events wenn activeElement ein Input, Textarea oder [contenteditable] ist.",
+        "Shortcuts implementieren: Zwei-Tasten Shortcuts (Vim-Style 'g' Prefix): State 'pendingKey' — wenn 'g' gedrückt, setze pendingKey='g', nach 500ms reset. Wenn pendingKey='g' und dann 'd' → router.push('/'), 'l' → '/leads', 's' → '/scan', 'e' → '/settings'.",
+        "Einzel-Tasten: '/' → document.querySelector<HTMLInputElement>('[data-search-input]')?.focus() (Suchfeld auf /leads braucht data-search-input Attribut). 'n' → wenn auf /leads: setAddLeadOpen(true) (via Custom Event oder Zustand). '?' → setShowHelp(true). 'Escape' → schließe offene Dialoge.",
+        "Erstelle src/components/shared/ShortcutHelpDialog.tsx: shadcn Dialog mit Tabelle aller Shortcuts. Spalten: Taste | Aktion. Rows: g d → Dashboard, g l → Leads, g s → Scan, g e → Einstellungen, / → Suche fokussieren, n → Lead hinzufügen, ? → Diese Hilfe, Esc → Dialog schließen.",
+        "Keyboard-Hints: Füge data-shortcut Attribute zu relevanten Buttons hinzu für optionale Hint-Anzeige.",
+        "Typecheck passes"
+      ],
+      "priority": 38,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-039",
+      "title": "Android App — Expo Projekt Setup",
+      "description": "Erstelle das Expo/React Native Projekt für die Android App mit Tab-Navigation und Dark Theme.",
+      "acceptanceCriteria": [
+        "Führe aus: cd D:/FPZ && npx create-expo-app fpz-leadfinder-mobile --template blank-typescript",
+        "Installiere Navigation: cd fpz-leadfinder-mobile && npx expo install @react-navigation/native @react-navigation/bottom-tabs @react-navigation/native-stack react-native-screens react-native-safe-area-context @expo/vector-icons",
+        "Erstelle src/ Ordnerstruktur: src/screens/, src/components/, src/lib/, src/types/",
+        "Erstelle src/lib/api.ts: const API_URL = process.env.EXPO_PUBLIC_API_URL ?? 'http://localhost:3000'; export async function apiFetch<T>(path: string, options?: RequestInit): Promise<T> { const res = await fetch(`${API_URL}${path}`, { ...options, headers: { 'Content-Type': 'application/json', ...options?.headers } }); if (!res.ok) throw new Error(`API Error: ${res.status}`); return res.json(); }",
+        "Erstelle App.tsx mit Tab Navigator: <NavigationContainer theme={DarkTheme}><Tab.Navigator screenOptions={{ tabBarStyle: { backgroundColor: '#18181b', borderTopColor: '#27272a' }, tabBarActiveTintColor: '#3b82f6', tabBarInactiveTintColor: '#71717a', headerStyle: { backgroundColor: '#18181b' }, headerTintColor: '#fafafa' }}>. 4 Tabs: Dashboard (home Icon), Leads (users Icon), Scan (search Icon), Settings (settings Icon).",
+        "Erstelle Placeholder Screens: DashboardScreen, LeadsScreen, ScanScreen, SettingsScreen — jeweils mit <View style={{ flex: 1, bg: '#09090b', justifyContent: 'center', alignItems: 'center' }}><Text style={{ color: '#fafafa', fontSize: 20 }}>{screenName}</Text></View>.",
+        "Erstelle Stack Navigator für Lead-Detail: LeadsScreen als Stack mit LeadsList und LeadDetail.",
+        "App startet fehlerfrei: npx expo start",
+        "Typecheck passes"
+      ],
+      "priority": 39,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-040",
+      "title": "Android App — Dashboard Screen",
+      "description": "Implementiere den Dashboard Screen der Statistiken und neueste Leads von der Web-API lädt.",
+      "acceptanceCriteria": [
+        "Erstelle src/screens/DashboardScreen.tsx.",
+        "Daten laden: useEffect → apiFetch('/api/dashboard'). State: data, loading, error.",
+        "4 Stat-Cards: <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8, padding: 16 }}>. Jede Card: <View style={{ flex: 1, minWidth: '45%', backgroundColor: '#18181b', borderRadius: 12, padding: 16, borderWidth: 1, borderColor: '#27272a' }}><Text style={{ color: '#71717a', fontSize: 12 }}>{title}</Text><Text style={{ color: '#fafafa', fontSize: 28, fontWeight: 'bold', marginTop: 4 }}>{value}</Text></View>.",
+        "Recent Leads: <FlatList data={data.recentLeads} renderItem={({ item }) => <TouchableOpacity onPress={() => navigation.navigate('LeadDetail', { id: item.id })} style={{ flexDirection: 'row', alignItems: 'center', padding: 12, borderBottomWidth: 1, borderBottomColor: '#27272a' }}><View style={{ width: 8, height: 8, borderRadius: 4, backgroundColor: getScoreColorHex(item.overallScore), marginRight: 12 }} /><View style={{ flex: 1 }}><Text style={{ color: '#fafafa', fontSize: 14 }}>{item.name}</Text><Text style={{ color: '#71717a', fontSize: 12 }}>{item.city}</Text></View></TouchableOpacity>} />.",
+        "Pull-to-Refresh: <RefreshControl refreshing={refreshing} onRefresh={reload} tintColor='#3b82f6' />.",
+        "Loading: <ActivityIndicator size='large' color='#3b82f6' /> zentriert.",
+        "Error: <Text style={{ color: '#ef4444' }}>Fehler: {error.message}</Text> + Retry Button.",
+        "Typecheck passes"
+      ],
+      "priority": 40,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-041",
+      "title": "Android App — Lead-Liste und Detail Screen",
+      "description": "Implementiere Lead-Liste mit Suche/Filter und Detail-Screen mit Kontaktdaten, Scores, Briefing und Skript.",
+      "acceptanceCriteria": [
+        "Erstelle src/screens/LeadsListScreen.tsx: TextInput für Suche oben. FlatList mit Leads. Infinite Scroll: onEndReached → nächste Seite laden. Jeder Lead als TouchableOpacity → navigation.navigate('LeadDetail', { id }).",
+        "Filter-Chips: Horizontal scrollbare Chips unter der Suche. Chip für Stadt, Status. TouchableOpacity mit Toggle-Logik.",
+        "Erstelle src/screens/LeadDetailScreen.tsx: ScrollView mit allen Infos.",
+        "Kontakt: Name groß, Stadt + Branche. Buttons: 'Anrufen' (Linking.openURL(`tel:${phone}`)), 'Maps' (Linking.openURL(googleMapsUrl)), 'Website' (Linking.openURL(website)).",
+        "Scores: Gesamt-Score groß. 3x3 Grid der 9 Kategorien mit Score-Zahlen und Farbindikatoren.",
+        "Briefing: Zusammenfassung, Schwachstellen als Liste, Gesprächseinstieg als hervorgehobene Box.",
+        "Skript: Steps als vertikale Liste. 'Kopieren' Button (Clipboard.setStringAsync(script.fullScript)).",
+        "Status ändern: Picker/Dropdown zum Status-Ändern (PUT /api/leads/[id]).",
+        "Typecheck passes"
+      ],
+      "priority": 41,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-042",
+      "title": "Android App — Scan und Settings Screen",
+      "description": "Implementiere Scan-Auslösung und Settings-Konfiguration auf der Android App.",
+      "acceptanceCriteria": [
+        "Erstelle src/screens/ScanScreen.tsx: Stadt-Checkboxen als Liste. 'Scan starten' Button → POST /api/scan. Polling auf /api/scan/status. Fortschritts-Anzeige mit ActivityIndicator + Text.",
+        "Ergebnis: Card mit Zusammenfassung (neue Leads, Dauer etc.).",
+        "Erstelle src/screens/SettingsScreen.tsx: API URL Input (gespeichert in AsyncStorage). 'Verbindung testen' Button → GET /api/dashboard, zeige Erfolg/Fehler. App-Version. 'Cache leeren' Button.",
+        "AsyncStorage: npx expo install @react-native-async-storage/async-storage. API URL laden beim App-Start.",
+        "Typecheck passes"
+      ],
+      "priority": 42,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-043",
+      "title": "Web API Dashboard Route für Mobile App",
+      "description": "Erstelle die /api/dashboard Route die alle Dashboard-Daten in einem Request liefert inkl. CORS Headers.",
+      "acceptanceCriteria": [
+        "Erstelle src/app/api/dashboard/route.ts in fpz-leadfinder (Web-App).",
+        "GET Handler: Lade parallel via Promise.all: getDashboardStats(), getCityDistribution(), getRecentLeads(10), getPipelineStats().",
+        "Response: NextResponse.json({ stats, cityChart, recentLeads, pipeline }, { headers: { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET', 'Access-Control-Allow-Headers': 'Content-Type' } }).",
+        "Auch OPTIONS Handler für CORS Preflight: export async function OPTIONS() { return new NextResponse(null, { headers: { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET', 'Access-Control-Allow-Headers': 'Content-Type' } }); }",
+        "Typecheck passes"
+      ],
+      "priority": 43,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-044",
+      "title": "Responsive Feinschliff und Design Polish",
+      "description": "Überprüfe und korrigiere alle Seiten auf 3 Breakpoints (Mobile, Tablet, Desktop) und füge Hover/Focus/Animation-States hinzu.",
+      "acceptanceCriteria": [
+        "Mobile (< 640px): Prüfe dass Sidebar → Bottom Tab, Tabellen → scrollbar oder Card-View, Filter → Collapsible oder Sheet, Charts responsive, Score-Grid 2-Spalten, Pipeline 2x2.",
+        "Tablet (640-1024px): Sidebar collapsed by default, 2-Spalten Layouts wo sinnvoll.",
+        "Desktop (> 1024px): Volle Sidebar, alle Features sichtbar.",
+        "Hover States: Alle klickbaren Elemente (Buttons, Links, Table Rows, Cards) haben hover Transitions. Prüfe: LeadTable Rows, Dashboard Cards, Sidebar Items, Filter Dropdowns.",
+        "Focus States: Alle interaktiven Elemente haben sichtbare Focus-Ringe: focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950. Prüfe: Inputs, Buttons, Select, Checkboxes, Links.",
+        "Skeleton Shimmer: Alle Skeleton Komponenten nutzen animate-pulse.",
+        "Score Ring Animation: Ringe animieren beim ersten Render von 0 zum Score-Wert (CSS transition auf stroke-dashoffset, duration 1000ms, ease-out).",
+        "Scrollbar: Falls Tailwind scrollbar Plugin verfügbar: scrollbar-thin scrollbar-track-zinc-900 scrollbar-thumb-zinc-700. Sonst: CSS ::-webkit-scrollbar Styling in globals.css.",
+        "Teste alle Seiten: Dashboard, /leads, /leads/[id], /scan, /settings, 404, Error.",
+        "Typecheck passes",
+        "Verify in browser using dev-browser skill"
+      ],
+      "priority": 44,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-045",
+      "title": "Vercel Deployment Konfiguration",
+      "description": "Konfiguriere das Projekt für Vercel Deployment mit Turso DB Migration und Environment Variables.",
+      "acceptanceCriteria": [
+        "vercel.json sollte bereits existieren (US-028). Prüfe und ergänze: { \"framework\": \"nextjs\", \"crons\": [{ \"path\": \"/api/cron\", \"schedule\": \"0 3 * * *\" }] }.",
+        "next.config.ts: Prüfe dass serverExternalPackages korrekt ist wenn nötig (z.B. für jspdf). Füge hinzu falls nötig: const nextConfig = { serverExternalPackages: ['jspdf'] };",
+        "Prisma auf Vercel: In package.json füge postinstall Script hinzu: \"postinstall\": \"prisma generate\". Stelle sicher dass prisma in dependencies ist (nicht nur devDependencies).",
+        "SQLite → Turso Migration dokumentieren: Erstelle DEPLOYMENT.md in fpz-leadfinder/ mit Steps: 1) Turso Account erstellen (turso.tech, gratis: 9GB, 500M rows), 2) DB erstellen: turso db create fpz-leadfinder, 3) Token erstellen: turso db tokens create fpz-leadfinder, 4) In Prisma Schema: datasource db { provider = 'sqlite' url = env('DATABASE_URL') } bleibt gleich, 5) npm install @libsql/client @prisma/adapter-libsql, 6) DATABASE_URL auf Vercel: libsql://fpz-leadfinder-[user].turso.io, 7) TURSO_AUTH_TOKEN setzen, 8) db/client.ts anpassen für Turso Adapter.",
+        "Erstelle DEPLOYMENT.md mit: Local Development Setup (npm install, .env kopieren, prisma db push, npm run db:seed, npm run dev), Vercel Deployment (Environment Variables Liste, Build Command, Output Directory), Turso Setup Steps.",
+        ".env.example aktualisieren: Füge hinzu TURSO_AUTH_TOKEN='your-turso-token' und Kommentar dass DATABASE_URL für Turso anders aussieht.",
+        "Typecheck passes"
+      ],
+      "priority": 45,
+      "passes": false,
+      "notes": ""
+    },
+    {
+      "id": "US-046",
+      "title": "Secret URL Auth Gate",
+      "description": "Schuetze die gesamte App mit einem Passwort. Nur ueber /secret mit Passwort fpz123 kommt man rein. Middleware redirected alle unauthentifizierten Requests zu /secret.",
+      "acceptanceCriteria": [
+        "Erstelle src/app/secret/page.tsx: Zentriertes Passwort-Formular (dark theme, bg-zinc-950), Input Typ password, Submit Button, Fehlermeldung bei falschem Passwort.",
+        "Erstelle src/app/api/auth/route.ts: POST Route die Passwort prueft (env APP_PASSWORD, default fpz123). Bei Erfolg setze httpOnly Cookie 'fpz-auth' mit Wert 'authenticated', maxAge 30 Tage. Bei Fehler 401.",
+        "Erstelle src/middleware.ts: Pruefe auf allen Routen ob Cookie 'fpz-auth' vorhanden. Ausnahmen: /secret und /api/auth. Ohne Cookie redirect zu /secret. Matcher schliesst _next und statische Assets aus.",
+        "In .env.example fuege hinzu: APP_PASSWORD='fpz123'",
+        "Typecheck passes"
+      ],
+      "priority": 46,
+      "passes": false,
+      "notes": ""
+    }
+  ]
+}
