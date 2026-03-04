@@ -115,10 +115,10 @@ export default function DatenschutzPage() {
           </p>
           <p className="text-white/70 leading-relaxed mt-3">
             Die Daten werden über einen{" "}
-            <strong className="text-white/90">n8n-Webhook</strong> (selbst gehostete
-            Automatisierungsplattform) verarbeitet, um Ihre Anfrage entgegenzunehmen und zu
+            <strong className="text-white/90">n8n-Webhook</strong> (n8n Cloud, Betreiber: n8n GmbH,
+            Bülowstraße 66, 10783 Berlin) verarbeitet, um Ihre Anfrage entgegenzunehmen und zu
             bearbeiten. Die Daten werden ausschließlich zur Bearbeitung Ihrer Anfrage verwendet
-            und nicht an Dritte weitergegeben.
+            und nicht an weitere Dritte weitergegeben.
           </p>
           <p className="text-white/70 leading-relaxed mt-3">
             Rechtsgrundlage: Art. 6 Abs. 1 lit. b DSGVO (Vertragsanbahnung) bzw. Art. 6 Abs. 1

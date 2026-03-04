@@ -109,32 +109,33 @@ export function ContactForm({ accentColor, className, lang = "en" }: ContactForm
       service,
     }
 
-    const tryRequest = async (isRetry: boolean): Promise<void> => {
+    // Returns true on success, false if should retry, throws on 4xx/unrecoverable
+    const doFetch = async (): Promise<"success" | "retry" | "error"> => {
       try {
         const res = await attemptFetch(payload)
-        const data = await res.json()
-
-        if (!res.ok) {
-          setErrorMessage(data.error ?? t.errorGeneric)
-          setFormState("error")
-          return
+        if (res.status >= 500) return "retry"      // 5xx → worth retrying
+        if (!res.ok) {                              // 4xx → won't recover
+          const data = await res.json().catch(() => ({}))
+          setErrorMessage((data as { error?: string }).error ?? t.errorGeneric)
+          return "error"
         }
-
-        setFormState("success")
+        return "success"
       } catch (err) {
         const isTimeout = err instanceof DOMException && err.name === "AbortError"
-        if (!isRetry) {
-          // 1x retry after 2s
-          setFormState("retrying")
-          await new Promise((resolve) => setTimeout(resolve, 2000))
-          return tryRequest(true)
-        }
         setErrorMessage(isTimeout ? t.errorTimeout : t.errorNetwork)
-        setFormState("error")
+        return "retry"
       }
     }
 
-    await tryRequest(false)
+    const first = await doFetch()
+    if (first === "success") { setFormState("success"); return }
+    if (first === "error") { setFormState("error"); return }
+
+    // Retry once after 2s (covers both network errors and 5xx)
+    setFormState("retrying")
+    await new Promise((resolve) => setTimeout(resolve, 2000))
+    const second = await doFetch()
+    setFormState(second === "success" ? "success" : "error")
   }
 
   if (formState === "success") {

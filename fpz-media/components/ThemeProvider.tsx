@@ -26,12 +26,17 @@ export function V6ThemeProvider({ children }: { children: React.ReactNode }) {
     const stored = localStorage.getItem(STORAGE_KEY) as Theme | null
     if (stored === "light" || stored === "dark") {
       setThemeState(stored)
-    } else {
-      // No stored preference → fall back to system preference
-      const mq = window.matchMedia("(prefers-color-scheme: light)")
-      setThemeState(mq.matches ? "light" : "dark")
+      setMounted(true)
+      return
     }
+
+    // No explicit choice → follow system preference live
+    const mq = window.matchMedia("(prefers-color-scheme: light)")
+    setThemeState(mq.matches ? "light" : "dark")
     setMounted(true)
+    const handleMq = (e: MediaQueryListEvent) => setThemeState(e.matches ? "light" : "dark")
+    mq.addEventListener("change", handleMq)
+    return () => mq.removeEventListener("change", handleMq)
   }, [])
 
   useEffect(() => {
