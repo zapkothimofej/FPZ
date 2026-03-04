@@ -53,8 +53,8 @@
         "Typecheck passes"
       ],
       "priority": 2,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "Prisma 7 Schema mit 6 Modellen (Lead, WebsiteAnalysis, Briefing, SalesScript, ScanLog, Settings). SQLite via @prisma/adapter-libsql. PrismaClient in src/lib/db/client.ts."
     },
     {
       "id": "US-003",

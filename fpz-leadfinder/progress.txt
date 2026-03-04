@@ -13,3 +13,22 @@
 - Created: directory structure with .gitkeep (scrapers, analyzers, ai, db, export, dashboard, leads, briefing, script, shared, types)
 - Installed: shadcn/ui with 20 components (button, card, badge, input, select, dropdown-menu, dialog, tooltip, skeleton, separator, sheet, tabs, accordion, slider, checkbox, textarea, progress, alert-dialog, popover, command)
 - Verified: npx tsc --noEmit — 0 errors
+**US-001 abgeschlossen.** 
+
+Zusammenfassung:
+- Next.js 16 Projekt mit React 19, TypeScript strict mode, Tailwind v4
+- shadcn/ui initialisiert mit 20 Komponenten (button, card, badge, input, select, dropdown-menu, dialog, tooltip, skeleton, separator, sheet, tabs, accordion, slider, checkbox, textarea, progress, alert-dialog, popover, command)
+- Prisma mit SQLite konfiguriert
+- Dark-only Theme mit Geist Font und Custom Scrollbar
+- Verzeichnisstruktur für scrapers, analyzers, ai, db, export, components
+- `npx tsc --noEmit` — 0 Fehler
+- Commit: `55dc7af`
+--- Iteration 2 started at 22:27:35 ---
+
+## US-002: Datenbank-Schema — DONE
+- Modified: prisma/schema.prisma (6 Modelle: Lead, WebsiteAnalysis, Briefing, SalesScript, ScanLog, Settings)
+- Created: src/lib/db/client.ts (PrismaClient Singleton mit @prisma/adapter-libsql)
+- Installed: @prisma/adapter-libsql, @libsql/client, better-sqlite3, @types/better-sqlite3
+- Note: Prisma 7 erfordert Driver Adapter statt URL in schema.prisma; URL nur in prisma.config.ts
+- Note: Generated output in src/generated/prisma/ (nicht @prisma/client)
+- Verified: npx tsc --noEmit — 0 Fehler, npx prisma db push + generate — erfolgreich
