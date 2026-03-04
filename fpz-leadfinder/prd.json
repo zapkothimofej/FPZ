@@ -191,8 +191,8 @@
         "Verify in browser using dev-browser skill"
       ],
       "priority": 9,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "src/app/page.tsx komplett ersetzt: Suspense Boundaries für alle 4 Dashboard-Widgets (StatCards, CityChartWrapper, Pipeline, RecentLeads), Metadata gesetzt, Grid-Layout lg:grid-cols-2. npx tsc --noEmit — 0 Fehler."
     },
     {
       "id": "US-010",

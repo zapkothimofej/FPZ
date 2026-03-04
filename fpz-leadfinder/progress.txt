@@ -122,3 +122,13 @@ US-007 abgeschlossen. Commit `d4b8b06`.
 - Created: src/components/dashboard/Pipeline.tsx (async Server Component, 4 Steps mit Conversion-Raten, ChevronRight-Pfeile, responsive 2x2 Grid auf Mobile)
 - Verified: npx tsc --noEmit — 0 Fehler
 US-008 abgeschlossen.
+US-008 abgeschlossen. Commit `c553af0`.
+
+- `queries.ts` — `getPipelineStats()` per `groupBy status`
+- `Pipeline.tsx` — async Server Component, 4 Steps (Neu/Kontaktiert/Angebot/Gewonnen) mit Conversion-Raten, ChevronRight-Pfeile, 2x2 Grid auf Mobile
+- TypeScript: 0 Fehler
+--- Iteration 9 started at 22:41:47 ---
+
+## US-009: Dashboard Layout zusammensetzen — DONE
+- Modified: src/app/page.tsx (alle Dashboard-Widgets mit Suspense Boundaries, Metadata, Grid-Layout)
+- TypeScript: 0 Fehler
