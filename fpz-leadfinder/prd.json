@@ -303,8 +303,8 @@
         "Verify in browser using dev-browser skill"
       ],
       "priority": 14,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "BriefingView.tsx erstellt mit 4 States (kein Briefing+keine Analyse, kein Briefing+Analyse, generierung läuft, briefing vorhanden). Stub-API /api/briefing/generate angelegt. TypeCheck: 0 Fehler."
     },
     {
       "id": "US-015",

@@ -195,3 +195,16 @@ US-012 abgeschlossen. Commit `870f8ee`.
 - Created: src/components/leads/ScoreOverview.tsx (3 States: keine Website, nicht analysiert, analysiert + 9 Kategorie-Ringe mit Detail-Expansion)
 - Fix: categoryDetails != null statt categoryDetails && (...) um TS2322 (unknown not assignable to ReactNode) zu vermeiden
 - Verified: npx tsc --noEmit — 0 Fehler
+US-013 abgeschlossen. Commit `0513018`.
+
+**Was erstellt:**
+- `src/components/shared/ScoreRing.tsx` — SVG-Ring-Komponente mit 3 Größen (sm/md/lg), Farb-Mapping per `ScoreColor`, animierter `strokeDashoffset`-Transition
+- `src/components/leads/ScoreOverview.tsx` — 3 States (keine Website / nicht analysiert / analysiert), 9 Kategorie-Ringe im Grid mit klickbarer Detail-Expansion
+
+**TS-Fix:** `categoryDetails != null && (...)` statt `categoryDetails && (...)` — verhindert `unknown not assignable to ReactNode`-Fehler in strict mode.
+--- Iteration 14 started at 22:51:36 ---
+
+## US-014: Briefing-Anzeige mit KI-Generierung — DONE
+- Created: src/components/leads/BriefingView.tsx (4 States: kein Briefing+keine Analyse / kein Briefing+Analyse vorhanden / Generierung läuft / Briefing vorhanden)
+- Created: src/app/api/briefing/generate/route.ts (Stub, 501 Not Implemented)
+- Verified: npx tsc --noEmit — 0 Fehler
