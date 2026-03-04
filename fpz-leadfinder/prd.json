@@ -474,8 +474,8 @@
         "Typecheck passes"
       ],
       "priority": 22,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "security.ts: 6 gewichtete Header-Checks (HTTPS 25%, HSTS 20%, X-Frame 15%, X-Content-Type 15%, CSP 15%, XSS 10%). tech-stack.ts: CMS/Framework/JS-Library-Erkennung per HTML-Pattern-Matching, Server via HEAD-Request, Score-Tabelle nach Stack-Qualität."
     },
     {
       "id": "US-023",

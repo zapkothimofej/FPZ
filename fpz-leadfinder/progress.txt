@@ -297,3 +297,10 @@ US-020 abgeschlossen. `src/lib/analyzers/lighthouse.ts` erstellt mit `analyzePer
 - Created: src/lib/analyzers/seo.ts (11 gewichtete SEO-Checks via cheerio HTML-Parsing)
 - Fix: Spec-Code hatte 'imagesWithAlt' statt 'imgsWithAlt' (variable name mismatch) → korrigiert
 - TypeCheck: 0 Fehler
+US-021 abgeschlossen. `src/lib/analyzers/seo.ts` erstellt mit 11 gewichteten SEO-Checks (title, meta description, H1/H2, alt-texte, sitemap, robots.txt, canonical, Open Graph, JSON-LD, lang-attribut). Fix: Spec hatte `imagesWithAlt` als Variablenname, tatsächlich war `imgsWithAlt` definiert. TypeCheck: 0 Fehler.
+--- Iteration 22 started at 23:05:23 ---
+
+## US-022: Security und Tech-Stack Analyzer — DONE
+- Created: src/lib/analyzers/security.ts (6 gewichtete HTTP-Header-Checks, AbortSignal.timeout(10000))
+- Created: src/lib/analyzers/tech-stack.ts (CMS/Framework/JS-Library Erkennung via HTML-Pattern-Matching, Server via HEAD-Request)
+- TypeCheck: 0 Fehler
