@@ -46,3 +46,22 @@ US-002 abgeschlossen:
 - Modified: src/lib/utils.ts (cn + getScoreColor*, formatDate*, truncate, slugify, parseJsonSafe, ensureHttps, sleep)
 - Note: Import von @/generated/prisma/client statt @prisma/client (Prisma 7 custom output path)
 - Verified: npx tsc --noEmit — 0 Fehler
+US-003 abgeschlossen. Commit `1ecfd5b`.
+
+**Was gemacht wurde:**
+- `src/types/index.ts` — alle gemeinsamen Types/Interfaces (LeadStatus, ScoreCategory, ScrapedLead, DashboardData, etc.)
+- `src/lib/constants.ts` — 20 Ruhrgebiet-Städte, 35 Kategorien, SCORE_WEIGHTS, STATUS_CONFIG, OSM_CATEGORY_MAP
+- `src/lib/utils.ts` — Score-Farbfunktionen, Datums-/String-Utils, parseJsonSafe
+
+**Anpassung:** Import von `@/generated/prisma/client` statt `@prisma/client` (Prisma 7 mit custom output path). `npx tsc --noEmit` — 0 Fehler.
+--- Iteration 4 started at 22:35:04 ---
+
+## US-004: App Layout mit Sidebar und Dark Mode — DONE
+- Created: src/components/shared/SidebarContext.tsx (Context + Provider + useSidebar hook)
+- Created: src/components/shared/Sidebar.tsx (collapsible desktop sidebar, Tooltip on collapse)
+- Created: src/components/shared/MobileNav.tsx (fixed bottom nav for mobile)
+- Created: src/components/shared/TopBar.tsx (sticky top bar with page title)
+- Created: src/components/shared/MainContent.tsx (dynamic sidebar margin via CSS classes)
+- Modified: src/app/globals.css (sidebar-expanded/collapsed CSS classes + media query)
+- Modified: src/app/layout.tsx (SidebarProvider, Sidebar, MobileNav, TopBar, MainContent, Toaster)
+- Verified: npx tsc --noEmit — 0 errors

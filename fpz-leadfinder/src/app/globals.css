@@ -146,3 +146,19 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+/* Sidebar layout offsets */
+.sidebar-expanded {
+  margin-left: 256px;
+}
+
+.sidebar-collapsed {
+  margin-left: 64px;
+}
+
+@media (max-width: 767px) {
+  .sidebar-expanded,
+  .sidebar-collapsed {
+    margin-left: 0;
+  }
+}

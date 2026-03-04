@@ -95,8 +95,8 @@
         "Verify in browser using dev-browser skill"
       ],
       "priority": 4,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "SidebarProvider/Context, Sidebar (collapsible, desktop), MobileNav (bottom bar), TopBar, MainContent mit dynamischem Margin. layout.tsx ersetzt."
     },
     {
       "id": "US-005",
