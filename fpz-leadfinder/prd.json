@@ -422,8 +422,8 @@
         "Typecheck passes"
       ],
       "priority": 20,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "src/lib/analyzers/lighthouse.ts erstellt: analyzePerformance() nutzt PageSpeed Insights API (gratis), extrahiert Performance/SEO/Accessibility/BestPractices Scores und Core Web Vitals Details. TypeCheck: 0 Fehler."
     },
     {
       "id": "US-021",

@@ -274,3 +274,19 @@ US-018 abgeschlossen. `src/lib/scrapers/google-maps.ts` erstellt — HTTP-basier
 - Modified: src/lib/scrapers/osm.ts (Return type auf { leads, errors } geaendert)
 - Modified: src/lib/scrapers/google-maps.ts (Signature auf (cityName: string, categories: string[]) geaendert, Return type auf { leads, errors })
 - TypeCheck: 0 Fehler
+US-019 abgeschlossen. Commit `6a489ee`.
+
+**Was implementiert:**
+- `src/lib/scrapers/index.ts` — `runScan()`: Phase 1 OSM, Phase 2 Google Maps für Städte mit <10 OSM-Leads, Phase 3 DB-Upsert mit newCount/updateCount-Tracking, ScanLog-Updates (running/completed/failed)
+- `src/app/api/scan/route.ts` — POST, fire-and-forget, validiert `cities`-Array
+- `src/app/api/scan/status/route.ts` — GET, gibt letzten ScanLog zurück
+
+**Anpassungen gegenüber Spec:** Scraper-Signaturen mussten angepasst werden:
+- `scrapeOSM` → Return `{ leads, errors }` statt `ScrapedLead[]`
+- `scrapeGoogleMaps` → Signature `(cityName: string, categories: string[])` statt `(cities: City[], ...)`
+--- Iteration 20 started at 23:03:19 ---
+
+## US-020: Performance Analyzer via PageSpeed Insights API — DONE
+- Created: src/lib/analyzers/lighthouse.ts (analyzePerformance, PerformanceResult interface)
+- Features: PageSpeed Insights API (no API key needed), Performance/SEO/Accessibility/BestPractices scores, Core Web Vitals (FCP, LCP, TBT, CLS, SpeedIndex, Interactive), AbortSignal.timeout(30000), EMPTY_RESULT on error
+- TypeCheck: 0 Fehler
