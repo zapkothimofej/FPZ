@@ -238,3 +238,16 @@ US-015 abgeschlossen.
 - Modified: src/app/leads/[id]/actions.ts (deleteLead Server Action hinzugefügt)
 - Modified: src/app/leads/[id]/page.tsx (Tabs Layout: Analyse/Briefing/Skript/Export, LeadDetailActions im Header)
 - TypeCheck: 0 Fehler
+US-016 abgeschlossen. Commit `b2d0eea`.
+
+**Was implementiert:**
+- `ExportSection.tsx` — PDF-Export Card mit Download-Button
+- `LeadDetailActions.tsx` — "Alles generieren" Button (sequentiell Analyse→Briefing→Skript) + Delete AlertDialog mit `deleteLead` Server Action
+- `actions.ts` — `deleteLead` Server Action ergänzt
+- `page.tsx` — vollständiges Tab-Layout (Analyse/Briefing/Skript/Export) mit `LeadDetailActions` im Header
+--- Iteration 17 started at 22:57:23 ---
+
+## US-017: OSM Scraper — DONE
+- Created: src/lib/scrapers/osm.ts (Overpass API scraper mit buildOverpassQuery, parseOSMNode, scrapeOSM)
+- Features: city+radius queries, OSM_CATEGORY_MAP mapping, deduplication via seenKeys Set, rate-limit handling (429→30s wait), 5s delay zwischen Städten
+- TypeCheck: 0 Fehler

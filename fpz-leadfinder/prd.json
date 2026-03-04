@@ -368,8 +368,8 @@
         "Typecheck passes"
       ],
       "priority": 17,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "OSM Scraper implementiert: Overpass API mit city+radius, buildOverpassQuery für alle OSM_CATEGORY_MAP-Tags, parseOSMNode mit Deduplication, rate-limit handling (429→30s wait), 5s Delay zwischen Städten."
     },
     {
       "id": "US-018",
