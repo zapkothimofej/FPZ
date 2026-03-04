@@ -1,5 +1,3 @@
-"use client"
-
 import type { ReactNode } from "react";
 import Link from "next/link";
 
@@ -86,10 +84,7 @@ export default function FitnessStudioLayout({ children }: { children: ReactNode 
                   textDecoration: "none",
                   fontSize: "14px",
                   fontWeight: 500,
-                  transition: "color 0.15s",
                 }}
-                onMouseOver={(e) => (e.currentTarget.style.color = "#f5f5f5")}
-                onMouseOut={(e) => (e.currentTarget.style.color = "#737373")}
               >
                 {l.label}
               </Link>
