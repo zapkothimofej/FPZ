@@ -467,3 +467,20 @@ US-033 abgeschlossen. Alle Toast-Aufrufe waren bereits aus vorherigen Iteratione
 - Import: ../src/generated/prisma/client mit PrismaLibSql Adapter (required, not @prisma/client)
 - npm run db:seed erfolgreich ausfuehrbar
 - npx tsc --noEmit — 0 Fehler
+US-034 abgeschlossen.
+
+- `prisma/seed.ts` erstellt mit 50 Leads, 10 WebsiteAnalysis, 5 Briefings, 3 SalesScripts, 2 ScanLogs, 1 Settings
+- Wichtig: Import musste `../src/generated/prisma/client` sein (nicht `@prisma/client`), und PrismaClient benötigt `PrismaLibSql` Adapter
+- `npm run db:seed` läuft fehlerfrei, TypeCheck 0 Fehler
+--- Iteration 35 started at 23:28:08 ---
+
+## US-035: Error Boundaries und Loading States — DONE
+- Created: src/app/error.tsx (global error boundary, AlertTriangle, reset + dashboard link)
+- Created: src/app/not-found.tsx (404 page, Search icon, dashboard link)
+- Created: src/app/loading.tsx (global loading, Loader2 spinner)
+- Created: src/app/leads/loading.tsx (filter bar skeleton + 10 table row skeletons)
+- Created: src/app/leads/[id]/loading.tsx (header + tabs skeleton)
+- Created: src/app/leads/[id]/error.tsx (lead detail error boundary)
+- Created: src/app/scan/loading.tsx (scan page skeleton)
+- Created: src/app/settings/loading.tsx (settings page skeleton)
+- TypeCheck: 0 Fehler
