@@ -251,3 +251,16 @@ US-016 abgeschlossen. Commit `b2d0eea`.
 - Created: src/lib/scrapers/osm.ts (Overpass API scraper mit buildOverpassQuery, parseOSMNode, scrapeOSM)
 - Features: city+radius queries, OSM_CATEGORY_MAP mapping, deduplication via seenKeys Set, rate-limit handling (429→30s wait), 5s delay zwischen Städten
 - TypeCheck: 0 Fehler
+US-017 abgeschlossen.
+
+**Was erstellt:** `src/lib/scrapers/osm.ts`
+- `buildOverpassQuery()` — baut Overpass-Query pro Stadt mit lat/lng/radius für alle Kategorien aus `OSM_CATEGORY_MAP`
+- `parseOSMNode()` — extrahiert ScrapedLead aus OSM-Element (name, address, city, phone, email, website, category)
+- `scrapeOSM()` — iteriert alle Städte, Deduplication via `seenKeys`, 429-Handling (30s wait), 5s Delay zwischen Städten
+- TypeCheck: 0 Fehler
+--- Iteration 18 started at 22:58:53 ---
+
+## US-018: Google Maps Scraper — DONE
+- Created: src/lib/scrapers/google-maps.ts (HTTP-based scraper, no Puppeteer)
+- Features: random User-Agent rotation, 5 regex patterns for HTML extraction, rate-limit handling (429→60s wait), retry logic (2 retries), deduplication via seenKeys Set
+- TypeCheck: 0 Fehler

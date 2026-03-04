@@ -389,8 +389,8 @@
         "Typecheck passes"
       ],
       "priority": 18,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "HTTP-basierter Google Maps Scraper mit Pattern-Extraktion aus HTML, Rate-Limit-Handling, Retry-Logik und Deduplication via seenKeys Set"
     },
     {
       "id": "US-019",
