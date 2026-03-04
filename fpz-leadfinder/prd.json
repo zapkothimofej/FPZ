@@ -531,8 +531,8 @@
         "Typecheck passes"
       ],
       "priority": 25,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "Erstellt: src/lib/ai/groq.ts (Groq Client mit RateLimitError, Singleton), src/lib/ai/huggingface.ts (HF Fallback via fetch), src/lib/ai/index.ts (generateText mit 3-stufigem Retry). Stub src/lib/ai.ts geloescht. TypeCheck: 0 Fehler."
     },
     {
       "id": "US-026",

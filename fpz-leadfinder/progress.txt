@@ -325,3 +325,18 @@ US-022 abgeschlossen. Commit `8a3df69`.
 - Created: src/app/api/analyze/route.ts (POST /api/analyze, 400/404/422/500 Error handling)
 - Created: src/app/api/analyze/batch/route.ts (POST /api/analyze/batch, sequentiell für alle leadIds)
 - TypeCheck: 0 Fehler
+US-024 abgeschlossen. Commit `8b5226a`.
+
+**Was erstellt:**
+- `scoring.ts` — `calculateOverallScore()` mit gewichteten SCORE_WEIGHTS
+- `analyzers/index.ts` — `analyzeWebsite()`: HTML-Fetch einmalig, dann 7 Analyzer parallel via `Promise.allSettled`, DB-Upsert (WebsiteAnalysis + Lead.overallScore)
+- `api/analyze/route.ts` — POST mit 400/404/422/500 Error-Handling
+- `api/analyze/batch/route.ts` — POST, sequentiell für alle leadIds, gibt `{ completed, failed }` zurück
+--- Iteration 25 started at 23:10:08 ---
+
+## US-025: Groq KI Client mit HuggingFace Fallback — DONE
+- Deleted: src/lib/ai.ts (Stub, Konflikt mit Directory)
+- Created: src/lib/ai/groq.ts (Groq Singleton, RateLimitError, generateWithGroq)
+- Created: src/lib/ai/huggingface.ts (HF Mixtral Fallback via fetch)
+- Created: src/lib/ai/index.ts (generateText: Groq → HF → Groq Retry nach 2s)
+- TypeCheck: 0 Fehler
