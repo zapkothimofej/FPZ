@@ -517,8 +517,8 @@
         "Typecheck passes"
       ],
       "priority": 24,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "Scoring-Funktion, Analyse-Orchestrierung (alle 7 Analyzer parallel), POST /api/analyze und POST /api/analyze/batch implementiert"
     },
     {
       "id": "US-025",

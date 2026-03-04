@@ -317,3 +317,11 @@ US-022 abgeschlossen. Commit `8a3df69`.
 - Created: src/lib/analyzers/content.ts (KI-Bewertung via @/lib/ai + Heuristik-Fallback)
 - Created: src/lib/ai.ts (Stub — vollständige Implementierung folgt US-025)
 - TypeCheck: 0 Fehler
+--- Iteration 24 started at 23:08:40 ---
+
+## US-024: Analyse-Orchestrierung mit paralleler Pipeline und Scoring — DONE
+- Created: src/lib/analyzers/scoring.ts (calculateOverallScore mit gewichteten SCORE_WEIGHTS)
+- Created: src/lib/analyzers/index.ts (analyzeWebsite: HTML-Fetch, 7 Analyzer parallel via Promise.allSettled, DB upsert)
+- Created: src/app/api/analyze/route.ts (POST /api/analyze, 400/404/422/500 Error handling)
+- Created: src/app/api/analyze/batch/route.ts (POST /api/analyze/batch, sequentiell für alle leadIds)
+- TypeCheck: 0 Fehler
