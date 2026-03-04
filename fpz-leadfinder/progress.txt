@@ -304,3 +304,16 @@ US-021 abgeschlossen. `src/lib/analyzers/seo.ts` erstellt mit 11 gewichteten SEO
 - Created: src/lib/analyzers/security.ts (6 gewichtete HTTP-Header-Checks, AbortSignal.timeout(10000))
 - Created: src/lib/analyzers/tech-stack.ts (CMS/Framework/JS-Library Erkennung via HTML-Pattern-Matching, Server via HEAD-Request)
 - TypeCheck: 0 Fehler
+US-022 abgeschlossen. Commit `8a3df69`.
+
+**Was erstellt:**
+- `security.ts` — 6 gewichtete Header-Checks (HTTPS 25%, HSTS 20%, X-Frame 15%, X-Content-Type 15%, CSP 15%, XSS 10%), 10s Timeout
+- `tech-stack.ts` — CMS-Erkennung (9 Systeme via HTML-Patterns), Framework-Erkennung (Next.js/Nuxt/React/Angular/Vue), JS-Libraries (jQuery/Bootstrap/Tailwind), Server via HEAD-Request, Score-Tabelle nach Stack-Qualität
+--- Iteration 23 started at 23:06:38 ---
+
+## US-023: Design, Alter und Content Analyzer — DONE
+- Created: src/lib/analyzers/design.ts (6 Checks: Viewport 25%, Tables 20%, Flash 10%, InlineStyles 15%, ModernCSS 15%, WebFonts 15%)
+- Created: src/lib/analyzers/age.ts (4 Checks: Copyright 30%, LastModified 20%, Generator 20%, Wayback 30%)
+- Created: src/lib/analyzers/content.ts (KI-Bewertung via @/lib/ai + Heuristik-Fallback)
+- Created: src/lib/ai.ts (Stub — vollständige Implementierung folgt US-025)
+- TypeCheck: 0 Fehler

@@ -502,8 +502,8 @@
         "Typecheck passes"
       ],
       "priority": 23,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "Erstellt: design.ts (6 Checks: Viewport/Tables/Flash/InlineStyles/ModernCSS/WebFonts), age.ts (4 Checks: Copyright/LastModified/Generator/Wayback), content.ts (KI via @/lib/ai mit Heuristik-Fallback). Stub src/lib/ai.ts erstellt (vollständige Impl. folgt US-025)."
     },
     {
       "id": "US-024",
