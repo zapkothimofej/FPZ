@@ -107,6 +107,7 @@ export function ContactForm({ accentColor, className, lang = "en" }: ContactForm
       company: formData.get("company") as string,
       message: formData.get("message") as string,
       service,
+      website: formData.get("website") as string,
     }
 
     // Returns true on success, false if should retry, throws on 4xx/unrecoverable
@@ -116,12 +117,18 @@ export function ContactForm({ accentColor, className, lang = "en" }: ContactForm
         if (res.status >= 500) return "retry"      // 5xx → worth retrying
         if (!res.ok) {                              // 4xx → won't recover
           const data = await res.json().catch(() => ({}))
-          setErrorMessage((data as { error?: string }).error ?? t.errorGeneric)
+          const errorText =
+            data !== null && typeof data === "object" && "error" in data && typeof data.error === "string"
+              ? data.error
+              : t.errorGeneric
+          setErrorMessage(errorText)
           return "error"
         }
         return "success"
       } catch (err) {
-        const isTimeout = err instanceof DOMException && err.name === "AbortError"
+        const isTimeout =
+          (err instanceof DOMException && err.name === "AbortError") ||
+          (err instanceof Error && err.name === "AbortError")
         setErrorMessage(isTimeout ? t.errorTimeout : t.errorNetwork)
         return "retry"
       }
@@ -239,6 +246,11 @@ export function ContactForm({ accentColor, className, lang = "en" }: ContactForm
             disabled={isLoading}
             placeholder="+49 123 456789"
             className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-2"
+            style={
+              {
+                "--tw-ring-color": `${accentColor}80`,
+              } as React.CSSProperties
+            }
           />
         </div>
         <div className="flex flex-col gap-2">
@@ -252,6 +264,11 @@ export function ContactForm({ accentColor, className, lang = "en" }: ContactForm
             disabled={isLoading}
             placeholder="Musterfirma GmbH"
             className="bg-white/5 border-white/10 text-white placeholder:text-white/30 focus-visible:ring-2"
+            style={
+              {
+                "--tw-ring-color": `${accentColor}80`,
+              } as React.CSSProperties
+            }
           />
         </div>
       </div>
@@ -305,6 +322,12 @@ export function ContactForm({ accentColor, className, lang = "en" }: ContactForm
             } as React.CSSProperties
           }
         />
+      </div>
+
+      {/* Honeypot — hidden from humans, bots fill it */}
+      <div aria-hidden="true" style={{ position: "absolute", left: "-9999px", width: "1px", height: "1px", overflow: "hidden" }}>
+        <label htmlFor="website">Website</label>
+        <input id="website" name="website" type="text" tabIndex={-1} autoComplete="off" />
       </div>
 
       {/* Error message — role="alert" so screen readers announce it immediately */}
