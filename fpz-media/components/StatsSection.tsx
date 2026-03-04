@@ -41,9 +41,10 @@ export function StatsSection() {
             toggleActions: "play none none none",
           },
           onUpdate: () => {
-            el.textContent = Number.isInteger(num)
+            const val = Number.isInteger(num)
               ? Math.round(obj.val).toString()
               : obj.val.toFixed(1)
+            el.textContent = `${prefix}${val}${suffix}`
           },
         })
       })
