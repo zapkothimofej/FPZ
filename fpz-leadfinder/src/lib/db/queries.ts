@@ -1,5 +1,13 @@
 import prisma from "@/lib/db/client";
 
+export async function getRecentLeads(limit = 10) {
+  return prisma.lead.findMany({
+    orderBy: { createdAt: "desc" },
+    take: limit,
+    include: { analysis: { select: { overallScore: true } } },
+  });
+}
+
 export async function getCityDistribution() {
   const results = await prisma.lead.groupBy({
     by: ["city"],
