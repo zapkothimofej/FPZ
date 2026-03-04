@@ -5,6 +5,7 @@ import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { pricing } from "@/lib/content-de"
+import { cn } from "@/lib/utils"
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -65,6 +66,7 @@ export function PricingSection() {
             toggleActions: "play none none none",
           },
           onUpdate: () => {
+            if (!priceRefs.current[i]) return
             const formatted =
               Number.isInteger(obj.val) && obj.val >= 1000
                 ? Math.round(obj.val).toLocaleString("de-DE") // 1500 → "1.500"
@@ -177,11 +179,7 @@ export function PricingSection() {
                 }}
               >
                 {num !== null ? (
-                  <>
-                    {prefix}
-                    <span ref={(el) => { priceRefs.current[i] = el }}>0</span>
-                    {suffix}
-                  </>
+                  <span ref={(el) => { priceRefs.current[i] = el }}>0</span>
                 ) : (
                   <span ref={(el) => { priceRefs.current[i] = el }}>{plan.price}</span>
                 )}
@@ -227,11 +225,10 @@ export function PricingSection() {
               {/* CTA */}
               <a
                 href="#contact"
-                className={`mt-10 flex items-center justify-center h-11 text-[13px] tracking-[0.08em] uppercase font-semibold transition-all duration-300 ${
-                  plan.highlighted
-                    ? ""
-                    : "hover:border-[var(--v6-accent)]"
-                }`}
+                className={cn(
+                  "mt-10 flex items-center justify-center h-11 text-[13px] tracking-[0.08em] uppercase font-semibold transition-all duration-300",
+                  !plan.highlighted && "hover:border-[var(--v6-accent)]"
+                )}
                 style={
                   plan.highlighted
                     ? {

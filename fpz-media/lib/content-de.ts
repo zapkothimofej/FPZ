@@ -138,11 +138,95 @@ export const pricing = [
   },
 ]
 
-export const portfolioPlaceholders = [
-  { id: 1, title: "Handwerk Digital", industry: "Handwerk", tags: ["Web", "Media"], size: "large" },
-  { id: 2, title: "Restaurant Kampagne", industry: "Gastronomie", tags: ["Media", "Auto"], size: "small" },
-  { id: 3, title: "Einzelhandel Launch", industry: "Einzelhandel", tags: ["Web", "Auto"], size: "small" },
-  { id: 4, title: "Lokale Brand Identity", industry: "Dienstleistung", tags: ["Web", "Media"], size: "medium" },
-  { id: 5, title: "Fitness Studio", industry: "Sport & Wellness", tags: ["Web", "Media", "Auto"], size: "medium" },
-  { id: 6, title: "Immobilien Portal", industry: "Immobilien", tags: ["Web", "Auto"], size: "small" },
+export type PortfolioItem = {
+  id: number
+  slug: string
+  title: string
+  industry: string
+  tags: string[]
+  size: "large" | "medium" | "small"
+  year: number
+  tagline: string
+  description: string
+  challenge: string
+  solution: string
+  metrics: { label: string; value: string }[]
+  result: string
+}
+
+export const portfolioItems: PortfolioItem[] = [
+  {
+    id: 1, slug: "handwerk-digital",
+    title: "Handwerk Digital", industry: "Handwerk",
+    tags: ["Web", "Media"], size: "large", year: 2024,
+    tagline: "Komplette Online-Präsenz für ein Handwerksunternehmen.",
+    description: "Ein regionales Handwerksunternehmen aus dem Ruhrgebiet hatte keine digitale Präsenz. Wir haben Website, Imagefilm und automatisierte Anfragen-Pipeline in einem Paket geliefert.",
+    challenge: "Kein Web-Auftritt, Anfragen nur per Telefon, kein System für Follow-ups.",
+    solution: "Neue Website mit SEO-Optimierung, professioneller Imagefilm, automatisierte Anfragen-Pipeline via n8n.",
+    metrics: [{ label: "Mehr Anfragen", value: "+70%" }, { label: "Lieferzeit", value: "3 Wo." }, { label: "Google Platz", value: "Top 3" }],
+    result: "+70% Anfragen",
+  },
+  {
+    id: 2, slug: "restaurant-kampagne",
+    title: "Restaurant Kampagne", industry: "Gastronomie",
+    tags: ["Media", "Auto"], size: "small", year: 2024,
+    tagline: "Social-Media-Content mit automatisierter Posting-Pipeline.",
+    description: "Monatliche Reel-Pakete für ein lokales Restaurant — von Konzept bis zum fertigen Video. Mit n8n-Automation wird automatisch zum besten Zeitpunkt gepostet.",
+    challenge: "Kein professioneller Social-Media-Auftritt, unregelmäßige Posts, geringe Reichweite.",
+    solution: "Monatliche Videoproduktion (6 Reels/Monat), automatischer Post-Schedule via n8n.",
+    metrics: [{ label: "Mehr Reichweite", value: "4×" }, { label: "Reels/Monat", value: "6" }, { label: "Follower +", value: "+340" }],
+    result: "4× Reichweite",
+  },
+  {
+    id: 3, slug: "einzelhandel-launch",
+    title: "Einzelhandel Launch", industry: "Einzelhandel",
+    tags: ["Web", "Auto"], size: "small", year: 2025,
+    tagline: "Online-Shop Launch mit automatisierter Bestell- und Lagerlogik.",
+    description: "Ein lokales Modegeschäft wollte online verkaufen. Wir haben den Shop gebaut und alle Prozesse — Bestellbestätigung, Lagersync, Rechnungen — vollständig automatisiert.",
+    challenge: "Nur stationärer Handel, keine Online-Einnahmen, manuelle Prozesse.",
+    solution: "Shopify-Shop Setup, n8n-Automation für Bestellungen, Lager und Rechnungen.",
+    metrics: [{ label: "Launch in", value: "3 Wo." }, { label: "Auto. Prozesse", value: "100%" }, { label: "Erste Bestellung", value: "Tag 1" }],
+    result: "Launch in 3 Wochen",
+  },
+  {
+    id: 4, slug: "lokale-brand-identity",
+    title: "Lokale Brand Identity", industry: "Dienstleistung",
+    tags: ["Web", "Media"], size: "medium", year: 2024,
+    tagline: "Komplette Markenentwicklung: Logo, Website, Imagefilm.",
+    description: "Ein Dienstleistungsunternehmen brauchte eine komplette Neupositionierung. Wir haben Marke, Website und Imagefilm von Grund auf entwickelt — konsistent und professionell.",
+    challenge: "Veraltetes Erscheinungsbild, keine klare Markenidentität, unprofessioneller Auftritt.",
+    solution: "Logo-Design, Farb-/Schriftsystem, neue Website, 90-Sekunden-Imagefilm.",
+    metrics: [{ label: "Termin-Anfragen", value: "+40%" }, { label: "Absprungrate", value: "-35%" }, { label: "Video Views", value: "2.400" }],
+    result: "+40% Anfragen",
+  },
+  {
+    id: 5, slug: "fitness-studio",
+    title: "Fitness Studio", industry: "Sport & Wellness",
+    tags: ["Web", "Media", "Auto"], size: "medium", year: 2025,
+    tagline: "Mitglieder-Webportal, Kursbuchung und automatisierte Kommunikation.",
+    description: "Ein Fitnessstudio mit 450 Mitgliedern brauchte ein digitales System für Kursbuchungen und automatisierte Mitglieder-Kommunikation. Wir haben alles in einem Webportal gebündelt.",
+    challenge: "Kursbuchungen per Telefon/WhatsApp, keine automatischen Erinnerungen, hohe No-Show-Rate.",
+    solution: "Custom-Webportal mit Buchungssystem, automatische SMS/Mail-Erinnerungen via n8n.",
+    metrics: [{ label: "Mehr Buchungen", value: "+35%" }, { label: "No-Show Rate", value: "-60%" }, { label: "Aktive Mitglieder", value: "450" }],
+    result: "+35% Buchungen",
+  },
+  {
+    id: 6, slug: "immobilien-portal",
+    title: "Immobilien Portal", industry: "Immobilien",
+    tags: ["Web", "Auto"], size: "small", year: 2025,
+    tagline: "Property-Listing-Website mit automatisiertem Expose-Versand.",
+    description: "Ein Immobilienmakler brauchte eine professionelle Listing-Website und einen automatischen Expose-Versand-Prozess — ohne manuelle PDF-Anhänge per E-Mail.",
+    challenge: "Veraltete Website, manueller Expose-Versand per E-Mail, langsame Reaktionszeit.",
+    solution: "Neue Listing-Website, automatischer Expose-PDF-Versand per n8n sobald Anfrage eingeht.",
+    metrics: [{ label: "Ø Verkaufszeit", value: "12 Tage" }, { label: "Anfragezeit", value: "< 5 Min." }, { label: "Exposé-Auto.", value: "100%" }],
+    result: "Ø 12 Tage Verkauf",
+  },
 ]
+
+export function getPortfolioItem(slug: string): PortfolioItem | undefined {
+  return portfolioItems.find((p) => p.slug === slug)
+}
+
+export function getPortfolioSlugs(): string[] {
+  return portfolioItems.map((p) => p.slug)
+}
