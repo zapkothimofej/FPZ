@@ -577,8 +577,8 @@
         "Typecheck passes"
       ],
       "priority": 28,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "GET /api/cron route mit Bearer-Auth, Scan, Analyse und Briefing-Generierung. vercel.json mit Cron-Schedule 0 3 * * *."
     },
     {
       "id": "US-029",

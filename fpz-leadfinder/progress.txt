@@ -367,3 +367,16 @@ US-026 abgeschlossen.
 - Created: src/lib/ai/script.ts (generateSalesScript, buildUserPrompt, parseJsonFromResponse, validateScriptResult, STANDARD_OBJECTIONS fallback)
 - Created: src/app/api/script/generate/route.ts (POST, lädt Lead+Analysis+Briefing, generiert Skript, prisma.salesScript.upsert)
 - TypeCheck: 0 Fehler
+US-027 abgeschlossen.
+
+- `src/lib/ai/script.ts` — `generateSalesScript()` mit System-Prompt, dynamischem User-Prompt, JSON-Parsing (direkt + Regex-Fallback), Validierung und Standard-Einwänden als Fallback
+- `src/app/api/script/generate/route.ts` — POST-Route, lädt Lead+Analysis+Briefing, generiert Skript via KI, `prisma.salesScript.upsert`
+- TypeCheck: 0 Fehler
+--- Iteration 28 started at 23:14:58 ---
+--- Iteration 28 completed ---
+
+## US-028: Täglicher Cron Job — DONE
+- Created: src/app/api/cron/route.ts (GET, Bearer-Auth via CRON_SECRET, Scan + Analyse + Briefing-Generierung, Returns summary JSON)
+- Created: vercel.json (framework: nextjs, cron: /api/cron täglich 03:00 UTC)
+- Fix: fullText="" statt briefingData.fullText (BriefingResult hat kein fullText-Feld)
+- TypeCheck: 0 Fehler
