@@ -82,3 +82,17 @@ US-004 abgeschlossen. Commit `22f59f7`.
 - Created: src/components/dashboard/StatCards.tsx (async Server Component, 4 Cards mit TrendIndicator)
 - Created: src/components/dashboard/StatCardsSkeleton.tsx (Skeleton-Grid für Suspense)
 - Verified: npx tsc --noEmit — 0 Fehler
+US-005 abgeschlossen. Commit `758d332`.
+
+**Was erstellt:**
+- `src/lib/db/queries.ts` — `getDashboardStats()` mit 8 parallelen Prisma-Queries (total, newToday, contacted, won + Trend-Vergleiche)
+- `src/components/dashboard/StatCards.tsx` — async Server Component, 4 Cards mit `TrendIndicator` (ArrowUp/Down/Minus)
+- `src/components/dashboard/StatCardsSkeleton.tsx` — Skeleton-Grid für Suspense-Fallback
+--- Iteration 6 started at 22:38:12 ---
+
+## US-006: Dashboard Stadt-Chart — DONE
+- Modified: src/lib/db/queries.ts (getCityDistribution() hinzugefügt)
+- Created: src/components/dashboard/CityChart.tsx (client, Recharts horizontal BarChart, onClick→router)
+- Created: src/components/dashboard/CityChartWrapper.tsx (async Server Component, empty state)
+- Note: Spec-Code enthielt TS-Fehler (value: number vs number|undefined, BarRectangleItem.city nicht vorhanden) → mit unknown-Cast und value|undefined behoben
+- Verified: npx tsc --noEmit — 0 Fehler

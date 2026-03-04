@@ -1,5 +1,15 @@
 import prisma from "@/lib/db/client";
 
+export async function getCityDistribution() {
+  const results = await prisma.lead.groupBy({
+    by: ["city"],
+    _count: { city: true },
+    orderBy: { _count: { city: "desc" } },
+    take: 10,
+  });
+  return results.map((r) => ({ city: r.city, count: r._count.city }));
+}
+
 export async function getDashboardStats() {
   const now = new Date();
   const todayStart = new Date(
