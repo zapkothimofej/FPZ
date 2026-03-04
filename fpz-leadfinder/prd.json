@@ -278,8 +278,8 @@
         "Verify in browser using dev-browser skill"
       ],
       "priority": 13,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "ScoreRing.tsx (SVG-Ring, 3 Größen, Farb-Mapping per ScoreColor) und ScoreOverview.tsx (3 States: keine Website, nicht analysiert, analysiert mit 9 Kategorie-Ringen + Detail-Expansion) erstellt. TS-Fix: categoryDetails != null statt && um unknown-ReactNode-Fehler zu vermeiden."
     },
     {
       "id": "US-014",

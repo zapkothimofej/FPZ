@@ -181,3 +181,17 @@ US-011 abgeschlossen.
 - Created: src/components/leads/LeadNotes.tsx (Textarea, onBlur save, savedRef tracking)
 - Created: src/app/leads/[id]/page.tsx (Server Component, generateMetadata, Kontakt-Card Grid)
 - Verified: npx tsc --noEmit — 0 errors
+US-012 abgeschlossen. Commit `870f8ee`.
+
+**Was erstellt:**
+- `src/app/leads/[id]/actions.ts` — `updateLeadStatus` + `updateLeadNotes` Server Actions mit `revalidatePath`
+- `src/components/leads/StatusDropdown.tsx` — Client Component, `useTransition` für optimistisches Update, Toast-Feedback
+- `src/components/leads/LeadNotes.tsx` — Textarea mit `onBlur`-Save, `savedRef` verhindert unnötige Requests
+- `src/app/leads/[id]/page.tsx` — Server Component mit `generateMetadata`, Kontakt-Card (Adresse/Telefon/Website/Email/Öffnungszeiten), StatusDropdown, LeadNotes, Zeitstempel
+--- Iteration 13 started at 22:48:59 ---
+
+## US-013: Score-Ring Komponente und Score-Übersicht — DONE
+- Created: src/components/shared/ScoreRing.tsx (SVG-Ring, 3 Größen sm/md/lg, ScoreColor-Mapping)
+- Created: src/components/leads/ScoreOverview.tsx (3 States: keine Website, nicht analysiert, analysiert + 9 Kategorie-Ringe mit Detail-Expansion)
+- Fix: categoryDetails != null statt categoryDetails && (...) um TS2322 (unknown not assignable to ReactNode) zu vermeiden
+- Verified: npx tsc --noEmit — 0 Fehler
