@@ -685,8 +685,8 @@
         "Typecheck passes"
       ],
       "priority": 34,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "prisma/seed.ts erstellt mit 50 Leads, 10 WebsiteAnalysis, 5 Briefings, 3 SalesScripts, 2 ScanLogs, 1 Settings. Import via ../src/generated/prisma/client mit PrismaLibSql Adapter. npm run db:seed läuft fehlerfrei."
     },
     {
       "id": "US-035",

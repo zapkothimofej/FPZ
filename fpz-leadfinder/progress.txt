@@ -455,3 +455,15 @@ US-032 abgeschlossen. Commit `828548a`.
 - Verified: ExportSection.tsx — toast.success ✅
 - Verified: LeadDetailActions.tsx — toast.info/success/error ✅
 - TypeCheck: 0 Fehler
+US-033 abgeschlossen. Alle Toast-Aufrufe waren bereits aus vorherigen Iterationen vorhanden:
+
+- `Toaster` in `layout.tsx` (US-004)
+- `StatusDropdown`, `LeadNotes`, `BriefingView`, `ScriptView`, `ScanForm`, `SettingsForm`, `ExportSection`, `LeadDetailActions` — alle mit korrekten `toast.success/error/info` Aufrufen
+- TypeCheck: 0 Fehler
+--- Iteration 34 started at 23:25:10 ---
+
+## US-034: Seed Data fuer Entwicklung — DONE
+- Created: prisma/seed.ts (50 Leads, 10 WebsiteAnalysis, 5 Briefings, 3 SalesScripts, 2 ScanLogs, 1 Settings)
+- Import: ../src/generated/prisma/client mit PrismaLibSql Adapter (required, not @prisma/client)
+- npm run db:seed erfolgreich ausfuehrbar
+- npx tsc --noEmit — 0 Fehler
