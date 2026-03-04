@@ -340,3 +340,17 @@ US-024 abgeschlossen. Commit `8b5226a`.
 - Created: src/lib/ai/huggingface.ts (HF Mixtral Fallback via fetch)
 - Created: src/lib/ai/index.ts (generateText: Groq → HF → Groq Retry nach 2s)
 - TypeCheck: 0 Fehler
+US-025 abgeschlossen. Commit `3c44a91`.
+
+**Was erstellt:**
+- `src/lib/ai/groq.ts` — Groq Singleton Client, `RateLimitError`, `generateWithGroq()`
+- `src/lib/ai/huggingface.ts` — HuggingFace Mixtral Fallback via fetch
+- `src/lib/ai/index.ts` — `generateText()` mit 3-stufigem Retry (Groq → HF → Groq nach 2s)
+- `src/lib/ai.ts` (Stub) gelöscht — TypeScript-Konflikt mit Directory-Index vermieden
+--- Iteration 26 started at 23:12:03 ---
+--- Iteration 26 completed ---
+
+## US-026: KI Briefing-Generierung — DONE
+- Created: src/lib/ai/briefing.ts (generateBriefing, SYSTEM_PROMPT, buildUserPrompt, parseJsonFromResponse, validateBriefingResult)
+- Modified: src/app/api/briefing/generate/route.ts (Stub ersetzt durch vollständige Implementierung)
+- TypeCheck: 0 Fehler

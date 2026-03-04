@@ -546,8 +546,8 @@
         "Typecheck passes"
       ],
       "priority": 26,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "src/lib/ai/briefing.ts erstellt (generateBriefing mit System-Prompt, JSON-Parsing, Validation). src/app/api/briefing/generate/route.ts ersetzt Stub mit vollständiger Implementierung (POST, Prisma upsert). TypeCheck: 0 Fehler."
     },
     {
       "id": "US-027",
