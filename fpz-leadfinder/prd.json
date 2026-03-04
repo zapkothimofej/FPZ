@@ -173,8 +173,8 @@
         "Verify in browser using dev-browser skill"
       ],
       "priority": 8,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "getPipelineStats() in queries.ts; Pipeline.tsx als async Server Component mit 4 Steps, Conversion-Raten und ChevronRight-Pfeilen. Responsive: 2x2 Grid auf Mobile. npx tsc --noEmit — 0 Fehler."
     },
     {
       "id": "US-009",

@@ -110,3 +110,15 @@ US-006 abgeschlossen. Commit `b23ba02`.
 - Modified: src/lib/db/queries.ts (getRecentLeads() hinzugefügt)
 - Created: src/components/dashboard/RecentLeads.tsx (async Server Component, Score-Dot, Status-Badge, Empty State)
 - Verified: npx tsc --noEmit — 0 Fehler
+US-007 abgeschlossen. Commit `d4b8b06`.
+
+**Was erstellt:**
+- `queries.ts` — `getRecentLeads()` mit `include: { analysis: { select: { overallScore: true } } }`
+- `RecentLeads.tsx` — async Server Component mit Score-Dot (getScoreBgClass), Firmenname, Stadt, Branche-Badge, Score-Zahl/Keine-Website-Badge, Status-Badge und Empty State
+--- Iteration 8 started at 22:40:55 ---
+
+## US-008: Dashboard Pipeline Funnel — DONE
+- Modified: src/lib/db/queries.ts (getPipelineStats() hinzugefügt)
+- Created: src/components/dashboard/Pipeline.tsx (async Server Component, 4 Steps mit Conversion-Raten, ChevronRight-Pfeile, responsive 2x2 Grid auf Mobile)
+- Verified: npx tsc --noEmit — 0 Fehler
+US-008 abgeschlossen.

@@ -8,6 +8,23 @@ export async function getRecentLeads(limit = 10) {
   });
 }
 
+export async function getPipelineStats() {
+  const results = await prisma.lead.groupBy({
+    by: ["status"],
+    _count: { status: true },
+  });
+  const map = Object.fromEntries(
+    results.map((r) => [r.status, r._count.status])
+  ) as Record<string, number>;
+  return {
+    new: map["NEW"] ?? 0,
+    contacted: map["CONTACTED"] ?? 0,
+    offerSent: map["OFFER_SENT"] ?? 0,
+    won: map["WON"] ?? 0,
+    rejected: map["REJECTED"] ?? 0,
+  };
+}
+
 export async function getCityDistribution() {
   const results = await prisma.lead.groupBy({
     by: ["city"],
