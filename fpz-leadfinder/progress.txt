@@ -354,3 +354,16 @@ US-025 abgeschlossen. Commit `3c44a91`.
 - Created: src/lib/ai/briefing.ts (generateBriefing, SYSTEM_PROMPT, buildUserPrompt, parseJsonFromResponse, validateBriefingResult)
 - Modified: src/app/api/briefing/generate/route.ts (Stub ersetzt durch vollständige Implementierung)
 - TypeCheck: 0 Fehler
+US-026 abgeschlossen.
+
+**Was gemacht:**
+- `src/lib/ai/briefing.ts` — `generateBriefing()` mit System-Prompt, dynamischem User-Prompt, JSON-Parsing (direkt + Regex-Fallback), Validierung
+- `src/app/api/briefing/generate/route.ts` — Stub ersetzt durch vollständige POST-Route (Lead+Analysis laden, Briefing generieren, Prisma upsert)
+- TypeCheck: 0 Fehler
+--- Iteration 27 started at 23:13:14 ---
+--- Iteration 27 completed ---
+
+## US-027: KI Verkaufsskript-Generierung — DONE
+- Created: src/lib/ai/script.ts (generateSalesScript, buildUserPrompt, parseJsonFromResponse, validateScriptResult, STANDARD_OBJECTIONS fallback)
+- Created: src/app/api/script/generate/route.ts (POST, lädt Lead+Analysis+Briefing, generiert Skript, prisma.salesScript.upsert)
+- TypeCheck: 0 Fehler

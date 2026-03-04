@@ -563,8 +563,8 @@
         "Typecheck passes"
       ],
       "priority": 27,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "generateSalesScript() in src/lib/ai/script.ts + POST /api/script/generate route implementiert"
     },
     {
       "id": "US-028",
