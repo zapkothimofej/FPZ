@@ -14,3 +14,9 @@ export async function updateLeadNotes(leadId: string, notes: string) {
   await prisma.lead.update({ where: { id: leadId }, data: { notes } });
   revalidatePath(`/leads/${leadId}`);
 }
+
+export async function deleteLead(leadId: string) {
+  await prisma.lead.delete({ where: { id: leadId } });
+  revalidatePath("/leads");
+  revalidatePath("/");
+}

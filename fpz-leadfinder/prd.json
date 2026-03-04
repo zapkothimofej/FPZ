@@ -349,8 +349,8 @@
         "Verify in browser using dev-browser skill"
       ],
       "priority": 16,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "ExportSection.tsx erstellt, LeadDetailActions.tsx mit Generate-All und Delete-Dialog, deleteLead Server Action hinzugefügt, page.tsx mit Tab-Layout (Analyse/Briefing/Skript/Export). TypeCheck: 0 Fehler."
     },
     {
       "id": "US-017",

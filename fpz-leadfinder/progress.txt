@@ -222,3 +222,19 @@ Files created:
 - `src/components/leads/ScriptView.tsx` — Timeline-Layout mit 6 Steps (Begrüßung/Phone/blue, Hook/Zap/yellow, Pain Points/AlertTriangle/red, Lösung/Lightbulb/green, Termin/Calendar/blue, Einwandbehandlung/Shield/zinc), shadcn Accordion für Einwände, Copy-Button für fullScript, Neu-generieren-Button, 4 States (kein Briefing, kein Skript, generierung läuft, Skript vorhanden)
 
 TypeCheck: 0 Fehler.
+US-015 abgeschlossen.
+
+**Was implementiert wurde:**
+- `src/components/leads/ScriptView.tsx` — Timeline-Leitfaden mit 6 Steps (Begrüßung, Hook, Pain Points, Lösung, Termin, Einwandbehandlung)
+- shadcn Accordion für Einwandbehandlung
+- 4 States: kein Briefing vorhanden / kein Skript / generierung läuft / Skript vorhanden
+- Copy-Button für `fullScript`, Neu-generieren-Button
+- TypeCheck: 0 Fehler
+--- Iteration 16 started at 22:54:53 ---
+
+## US-016: Lead-Detail Gesamtlayout mit Tabs — DONE
+- Created: src/components/leads/ExportSection.tsx (PDF-Export Card mit Download-Button)
+- Created: src/components/leads/LeadDetailActions.tsx (Generate-All Button + Delete AlertDialog)
+- Modified: src/app/leads/[id]/actions.ts (deleteLead Server Action hinzugefügt)
+- Modified: src/app/leads/[id]/page.tsx (Tabs Layout: Analyse/Briefing/Skript/Export, LeadDetailActions im Header)
+- TypeCheck: 0 Fehler
