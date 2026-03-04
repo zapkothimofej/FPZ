@@ -132,3 +132,17 @@ US-008 abgeschlossen. Commit `c553af0`.
 ## US-009: Dashboard Layout zusammensetzen — DONE
 - Modified: src/app/page.tsx (alle Dashboard-Widgets mit Suspense Boundaries, Metadata, Grid-Layout)
 - TypeScript: 0 Fehler
+US-009 abgeschlossen. `src/app/page.tsx` ersetzt mit dem vollständigen Dashboard-Layout — alle 4 Widgets (StatCards, CityChartWrapper, Pipeline, RecentLeads) mit Suspense Boundaries und Skeleton-Fallbacks. Commit `b64b414`.
+--- Iteration 10 started at 22:42:23 ---
+
+## US-010: Lead-Liste DataTable — DONE
+- Created: src/app/api/leads/route.ts (GET handler, pagination, sorting, filtering)
+- Created: src/components/leads/columns.tsx (7 columns, LeadRow type)
+- Created: src/components/leads/LeadTable.tsx (tanstack/react-table, manual sort+pagination)
+- Created: src/components/leads/LeadTableSkeleton.tsx (10-row skeleton)
+- Created: src/components/leads/LeadFilters.tsx (stub for US-011)
+- Created: src/components/leads/LeadListClient.tsx (URL-param sync, useTransition)
+- Created: src/app/leads/page.tsx (Server Component, Prisma query, metadata)
+- Installed: shadcn table component (was missing)
+- Note: Prisma imports use @/generated/prisma/client (not @prisma/client)
+- Verified: npx tsc --noEmit — 0 errors

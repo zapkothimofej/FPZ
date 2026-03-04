@@ -210,8 +210,8 @@
         "Verify in browser using dev-browser skill"
       ],
       "priority": 10,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "API route GET /api/leads with pagination/sorting/filtering. columns.tsx with 7 columns (name, city, category, website, overallScore, status, createdAt). LeadTable.tsx (tanstack/react-table, manual sort+pagination). LeadTableSkeleton.tsx. LeadListClient.tsx (URL-param sync). LeadFilters.tsx stub for US-011. leads/page.tsx Server Component with Prisma query. Installed shadcn table component. npx tsc --noEmit — 0 errors."
     },
     {
       "id": "US-011",
