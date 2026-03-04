@@ -165,3 +165,19 @@ US-010 abgeschlossen. Commit `fd413b9`.
 - Features: debounced search (300ms), multi-select Stadt/Branche/Status via Popover+Command, Score-Range via Slider, Reset-Button
 - All filters persist as URL searchParams, page reset to 1 on filter change
 - Verified: npx tsc --noEmit — 0 errors
+US-011 abgeschlossen.
+
+**Was gemacht wurde:**
+- `LeadFilters.tsx` — Stub durch vollständige Implementierung ersetzt
+- Debounced-Suche (300ms), Multi-Select für Stadt/Branche/Status via Popover+Command, Score-Range via Slider, Reset-Button
+- Alle Filter synchronisieren über URL searchParams, `page` wird bei jeder Änderung auf 1 zurückgesetzt
+- `npx tsc --noEmit` — 0 Fehler
+- Commit: `fe56ecb`
+--- Iteration 12 started at 22:47:27 ---
+
+## US-012: Lead-Detail Kontaktdaten, Status und Notizen — DONE
+- Created: src/app/leads/[id]/actions.ts (updateLeadStatus, updateLeadNotes Server Actions)
+- Created: src/components/leads/StatusDropdown.tsx (Select mit useTransition, optimistic update)
+- Created: src/components/leads/LeadNotes.tsx (Textarea, onBlur save, savedRef tracking)
+- Created: src/app/leads/[id]/page.tsx (Server Component, generateMetadata, Kontakt-Card Grid)
+- Verified: npx tsc --noEmit — 0 errors

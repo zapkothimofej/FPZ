@@ -256,8 +256,8 @@
         "Verify in browser using dev-browser skill"
       ],
       "priority": 12,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "Lead detail page /leads/[id] with contact card, StatusDropdown (Server Action), LeadNotes (onBlur save), generateMetadata. All 4 files created. npx tsc --noEmit — 0 errors."
     },
     {
       "id": "US-013",
