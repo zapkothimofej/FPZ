@@ -290,3 +290,10 @@ US-019 abgeschlossen. Commit `6a489ee`.
 - Created: src/lib/analyzers/lighthouse.ts (analyzePerformance, PerformanceResult interface)
 - Features: PageSpeed Insights API (no API key needed), Performance/SEO/Accessibility/BestPractices scores, Core Web Vitals (FCP, LCP, TBT, CLS, SpeedIndex, Interactive), AbortSignal.timeout(30000), EMPTY_RESULT on error
 - TypeCheck: 0 Fehler
+US-020 abgeschlossen. `src/lib/analyzers/lighthouse.ts` erstellt mit `analyzePerformance()` — nutzt PageSpeed Insights API (kein API-Key nötig), extrahiert 4 Scores + 6 Core Web Vitals, 30s Timeout, EMPTY_RESULT bei Fehler. TypeCheck: 0 Fehler.
+--- Iteration 21 started at 23:04:14 ---
+
+## US-021: SEO Analyzer via HTML Scraping — DONE
+- Created: src/lib/analyzers/seo.ts (11 gewichtete SEO-Checks via cheerio HTML-Parsing)
+- Fix: Spec-Code hatte 'imagesWithAlt' statt 'imgsWithAlt' (variable name mismatch) → korrigiert
+- TypeCheck: 0 Fehler

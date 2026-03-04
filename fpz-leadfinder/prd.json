@@ -448,8 +448,8 @@
         "Typecheck passes"
       ],
       "priority": 21,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "src/lib/analyzers/seo.ts erstellt — 11 gewichtete Checks (title/desc/h1/h2/alt/sitemap/robots/canonical/og/json-ld/lang), Fix: imagesWithAlt → imgsWithAlt"
     },
     {
       "id": "US-022",
