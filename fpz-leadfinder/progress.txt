@@ -380,3 +380,17 @@ US-027 abgeschlossen.
 - Created: vercel.json (framework: nextjs, cron: /api/cron täglich 03:00 UTC)
 - Fix: fullText="" statt briefingData.fullText (BriefingResult hat kein fullText-Feld)
 - TypeCheck: 0 Fehler
+US-028 abgeschlossen. Commit `a112a37`.
+
+**Was gemacht:**
+- `src/app/api/cron/route.ts` — GET-Endpoint mit Bearer-Auth (`CRON_SECRET`), läuft täglich: Scan → Analyse unanalysierter Leads → Briefing für Leads mit Score < 70
+- `vercel.json` — Cron-Konfiguration für Vercel (täglich 03:00 UTC)
+- Fix: `fullText: ""` da `BriefingResult` kein `fullText`-Feld hat
+--- Iteration 29 started at 23:16:38 ---
+--- Iteration 29 completed ---
+
+## US-029: PDF Export — DONE
+- Created: src/lib/export/pdf.ts (generateLeadPDF — 4-seitiges PDF: Deckblatt mit Score, Kontaktdaten + Score-Tabelle, Briefing, Verkaufsskript mit Einwand-Tabelle)
+- Created: src/app/api/export/pdf/[leadId]/route.ts (GET /api/export/pdf/[leadId] — lädt Lead mit Relations, generiert PDF, sendet als Download)
+- Fix: Buffer → new Uint8Array(pdfBuffer) für NextResponse (BodyInit Compatibility)
+- TypeCheck: 0 Fehler

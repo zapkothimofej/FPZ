@@ -598,8 +598,8 @@
         "Verify in browser using dev-browser skill"
       ],
       "priority": 29,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "generateLeadPDF (4 Seiten: Deckblatt, Kontakt+Scores, Briefing, Skript) + GET /api/export/pdf/[leadId] Route"
     },
     {
       "id": "US-030",
