@@ -139,8 +139,9 @@ const DELAY_BETWEEN_CITIES_MS = 5000;
 export async function scrapeOSM(
   cities: City[],
   onProgress?: (city: string, leadsFound: number) => void
-): Promise<ScrapedLead[]> {
+): Promise<{ leads: ScrapedLead[]; errors: string[] }> {
   const allLeads: ScrapedLead[] = [];
+  const allErrors: string[] = [];
   const seenKeys = new Set<string>();
 
   for (let i = 0; i < cities.length; i++) {
@@ -159,11 +160,14 @@ export async function scrapeOSM(
       if (response.status === 429) {
         console.warn(`[OSM] Rate limited for ${city.name}, waiting 30s...`);
         await sleep(30000);
+        allErrors.push(`Rate limited for ${city.name}`);
         continue;
       }
 
       if (!response.ok) {
-        console.error(`[OSM] Error for ${city.name}: HTTP ${response.status}`);
+        const msg = `HTTP ${response.status} for ${city.name}`;
+        console.error(`[OSM] Error: ${msg}`);
+        allErrors.push(msg);
         continue;
       }
 
@@ -186,6 +190,7 @@ export async function scrapeOSM(
     } catch (error: unknown) {
       const message = error instanceof Error ? error.message : "Unknown error";
       console.error(`[OSM] Failed to scrape ${city.name}: ${message}`);
+      allErrors.push(`Failed to scrape ${city.name}: ${message}`);
     }
 
     // Delay between cities (skip after last)
@@ -194,5 +199,5 @@ export async function scrapeOSM(
     }
   }
 
-  return allLeads;
+  return { leads: allLeads, errors: allErrors };
 }

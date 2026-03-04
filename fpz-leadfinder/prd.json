@@ -404,8 +404,8 @@
         "Typecheck passes"
       ],
       "priority": 19,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "Orchestrierung in src/lib/scrapers/index.ts: Phase 1 OSM, Phase 2 Google Maps fuer schwache Staedte, Phase 3 Upsert in DB. API: POST /api/scan (fire-and-forget), GET /api/scan/status. Scraper-Signaturen auf { leads, errors } angepasst."
     },
     {
       "id": "US-020",

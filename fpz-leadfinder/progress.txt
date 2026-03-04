@@ -264,3 +264,13 @@ US-017 abgeschlossen.
 - Created: src/lib/scrapers/google-maps.ts (HTTP-based scraper, no Puppeteer)
 - Features: random User-Agent rotation, 5 regex patterns for HTML extraction, rate-limit handling (429→60s wait), retry logic (2 retries), deduplication via seenKeys Set
 - TypeCheck: 0 Fehler
+US-018 abgeschlossen. `src/lib/scrapers/google-maps.ts` erstellt — HTTP-basierter Google Maps Scraper mit 5 Regex-Patterns zur HTML-Extraktion, User-Agent-Rotation, Rate-Limit-Handling und Retry-Logik. TypeCheck: 0 Fehler. Commit `24a35f7`.
+--- Iteration 19 started at 23:00:08 ---
+
+## US-019: Scraper Orchestrierung — DONE
+- Created: src/lib/scrapers/index.ts (runScan: Phase 1 OSM, Phase 2 Google Maps fuer schwache Staedte (<10 Leads), Phase 3 Upsert in DB mit newCount/updateCount-Tracking)
+- Created: src/app/api/scan/route.ts (POST, fire-and-forget, validiert cities-Array)
+- Created: src/app/api/scan/status/route.ts (GET, letzten ScanLog zurueckgeben)
+- Modified: src/lib/scrapers/osm.ts (Return type auf { leads, errors } geaendert)
+- Modified: src/lib/scrapers/google-maps.ts (Signature auf (cityName: string, categories: string[]) geaendert, Return type auf { leads, errors })
+- TypeCheck: 0 Fehler

@@ -1,5 +1,5 @@
 import { sleep } from "@/lib/utils";
-import type { City, ScrapedLead } from "@/types";
+import type { ScrapedLead } from "@/types";
 
 // --- Random User Agents ---
 
@@ -190,48 +190,47 @@ async function fetchWithRetry(
 }
 
 export async function scrapeGoogleMaps(
-  cities: City[],
+  cityName: string,
   categories: string[],
   onProgress?: (city: string, category: string, leadsFound: number) => void
-): Promise<ScrapedLead[]> {
+): Promise<{ leads: ScrapedLead[]; errors: string[] }> {
   const allLeads: ScrapedLead[] = [];
+  const allErrors: string[] = [];
   const seenKeys = new Set<string>();
 
-  for (const city of cities) {
-    for (const category of categories) {
-      const searchQuery = `${category} ${city.name}`;
-      const url = buildSearchUrl(searchQuery);
+  for (const category of categories) {
+    const searchQuery = `${category} ${cityName}`;
+    const url = buildSearchUrl(searchQuery);
 
-      const html = await fetchWithRetry(url);
-      if (!html) {
-        onProgress?.(city.name, category, 0);
-        await sleep(DELAY_BETWEEN_REQUESTS_MS);
-        continue;
-      }
-
-      const entries = extractBusinessDataFromHtml(html);
-      let categoryLeadCount = 0;
-
-      for (const entry of entries) {
-        const lead = toScrapedLead(entry, city.name, category);
-        const key =
-          `${lead.name}|${lead.address}|${lead.city}`.toLowerCase();
-
-        if (seenKeys.has(key)) continue;
-
-        seenKeys.add(key);
-        allLeads.push(lead);
-        categoryLeadCount++;
-      }
-
-      onProgress?.(city.name, category, categoryLeadCount);
-
-      // Delay between requests to avoid rate limiting
-      await sleep(
-        DELAY_BETWEEN_REQUESTS_MS + Math.floor(Math.random() * 2000)
-      );
+    const html = await fetchWithRetry(url);
+    if (!html) {
+      allErrors.push(`Failed to fetch results for ${category} in ${cityName}`);
+      onProgress?.(cityName, category, 0);
+      await sleep(DELAY_BETWEEN_REQUESTS_MS);
+      continue;
     }
+
+    const entries = extractBusinessDataFromHtml(html);
+    let categoryLeadCount = 0;
+
+    for (const entry of entries) {
+      const lead = toScrapedLead(entry, cityName, category);
+      const key = `${lead.name}|${lead.address}|${lead.city}`.toLowerCase();
+
+      if (seenKeys.has(key)) continue;
+
+      seenKeys.add(key);
+      allLeads.push(lead);
+      categoryLeadCount++;
+    }
+
+    onProgress?.(cityName, category, categoryLeadCount);
+
+    // Delay between requests to avoid rate limiting
+    await sleep(
+      DELAY_BETWEEN_REQUESTS_MS + Math.floor(Math.random() * 2000)
+    );
   }
 
-  return allLeads;
+  return { leads: allLeads, errors: allErrors };
 }
