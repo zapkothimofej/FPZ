@@ -1,13 +1,4 @@
-const C = {
-  bg: "#0c0a08",
-  text: "#faf6f0",
-  accent: "#c9a84c",
-  muted: "#8a7d6b",
-  surface: "#161410",
-  border: "#2a2519",
-}
-
-type MenuItem = { name: string; desc: string; price: string }
+type MenuItem = { name: string; desc: string; price: string };
 
 const antipasti: MenuItem[] = [
   {
@@ -30,7 +21,7 @@ const antipasti: MenuItem[] = [
     desc: "Tagessuppe nach Marktangebot — fragen Sie Ihr Servicepersonal nach der heutigen Kreation.",
     price: "9€",
   },
-]
+];
 
 const primiPiatti: MenuItem[] = [
   {
@@ -58,7 +49,7 @@ const primiPiatti: MenuItem[] = [
     desc: "Hausgemachte Kartoffelgnocchi mit San-Marzano-Tomatensauce und Büffelmozzarella, überbacken.",
     price: "16€",
   },
-]
+];
 
 const secondiPiatti: MenuItem[] = [
   {
@@ -86,7 +77,7 @@ const secondiPiatti: MenuItem[] = [
     desc: "Zarte Kalbsschnitzel mit Prosciutto und Salbei in Weißweinjus — ein römischer Klassiker.",
     price: "24€",
   },
-]
+];
 
 const dolci: MenuItem[] = [
   {
@@ -104,181 +95,81 @@ const dolci: MenuItem[] = [
     desc: "Knusprige Cannoli-Röhren gefüllt mit Ricotta-Creme, Pistazie und kandierten Orangenschalen.",
     price: "10€",
   },
-]
+];
 
 function Divider() {
   return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        gap: "1rem",
-        margin: "3rem 0",
-      }}
-    >
-      <div style={{ flex: 1, height: 1, background: C.border }} />
-      <div style={{ color: C.accent, fontSize: "1rem", opacity: 0.7 }}>✦</div>
-      <div style={{ flex: 1, height: 1, background: C.border }} />
+    <div className="flex items-center gap-4 my-12">
+      <div className="flex-1 h-px bg-[var(--site-border)]" />
+      <div className="text-[var(--site-accent)] text-base opacity-70">&#10022;</div>
+      <div className="flex-1 h-px bg-[var(--site-border)]" />
     </div>
-  )
+  );
 }
 
-function MenuSection({
-  title,
-  subtitle,
-  items,
-  altBg,
-}: {
-  title: string
-  subtitle: string
-  items: MenuItem[]
-  altBg?: boolean
-}) {
+type MenuSectionProps = {
+  title: string;
+  subtitle: string;
+  items: MenuItem[];
+  altBg?: boolean;
+};
+
+function MenuSection({ title, subtitle, items, altBg }: MenuSectionProps) {
   return (
     <section
-      style={{
-        backgroundColor: altBg ? C.surface : C.bg,
-        padding: "4rem 1.5rem",
-        borderTop: `1px solid ${C.border}`,
-      }}
+      className={`${altBg ? "bg-[var(--site-surface)]" : "bg-[var(--site-bg)]"} px-6 py-16 border-t border-[var(--site-border)]`}
     >
-      <div style={{ maxWidth: 800, margin: "0 auto" }}>
-        <div style={{ marginBottom: "2.5rem" }}>
-          <p
-            style={{
-              color: C.accent,
-              fontStyle: "italic",
-              fontSize: "0.85rem",
-              letterSpacing: "0.15em",
-              marginBottom: "0.25rem",
-              fontFamily: "system-ui, sans-serif",
-            }}
-          >
+      <div className="max-w-[800px] mx-auto">
+        <div className="mb-10">
+          <p className="text-[var(--site-accent)] italic text-[0.85rem] tracking-[0.15em] mb-1 font-sans">
             {subtitle}
           </p>
-          <h2
-            style={{
-              color: C.text,
-              fontSize: "clamp(1.4rem, 3vw, 2rem)",
-              fontWeight: 700,
-            }}
-          >
+          <h2 className="text-[var(--site-text)] text-[clamp(1.4rem,3vw,2rem)] font-bold">
             {title}
           </h2>
         </div>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: "0.25rem" }}>
+        <div className="flex flex-col gap-1">
           {items.map((item, i) => (
             <div key={item.name}>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "flex-start",
-                  gap: "2rem",
-                  padding: "1.25rem 0",
-                }}
-              >
-                <div style={{ flex: 1 }}>
-                  <p
-                    style={{
-                      color: C.text,
-                      fontSize: "1rem",
-                      fontStyle: "italic",
-                      fontWeight: 600,
-                      marginBottom: "0.3rem",
-                    }}
-                  >
+              <div className="flex justify-between items-start gap-8 py-5">
+                <div className="flex-1">
+                  <p className="text-[var(--site-text)] text-base italic font-semibold mb-1">
                     {item.name}
                   </p>
-                  <p
-                    style={{
-                      color: C.muted,
-                      fontSize: "0.85rem",
-                      lineHeight: 1.65,
-                      fontFamily: "system-ui, sans-serif",
-                    }}
-                  >
+                  <p className="text-[var(--site-muted)] text-[0.85rem] leading-relaxed font-sans">
                     {item.desc}
                   </p>
                 </div>
-                <span
-                  style={{
-                    color: C.accent,
-                    fontSize: "0.95rem",
-                    fontFamily: "system-ui, sans-serif",
-                    fontWeight: 600,
-                    whiteSpace: "nowrap",
-                    paddingTop: 2,
-                  }}
-                >
+                <span className="text-[var(--site-accent)] text-[0.95rem] font-sans font-semibold whitespace-nowrap pt-0.5">
                   {item.price}
                 </span>
               </div>
               {i < items.length - 1 && (
-                <div style={{ height: 1, background: C.border, opacity: 0.5 }} />
+                <div className="h-px bg-[var(--site-border)] opacity-50" />
               )}
             </div>
           ))}
         </div>
       </div>
     </section>
-  )
+  );
 }
 
 export default function SpeisekartePage() {
   return (
     <>
       {/* Header */}
-      <section
-        style={{
-          backgroundColor: C.bg,
-          padding: "5rem 1.5rem 3rem",
-          textAlign: "center",
-          borderBottom: `1px solid ${C.border}`,
-        }}
-      >
-        <div style={{ maxWidth: 700, margin: "0 auto" }}>
-          <p
-            style={{
-              color: C.accent,
-              fontStyle: "italic",
-              fontSize: "3rem",
-              fontWeight: 700,
-              lineHeight: 1,
-              marginBottom: "0.5rem",
-            }}
-          >
+      <section className="bg-[var(--site-bg)] px-6 pt-20 pb-12 text-center border-b border-[var(--site-border)]">
+        <div className="max-w-[700px] mx-auto">
+          <p className="text-[var(--site-accent)] italic text-5xl font-bold leading-none mb-2">
             La Carta
           </p>
-          <p
-            style={{
-              color: C.muted,
-              fontSize: "0.85rem",
-              letterSpacing: "0.25em",
-              textTransform: "uppercase",
-              fontFamily: "system-ui, sans-serif",
-            }}
-          >
+          <p className="text-[var(--site-muted)] text-[0.85rem] tracking-[0.25em] uppercase font-sans">
             Unsere Speisekarte
           </p>
-          <div
-            style={{
-              width: 36,
-              height: 1,
-              background: C.accent,
-              margin: "1.5rem auto",
-              opacity: 0.6,
-            }}
-          />
-          <p
-            style={{
-              color: C.muted,
-              fontSize: "0.9rem",
-              lineHeight: 1.8,
-              fontFamily: "system-ui, sans-serif",
-            }}
-          >
+          <div className="w-9 h-px bg-[var(--site-accent)] mx-auto my-6 opacity-60" />
+          <p className="text-[var(--site-muted)] text-[0.9rem] leading-relaxed font-sans">
             Alle Speisen werden täglich frisch zubereitet. Allergiker und
             Unverträglichkeiten sprechen Sie bitte direkt mit unserem Service an.
           </p>
@@ -309,52 +200,24 @@ export default function SpeisekartePage() {
       />
 
       {/* Bevande */}
-      <section
-        style={{
-          backgroundColor: C.bg,
-          padding: "3.5rem 1.5rem",
-          borderTop: `1px solid ${C.border}`,
-          textAlign: "center",
-        }}
-      >
-        <div style={{ maxWidth: 600, margin: "0 auto" }}>
+      <section className="bg-[var(--site-bg)] px-6 py-14 border-t border-[var(--site-border)] text-center">
+        <div className="max-w-[600px] mx-auto">
           <Divider />
-          <p
-            style={{
-              color: C.accent,
-              fontStyle: "italic",
-              fontSize: "1.5rem",
-              fontWeight: 700,
-              marginBottom: "0.75rem",
-            }}
-          >
+          <p className="text-[var(--site-accent)] italic text-2xl font-bold mb-3">
             Bevande
           </p>
-          <p
-            style={{
-              color: C.muted,
-              fontSize: "0.9rem",
-              lineHeight: 1.8,
-              fontFamily: "system-ui, sans-serif",
-            }}
-          >
+          <p className="text-[var(--site-muted)] text-[0.9rem] leading-relaxed font-sans">
             Wir pflegen eine umfangreiche Wein- und Getränkekarte mit
             ausgesuchten italienischen Weinen, regionalen Bierspezialitäten und
             hausgemachten Softdrinks. Unsere Weinkarte erhalten Sie auf Anfrage
             bei Ihrem Servicepersonal.
           </p>
           <Divider />
-          <p
-            style={{
-              color: "#4a4035",
-              fontSize: "0.78rem",
-              fontFamily: "system-ui, sans-serif",
-            }}
-          >
-            Alle Preise inkl. MwSt. · Änderungen vorbehalten. · Stand: März 2025
+          <p className="text-[#4a4035] text-[0.78rem] font-sans">
+            Alle Preise inkl. MwSt. &middot; Änderungen vorbehalten. &middot; Stand: März 2025
           </p>
         </div>
       </section>
     </>
-  )
+  );
 }

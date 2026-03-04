@@ -1,19 +1,13 @@
-import Link from "next/link"
+import Link from "next/link";
 
-const BASE = "/portfolio/einzelhandel-launch"
-
-export const metadata = {
-  title: "Mila Mode — Zeitlose Mode für jeden Anlass",
-  description:
-    "Mila Mode in Bochum: Nachhaltige, zeitlose Damenmode für jeden Anlass. Entdecke unsere aktuelle Frühjahrskollektion.",
-}
+const BASE = "/portfolio/einzelhandel-launch";
 
 const categories = [
-  { label: "Oberteile", bg: "#f0ebe8" },
-  { label: "Hosen", bg: "#e8e3df" },
-  { label: "Kleider", bg: "#e5ddd9" },
-  { label: "Accessoires", bg: "#ddd6d1" },
-]
+  { label: "Oberteile", bg: "bg-[#f0ebe8]" },
+  { label: "Hosen", bg: "bg-[#e8e3df]" },
+  { label: "Kleider", bg: "bg-[#e5ddd9]" },
+  { label: "Accessoires", bg: "bg-[#ddd6d1]" },
+];
 
 const bestsellers = [
   {
@@ -21,113 +15,67 @@ const bestsellers = [
     desc: "100% Leinen, locker geschnitten, zeitlos.",
     price: "79",
     sizes: ["XS", "S", "M", "L", "XL"],
-    gradient: "linear-gradient(135deg, #f0ebe8 0%, #d6c4bc 100%)",
+    from: "from-[#f0ebe8]",
+    to: "to-[#d6c4bc]",
   },
   {
     name: "Wide-Leg Hose Camel",
     desc: "Hochwertige Baumwollmischung, weiter Schnitt.",
     price: "129",
     sizes: ["34", "36", "38", "40", "42"],
-    gradient: "linear-gradient(135deg, #e8ddd5 0%, #c4a98e 100%)",
+    from: "from-[#e8ddd5]",
+    to: "to-[#c4a98e]",
   },
   {
     name: "Sommerkleid Rose",
     desc: "Fließender Viskose-Stoff, A-Linie.",
     price: "99",
     sizes: ["XS", "S", "M", "L"],
-    gradient: "linear-gradient(135deg, #f0d9d3 0%, #d6a89a 100%)",
+    from: "from-[#f0d9d3]",
+    to: "to-[#d6a89a]",
   },
-]
+];
 
 export default function MilaHomePage() {
   return (
     <>
       {/* Announcement Bar */}
-      <div
-        style={{
-          backgroundColor: "#1a1a1a",
-          color: "white",
-          textAlign: "center",
-          padding: "10px 16px",
-          fontSize: 12,
-          letterSpacing: "0.08em",
-        }}
-      >
-        Kostenloser Versand ab 80€ &nbsp;|&nbsp; Neu: Frühjahrskollektion 2025 →
+      <div className="bg-[#1a1a1a] text-white text-center py-2.5 px-4 text-xs tracking-[0.08em]">
+        Kostenloser Versand ab 80€ &nbsp;|&nbsp; Neu: Frühjahrskollektion 2025
+        →
       </div>
 
       {/* Hero */}
-      <section style={{ display: "grid", gridTemplateColumns: "1fr 1fr", minHeight: 600 }}>
+      <section className="grid grid-cols-2 min-h-[600px]">
         {/* Left */}
-        <div
-          style={{
-            backgroundColor: "white",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            padding: "4rem 3rem",
-          }}
-        >
-          <div style={{ maxWidth: 420 }}>
-            <p
-              style={{
-                fontSize: 11,
-                letterSpacing: "0.25em",
-                color: "#737373",
-                marginBottom: 16,
-                textTransform: "uppercase",
-              }}
-            >
+        <div className="bg-white flex items-center justify-center p-16 pr-12">
+          <div className="max-w-[420px]">
+            <p className="text-[11px] tracking-[0.25em] text-[var(--site-muted)] mb-4 uppercase">
               Frühjahr / Sommer 2025
             </p>
-            <h1
-              style={{
-                fontSize: "clamp(32px, 4vw, 52px)",
-                fontWeight: 800,
-                lineHeight: 1.1,
-                color: "#1a1a1a",
-                marginBottom: 20,
-                letterSpacing: "-0.02em",
-              }}
-            >
-              Neue<br />Frühjahrs-<br />kollektion<br />2025
+            <h1 className="text-[clamp(32px,4vw,52px)] font-extrabold leading-[1.1] text-[var(--site-text)] mb-5 tracking-tight">
+              Neue
+              <br />
+              Frühjahrs-
+              <br />
+              kollektion
+              <br />
+              2025
             </h1>
-            <p
-              style={{
-                color: "#737373",
-                fontSize: 15,
-                lineHeight: 1.7,
-                marginBottom: 32,
-              }}
-            >
-              Zeitlose Stücke für jeden Anlass. Nachhaltig produziert, modern gestylt.
+            <p className="text-[var(--site-muted)] text-[15px] leading-[1.7] mb-8">
+              Zeitlose Stücke für jeden Anlass. Nachhaltig produziert, modern
+              gestylt.
             </p>
-            <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
+            <div className="flex gap-3 flex-wrap">
               <Link
                 href={`${BASE}/kollektion`}
-                style={{
-                  backgroundColor: "#1a1a1a",
-                  color: "white",
-                  textDecoration: "none",
-                  fontSize: 12,
-                  letterSpacing: "0.1em",
-                  padding: "14px 28px",
-                  display: "inline-block",
-                }}
+                className="bg-[#1a1a1a] text-white no-underline text-xs tracking-[0.1em] px-7 py-3.5 inline-block"
               >
                 KOLLEKTION ENTDECKEN
               </Link>
               <Link
                 href={`${BASE}/kollektion`}
-                style={{
-                  border: "1px solid #1a1a1a",
-                  color: "#1a1a1a",
-                  textDecoration: "none",
-                  fontSize: 12,
-                  letterSpacing: "0.1em",
-                  padding: "14px 28px",
-                  display: "inline-block",
-                }}
+                className="border border-[#1a1a1a] text-[#1a1a1a] no-underline text-xs tracking-[0.1em] px-7 py-3.5 inline-block"
               >
                 NEUHEITEN
               </Link>
@@ -136,122 +84,39 @@ export default function MilaHomePage() {
         </div>
 
         {/* Right – image placeholder */}
-        <div style={{ position: "relative", minHeight: 600 }}>
-          <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              background: "linear-gradient(160deg, #d6a89a 0%, #c4877a 50%, #b57060 100%)",
-            }}
-          />
-          {/* Texture overlay */}
-          <div
-            style={{
-              position: "absolute",
-              inset: 0,
-              backgroundImage:
-                "repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 1px, transparent 1px, transparent 8px)",
-            }}
-          />
+        <div className="relative min-h-[600px]">
+          <div className="absolute inset-0 bg-gradient-to-br from-[#d6a89a] via-[#c4877a] to-[#b57060]" />
           {/* NEU badge */}
-          <div
-            style={{
-              position: "absolute",
-              top: 32,
-              left: -16,
-              backgroundColor: "white",
-              color: "#1a1a1a",
-              fontSize: 11,
-              fontWeight: 700,
-              letterSpacing: "0.2em",
-              padding: "8px 16px",
-              boxShadow: "0 4px 20px rgba(0,0,0,0.12)",
-            }}
-          >
+          <div className="absolute top-8 -left-4 bg-white text-[#1a1a1a] text-[11px] font-bold tracking-[0.2em] px-4 py-2 shadow-lg">
             NEU
           </div>
           {/* Bottom label */}
-          <div
-            style={{
-              position: "absolute",
-              bottom: 32,
-              left: 32,
-              color: "white",
-              fontSize: 13,
-              letterSpacing: "0.08em",
-              opacity: 0.8,
-            }}
-          >
+          <div className="absolute bottom-8 left-8 text-white text-[13px] tracking-[0.08em] opacity-80">
             Frühjahr / Sommer 2025
           </div>
         </div>
       </section>
 
       {/* Categories */}
-      <section style={{ padding: "5rem 2rem", backgroundColor: "#fafaf9" }}>
-        <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-          <p
-            style={{
-              fontSize: 11,
-              letterSpacing: "0.25em",
-              color: "#737373",
-              marginBottom: 8,
-              textTransform: "uppercase",
-              textAlign: "center",
-            }}
-          >
+      <section className="py-20 px-8 bg-[var(--site-bg)]">
+        <div className="max-w-[1200px] mx-auto">
+          <p className="text-[11px] tracking-[0.25em] text-[var(--site-muted)] mb-2 uppercase text-center">
             Sortiment
           </p>
-          <h2
-            style={{
-              fontSize: "clamp(24px, 3vw, 36px)",
-              fontWeight: 700,
-              textAlign: "center",
-              color: "#1a1a1a",
-              marginBottom: 40,
-              letterSpacing: "-0.02em",
-            }}
-          >
+          <h2 className="text-[clamp(24px,3vw,36px)] font-bold text-center text-[var(--site-text)] mb-10 tracking-tight">
             Entdecke unsere Welt
           </h2>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 12 }}>
+          <div className="grid grid-cols-4 gap-3">
             {categories.map((cat) => (
               <Link
                 key={cat.label}
                 href={`${BASE}/kollektion`}
-                style={{ textDecoration: "none" }}
+                className="no-underline"
               >
                 <div
-                  style={{
-                    backgroundColor: cat.bg,
-                    height: 200,
-                    display: "flex",
-                    alignItems: "flex-end",
-                    padding: "20px",
-                    position: "relative",
-                    overflow: "hidden",
-                    transition: "transform 0.2s",
-                  }}
+                  className={`${cat.bg} h-[200px] flex items-end p-5 relative overflow-hidden transition-transform duration-200 hover:scale-[1.02]`}
                 >
-                  {/* Subtle grain */}
-                  <div
-                    style={{
-                      position: "absolute",
-                      inset: 0,
-                      backgroundImage:
-                        "repeating-linear-gradient(0deg, rgba(0,0,0,0.015) 0px, rgba(0,0,0,0.015) 1px, transparent 1px, transparent 4px)",
-                    }}
-                  />
-                  <span
-                    style={{
-                      fontSize: 13,
-                      fontWeight: 600,
-                      letterSpacing: "0.1em",
-                      color: "#1a1a1a",
-                      textTransform: "uppercase",
-                      position: "relative",
-                    }}
-                  >
+                  <span className="text-[13px] font-semibold tracking-[0.1em] text-[#1a1a1a] uppercase relative">
                     {cat.label} →
                   </span>
                 </div>
@@ -262,107 +127,47 @@ export default function MilaHomePage() {
       </section>
 
       {/* Bestsellers */}
-      <section style={{ padding: "5rem 2rem", backgroundColor: "white" }}>
-        <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-          <p
-            style={{
-              fontSize: 11,
-              letterSpacing: "0.25em",
-              color: "#737373",
-              marginBottom: 8,
-              textTransform: "uppercase",
-              textAlign: "center",
-            }}
-          >
+      <section className="py-20 px-8 bg-white">
+        <div className="max-w-[1200px] mx-auto">
+          <p className="text-[11px] tracking-[0.25em] text-[var(--site-muted)] mb-2 uppercase text-center">
             Bestseller
           </p>
-          <h2
-            style={{
-              fontSize: "clamp(24px, 3vw, 36px)",
-              fontWeight: 700,
-              textAlign: "center",
-              color: "#1a1a1a",
-              marginBottom: 48,
-              letterSpacing: "-0.02em",
-            }}
-          >
+          <h2 className="text-[clamp(24px,3vw,36px)] font-bold text-center text-[var(--site-text)] mb-12 tracking-tight">
             Unsere Bestseller
           </h2>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 24 }}>
+          <div className="grid grid-cols-3 gap-6">
             {bestsellers.map((product) => (
               <div
                 key={product.name}
-                style={{
-                  backgroundColor: "white",
-                  border: "1px solid #e7e5e4",
-                }}
+                className="bg-white border border-[var(--site-border)]"
               >
                 {/* Product image placeholder */}
                 <div
-                  style={{
-                    height: 320,
-                    background: product.gradient,
-                    position: "relative",
-                  }}
-                >
-                  {/* Subtle texture */}
-                  <div
-                    style={{
-                      position: "absolute",
-                      inset: 0,
-                      backgroundImage:
-                        "repeating-linear-gradient(135deg, rgba(255,255,255,0.06) 0px, rgba(255,255,255,0.06) 1px, transparent 1px, transparent 6px)",
-                    }}
-                  />
-                </div>
+                  className={`h-80 bg-gradient-to-br ${product.from} ${product.to} relative`}
+                />
                 {/* Info */}
-                <div style={{ padding: "20px" }}>
-                  <h3
-                    style={{
-                      fontSize: 16,
-                      fontWeight: 600,
-                      color: "#1a1a1a",
-                      marginBottom: 6,
-                    }}
-                  >
+                <div className="p-5">
+                  <h3 className="text-base font-semibold text-[var(--site-text)] mb-1.5">
                     {product.name}
                   </h3>
-                  <p style={{ fontSize: 13, color: "#737373", marginBottom: 12, lineHeight: 1.5 }}>
+                  <p className="text-[13px] text-[var(--site-muted)] mb-3 leading-normal">
                     {product.desc}
                   </p>
-                  <p style={{ fontSize: 18, fontWeight: 700, color: "#1a1a1a", marginBottom: 14 }}>
+                  <p className="text-lg font-bold text-[var(--site-text)] mb-3.5">
                     {product.price} €
                   </p>
                   {/* Sizes */}
-                  <div style={{ display: "flex", gap: 6, flexWrap: "wrap", marginBottom: 16 }}>
+                  <div className="flex gap-1.5 flex-wrap mb-4">
                     {product.sizes.map((size) => (
                       <span
                         key={size}
-                        style={{
-                          fontSize: 10,
-                          letterSpacing: "0.06em",
-                          border: "1px solid #e7e5e4",
-                          padding: "4px 8px",
-                          color: "#737373",
-                        }}
+                        className="text-[10px] tracking-[0.06em] border border-[var(--site-border)] px-2 py-1 text-[var(--site-muted)]"
                       >
                         {size}
                       </span>
                     ))}
                   </div>
-                  <button
-                    style={{
-                      width: "100%",
-                      backgroundColor: "#1a1a1a",
-                      color: "white",
-                      border: "none",
-                      padding: "12px",
-                      fontSize: 11,
-                      letterSpacing: "0.1em",
-                      cursor: "pointer",
-                      fontWeight: 600,
-                    }}
-                  >
+                  <button className="w-full bg-[#1a1a1a] text-white border-none py-3 text-[11px] tracking-[0.1em] cursor-pointer font-semibold">
                     IN DEN WARENKORB
                   </button>
                 </div>
@@ -372,175 +177,72 @@ export default function MilaHomePage() {
         </div>
       </section>
 
-      {/* Über uns */}
-      <section
-        style={{
-          padding: "6rem 2rem",
-          backgroundColor: "#f5f5f4",
-          borderTop: "1px solid #e7e5e4",
-        }}
-      >
-        <div
-          style={{
-            maxWidth: 1200,
-            margin: "0 auto",
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: 64,
-            alignItems: "center",
-          }}
-        >
+      {/* Brand Story */}
+      <section className="py-24 px-8 bg-[var(--site-surface)] border-t border-[var(--site-border)]">
+        <div className="max-w-[1200px] mx-auto grid grid-cols-2 gap-16 items-center">
           {/* Text */}
           <div>
-            <p
-              style={{
-                fontSize: 11,
-                letterSpacing: "0.25em",
-                color: "#737373",
-                marginBottom: 12,
-                textTransform: "uppercase",
-              }}
-            >
+            <p className="text-[11px] tracking-[0.25em] text-[var(--site-muted)] mb-3 uppercase">
               Über uns
             </p>
-            <h2
-              style={{
-                fontSize: "clamp(28px, 3.5vw, 44px)",
-                fontWeight: 700,
-                color: "#1a1a1a",
-                marginBottom: 24,
-                lineHeight: 1.15,
-                letterSpacing: "-0.02em",
-              }}
-            >
+            <h2 className="text-[clamp(28px,3.5vw,44px)] font-bold text-[var(--site-text)] mb-6 leading-[1.15] tracking-tight">
               Mode aus Leidenschaft
             </h2>
-            <p style={{ color: "#737373", fontSize: 15, lineHeight: 1.8, marginBottom: 20 }}>
-              Lisa Meier gründete Mila Mode 2018 mit einer klaren Vision: Mode, die wirklich passt
-              – für echte Frauen, nicht für Mannequins. Jedes Stück wird sorgfältig ausgewählt,
-              nachhaltig produziert und fair gehandelt.
+            <p className="text-[var(--site-muted)] text-[15px] leading-[1.8] mb-5">
+              Lisa Meier gründete Mila Mode 2018 mit einer klaren Vision: Mode,
+              die wirklich passt – für echte Frauen, nicht für Mannequins. Jedes
+              Stück wird sorgfältig ausgewählt, nachhaltig produziert und fair
+              gehandelt.
             </p>
-            <p style={{ color: "#737373", fontSize: 15, lineHeight: 1.8, marginBottom: 32 }}>
-              Unser kleines Team berät euch persönlich im Store an der Kortumstraße oder hilft euch
-              gerne per E-Mail weiter. Mode ist für uns kein Massenprodukt – sondern ein
-              Ausdruck eurer Persönlichkeit.
+            <p className="text-[var(--site-muted)] text-[15px] leading-[1.8] mb-8">
+              Unser kleines Team berät euch persönlich im Store an der
+              Kortumstraße oder hilft euch gerne per E-Mail weiter. Mode ist für
+              uns kein Massenprodukt – sondern ein Ausdruck eurer
+              Persönlichkeit.
             </p>
             <Link
               href={`${BASE}/kontakt`}
-              style={{
-                fontSize: 12,
-                letterSpacing: "0.1em",
-                color: "#1a1a1a",
-                textDecoration: "none",
-                borderBottom: "1px solid #1a1a1a",
-                paddingBottom: 2,
-              }}
+              className="text-xs tracking-[0.1em] text-[var(--site-text)] no-underline border-b border-[var(--site-text)] pb-0.5"
             >
               KONTAKT AUFNEHMEN →
             </Link>
           </div>
 
           {/* Portrait placeholder */}
-          <div
-            style={{
-              height: 480,
-              background: "linear-gradient(160deg, #e8d5cf 0%, #d6a89a 40%, #c4877a 100%)",
-              position: "relative",
-              overflow: "hidden",
-            }}
-          >
-            <div
-              style={{
-                position: "absolute",
-                inset: 0,
-                backgroundImage:
-                  "repeating-linear-gradient(45deg, rgba(255,255,255,0.04) 0px, rgba(255,255,255,0.04) 1px, transparent 1px, transparent 8px)",
-              }}
-            />
-            <div
-              style={{
-                position: "absolute",
-                bottom: 24,
-                left: 24,
-                backgroundColor: "rgba(255,255,255,0.9)",
-                padding: "12px 18px",
-              }}
-            >
-              <p style={{ fontSize: 13, fontWeight: 600, color: "#1a1a1a" }}>Lisa Meier</p>
-              <p style={{ fontSize: 11, color: "#737373", letterSpacing: "0.06em" }}>Gründerin, Mila Mode</p>
+          <div className="h-[480px] bg-gradient-to-br from-[#e8d5cf] via-[#d6a89a] to-[#c4877a] relative overflow-hidden">
+            <div className="absolute bottom-6 left-6 bg-white/90 px-4.5 py-3">
+              <p className="text-[13px] font-semibold text-[#1a1a1a]">
+                Lisa Meier
+              </p>
+              <p className="text-[11px] text-[var(--site-muted)] tracking-[0.06em]">
+                Gründerin, Mila Mode
+              </p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Newsletter */}
-      <section
-        style={{
-          backgroundColor: "#d6a89a",
-          padding: "5rem 2rem",
-          textAlign: "center",
-        }}
-      >
-        <p
-          style={{
-            fontSize: 11,
-            letterSpacing: "0.25em",
-            color: "rgba(255,255,255,0.7)",
-            marginBottom: 12,
-            textTransform: "uppercase",
-          }}
-        >
+      <section className="bg-[var(--site-accent)] py-20 px-8 text-center">
+        <p className="text-[11px] tracking-[0.25em] text-white/70 mb-3 uppercase">
           Newsletter
         </p>
-        <h2
-          style={{
-            fontSize: "clamp(24px, 3vw, 40px)",
-            fontWeight: 700,
-            color: "white",
-            marginBottom: 12,
-            letterSpacing: "-0.01em",
-          }}
-        >
+        <h2 className="text-[clamp(24px,3vw,40px)] font-bold text-white mb-3 tracking-tight">
           10% auf deine erste Bestellung
         </h2>
-        <p style={{ color: "rgba(255,255,255,0.8)", fontSize: 15, marginBottom: 32, lineHeight: 1.6 }}>
-          Melde dich für unseren Newsletter an und erhalte exklusive Angebote, Styling-Tipps
-          und Neuheiten direkt in dein Postfach.
+        <p className="text-white/80 text-[15px] mb-8 leading-relaxed">
+          Melde dich für unseren Newsletter an und erhalte exklusive Angebote,
+          Styling-Tipps und Neuheiten direkt in dein Postfach.
         </p>
-        <form
-          style={{
-            display: "flex",
-            gap: 0,
-            maxWidth: 460,
-            margin: "0 auto",
-          }}
-        >
+        <form className="flex max-w-[460px] mx-auto">
           <input
             type="email"
             placeholder="deine@email.de"
-            style={{
-              flex: 1,
-              padding: "14px 18px",
-              fontSize: 13,
-              border: "none",
-              outline: "none",
-              backgroundColor: "white",
-              color: "#1a1a1a",
-            }}
+            className="flex-1 px-4.5 py-3.5 text-[13px] border-none outline-none bg-white text-[#1a1a1a]"
           />
           <button
             type="submit"
-            style={{
-              backgroundColor: "#1a1a1a",
-              color: "white",
-              border: "none",
-              padding: "14px 24px",
-              fontSize: 11,
-              letterSpacing: "0.12em",
-              fontWeight: 600,
-              cursor: "pointer",
-              whiteSpace: "nowrap",
-            }}
+            className="bg-[#1a1a1a] text-white border-none px-6 py-3.5 text-[11px] tracking-[0.12em] font-semibold cursor-pointer whitespace-nowrap"
           >
             JETZT SICHERN
           </button>
@@ -548,68 +250,86 @@ export default function MilaHomePage() {
       </section>
 
       {/* USPs */}
-      <section
-        style={{
-          backgroundColor: "white",
-          borderTop: "1px solid #e7e5e4",
-          padding: "3.5rem 2rem",
-        }}
-      >
-        <div
-          style={{
-            maxWidth: 1000,
-            margin: "0 auto",
-            display: "grid",
-            gridTemplateColumns: "repeat(3, 1fr)",
-            gap: 32,
-            textAlign: "center",
-          }}
-        >
+      <section className="bg-white border-t border-[var(--site-border)] py-14 px-8">
+        <div className="max-w-[1000px] mx-auto grid grid-cols-3 gap-8 text-center">
           {/* USP 1 */}
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12 }}>
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <div className="flex flex-col items-center gap-3">
+            <svg
+              width="28"
+              height="28"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#1a1a1a"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
               <rect x="1" y="3" width="15" height="13" rx="1" />
               <path d="M16 8h4l3 5v3h-7V8z" />
               <circle cx="5.5" cy="18.5" r="2.5" />
               <circle cx="18.5" cy="18.5" r="2.5" />
             </svg>
             <div>
-              <p style={{ fontSize: 14, fontWeight: 600, color: "#1a1a1a", marginBottom: 4 }}>
+              <p className="text-sm font-semibold text-[var(--site-text)] mb-1">
                 Kostenloser Versand
               </p>
-              <p style={{ fontSize: 13, color: "#737373" }}>ab 80€ Bestellwert</p>
+              <p className="text-[13px] text-[var(--site-muted)]">
+                ab 80€ Bestellwert
+              </p>
             </div>
           </div>
 
           {/* USP 2 */}
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12 }}>
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <div className="flex flex-col items-center gap-3">
+            <svg
+              width="28"
+              height="28"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#1a1a1a"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
               <polyline points="1 4 1 10 7 10" />
               <path d="M3.51 15a9 9 0 1 0 .49-3.51" />
             </svg>
             <div>
-              <p style={{ fontSize: 14, fontWeight: 600, color: "#1a1a1a", marginBottom: 4 }}>
+              <p className="text-sm font-semibold text-[var(--site-text)] mb-1">
                 30 Tage Rückgabe
               </p>
-              <p style={{ fontSize: 13, color: "#737373" }}>Kostenlos & unkompliziert</p>
+              <p className="text-[13px] text-[var(--site-muted)]">
+                Kostenlos & unkompliziert
+              </p>
             </div>
           </div>
 
           {/* USP 3 */}
-          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 12 }}>
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1a1a1a" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <div className="flex flex-col items-center gap-3">
+            <svg
+              width="28"
+              height="28"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#1a1a1a"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
               <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
               <polyline points="9 12 11 14 15 10" />
             </svg>
             <div>
-              <p style={{ fontSize: 14, fontWeight: 600, color: "#1a1a1a", marginBottom: 4 }}>
+              <p className="text-sm font-semibold text-[var(--site-text)] mb-1">
                 Nachhaltige Marken
               </p>
-              <p style={{ fontSize: 13, color: "#737373" }}>Fair & umweltbewusst produziert</p>
+              <p className="text-[13px] text-[var(--site-muted)]">
+                Fair & umweltbewusst produziert
+              </p>
             </div>
           </div>
         </div>
       </section>
     </>
-  )
+  );
 }

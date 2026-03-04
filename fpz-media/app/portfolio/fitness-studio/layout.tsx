@@ -21,7 +21,7 @@ function LightningIcon() {
       height="22"
       viewBox="0 0 24 24"
       fill="none"
-      style={{ color: "#22c55e" }}
+      className="text-[var(--site-accent)]"
       aria-hidden="true"
     >
       <path
@@ -37,54 +37,34 @@ function LightningIcon() {
 
 export default function FitnessStudioLayout({ children }: { children: ReactNode }) {
   return (
-    <div style={{ background: "#0a0a0a", color: "#f5f5f5", minHeight: "100vh", fontFamily: "system-ui, -apple-system, sans-serif" }}>
+    <div
+      data-site="fitness"
+      className="min-h-screen bg-[var(--site-bg)] text-[var(--site-text)] font-sans"
+    >
       {/* Navbar */}
-      <nav
-        style={{
-          background: "#0a0a0a",
-          borderBottom: "1px solid #262626",
-          position: "sticky",
-          top: 0,
-          zIndex: 50,
-        }}
-      >
-        <div
-          style={{
-            maxWidth: "1200px",
-            margin: "0 auto",
-            padding: "0 24px",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            height: "64px",
-          }}
-        >
+      <nav className="bg-[var(--site-bg)] border-b border-[var(--site-border)] sticky top-0 z-50">
+        <div className="max-w-[1200px] mx-auto px-6 flex items-center justify-between h-16">
           {/* Logo */}
           <Link
             href="/portfolio/fitness-studio"
-            style={{ display: "flex", alignItems: "center", gap: "8px", textDecoration: "none" }}
+            className="flex items-center gap-2 no-underline"
           >
             <LightningIcon />
-            <span style={{ display: "flex", alignItems: "baseline", gap: "4px" }}>
-              <span style={{ fontWeight: 800, fontSize: "18px", color: "#f5f5f5", letterSpacing: "-0.02em" }}>
+            <span className="flex items-baseline gap-1">
+              <span className="font-extrabold text-lg text-[var(--site-text)] tracking-tight">
                 FitBase
               </span>
-              <span style={{ fontWeight: 400, fontSize: "13px", color: "#737373" }}>Essen</span>
+              <span className="font-normal text-[13px] text-[var(--site-muted)]">Essen</span>
             </span>
           </Link>
 
           {/* Nav links */}
-          <div className="hidden md:flex" style={{ gap: "32px", alignItems: "center" }}>
+          <div className="hidden md:flex gap-8 items-center">
             {NAV_LINKS.map((l) => (
               <Link
                 key={l.href}
                 href={l.href}
-                style={{
-                  color: "#737373",
-                  textDecoration: "none",
-                  fontSize: "14px",
-                  fontWeight: 500,
-                }}
+                className="text-[var(--site-muted)] no-underline text-sm font-medium"
               >
                 {l.label}
               </Link>
@@ -94,16 +74,7 @@ export default function FitnessStudioLayout({ children }: { children: ReactNode 
           {/* CTA */}
           <Link
             href="/portfolio/fitness-studio/mitgliedschaft"
-            style={{
-              background: "#22c55e",
-              color: "#0a0a0a",
-              padding: "8px 18px",
-              borderRadius: "6px",
-              fontWeight: 700,
-              fontSize: "14px",
-              textDecoration: "none",
-              whiteSpace: "nowrap",
-            }}
+            className="bg-[var(--site-accent)] text-[var(--site-bg)] px-[18px] py-2 rounded-md font-bold text-sm no-underline whitespace-nowrap"
           >
             Probetraining buchen
           </Link>
@@ -114,32 +85,23 @@ export default function FitnessStudioLayout({ children }: { children: ReactNode 
       <main>{children}</main>
 
       {/* Footer */}
-      <footer style={{ borderTop: "1px solid #262626", marginTop: "80px" }}>
-        <div
-          style={{
-            maxWidth: "1200px",
-            margin: "0 auto",
-            padding: "48px 24px",
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
-            gap: "40px",
-          }}
-        >
+      <footer className="border-t border-[var(--site-border)] mt-20">
+        <div className="max-w-[1200px] mx-auto px-6 py-12 grid grid-cols-[repeat(auto-fit,minmax(220px,1fr))] gap-10">
           {/* Brand */}
           <div>
-            <div style={{ display: "flex", alignItems: "center", gap: "8px", marginBottom: "12px" }}>
+            <div className="flex items-center gap-2 mb-3">
               <LightningIcon />
-              <span style={{ fontWeight: 800, fontSize: "16px" }}>FitBase Essen</span>
+              <span className="font-extrabold text-base">FitBase Essen</span>
             </div>
-            <p style={{ color: "#737373", fontSize: "14px", lineHeight: "1.6" }}>
+            <p className="text-[var(--site-muted)] text-sm leading-relaxed">
               Stärker werden. Jeden Tag.
             </p>
           </div>
 
           {/* Address */}
           <div>
-            <p style={{ fontWeight: 700, fontSize: "14px", marginBottom: "12px", color: "#f5f5f5" }}>Standort</p>
-            <p style={{ color: "#737373", fontSize: "14px", lineHeight: "1.8" }}>
+            <p className="font-bold text-sm mb-3 text-[var(--site-text)]">Standort</p>
+            <p className="text-[var(--site-muted)] text-sm leading-[1.8]">
               Rüttenscheider Str. 87<br />
               45130 Essen<br />
               Tel: 0201 / 987 654 30
@@ -148,8 +110,8 @@ export default function FitnessStudioLayout({ children }: { children: ReactNode 
 
           {/* Hours */}
           <div>
-            <p style={{ fontWeight: 700, fontSize: "14px", marginBottom: "12px", color: "#f5f5f5" }}>Öffnungszeiten</p>
-            <p style={{ color: "#737373", fontSize: "14px", lineHeight: "1.8" }}>
+            <p className="font-bold text-sm mb-3 text-[var(--site-text)]">Öffnungszeiten</p>
+            <p className="text-[var(--site-muted)] text-sm leading-[1.8]">
               Mo – Fr: 06:00 – 23:00 Uhr<br />
               Sa – So: 08:00 – 21:00 Uhr<br />
               Feiertage: 09:00 – 18:00 Uhr
@@ -158,13 +120,13 @@ export default function FitnessStudioLayout({ children }: { children: ReactNode 
 
           {/* Links */}
           <div>
-            <p style={{ fontWeight: 700, fontSize: "14px", marginBottom: "12px", color: "#f5f5f5" }}>Navigation</p>
-            <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+            <p className="font-bold text-sm mb-3 text-[var(--site-text)]">Navigation</p>
+            <div className="flex flex-col gap-2">
               {NAV_LINKS.map((l) => (
                 <Link
                   key={l.href}
                   href={l.href}
-                  style={{ color: "#737373", fontSize: "14px", textDecoration: "none" }}
+                  className="text-[var(--site-muted)] text-sm no-underline"
                 >
                   {l.label}
                 </Link>
@@ -173,24 +135,16 @@ export default function FitnessStudioLayout({ children }: { children: ReactNode 
           </div>
         </div>
 
-        <div
-          style={{
-            borderTop: "1px solid #262626",
-            padding: "20px 24px",
-            textAlign: "center",
-            color: "#737373",
-            fontSize: "13px",
-          }}
-        >
+        <div className="border-t border-[var(--site-border)] py-5 px-6 text-center text-[var(--site-muted)] text-[13px]">
           © 2025 FitBase Essen. Alle Rechte vorbehalten. &nbsp;·&nbsp;{" "}
           <span>
             Diese Website wurde gebaut von{" "}
-            <a
+            <Link
               href="/"
-              style={{ color: "#22c55e", textDecoration: "none", fontWeight: 600 }}
+              className="text-[var(--site-accent)] no-underline font-semibold"
             >
               fpz media
-            </a>
+            </Link>
           </span>
         </div>
       </footer>

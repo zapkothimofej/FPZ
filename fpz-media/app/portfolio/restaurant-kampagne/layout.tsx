@@ -1,14 +1,5 @@
 import Link from "next/link";
 
-const C = {
-  bg: "#0c0a08",
-  text: "#faf6f0",
-  accent: "#c9a84c",
-  muted: "#8a7d6b",
-  surface: "#161410",
-  border: "#2a2519",
-};
-
 export const metadata = {
   title: "Il Grano Ristorante — Cucina italiana autentica, Bochum",
   description:
@@ -21,46 +12,23 @@ export default function RestaurantLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div style={{ background: C.bg, color: C.text, minHeight: "100vh", fontFamily: "Georgia, 'Times New Roman', serif" }}>
+    <div
+      data-site="restaurant"
+      className="min-h-screen bg-[var(--site-bg)] text-[var(--site-text)] font-serif"
+    >
       {/* Navbar */}
-      <header
-        style={{
-          position: "sticky",
-          top: 0,
-          zIndex: 50,
-          background: `${C.bg}f0`,
-          backdropFilter: "blur(12px)",
-          borderBottom: `1px solid ${C.border}`,
-        }}
-      >
-        <div
-          style={{ maxWidth: 1200, margin: "0 auto", padding: "0 1.5rem" }}
-          className="flex items-center justify-between h-16"
-        >
+      <header className="sticky top-0 z-50 bg-[var(--site-bg)]/95 backdrop-blur-md border-b border-[var(--site-border)]">
+        <div className="max-w-[1200px] mx-auto px-6 flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/portfolio/restaurant-kampagne" style={{ textDecoration: "none" }}>
+          <Link
+            href="/portfolio/restaurant-kampagne"
+            className="no-underline"
+          >
             <div>
-              <div
-                style={{
-                  color: C.accent,
-                  fontStyle: "italic",
-                  fontSize: "1.5rem",
-                  fontWeight: 700,
-                  lineHeight: 1,
-                  letterSpacing: "0.02em",
-                }}
-              >
+              <div className="text-[var(--site-accent)] italic text-2xl font-bold leading-none tracking-wide">
                 Il Grano
               </div>
-              <div
-                style={{
-                  color: C.muted,
-                  fontSize: "0.6rem",
-                  letterSpacing: "0.25em",
-                  textTransform: "uppercase",
-                  marginTop: 2,
-                }}
-              >
+              <div className="text-[var(--site-muted)] text-[0.6rem] tracking-[0.25em] uppercase mt-0.5">
                 Ristorante
               </div>
             </div>
@@ -76,15 +44,7 @@ export default function RestaurantLayout({
               <Link
                 key={item.label}
                 href={item.href}
-                style={{
-                  color: C.muted,
-                  textDecoration: "none",
-                  fontSize: "0.85rem",
-                  letterSpacing: "0.08em",
-                  fontFamily: "system-ui, sans-serif",
-                  transition: "color 0.2s",
-                }}
-                className="hover:text-amber-300"
+                className="text-[var(--site-muted)] no-underline text-[0.85rem] tracking-[0.08em] font-sans transition-colors hover:text-amber-300"
               >
                 {item.label}
               </Link>
@@ -94,17 +54,7 @@ export default function RestaurantLayout({
           {/* CTA */}
           <Link
             href="/portfolio/restaurant-kampagne/reservierung"
-            style={{
-              background: C.accent,
-              color: C.bg,
-              padding: "0.5rem 1.25rem",
-              fontSize: "0.8rem",
-              fontFamily: "system-ui, sans-serif",
-              fontWeight: 600,
-              letterSpacing: "0.08em",
-              textDecoration: "none",
-              borderRadius: 2,
-            }}
+            className="bg-[var(--site-accent)] text-[var(--site-bg)] px-5 py-2 text-[0.8rem] font-sans font-semibold tracking-[0.08em] no-underline rounded-sm"
           >
             Tisch reservieren
           </Link>
@@ -115,33 +65,23 @@ export default function RestaurantLayout({
       <main>{children}</main>
 
       {/* Footer */}
-      <footer
-        style={{
-          borderTop: `1px solid ${C.border}`,
-          background: C.surface,
-          padding: "3rem 1.5rem",
-          fontFamily: "system-ui, sans-serif",
-        }}
-      >
-        <div
-          style={{ maxWidth: 1200, margin: "0 auto" }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-10"
-        >
+      <footer className="border-t border-[var(--site-border)] bg-[var(--site-surface)] py-12 px-6 font-sans">
+        <div className="max-w-[1200px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
           <div>
-            <div style={{ color: C.accent, fontStyle: "italic", fontFamily: "Georgia, serif", fontSize: "1.2rem", marginBottom: 8 }}>
+            <div className="text-[var(--site-accent)] italic font-serif text-xl mb-2">
               Il Grano Ristorante
             </div>
-            <div style={{ color: C.muted, fontSize: "0.85rem", lineHeight: 1.8 }}>
+            <div className="text-[var(--site-muted)] text-[0.85rem] leading-relaxed">
               Cucina italiana autentica<br />
               seit 2009 in Bochum
             </div>
           </div>
 
           <div>
-            <div style={{ color: C.text, fontSize: "0.75rem", letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: 10 }}>
-              Adresse & Öffnungszeiten
+            <div className="text-[var(--site-text)] text-xs tracking-[0.15em] uppercase mb-2.5">
+              Adresse &amp; Öffnungszeiten
             </div>
-            <div style={{ color: C.muted, fontSize: "0.85rem", lineHeight: 1.9 }}>
+            <div className="text-[var(--site-muted)] text-[0.85rem] leading-loose">
               Kortumstr. 18<br />
               44787 Bochum<br />
               <br />
@@ -151,49 +91,37 @@ export default function RestaurantLayout({
           </div>
 
           <div>
-            <div style={{ color: C.text, fontSize: "0.75rem", letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: 10 }}>
+            <div className="text-[var(--site-text)] text-xs tracking-[0.15em] uppercase mb-2.5">
               Kontakt
             </div>
-            <div style={{ color: C.muted, fontSize: "0.85rem", lineHeight: 1.9 }}>
-              <a href="tel:+4923412345678" style={{ color: C.muted, textDecoration: "none" }}>
+            <div className="text-[var(--site-muted)] text-[0.85rem] leading-loose">
+              <a href="tel:+4923412345678" className="text-[var(--site-muted)] no-underline">
                 +49 234 123 45678
               </a>
               <br />
-              <a href="mailto:info@ilgrano-bochum.de" style={{ color: C.muted, textDecoration: "none" }}>
+              <a href="mailto:info@ilgrano-bochum.de" className="text-[var(--site-muted)] no-underline">
                 info@ilgrano-bochum.de
               </a>
               <br />
-              <a href="https://instagram.com/ilgrano.bochum" style={{ color: C.muted, textDecoration: "none" }}>
+              <a href="https://instagram.com/ilgrano.bochum" className="text-[var(--site-muted)] no-underline">
                 @ilgrano.bochum
               </a>
             </div>
           </div>
         </div>
 
-        <div
-          style={{
-            maxWidth: 1200,
-            margin: "2.5rem auto 0",
-            paddingTop: "1.5rem",
-            borderTop: `1px solid ${C.border}`,
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            flexWrap: "wrap",
-            gap: 8,
-          }}
-        >
-          <div style={{ color: C.muted, fontSize: "0.75rem" }}>
-            © 2024 Il Grano Ristorante. Alle Rechte vorbehalten.
+        <div className="max-w-[1200px] mx-auto mt-10 pt-6 border-t border-[var(--site-border)] flex justify-between items-center flex-wrap gap-2">
+          <div className="text-[var(--site-muted)] text-xs">
+            &copy; 2024 Il Grano Ristorante. Alle Rechte vorbehalten.
           </div>
-          <div style={{ color: C.muted, fontSize: "0.75rem" }}>
+          <div className="text-[var(--site-muted)] text-xs">
             Diese Website wurde gebaut von{" "}
-            <a
+            <Link
               href="/"
-              style={{ color: C.accent, textDecoration: "none" }}
+              className="text-[var(--site-accent)] no-underline"
             >
               fpz media
-            </a>
+            </Link>
           </div>
         </div>
       </footer>

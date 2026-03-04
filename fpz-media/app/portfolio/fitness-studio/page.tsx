@@ -121,133 +121,111 @@ const PRICING = [
   },
 ]
 
+function CourseIconBox({ icon, color }: { icon: string; color: string }) {
+  const bgClass =
+    color === "#22c55e" ? "bg-green-500/10 border-green-500/25" :
+    color === "#8b5cf6" ? "bg-violet-500/10 border-violet-500/25" :
+    color === "#f97316" ? "bg-orange-500/10 border-orange-500/25" :
+    color === "#3b82f6" ? "bg-blue-500/10 border-blue-500/25" :
+    color === "#ec4899" ? "bg-pink-500/10 border-pink-500/25" :
+    color === "#ef4444" ? "bg-red-500/10 border-red-500/25" :
+    "bg-green-500/10 border-green-500/25"
+
+  return (
+    <div className={`w-12 h-12 rounded-xl border flex items-center justify-center text-[22px] ${bgClass}`}>
+      {icon}
+    </div>
+  )
+}
+
+function LevelBadge({ level, color }: { level: string; color: string }) {
+  const classes =
+    color === "#22c55e" ? "bg-green-500/10 text-green-500 border-green-500/25" :
+    color === "#8b5cf6" ? "bg-violet-500/10 text-violet-500 border-violet-500/25" :
+    color === "#f97316" ? "bg-orange-500/10 text-orange-500 border-orange-500/25" :
+    color === "#3b82f6" ? "bg-blue-500/10 text-blue-500 border-blue-500/25" :
+    color === "#ec4899" ? "bg-pink-500/10 text-pink-500 border-pink-500/25" :
+    color === "#ef4444" ? "bg-red-500/10 text-red-500 border-red-500/25" :
+    "bg-green-500/10 text-green-500 border-green-500/25"
+
+  return (
+    <span className={`text-[11px] font-bold px-[9px] py-[3px] rounded-full border tracking-wide ${classes}`}>
+      {level}
+    </span>
+  )
+}
+
+function CourseLink({ color }: { color: string }) {
+  const textClass =
+    color === "#22c55e" ? "text-green-500" :
+    color === "#8b5cf6" ? "text-violet-500" :
+    color === "#f97316" ? "text-orange-500" :
+    color === "#3b82f6" ? "text-blue-500" :
+    color === "#ec4899" ? "text-pink-500" :
+    color === "#ef4444" ? "text-red-500" :
+    "text-green-500"
+
+  return (
+    <Link
+      href="/portfolio/fitness-studio/kurse"
+      className={`text-[13px] font-bold no-underline ${textClass}`}
+    >
+      Kursplan →
+    </Link>
+  )
+}
+
 export default function FitBasePage() {
   return (
     <>
-      {/* ── HERO ── */}
-      <section
-        style={{
-          position: "relative",
-          overflow: "hidden",
-          padding: "100px 24px 120px",
-          background: "#0a0a0a",
-        }}
-      >
-        {/* Green glow – top right */}
+      {/* HERO */}
+      <section className="relative overflow-hidden pt-[100px] pb-[120px] px-6 bg-[var(--site-bg)]">
+        {/* Green glow */}
         <div
-          aria-hidden
-          style={{
-            position: "absolute",
-            top: "-80px",
-            right: "-80px",
-            width: 600,
-            height: 600,
-            borderRadius: "50%",
-            background: "radial-gradient(circle, rgba(34,197,94,0.13) 0%, transparent 70%)",
-            pointerEvents: "none",
-          }}
+          aria-hidden="true"
+          className="absolute -top-20 -right-20 w-[600px] h-[600px] rounded-full bg-[radial-gradient(circle,rgba(34,197,94,0.13)_0%,transparent_70%)] pointer-events-none"
         />
 
-        {/* Decorative barbell SVG */}
+        {/* Barbell SVG watermark */}
         <div
-          aria-hidden
-          style={{
-            position: "absolute",
-            right: "4%",
-            top: "50%",
-            transform: "translateY(-50%)",
-            opacity: 0.04,
-            pointerEvents: "none",
-          }}
+          aria-hidden="true"
+          className="absolute right-[4%] top-1/2 -translate-y-1/2 opacity-[0.04] pointer-events-none"
         >
           <svg width="520" height="200" viewBox="0 0 520 200" fill="none">
-            {/* left weight */}
             <rect x="0" y="40" width="60" height="120" rx="8" fill="#22c55e"/>
             <rect x="60" y="60" width="24" height="80" rx="4" fill="#22c55e"/>
-            {/* bar */}
             <rect x="84" y="90" width="352" height="20" rx="4" fill="#22c55e"/>
-            {/* right weight */}
             <rect x="436" y="60" width="24" height="80" rx="4" fill="#22c55e"/>
             <rect x="460" y="40" width="60" height="120" rx="8" fill="#22c55e"/>
           </svg>
         </div>
 
-        <div style={{ maxWidth: 1200, margin: "0 auto", position: "relative" }}>
-          <div
-            style={{
-              display: "inline-block",
-              background: "rgba(34,197,94,0.1)",
-              border: "1px solid rgba(34,197,94,0.3)",
-              color: "#22c55e",
-              fontSize: 12,
-              fontWeight: 700,
-              letterSpacing: "0.12em",
-              padding: "6px 14px",
-              borderRadius: 999,
-              marginBottom: 28,
-              textTransform: "uppercase",
-            }}
-          >
+        <div className="max-w-[1200px] mx-auto relative">
+          {/* Pill badge */}
+          <div className="inline-block bg-green-500/10 border border-green-500/30 text-[var(--site-accent)] text-xs font-bold tracking-[0.12em] px-3.5 py-1.5 rounded-full mb-7 uppercase">
             #1 Fitnessstudio in Rüttenscheid
           </div>
 
-          <h1
-            style={{
-              color: "#f5f5f5",
-              fontSize: "clamp(40px, 7vw, 80px)",
-              fontWeight: 900,
-              lineHeight: 1.06,
-              letterSpacing: "-0.03em",
-              maxWidth: 720,
-              marginBottom: 24,
-            }}
-          >
+          <h1 className="text-[var(--site-text)] text-[clamp(40px,7vw,80px)] font-black leading-[1.06] tracking-[-0.03em] max-w-[720px] mb-6">
             Dein Ziel.<br />
-            <span style={{ color: "#22c55e" }}>Unser Plan.</span>
+            <span className="text-[var(--site-accent)]">Unser Plan.</span>
           </h1>
 
-          <p
-            style={{
-              color: "#737373",
-              fontSize: 18,
-              lineHeight: 1.7,
-              maxWidth: 560,
-              marginBottom: 44,
-            }}
-          >
+          <p className="text-[var(--site-muted)] text-lg leading-[1.7] max-w-[560px] mb-11">
             Über 450 Mitglieder trainieren bereits bei FitBase Essen. Personal Training,
             Gruppenklassen und modernste Geräte – alles unter einem Dach.
           </p>
 
-          <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
+          <div className="flex gap-4 flex-wrap">
             <Link
               href="/portfolio/fitness-studio/mitgliedschaft"
-              style={{
-                background: "#22c55e",
-                color: "#0a0a0a",
-                fontWeight: 800,
-                fontSize: 15,
-                padding: "14px 28px",
-                borderRadius: 10,
-                textDecoration: "none",
-                letterSpacing: "-0.01em",
-              }}
+              className="bg-[var(--site-accent)] text-[var(--site-bg)] font-extrabold text-[15px] px-7 py-3.5 rounded-[10px] no-underline tracking-tight"
             >
               Probetraining buchen
             </Link>
             <Link
               href="/portfolio/fitness-studio/mitgliedschaft"
-              style={{
-                background: "transparent",
-                color: "#22c55e",
-                fontWeight: 700,
-                fontSize: 15,
-                padding: "14px 28px",
-                borderRadius: 10,
-                textDecoration: "none",
-                border: "1.5px solid #22c55e",
-                letterSpacing: "-0.01em",
-              }}
+              className="bg-transparent text-[var(--site-accent)] font-bold text-[15px] px-7 py-3.5 rounded-[10px] no-underline border-[1.5px] border-[var(--site-accent)] tracking-tight"
             >
               Mitgliedschaft entdecken
             </Link>
@@ -255,31 +233,18 @@ export default function FitBasePage() {
         </div>
       </section>
 
-      {/* ── STATS ── */}
-      <section style={{ background: "#141414", borderTop: "1px solid #262626", borderBottom: "1px solid #262626" }}>
-        <div
-          style={{
-            maxWidth: 1200,
-            margin: "0 auto",
-            padding: "48px 24px",
-            display: "grid",
-            gridTemplateColumns: "repeat(4, 1fr)",
-            gap: 0,
-          }}
-        >
+      {/* STATS */}
+      <section className="bg-[var(--site-surface)] border-t border-b border-[var(--site-border)]">
+        <div className="max-w-[1200px] mx-auto px-6 py-12 grid grid-cols-2 md:grid-cols-4">
           {STATS.map((s, i) => (
             <div
               key={s.label}
-              style={{
-                textAlign: "center",
-                padding: "24px 16px",
-                borderRight: i < 3 ? "1px solid #262626" : "none",
-              }}
+              className={`text-center py-6 px-4 ${i < 3 ? "border-r border-[var(--site-border)]" : ""} ${i === 1 ? "max-md:border-r-0" : ""}`}
             >
-              <p style={{ color: "#22c55e", fontWeight: 900, fontSize: "clamp(28px,4vw,44px)", letterSpacing: "-0.03em", marginBottom: 6 }}>
+              <p className="text-[var(--site-accent)] font-black text-[clamp(28px,4vw,44px)] tracking-[-0.03em] mb-1.5">
                 {s.value}
               </p>
-              <p style={{ color: "#737373", fontSize: 13, fontWeight: 500, letterSpacing: "0.04em" }}>
+              <p className="text-[var(--site-muted)] text-[13px] font-medium tracking-wide">
                 {s.label}
               </p>
             </div>
@@ -287,99 +252,46 @@ export default function FitBasePage() {
         </div>
       </section>
 
-      {/* ── COURSES ── */}
-      <section style={{ padding: "96px 24px", background: "#0a0a0a" }}>
-        <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-          <div style={{ marginBottom: 56 }}>
-            <p style={{ color: "#22c55e", fontSize: 12, fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: 12 }}>
+      {/* COURSES */}
+      <section className="py-24 px-6 bg-[var(--site-bg)]">
+        <div className="max-w-[1200px] mx-auto">
+          <div className="mb-14">
+            <p className="text-[var(--site-accent)] text-xs font-bold tracking-[0.15em] uppercase mb-3">
               Unser Angebot
             </p>
-            <h2 style={{ color: "#f5f5f5", fontSize: "clamp(28px,4vw,44px)", fontWeight: 900, letterSpacing: "-0.025em", marginBottom: 12 }}>
+            <h2 className="text-[var(--site-text)] text-[clamp(28px,4vw,44px)] font-black tracking-tight mb-3">
               Kurse für jedes Level
             </h2>
-            <p style={{ color: "#737373", fontSize: 16 }}>
+            <p className="text-[var(--site-muted)] text-base">
               Von entspanntem Yoga bis knallhartem HIIT – bei uns ist für jeden etwas dabei.
             </p>
           </div>
 
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))",
-              gap: 20,
-            }}
-          >
+          <div className="grid grid-cols-[repeat(auto-fill,minmax(340px,1fr))] gap-5">
             {COURSES.map((c) => (
               <div
                 key={c.name}
-                style={{
-                  background: "#141414",
-                  border: "1px solid #262626",
-                  borderRadius: 14,
-                  padding: "28px",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 16,
-                  transition: "border-color 0.2s",
-                }}
+                className="bg-[var(--site-surface)] border border-[var(--site-border)] rounded-[14px] p-7 flex flex-col gap-4 transition-colors duration-200"
               >
-                {/* Icon square */}
-                <div
-                  style={{
-                    width: 48,
-                    height: 48,
-                    borderRadius: 12,
-                    background: `${c.color}18`,
-                    border: `1px solid ${c.color}40`,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    fontSize: 22,
-                  }}
-                >
-                  {c.icon}
-                </div>
+                <CourseIconBox icon={c.icon} color={c.color} />
 
                 <div>
-                  <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 6 }}>
-                    <h3 style={{ color: "#f5f5f5", fontWeight: 800, fontSize: 18, margin: 0 }}>
+                  <div className="flex items-center gap-2.5 mb-1.5">
+                    <h3 className="text-[var(--site-text)] font-extrabold text-lg m-0">
                       {c.name}
                     </h3>
-                    <span
-                      style={{
-                        background: `${c.color}18`,
-                        color: c.color,
-                        fontSize: 11,
-                        fontWeight: 700,
-                        padding: "3px 9px",
-                        borderRadius: 999,
-                        border: `1px solid ${c.color}40`,
-                        letterSpacing: "0.04em",
-                      }}
-                    >
-                      {c.level}
-                    </span>
+                    <LevelBadge level={c.level} color={c.color} />
                   </div>
-                  <p style={{ color: "#737373", fontSize: 13, lineHeight: 1.6, margin: 0 }}>
+                  <p className="text-[var(--site-muted)] text-[13px] leading-relaxed m-0">
                     {c.desc}
                   </p>
                 </div>
 
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginTop: "auto" }}>
-                  <span style={{ color: "#404040", fontSize: 13, fontWeight: 500 }}>
+                <div className="flex items-center justify-between mt-auto">
+                  <span className="text-neutral-600 text-[13px] font-medium">
                     ⏱ {c.duration}
                   </span>
-                  <Link
-                    href="/portfolio/fitness-studio/kurse"
-                    style={{
-                      color: c.color,
-                      fontSize: 13,
-                      fontWeight: 700,
-                      textDecoration: "none",
-                    }}
-                  >
-                    Kursplan →
-                  </Link>
+                  <CourseLink color={c.color} />
                 </div>
               </div>
             ))}
@@ -387,94 +299,50 @@ export default function FitBasePage() {
         </div>
       </section>
 
-      {/* ── TRAINERS ── */}
-      <section id="trainer" style={{ padding: "96px 24px", background: "#070707", borderTop: "1px solid #262626" }}>
-        <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-          <div style={{ marginBottom: 56 }}>
-            <p style={{ color: "#22c55e", fontSize: 12, fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: 12 }}>
+      {/* TRAINERS */}
+      <section id="trainer" className="py-24 px-6 bg-[#070707] border-t border-[var(--site-border)]">
+        <div className="max-w-[1200px] mx-auto">
+          <div className="mb-14">
+            <p className="text-[var(--site-accent)] text-xs font-bold tracking-[0.15em] uppercase mb-3">
               Das Team
             </p>
-            <h2 style={{ color: "#f5f5f5", fontSize: "clamp(28px,4vw,44px)", fontWeight: 900, letterSpacing: "-0.025em" }}>
+            <h2 className="text-[var(--site-text)] text-[clamp(28px,4vw,44px)] font-black tracking-tight">
               Unsere Trainer
             </h2>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(320px, 1fr))", gap: 24 }}>
+          <div className="grid grid-cols-[repeat(auto-fill,minmax(320px,1fr))] gap-6">
             {TRAINERS.map((t) => (
               <div
                 key={t.name}
-                style={{
-                  background: "#141414",
-                  border: "1px solid #262626",
-                  borderRadius: 16,
-                  padding: "32px",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 20,
-                }}
+                className="bg-[var(--site-surface)] border border-[var(--site-border)] rounded-2xl p-8 flex flex-col gap-5"
               >
                 {/* Avatar */}
-                <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-                  <div
-                    style={{
-                      width: 56,
-                      height: 56,
-                      borderRadius: "50%",
-                      background: "rgba(34,197,94,0.15)",
-                      border: "2px solid rgba(34,197,94,0.4)",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      color: "#22c55e",
-                      fontWeight: 900,
-                      fontSize: 18,
-                      flexShrink: 0,
-                    }}
-                  >
+                <div className="flex items-center gap-4">
+                  <div className="w-14 h-14 rounded-full bg-green-500/15 border-2 border-green-500/40 flex items-center justify-center text-[var(--site-accent)] font-black text-lg shrink-0">
                     {t.initials}
                   </div>
                   <div>
-                    <p style={{ color: "#f5f5f5", fontWeight: 800, fontSize: 17, marginBottom: 2 }}>{t.name}</p>
-                    <p style={{ color: "#22c55e", fontSize: 12, fontWeight: 600 }}>{t.cert}</p>
+                    <p className="text-[var(--site-text)] font-extrabold text-[17px] mb-0.5">{t.name}</p>
+                    <p className="text-[var(--site-accent)] text-xs font-semibold">{t.cert}</p>
                   </div>
                 </div>
 
                 <div>
-                  <p style={{ color: "#737373", fontSize: 13, fontWeight: 600, marginBottom: 12, letterSpacing: "0.02em" }}>
+                  <p className="text-[var(--site-muted)] text-[13px] font-semibold mb-3 tracking-wide">
                     {t.specialty}
                   </p>
-                  <blockquote
-                    style={{
-                      margin: 0,
-                      padding: "14px 16px",
-                      background: "rgba(34,197,94,0.06)",
-                      borderLeft: "3px solid #22c55e",
-                      borderRadius: "0 8px 8px 0",
-                      color: "#a3a3a3",
-                      fontSize: 14,
-                      fontStyle: "italic",
-                      lineHeight: 1.6,
-                    }}
-                  >
+                  <blockquote className="m-0 p-3.5 pl-4 bg-green-500/[0.06] border-l-[3px] border-l-[var(--site-accent)] rounded-r-lg text-neutral-400 text-sm italic leading-relaxed">
                     &ldquo;{t.quote}&rdquo;
                   </blockquote>
                 </div>
 
-                {/* Static social placeholders */}
-                <div style={{ display: "flex", gap: 10 }}>
+                {/* Social placeholders */}
+                <div className="flex gap-2.5">
                   {["IG", "in"].map((s) => (
                     <span
                       key={s}
-                      style={{
-                        background: "#1e1e1e",
-                        border: "1px solid #262626",
-                        borderRadius: 6,
-                        padding: "5px 12px",
-                        fontSize: 12,
-                        fontWeight: 700,
-                        color: "#404040",
-                        cursor: "default",
-                      }}
+                      className="bg-[#1e1e1e] border border-[var(--site-border)] rounded-md px-3 py-[5px] text-xs font-bold text-neutral-600 cursor-default"
                     >
                       {s}
                     </span>
@@ -486,73 +354,53 @@ export default function FitBasePage() {
         </div>
       </section>
 
-      {/* ── PRICING TEASER ── */}
-      <section style={{ padding: "96px 24px", background: "#0a0a0a" }}>
-        <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-          <div style={{ marginBottom: 56 }}>
-            <p style={{ color: "#22c55e", fontSize: 12, fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: 12 }}>
+      {/* PRICING TEASER */}
+      <section className="py-24 px-6 bg-[var(--site-bg)]">
+        <div className="max-w-[1200px] mx-auto">
+          <div className="mb-14">
+            <p className="text-[var(--site-accent)] text-xs font-bold tracking-[0.15em] uppercase mb-3">
               Mitgliedschaft
             </p>
-            <h2 style={{ color: "#f5f5f5", fontSize: "clamp(28px,4vw,44px)", fontWeight: 900, letterSpacing: "-0.025em", marginBottom: 12 }}>
+            <h2 className="text-[var(--site-text)] text-[clamp(28px,4vw,44px)] font-black tracking-tight mb-3">
               Fair. Transparent. Monatlich kündbar.
             </h2>
-            <p style={{ color: "#737373", fontSize: 16 }}>
+            <p className="text-[var(--site-muted)] text-base">
               Keine versteckten Kosten. Kein Jahresvertrag-Zwang.
             </p>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: 20 }}>
+          <div className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-5">
             {PRICING.map((p) => (
               <div
                 key={p.name}
-                style={{
-                  background: "#141414",
-                  border: p.highlight ? "2px solid #22c55e" : "1px solid #262626",
-                  borderRadius: 16,
-                  padding: "32px",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 24,
-                  position: "relative",
-                }}
+                className={`bg-[var(--site-surface)] rounded-2xl p-8 flex flex-col gap-6 relative ${
+                  p.highlight
+                    ? "border-2 border-[var(--site-accent)]"
+                    : "border border-[var(--site-border)]"
+                }`}
               >
                 {p.badge && (
-                  <div
-                    style={{
-                      position: "absolute",
-                      top: -14,
-                      left: "50%",
-                      transform: "translateX(-50%)",
-                      background: "#22c55e",
-                      color: "#0a0a0a",
-                      fontSize: 11,
-                      fontWeight: 800,
-                      padding: "4px 14px",
-                      borderRadius: 999,
-                      whiteSpace: "nowrap",
-                      letterSpacing: "0.04em",
-                    }}
-                  >
+                  <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-[var(--site-accent)] text-[var(--site-bg)] text-[11px] font-extrabold px-3.5 py-1 rounded-full whitespace-nowrap tracking-wide">
                     {p.badge}
                   </div>
                 )}
 
                 <div>
-                  <p style={{ color: "#737373", fontSize: 13, fontWeight: 600, marginBottom: 8, letterSpacing: "0.08em", textTransform: "uppercase" }}>
+                  <p className="text-[var(--site-muted)] text-[13px] font-semibold mb-2 tracking-[0.08em] uppercase">
                     {p.name}
                   </p>
-                  <div style={{ display: "flex", alignItems: "baseline", gap: 4 }}>
-                    <span style={{ color: "#f5f5f5", fontSize: 48, fontWeight: 900, letterSpacing: "-0.04em" }}>
+                  <div className="flex items-baseline gap-1">
+                    <span className="text-[var(--site-text)] text-5xl font-black tracking-[-0.04em]">
                       {p.price}€
                     </span>
-                    <span style={{ color: "#737373", fontSize: 14 }}>/Mo.</span>
+                    <span className="text-[var(--site-muted)] text-sm">/Mo.</span>
                   </div>
                 </div>
 
-                <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: 10 }}>
+                <ul className="list-none m-0 p-0 flex flex-col gap-2.5">
                   {p.features.map((f) => (
-                    <li key={f} style={{ display: "flex", alignItems: "flex-start", gap: 10, color: "#a3a3a3", fontSize: 14 }}>
-                      <span style={{ color: "#22c55e", fontWeight: 700, flexShrink: 0 }}>✓</span>
+                    <li key={f} className="flex items-start gap-2.5 text-neutral-400 text-sm">
+                      <span className="text-[var(--site-accent)] font-bold shrink-0">✓</span>
                       {f}
                     </li>
                   ))}
@@ -560,19 +408,11 @@ export default function FitBasePage() {
 
                 <Link
                   href="/portfolio/fitness-studio/mitgliedschaft"
-                  style={{
-                    display: "block",
-                    textAlign: "center",
-                    background: p.highlight ? "#22c55e" : "transparent",
-                    color: p.highlight ? "#0a0a0a" : "#22c55e",
-                    border: p.highlight ? "none" : "1.5px solid #22c55e",
-                    padding: "12px",
-                    borderRadius: 8,
-                    fontWeight: 700,
-                    fontSize: 14,
-                    textDecoration: "none",
-                    marginTop: "auto",
-                  }}
+                  className={`block text-center py-3 rounded-lg font-bold text-sm no-underline mt-auto ${
+                    p.highlight
+                      ? "bg-[var(--site-accent)] text-[var(--site-bg)]"
+                      : "bg-transparent text-[var(--site-accent)] border-[1.5px] border-[var(--site-accent)]"
+                  }`}
                 >
                   {p.highlight ? "Jetzt Mitglied werden" : "Tarif wählen"}
                 </Link>
@@ -582,65 +422,24 @@ export default function FitBasePage() {
         </div>
       </section>
 
-      {/* ── CTA BANNER ── */}
-      <section
-        style={{
-          margin: "0 24px 96px",
-          background: "linear-gradient(135deg, rgba(34,197,94,0.15) 0%, rgba(34,197,94,0.05) 100%)",
-          border: "1px solid rgba(34,197,94,0.25)",
-          borderRadius: 20,
-          padding: "64px 48px",
-          textAlign: "center",
-          maxWidth: 1200 - 48,
-          marginLeft: "auto",
-          marginRight: "auto",
-          position: "relative",
-          overflow: "hidden",
-        }}
-      >
+      {/* CTA BANNER */}
+      <section className="mx-6 mb-24 bg-[linear-gradient(135deg,rgba(34,197,94,0.15)_0%,rgba(34,197,94,0.05)_100%)] border border-green-500/25 rounded-[20px] py-16 px-12 text-center max-w-[1152px] ml-auto mr-auto relative overflow-hidden">
         <div
-          aria-hidden
-          style={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: 600,
-            height: 300,
-            background: "radial-gradient(ellipse, rgba(34,197,94,0.08) 0%, transparent 70%)",
-            pointerEvents: "none",
-          }}
+          aria-hidden="true"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-[radial-gradient(ellipse,rgba(34,197,94,0.08)_0%,transparent_70%)] pointer-events-none"
         />
-        <p style={{ color: "#22c55e", fontSize: 12, fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: 16 }}>
+        <p className="text-[var(--site-accent)] text-xs font-bold tracking-[0.15em] uppercase mb-4">
           Angebot
         </p>
-        <h2
-          style={{
-            color: "#f5f5f5",
-            fontSize: "clamp(26px, 4vw, 42px)",
-            fontWeight: 900,
-            letterSpacing: "-0.025em",
-            marginBottom: 16,
-          }}
-        >
+        <h2 className="text-[var(--site-text)] text-[clamp(26px,4vw,42px)] font-black tracking-tight mb-4">
           Dein erstes Training ist kostenlos.
         </h2>
-        <p style={{ color: "#737373", fontSize: 16, marginBottom: 36, maxWidth: 480, margin: "0 auto 36px" }}>
+        <p className="text-[var(--site-muted)] text-base mb-9 max-w-[480px] mx-auto">
           Komm einfach vorbei. Kein Vertrag, keine Kreditkarte. Überzeuge dich selbst.
         </p>
         <Link
           href="/portfolio/fitness-studio/mitgliedschaft"
-          style={{
-            display: "inline-block",
-            background: "#22c55e",
-            color: "#0a0a0a",
-            fontWeight: 800,
-            fontSize: 16,
-            padding: "16px 36px",
-            borderRadius: 10,
-            textDecoration: "none",
-            letterSpacing: "-0.01em",
-          }}
+          className="inline-block bg-[var(--site-accent)] text-[var(--site-bg)] font-extrabold text-base px-9 py-4 rounded-[10px] no-underline tracking-tight"
         >
           Jetzt Termin buchen
         </Link>

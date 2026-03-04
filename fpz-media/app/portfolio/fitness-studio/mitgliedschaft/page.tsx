@@ -90,150 +90,72 @@ const FAQ = [
 export default function MitgliedschaftPage() {
   return (
     <>
-      {/* ── HEADER ── */}
-      <section
-        style={{
-          padding: "72px 24px 56px",
-          background: "#0a0a0a",
-          borderBottom: "1px solid #262626",
-          position: "relative",
-          overflow: "hidden",
-        }}
-      >
+      {/* HEADER */}
+      <section className="pt-[72px] pb-14 px-6 bg-[var(--site-bg)] border-b border-[var(--site-border)] relative overflow-hidden">
         <div
-          aria-hidden
-          style={{
-            position: "absolute",
-            top: -120,
-            right: -120,
-            width: 500,
-            height: 500,
-            borderRadius: "50%",
-            background: "radial-gradient(circle, rgba(34,197,94,0.1) 0%, transparent 70%)",
-            pointerEvents: "none",
-          }}
+          aria-hidden="true"
+          className="absolute -top-[120px] -right-[120px] w-[500px] h-[500px] rounded-full bg-[radial-gradient(circle,rgba(34,197,94,0.1)_0%,transparent_70%)] pointer-events-none"
         />
-        <div style={{ maxWidth: 1200, margin: "0 auto", position: "relative" }}>
-          <p style={{ color: "#22c55e", fontSize: 12, fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: 12 }}>
+        <div className="max-w-[1200px] mx-auto relative">
+          <p className="text-[var(--site-accent)] text-xs font-bold tracking-[0.15em] uppercase mb-3">
             Tarife & Konditionen
           </p>
-          <h1
-            style={{
-              color: "#f5f5f5",
-              fontSize: "clamp(32px, 5vw, 56px)",
-              fontWeight: 900,
-              letterSpacing: "-0.03em",
-              marginBottom: 16,
-            }}
-          >
+          <h1 className="text-[var(--site-text)] text-[clamp(32px,5vw,56px)] font-black tracking-[-0.03em] mb-4">
             Mitgliedschaft
           </h1>
-          <p style={{ color: "#737373", fontSize: 17, maxWidth: 520, lineHeight: 1.7 }}>
+          <p className="text-[var(--site-muted)] text-[17px] max-w-[520px] leading-[1.7]">
             Fair. Transparent. Monatlich kündbar. Wähle den Tarif, der zu deinem Lebensstil passt.
           </p>
         </div>
       </section>
 
-      {/* ── PRICING TIERS ── */}
-      <section style={{ padding: "80px 24px", background: "#0a0a0a" }}>
-        <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: 24 }}>
+      {/* PRICING TIERS */}
+      <section className="py-20 px-6 bg-[var(--site-bg)]">
+        <div className="max-w-[1200px] mx-auto">
+          <div className="grid grid-cols-[repeat(auto-fill,minmax(300px,1fr))] gap-6">
             {TIERS.map((t) => (
               <div
                 key={t.name}
-                style={{
-                  background: t.highlight ? "rgba(34,197,94,0.04)" : "#141414",
-                  border: t.highlight ? "2px solid #22c55e" : "1px solid #262626",
-                  borderRadius: 18,
-                  padding: "36px 32px",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 28,
-                  position: "relative",
-                }}
+                className={`rounded-[18px] px-8 py-9 flex flex-col gap-7 relative ${
+                  t.highlight
+                    ? "bg-green-500/[0.04] border-2 border-[var(--site-accent)]"
+                    : "bg-[var(--site-surface)] border border-[var(--site-border)]"
+                }`}
               >
                 {t.badge && (
-                  <div
-                    style={{
-                      position: "absolute",
-                      top: -16,
-                      left: "50%",
-                      transform: "translateX(-50%)",
-                      background: "#22c55e",
-                      color: "#0a0a0a",
-                      fontSize: 11,
-                      fontWeight: 800,
-                      padding: "5px 16px",
-                      borderRadius: 999,
-                      whiteSpace: "nowrap",
-                      letterSpacing: "0.06em",
-                      textTransform: "uppercase",
-                    }}
-                  >
+                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[var(--site-accent)] text-[var(--site-bg)] text-[11px] font-extrabold px-4 py-[5px] rounded-full whitespace-nowrap tracking-[0.06em] uppercase">
                     {t.badge}
                   </div>
                 )}
 
                 {/* Tier name + price */}
                 <div>
-                  <p
-                    style={{
-                      color: t.highlight ? "#22c55e" : "#737373",
-                      fontSize: 12,
-                      fontWeight: 700,
-                      letterSpacing: "0.12em",
-                      textTransform: "uppercase",
-                      marginBottom: 16,
-                    }}
-                  >
+                  <p className={`text-xs font-bold tracking-[0.12em] uppercase mb-4 ${t.highlight ? "text-[var(--site-accent)]" : "text-[var(--site-muted)]"}`}>
                     {t.name}
                   </p>
-                  <div style={{ display: "flex", alignItems: "baseline", gap: 6, marginBottom: 6 }}>
-                    <span
-                      style={{
-                        color: "#f5f5f5",
-                        fontSize: 56,
-                        fontWeight: 900,
-                        letterSpacing: "-0.04em",
-                        lineHeight: 1,
-                      }}
-                    >
+                  <div className="flex items-baseline gap-1.5 mb-1.5">
+                    <span className="text-[var(--site-text)] text-[56px] font-black tracking-[-0.04em] leading-none">
                       {t.price}€
                     </span>
-                    <span style={{ color: "#737373", fontSize: 14 }}>/Monat</span>
+                    <span className="text-[var(--site-muted)] text-sm">/Monat</span>
                   </div>
-                  <p style={{ color: "#525252", fontSize: 12 }}>{t.billing}</p>
+                  <p className="text-neutral-600 text-xs">{t.billing}</p>
                 </div>
 
                 {/* Divider */}
-                <div style={{ height: 1, background: "#262626" }} />
+                <div className="h-px bg-[var(--site-border)]" />
 
                 {/* Features */}
-                <ul style={{ listStyle: "none", margin: 0, padding: 0, display: "flex", flexDirection: "column", gap: 12 }}>
+                <ul className="list-none m-0 p-0 flex flex-col gap-3">
                   {t.features.map((f) => (
                     <li
                       key={f.text}
-                      style={{
-                        display: "flex",
-                        alignItems: "flex-start",
-                        gap: 10,
-                        color: f.included ? "#d4d4d4" : "#3a3a3a",
-                        fontSize: 14,
-                        lineHeight: 1.4,
-                      }}
+                      className={`flex items-start gap-2.5 text-sm leading-snug ${f.included ? "text-neutral-300" : "text-neutral-700"}`}
                     >
-                      <span
-                        style={{
-                          color: f.included ? "#22c55e" : "#3a3a3a",
-                          fontWeight: 800,
-                          fontSize: 14,
-                          flexShrink: 0,
-                          marginTop: 1,
-                        }}
-                      >
+                      <span className={`font-extrabold text-sm shrink-0 mt-px ${f.included ? "text-[var(--site-accent)]" : "text-neutral-700"}`}>
                         {f.included ? "✓" : "✗"}
                       </span>
-                      <span style={{ textDecoration: f.included ? "none" : "line-through" }}>
+                      <span className={f.included ? "" : "line-through"}>
                         {f.text}
                       </span>
                     </li>
@@ -243,20 +165,11 @@ export default function MitgliedschaftPage() {
                 {/* CTA */}
                 <Link
                   href="#anmeldung"
-                  style={{
-                    display: "block",
-                    textAlign: "center",
-                    background: t.highlight ? "#22c55e" : "transparent",
-                    color: t.highlight ? "#0a0a0a" : "#22c55e",
-                    border: t.highlight ? "none" : "1.5px solid #22c55e",
-                    padding: "14px",
-                    borderRadius: 10,
-                    fontWeight: 800,
-                    fontSize: 15,
-                    textDecoration: "none",
-                    marginTop: "auto",
-                    letterSpacing: "-0.01em",
-                  }}
+                  className={`block text-center py-3.5 rounded-[10px] font-extrabold text-[15px] no-underline mt-auto tracking-tight ${
+                    t.highlight
+                      ? "bg-[var(--site-accent)] text-[var(--site-bg)]"
+                      : "bg-transparent text-[var(--site-accent)] border-[1.5px] border-[var(--site-accent)]"
+                  }`}
                 >
                   {t.cta}
                 </Link>
@@ -265,15 +178,7 @@ export default function MitgliedschaftPage() {
           </div>
 
           {/* Trust badges */}
-          <div
-            style={{
-              marginTop: 40,
-              display: "flex",
-              justifyContent: "center",
-              gap: 40,
-              flexWrap: "wrap",
-            }}
-          >
+          <div className="mt-10 flex justify-center gap-10 flex-wrap">
             {[
               "Monatlich kündbar",
               "Keine Einrichtungsgebühr",
@@ -282,9 +187,9 @@ export default function MitgliedschaftPage() {
             ].map((badge) => (
               <div
                 key={badge}
-                style={{ display: "flex", alignItems: "center", gap: 8, color: "#737373", fontSize: 13 }}
+                className="flex items-center gap-2 text-[var(--site-muted)] text-[13px]"
               >
-                <span style={{ color: "#22c55e", fontSize: 16 }}>✓</span>
+                <span className="text-[var(--site-accent)] text-base">✓</span>
                 {badge}
               </div>
             ))}
@@ -292,51 +197,29 @@ export default function MitgliedschaftPage() {
         </div>
       </section>
 
-      {/* ── FAQ ── */}
-      <section style={{ padding: "96px 24px", background: "#070707", borderTop: "1px solid #262626" }}>
-        <div style={{ maxWidth: 760, margin: "0 auto" }}>
-          <div style={{ marginBottom: 48 }}>
-            <p style={{ color: "#22c55e", fontSize: 12, fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: 12 }}>
+      {/* FAQ */}
+      <section className="py-24 px-6 bg-[#070707] border-t border-[var(--site-border)]">
+        <div className="max-w-[760px] mx-auto">
+          <div className="mb-12">
+            <p className="text-[var(--site-accent)] text-xs font-bold tracking-[0.15em] uppercase mb-3">
               FAQ
             </p>
-            <h2 style={{ color: "#f5f5f5", fontSize: "clamp(26px, 4vw, 40px)", fontWeight: 900, letterSpacing: "-0.025em" }}>
+            <h2 className="text-[var(--site-text)] text-[clamp(26px,4vw,40px)] font-black tracking-tight">
               Häufige Fragen
             </h2>
           </div>
 
-          <div style={{ display: "flex", flexDirection: "column", gap: 0 }}>
+          <div className="flex flex-col">
             {FAQ.map((item, i) => (
               <div
                 key={item.q}
-                style={{
-                  borderTop: "1px solid #262626",
-                  borderBottom: i === FAQ.length - 1 ? "1px solid #262626" : "none",
-                  padding: "28px 0",
-                }}
+                className={`border-t border-[var(--site-border)] py-7 ${i === FAQ.length - 1 ? "border-b border-[var(--site-border)]" : ""}`}
               >
-                <h3
-                  style={{
-                    color: "#f5f5f5",
-                    fontWeight: 700,
-                    fontSize: 16,
-                    marginBottom: 12,
-                    display: "flex",
-                    alignItems: "flex-start",
-                    gap: 12,
-                  }}
-                >
-                  <span style={{ color: "#22c55e", fontWeight: 900, flexShrink: 0 }}>Q</span>
+                <h3 className="text-[var(--site-text)] font-bold text-base mb-3 flex items-start gap-3">
+                  <span className="text-[var(--site-accent)] font-black shrink-0">Q</span>
                   {item.q}
                 </h3>
-                <p
-                  style={{
-                    color: "#737373",
-                    fontSize: 15,
-                    lineHeight: 1.7,
-                    margin: 0,
-                    paddingLeft: 28,
-                  }}
-                >
+                <p className="text-[var(--site-muted)] text-[15px] leading-[1.7] m-0 pl-7">
                   {item.a}
                 </p>
               </div>
@@ -345,119 +228,61 @@ export default function MitgliedschaftPage() {
         </div>
       </section>
 
-      {/* ── SIGN UP FORM ── */}
-      <section id="anmeldung" style={{ padding: "96px 24px", background: "#0a0a0a" }}>
-        <div style={{ maxWidth: 640, margin: "0 auto" }}>
-          <div style={{ marginBottom: 40 }}>
-            <p style={{ color: "#22c55e", fontSize: 12, fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: 12 }}>
+      {/* SIGN UP FORM */}
+      <section id="anmeldung" className="py-24 px-6 bg-[var(--site-bg)]">
+        <div className="max-w-[640px] mx-auto">
+          <div className="mb-10">
+            <p className="text-[var(--site-accent)] text-xs font-bold tracking-[0.15em] uppercase mb-3">
               Jetzt starten
             </p>
-            <h2 style={{ color: "#f5f5f5", fontSize: "clamp(26px, 4vw, 40px)", fontWeight: 900, letterSpacing: "-0.025em", marginBottom: 12 }}>
+            <h2 className="text-[var(--site-text)] text-[clamp(26px,4vw,40px)] font-black tracking-tight mb-3">
               Mitglied werden
             </h2>
-            <p style={{ color: "#737373", fontSize: 15, lineHeight: 1.6 }}>
+            <p className="text-[var(--site-muted)] text-[15px] leading-relaxed">
               Füll das Formular aus – wir melden uns innerhalb von 24 Stunden bei dir. Kein Stress, kein Druck.
             </p>
           </div>
 
-          <form
-            style={{
-              background: "#141414",
-              border: "1px solid #262626",
-              borderRadius: 18,
-              padding: "40px",
-              display: "flex",
-              flexDirection: "column",
-              gap: 22,
-            }}
-          >
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+          <form className="bg-[var(--site-surface)] border border-[var(--site-border)] rounded-[18px] p-10 flex flex-col gap-[22px]">
+            <div className="grid grid-cols-2 gap-4">
               <div>
-                <label style={{ display: "block", color: "#737373", fontSize: 12, fontWeight: 600, marginBottom: 6, letterSpacing: "0.06em" }}>
+                <label className="block text-[var(--site-muted)] text-xs font-semibold mb-1.5 tracking-[0.06em]">
                   Vorname
                 </label>
                 <input
                   type="text"
                   placeholder="Max"
-                  style={{
-                    width: "100%",
-                    background: "#1a1a1a",
-                    border: "1px solid #262626",
-                    borderRadius: 8,
-                    padding: "11px 14px",
-                    color: "#f5f5f5",
-                    fontSize: 14,
-                    outline: "none",
-                    boxSizing: "border-box",
-                    fontFamily: "inherit",
-                  }}
+                  className="w-full bg-[#1a1a1a] border border-[var(--site-border)] rounded-lg px-3.5 py-[11px] text-[var(--site-text)] text-sm outline-none font-[inherit]"
                 />
               </div>
               <div>
-                <label style={{ display: "block", color: "#737373", fontSize: 12, fontWeight: 600, marginBottom: 6, letterSpacing: "0.06em" }}>
+                <label className="block text-[var(--site-muted)] text-xs font-semibold mb-1.5 tracking-[0.06em]">
                   Nachname
                 </label>
                 <input
                   type="text"
                   placeholder="Mustermann"
-                  style={{
-                    width: "100%",
-                    background: "#1a1a1a",
-                    border: "1px solid #262626",
-                    borderRadius: 8,
-                    padding: "11px 14px",
-                    color: "#f5f5f5",
-                    fontSize: 14,
-                    outline: "none",
-                    boxSizing: "border-box",
-                    fontFamily: "inherit",
-                  }}
+                  className="w-full bg-[#1a1a1a] border border-[var(--site-border)] rounded-lg px-3.5 py-[11px] text-[var(--site-text)] text-sm outline-none font-[inherit]"
                 />
               </div>
             </div>
 
             <div>
-              <label style={{ display: "block", color: "#737373", fontSize: 12, fontWeight: 600, marginBottom: 6, letterSpacing: "0.06em" }}>
+              <label className="block text-[var(--site-muted)] text-xs font-semibold mb-1.5 tracking-[0.06em]">
                 E-Mail-Adresse
               </label>
               <input
                 type="email"
                 placeholder="max@mustermann.de"
-                style={{
-                  width: "100%",
-                  background: "#1a1a1a",
-                  border: "1px solid #262626",
-                  borderRadius: 8,
-                  padding: "11px 14px",
-                  color: "#f5f5f5",
-                  fontSize: 14,
-                  outline: "none",
-                  boxSizing: "border-box",
-                  fontFamily: "inherit",
-                }}
+                className="w-full bg-[#1a1a1a] border border-[var(--site-border)] rounded-lg px-3.5 py-[11px] text-[var(--site-text)] text-sm outline-none font-[inherit]"
               />
             </div>
 
             <div>
-              <label style={{ display: "block", color: "#737373", fontSize: 12, fontWeight: 600, marginBottom: 6, letterSpacing: "0.06em" }}>
+              <label className="block text-[var(--site-muted)] text-xs font-semibold mb-1.5 tracking-[0.06em]">
                 Gewünschter Tarif
               </label>
-              <select
-                style={{
-                  width: "100%",
-                  background: "#1a1a1a",
-                  border: "1px solid #262626",
-                  borderRadius: 8,
-                  padding: "11px 14px",
-                  color: "#f5f5f5",
-                  fontSize: 14,
-                  outline: "none",
-                  boxSizing: "border-box",
-                  fontFamily: "inherit",
-                  appearance: "none",
-                  cursor: "pointer",
-                }}
-              >
+              <select className="w-full bg-[#1a1a1a] border border-[var(--site-border)] rounded-lg px-3.5 py-[11px] text-[var(--site-text)] text-sm outline-none font-[inherit] appearance-none cursor-pointer">
                 <option value="">Tarif wählen…</option>
                 <option value="basic">Basic – 29€ / Monat</option>
                 <option value="premium">Premium – 49€ / Monat</option>
@@ -467,40 +292,18 @@ export default function MitgliedschaftPage() {
             </div>
 
             <div>
-              <label style={{ display: "block", color: "#737373", fontSize: 12, fontWeight: 600, marginBottom: 6, letterSpacing: "0.06em" }}>
+              <label className="block text-[var(--site-muted)] text-xs font-semibold mb-1.5 tracking-[0.06em]">
                 Gewünschtes Startdatum
               </label>
               <input
                 type="date"
-                style={{
-                  width: "100%",
-                  background: "#1a1a1a",
-                  border: "1px solid #262626",
-                  borderRadius: 8,
-                  padding: "11px 14px",
-                  color: "#f5f5f5",
-                  fontSize: 14,
-                  outline: "none",
-                  boxSizing: "border-box",
-                  fontFamily: "inherit",
-                  colorScheme: "dark",
-                }}
+                className="w-full bg-[#1a1a1a] border border-[var(--site-border)] rounded-lg px-3.5 py-[11px] text-[var(--site-text)] text-sm outline-none font-[inherit] [color-scheme:dark]"
               />
             </div>
 
-            <div
-              style={{
-                background: "rgba(34,197,94,0.06)",
-                border: "1px solid rgba(34,197,94,0.2)",
-                borderRadius: 8,
-                padding: "14px 16px",
-                display: "flex",
-                alignItems: "flex-start",
-                gap: 10,
-              }}
-            >
-              <span style={{ color: "#22c55e", flexShrink: 0, marginTop: 1 }}>ℹ</span>
-              <p style={{ color: "#737373", fontSize: 13, margin: 0, lineHeight: 1.5 }}>
+            <div className="bg-green-500/[0.06] border border-green-500/20 rounded-lg px-4 py-3.5 flex items-start gap-2.5">
+              <span className="text-[var(--site-accent)] shrink-0 mt-px">ℹ</span>
+              <p className="text-[var(--site-muted)] text-[13px] m-0 leading-normal">
                 Nach dem Absenden kontaktieren wir dich innerhalb von einem Werktag. Dein erstes Training
                 ist kostenlos – auch vor Vertragsabschluss.
               </p>
@@ -508,24 +311,14 @@ export default function MitgliedschaftPage() {
 
             <button
               type="submit"
-              style={{
-                background: "#22c55e",
-                color: "#0a0a0a",
-                fontWeight: 800,
-                fontSize: 16,
-                padding: "15px",
-                borderRadius: 10,
-                border: "none",
-                cursor: "pointer",
-                letterSpacing: "-0.01em",
-              }}
+              className="bg-[var(--site-accent)] text-[var(--site-bg)] font-extrabold text-base py-[15px] rounded-[10px] border-none cursor-pointer tracking-tight"
             >
               Jetzt anmelden
             </button>
 
-            <p style={{ color: "#525252", fontSize: 12, textAlign: "center", margin: 0 }}>
+            <p className="text-neutral-600 text-xs text-center m-0">
               Durch das Absenden stimmst du unserer{" "}
-              <Link href="/portfolio/fitness-studio" style={{ color: "#737373", textDecoration: "underline" }}>
+              <Link href="/portfolio/fitness-studio" className="text-[var(--site-muted)] underline">
                 Datenschutzerklärung
               </Link>{" "}
               zu. Du kannst jederzeit widerrufen.
@@ -533,25 +326,18 @@ export default function MitgliedschaftPage() {
           </form>
 
           {/* Alternative contact */}
-          <div
-            style={{
-              marginTop: 28,
-              textAlign: "center",
-              color: "#737373",
-              fontSize: 14,
-            }}
-          >
+          <div className="mt-7 text-center text-[var(--site-muted)] text-sm">
             Lieber persönlich?{" "}
             <a
               href="tel:0201987654"
-              style={{ color: "#22c55e", textDecoration: "none", fontWeight: 600 }}
+              className="text-[var(--site-accent)] no-underline font-semibold"
             >
               0201 / 987 654
             </a>{" "}
             oder{" "}
             <a
               href="mailto:hallo@fitbase-essen.de"
-              style={{ color: "#22c55e", textDecoration: "none", fontWeight: 600 }}
+              className="text-[var(--site-accent)] no-underline font-semibold"
             >
               hallo@fitbase-essen.de
             </a>

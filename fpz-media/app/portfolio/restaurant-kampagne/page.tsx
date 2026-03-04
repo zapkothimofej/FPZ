@@ -1,13 +1,4 @@
-import Link from "next/link"
-
-const C = {
-  bg: "#0c0a08",
-  text: "#faf6f0",
-  accent: "#c9a84c",
-  muted: "#8a7d6b",
-  surface: "#161410",
-  border: "#2a2519",
-}
+import Link from "next/link";
 
 const dishes = [
   {
@@ -30,7 +21,7 @@ const dishes = [
     desc: "Original nach Familienrezept, mit Savoiardi, Mascarpone und Espresso. Serviert im Glas.",
     price: "9€",
   },
-]
+];
 
 const reviews = [
   {
@@ -45,209 +36,90 @@ const reviews = [
     text: "Unser Lieblingsrestaurant für besondere Anlässe. Atmosphäre, Essen, Service — alles perfetto.",
     author: "Familie Schulz",
   },
-]
+];
 
 export default function RestaurantHomePage() {
   return (
     <>
-      {/* ── Hero ─────────────────────────────────────────────────────── */}
-      <section
-        style={{
-          position: "relative",
-          minHeight: "92vh",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          overflow: "hidden",
-          padding: "6rem 1.5rem",
-        }}
-      >
+      {/* Hero */}
+      <section className="relative min-h-[92vh] flex items-center justify-center overflow-hidden px-6 py-24">
         {/* Decorative warm glow */}
         <div
-          aria-hidden
-          style={{
-            position: "absolute",
-            inset: 0,
-            background:
-              "radial-gradient(ellipse 70% 60% at 50% 55%, #2a1f08 0%, #1a1208 40%, #0c0a08 100%)",
-            pointerEvents: "none",
-          }}
+          aria-hidden="true"
+          className="absolute inset-0 bg-[radial-gradient(ellipse_70%_60%_at_50%_55%,#2a1f08_0%,#1a1208_40%,#0c0a08_100%)] pointer-events-none"
         />
         {/* Decorative circle */}
         <div
-          aria-hidden
-          style={{
-            position: "absolute",
-            width: 520,
-            height: 520,
-            borderRadius: "50%",
-            background:
-              "radial-gradient(circle, #3d2a06 0%, #1e1508 50%, transparent 80%)",
-            opacity: 0.45,
-            left: "50%",
-            top: "50%",
-            transform: "translate(-50%, -52%)",
-            pointerEvents: "none",
-          }}
+          aria-hidden="true"
+          className="absolute w-[520px] h-[520px] rounded-full bg-[radial-gradient(circle,#3d2a06_0%,#1e1508_50%,transparent_80%)] opacity-45 left-1/2 top-1/2 -translate-x-1/2 -translate-y-[52%] pointer-events-none"
         />
 
-        <div style={{ position: "relative", textAlign: "center", maxWidth: 680 }}>
+        <div className="relative text-center max-w-[680px]">
           {/* Gold divider */}
-          <div
-            style={{
-              width: 40,
-              height: 1,
-              background: C.accent,
-              margin: "0 auto 1.5rem",
-              opacity: 0.7,
-            }}
-          />
+          <div className="w-10 h-px bg-[var(--site-accent)] mx-auto mb-6 opacity-70" />
 
-          <p
-            style={{
-              color: C.accent,
-              fontStyle: "italic",
-              fontSize: "1rem",
-              letterSpacing: "0.12em",
-              marginBottom: "1.25rem",
-              opacity: 0.85,
-            }}
-          >
+          <p className="text-[var(--site-accent)] italic text-base tracking-[0.12em] mb-5 opacity-85">
             Cucina italiana autentica — Bochum
           </p>
 
-          <h1
-            style={{
-              color: C.text,
-              fontSize: "clamp(2.8rem, 7vw, 5.5rem)",
-              fontWeight: 700,
-              lineHeight: 1.08,
-              letterSpacing: "-0.01em",
-              marginBottom: "1.5rem",
-            }}
-          >
+          <h1 className="text-[var(--site-text)] text-[clamp(2.8rem,7vw,5.5rem)] font-bold leading-[1.08] tracking-tight mb-6">
             Herz.{" "}
-            <span style={{ color: C.accent, fontStyle: "italic" }}>Seele.</span>
+            <span className="text-[var(--site-accent)] italic">Seele.</span>
             {" "}Pasta.
           </h1>
 
-          <p
-            style={{
-              color: C.muted,
-              fontSize: "1.05rem",
-              lineHeight: 1.85,
-              maxWidth: 520,
-              margin: "0 auto 2.5rem",
-              fontFamily: "system-ui, sans-serif",
-            }}
-          >
+          <p className="text-[var(--site-muted)] text-[1.05rem] leading-relaxed max-w-[520px] mx-auto mb-10 font-sans">
             Seit 2009 kochen wir mit Leidenschaft für Bochum. Frische Zutaten,
             authentische Rezepte — und eine Atmosphäre, die sich anfühlt wie
             famiglia.
           </p>
 
-          <div style={{ display: "flex", gap: "1.25rem", justifyContent: "center", flexWrap: "wrap" }}>
+          <div className="flex gap-5 justify-center flex-wrap">
             <Link
               href="/portfolio/restaurant-kampagne/reservierung"
-              style={{
-                border: `1px solid ${C.accent}`,
-                color: C.accent,
-                textDecoration: "none",
-                padding: "0.75rem 2rem",
-                fontSize: "0.85rem",
-                letterSpacing: "0.1em",
-                textTransform: "uppercase",
-                fontFamily: "system-ui, sans-serif",
-                fontWeight: 500,
-              }}
+              className="border border-[var(--site-accent)] text-[var(--site-accent)] no-underline px-8 py-3 text-[0.85rem] tracking-[0.1em] uppercase font-sans font-medium"
             >
               Tisch reservieren
             </Link>
             <Link
               href="/portfolio/restaurant-kampagne/speisekarte"
-              style={{
-                color: C.muted,
-                textDecoration: "none",
-                padding: "0.75rem 1.5rem",
-                fontSize: "0.9rem",
-                fontFamily: "system-ui, sans-serif",
-                display: "flex",
-                alignItems: "center",
-                gap: 6,
-              }}
+              className="text-[var(--site-muted)] no-underline px-6 py-3 text-[0.9rem] font-sans flex items-center gap-1.5"
             >
-              Zur Speisekarte <span style={{ color: C.accent }}>→</span>
+              Zur Speisekarte <span className="text-[var(--site-accent)]">&rarr;</span>
             </Link>
           </div>
         </div>
       </section>
 
-      {/* ── Unsere Geschichte ────────────────────────────────────────── */}
+      {/* Unsere Geschichte */}
       <section
         id="story"
-        style={{
-          backgroundColor: C.surface,
-          padding: "6rem 1.5rem",
-          borderTop: `1px solid ${C.border}`,
-          borderBottom: `1px solid ${C.border}`,
-        }}
+        className="bg-[var(--site-surface)] px-6 py-24 border-t border-b border-[var(--site-border)]"
       >
-        <div
-          style={{
-            maxWidth: 1100,
-            margin: "0 auto",
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "5rem",
-            alignItems: "center",
-          }}
-          className="grid-cols-1 md:grid-cols-2"
-        >
+        <div className="max-w-[1100px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
           <div>
-            <p
-              style={{
-                color: C.accent,
-                fontStyle: "italic",
-                fontSize: "1.1rem",
-                marginBottom: "0.5rem",
-              }}
-            >
+            <p className="text-[var(--site-accent)] italic text-lg mb-2">
               Benvenuti
             </p>
-            <h2
-              style={{
-                color: C.text,
-                fontSize: "clamp(1.8rem, 4vw, 2.8rem)",
-                fontWeight: 700,
-                lineHeight: 1.2,
-                marginBottom: "1.5rem",
-              }}
-            >
+            <h2 className="text-[var(--site-text)] text-[clamp(1.8rem,4vw,2.8rem)] font-bold leading-tight mb-6">
               Eine Geschichte über{" "}
-              <span style={{ color: C.accent, fontStyle: "italic" }}>
+              <span className="text-[var(--site-accent)] italic">
                 Leidenschaft
               </span>
             </h2>
-            <div
-              style={{
-                color: C.muted,
-                fontSize: "0.95rem",
-                lineHeight: 1.9,
-                fontFamily: "system-ui, sans-serif",
-              }}
-            >
-              <p style={{ marginBottom: "1rem" }}>
+            <div className="text-[var(--site-muted)] text-[0.95rem] leading-loose font-sans">
+              <p className="mb-4">
                 Marco Ferretti wuchs in Napoli auf — in einer Küche, die immer
                 nach Sugo duftete. Seine Nonna lehrte ihn früh: gutes Essen
                 braucht keine Kompromisse.
               </p>
-              <p style={{ marginBottom: "1rem" }}>
+              <p className="mb-4">
                 2009 zog er nach Bochum, im Gepäck ein paar Koffer und ein
                 Notizbuch voller Familienrezepte. Seitdem steht er jeden Abend
                 am Herd — mit derselben Überzeugung, derselben Sorgfalt.
               </p>
               <p>
-                Das <em style={{ color: C.text }}>Il Grano</em> ist kein
+                Das <em className="text-[var(--site-text)]">Il Grano</em> ist kein
                 Restaurant wie jedes andere. Es ist ein Stück Neapel mitten in
                 Bochum. Jeder Teller erzählt eine Geschichte.
               </p>
@@ -255,248 +127,93 @@ export default function RestaurantHomePage() {
           </div>
 
           {/* Image placeholder */}
-          <div
-            style={{
-              height: 400,
-              borderRadius: 4,
-              background:
-                "linear-gradient(135deg, #2d1f08 0%, #1a1208 40%, #261a0a 70%, #1e1408 100%)",
-              border: `1px solid ${C.border}`,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              flexDirection: "column",
-              gap: 12,
-              position: "relative",
-              overflow: "hidden",
-            }}
-          >
+          <div className="h-[400px] rounded-sm bg-gradient-to-br from-[#2d1f08] via-[#1a1208] via-40% to-[#1e1408] border border-[var(--site-border)] flex items-center justify-center flex-col gap-3 relative overflow-hidden">
             <div
-              aria-hidden
-              style={{
-                position: "absolute",
-                inset: 0,
-                background:
-                  "radial-gradient(ellipse 60% 60% at 40% 40%, #3d2a0880 0%, transparent 70%)",
-              }}
+              aria-hidden="true"
+              className="absolute inset-0 bg-[radial-gradient(ellipse_60%_60%_at_40%_40%,#3d2a0880_0%,transparent_70%)]"
             />
-            <p
-              style={{
-                color: C.accent,
-                fontStyle: "italic",
-                fontSize: "1.8rem",
-                fontWeight: 700,
-                position: "relative",
-              }}
-            >
+            <p className="text-[var(--site-accent)] italic text-3xl font-bold relative">
               Il Grano
             </p>
-            <p
-              style={{
-                color: C.muted,
-                fontSize: "0.8rem",
-                letterSpacing: "0.2em",
-                textTransform: "uppercase",
-                position: "relative",
-                fontFamily: "system-ui, sans-serif",
-              }}
-            >
-              Ristorante · seit 2009
+            <p className="text-[var(--site-muted)] text-[0.8rem] tracking-[0.2em] uppercase relative font-sans">
+              Ristorante &middot; seit 2009
             </p>
           </div>
         </div>
       </section>
 
-      {/* ── Spezialitäten ────────────────────────────────────────────── */}
-      <section style={{ padding: "6rem 1.5rem", backgroundColor: C.bg }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-          <div style={{ textAlign: "center", marginBottom: "3.5rem" }}>
-            <p
-              style={{
-                color: C.accent,
-                fontStyle: "italic",
-                fontSize: "0.9rem",
-                letterSpacing: "0.15em",
-                marginBottom: "0.5rem",
-                fontFamily: "system-ui, sans-serif",
-              }}
-            >
+      {/* Spezialitäten */}
+      <section className="px-6 py-24 bg-[var(--site-bg)]">
+        <div className="max-w-[1100px] mx-auto">
+          <div className="text-center mb-14">
+            <p className="text-[var(--site-accent)] italic text-[0.9rem] tracking-[0.15em] mb-2 font-sans">
               Unsere Empfehlungen
             </p>
-            <h2
-              style={{
-                color: C.text,
-                fontSize: "clamp(1.6rem, 3.5vw, 2.4rem)",
-                fontWeight: 700,
-              }}
-            >
+            <h2 className="text-[var(--site-text)] text-[clamp(1.6rem,3.5vw,2.4rem)] font-bold">
               Spezialitäten del giorno
             </h2>
-            <div
-              style={{
-                width: 36,
-                height: 1,
-                background: C.accent,
-                margin: "1rem auto 0",
-                opacity: 0.5,
-              }}
-            />
+            <div className="w-9 h-px bg-[var(--site-accent)] mx-auto mt-4 opacity-50" />
           </div>
 
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(2, 1fr)",
-              gap: "1.5rem",
-            }}
-            className="grid-cols-1 sm:grid-cols-2"
-          >
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {dishes.map((dish) => (
               <div
                 key={dish.name}
-                style={{
-                  backgroundColor: C.surface,
-                  border: `1px solid ${C.border}`,
-                  padding: "2rem",
-                  borderTop: `2px solid ${C.accent}`,
-                }}
+                className="bg-[var(--site-surface)] border border-[var(--site-border)] p-8 border-t-2 border-t-[var(--site-accent)]"
               >
-                <div
-                  style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "flex-start",
-                    marginBottom: "0.75rem",
-                    gap: "1rem",
-                  }}
-                >
-                  <h3
-                    style={{
-                      color: C.text,
-                      fontSize: "1.05rem",
-                      fontWeight: 600,
-                      fontStyle: "italic",
-                    }}
-                  >
+                <div className="flex justify-between items-start mb-3 gap-4">
+                  <h3 className="text-[var(--site-text)] text-[1.05rem] font-semibold italic">
                     {dish.name}
                   </h3>
-                  <span
-                    style={{
-                      color: C.accent,
-                      fontFamily: "system-ui, sans-serif",
-                      fontSize: "1rem",
-                      fontWeight: 600,
-                      whiteSpace: "nowrap",
-                    }}
-                  >
+                  <span className="text-[var(--site-accent)] font-sans text-base font-semibold whitespace-nowrap">
                     {dish.price}
                   </span>
                 </div>
-                <p
-                  style={{
-                    color: C.muted,
-                    fontSize: "0.875rem",
-                    lineHeight: 1.7,
-                    fontFamily: "system-ui, sans-serif",
-                  }}
-                >
+                <p className="text-[var(--site-muted)] text-sm leading-relaxed font-sans">
                   {dish.desc}
                 </p>
               </div>
             ))}
           </div>
 
-          <div style={{ textAlign: "center", marginTop: "2.5rem" }}>
+          <div className="text-center mt-10">
             <Link
               href="/portfolio/restaurant-kampagne/speisekarte"
-              style={{
-                color: C.muted,
-                textDecoration: "none",
-                fontSize: "0.875rem",
-                fontFamily: "system-ui, sans-serif",
-                letterSpacing: "0.05em",
-                borderBottom: `1px solid ${C.border}`,
-                paddingBottom: 2,
-              }}
+              className="text-[var(--site-muted)] no-underline text-sm font-sans tracking-[0.05em] border-b border-[var(--site-border)] pb-0.5"
             >
-              Vollständige Speisekarte ansehen →
+              Vollständige Speisekarte ansehen &rarr;
             </Link>
           </div>
         </div>
       </section>
 
-      {/* ── Reservierung CTA ─────────────────────────────────────────── */}
-      <section
-        style={{
-          backgroundColor: C.surface,
-          borderTop: `1px solid ${C.border}`,
-          borderBottom: `1px solid ${C.border}`,
-          padding: "5rem 1.5rem",
-          textAlign: "center",
-        }}
-      >
-        <div style={{ maxWidth: 600, margin: "0 auto" }}>
-          <p
-            style={{
-              color: C.accent,
-              fontStyle: "italic",
-              fontSize: "0.9rem",
-              letterSpacing: "0.12em",
-              marginBottom: "0.75rem",
-              fontFamily: "system-ui, sans-serif",
-            }}
-          >
+      {/* Reservierung CTA */}
+      <section className="bg-[var(--site-surface)] border-t border-b border-[var(--site-border)] px-6 py-20 text-center">
+        <div className="max-w-[600px] mx-auto">
+          <p className="text-[var(--site-accent)] italic text-[0.9rem] tracking-[0.12em] mb-3 font-sans">
             Ihr Abend beginnt hier
           </p>
-          <h2
-            style={{
-              color: C.text,
-              fontSize: "clamp(1.6rem, 3.5vw, 2.4rem)",
-              fontWeight: 700,
-              marginBottom: "1rem",
-              lineHeight: 1.25,
-            }}
-          >
+          <h2 className="text-[var(--site-text)] text-[clamp(1.6rem,3.5vw,2.4rem)] font-bold mb-4 leading-snug">
             Tisch reservieren —{" "}
-            <span style={{ color: C.accent, fontStyle: "italic" }}>
+            <span className="text-[var(--site-accent)] italic">
               einfach und bequem
             </span>
           </h2>
-          <p
-            style={{
-              color: C.muted,
-              fontSize: "0.95rem",
-              lineHeight: 1.8,
-              fontFamily: "system-ui, sans-serif",
-              marginBottom: "2rem",
-            }}
-          >
+          <p className="text-[var(--site-muted)] text-[0.95rem] leading-relaxed font-sans mb-8">
             Sichern Sie sich Ihren Wunschtisch für einen unvergesslichen Abend.
             Wir freuen uns auf Sie.
           </p>
           <Link
             href="/portfolio/restaurant-kampagne/reservierung"
-            style={{
-              backgroundColor: C.accent,
-              color: C.bg,
-              textDecoration: "none",
-              padding: "0.875rem 2.5rem",
-              fontSize: "0.85rem",
-              fontFamily: "system-ui, sans-serif",
-              fontWeight: 700,
-              letterSpacing: "0.1em",
-              textTransform: "uppercase",
-              display: "inline-block",
-              marginBottom: "1.25rem",
-            }}
+            className="bg-[var(--site-accent)] text-[var(--site-bg)] no-underline px-10 py-3.5 text-[0.85rem] font-sans font-bold tracking-[0.1em] uppercase inline-block mb-5"
           >
             Jetzt reservieren
           </Link>
-          <p style={{ color: C.muted, fontSize: "0.85rem", fontFamily: "system-ui, sans-serif" }}>
+          <p className="text-[var(--site-muted)] text-[0.85rem] font-sans">
             oder rufen Sie uns an:{" "}
             <a
               href="tel:+4923498765"
-              style={{ color: C.accent, textDecoration: "none", fontWeight: 600 }}
+              className="text-[var(--site-accent)] no-underline font-semibold"
             >
               0234 987 654
             </a>
@@ -504,90 +221,32 @@ export default function RestaurantHomePage() {
         </div>
       </section>
 
-      {/* ── Bewertungen ──────────────────────────────────────────────── */}
-      <section style={{ padding: "6rem 1.5rem", backgroundColor: C.bg }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-          <div style={{ textAlign: "center", marginBottom: "3rem" }}>
-            <p
-              style={{
-                color: C.accent,
-                fontStyle: "italic",
-                fontSize: "0.9rem",
-                letterSpacing: "0.15em",
-                marginBottom: "0.5rem",
-                fontFamily: "system-ui, sans-serif",
-              }}
-            >
+      {/* Bewertungen */}
+      <section className="px-6 py-24 bg-[var(--site-bg)]">
+        <div className="max-w-[1100px] mx-auto">
+          <div className="text-center mb-12">
+            <p className="text-[var(--site-accent)] italic text-[0.9rem] tracking-[0.15em] mb-2 font-sans">
               Was unsere Gäste sagen
             </p>
-            <h2
-              style={{
-                color: C.text,
-                fontSize: "clamp(1.6rem, 3.5vw, 2.4rem)",
-                fontWeight: 700,
-              }}
-            >
+            <h2 className="text-[var(--site-text)] text-[clamp(1.6rem,3.5vw,2.4rem)] font-bold">
               Stimmen aus der famiglia
             </h2>
-            <div
-              style={{
-                width: 36,
-                height: 1,
-                background: C.accent,
-                margin: "1rem auto 0",
-                opacity: 0.5,
-              }}
-            />
+            <div className="w-9 h-px bg-[var(--site-accent)] mx-auto mt-4 opacity-50" />
           </div>
 
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(3, 1fr)",
-              gap: "1.5rem",
-            }}
-            className="grid-cols-1 md:grid-cols-3"
-          >
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {reviews.map((r) => (
               <div
                 key={r.author}
-                style={{
-                  backgroundColor: C.surface,
-                  border: `1px solid ${C.border}`,
-                  padding: "2rem",
-                  borderRadius: 2,
-                }}
+                className="bg-[var(--site-surface)] border border-[var(--site-border)] p-8 rounded-sm"
               >
-                <div
-                  style={{
-                    color: C.accent,
-                    fontSize: "1.1rem",
-                    marginBottom: "1rem",
-                    letterSpacing: "0.05em",
-                  }}
-                >
-                  ★★★★★
+                <div className="text-[var(--site-accent)] text-lg mb-4 tracking-[0.05em]">
+                  &#9733;&#9733;&#9733;&#9733;&#9733;
                 </div>
-                <p
-                  style={{
-                    color: C.text,
-                    fontSize: "0.9rem",
-                    lineHeight: 1.8,
-                    fontFamily: "system-ui, sans-serif",
-                    marginBottom: "1.25rem",
-                    fontStyle: "italic",
-                  }}
-                >
+                <p className="text-[var(--site-text)] text-[0.9rem] leading-relaxed font-sans mb-5 italic">
                   &ldquo;{r.text}&rdquo;
                 </p>
-                <p
-                  style={{
-                    color: C.muted,
-                    fontSize: "0.8rem",
-                    fontFamily: "system-ui, sans-serif",
-                    letterSpacing: "0.05em",
-                  }}
-                >
+                <p className="text-[var(--site-muted)] text-[0.8rem] font-sans tracking-[0.05em]">
                   — {r.author}
                 </p>
               </div>
@@ -596,5 +255,5 @@ export default function RestaurantHomePage() {
         </div>
       </section>
     </>
-  )
+  );
 }

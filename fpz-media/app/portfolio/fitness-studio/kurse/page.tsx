@@ -160,67 +160,47 @@ const COURSE_DETAILS: CourseDetail[] = [
   },
 ]
 
+function LevelBadge({ level, color }: { level: string; color: string }) {
+  const classes =
+    color === "#22c55e" ? "bg-green-500/10 text-green-500 border-green-500/25" :
+    color === "#8b5cf6" ? "bg-violet-500/10 text-violet-500 border-violet-500/25" :
+    color === "#f97316" ? "bg-orange-500/10 text-orange-500 border-orange-500/25" :
+    color === "#3b82f6" ? "bg-blue-500/10 text-blue-500 border-blue-500/25" :
+    color === "#ec4899" ? "bg-pink-500/10 text-pink-500 border-pink-500/25" :
+    color === "#ef4444" ? "bg-red-500/10 text-red-500 border-red-500/25" :
+    "bg-green-500/10 text-green-500 border-green-500/25"
+
+  return (
+    <span className={`text-[11px] font-bold py-1 px-2.5 rounded-full border whitespace-nowrap shrink-0 ${classes}`}>
+      {level}
+    </span>
+  )
+}
+
 function ScheduleRow({ slot }: { slot: CourseSlot }) {
   return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        background: "#141414",
-        border: "1px solid #262626",
-        borderRadius: 10,
-        padding: "16px 20px",
-        gap: 20,
-      }}
-    >
+    <div className="flex items-center bg-[var(--site-surface)] border border-[var(--site-border)] rounded-[10px] py-4 px-5 gap-5">
       {/* Time */}
-      <span
-        style={{
-          color: "#22c55e",
-          fontWeight: 800,
-          fontSize: 15,
-          fontVariantNumeric: "tabular-nums",
-          minWidth: 52,
-          flexShrink: 0,
-        }}
-      >
+      <span className="text-[var(--site-accent)] font-extrabold text-[15px] tabular-nums min-w-[52px] shrink-0">
         {slot.time}
       </span>
 
       {/* Course info */}
-      <div style={{ flex: 1 }}>
-        <p style={{ color: "#f5f5f5", fontWeight: 700, fontSize: 15, margin: "0 0 2px" }}>
+      <div className="flex-1">
+        <p className="text-[var(--site-text)] font-bold text-[15px] m-0 mb-0.5">
           {slot.name}
         </p>
-        <p style={{ color: "#737373", fontSize: 12, margin: 0 }}>
+        <p className="text-[var(--site-muted)] text-xs m-0">
           {slot.trainer} · {slot.duration}
         </p>
       </div>
 
       {/* Level badge + book */}
-      <div style={{ display: "flex", alignItems: "center", gap: 12, flexShrink: 0 }}>
-        <span
-          style={{
-            background: `${slot.levelColor}18`,
-            color: slot.levelColor,
-            fontSize: 11,
-            fontWeight: 700,
-            padding: "4px 10px",
-            borderRadius: 999,
-            border: `1px solid ${slot.levelColor}40`,
-          }}
-        >
-          {slot.level}
-        </span>
+      <div className="flex items-center gap-3 shrink-0">
+        <LevelBadge level={slot.level} color={slot.levelColor} />
         <Link
           href="/portfolio/fitness-studio/mitgliedschaft"
-          style={{
-            color: "#22c55e",
-            fontSize: 13,
-            fontWeight: 700,
-            textDecoration: "none",
-            whiteSpace: "nowrap",
-          }}
+          className="text-[var(--site-accent)] text-[13px] font-bold no-underline whitespace-nowrap"
         >
           Buchen →
         </Link>
@@ -232,94 +212,53 @@ function ScheduleRow({ slot }: { slot: CourseSlot }) {
 export default function KursePage() {
   return (
     <>
-      {/* ── HEADER ── */}
-      <section style={{ padding: "72px 24px 56px", background: "#0a0a0a", borderBottom: "1px solid #262626" }}>
-        <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-          <p style={{ color: "#22c55e", fontSize: 12, fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: 12 }}>
+      {/* HEADER */}
+      <section className="pt-[72px] pb-14 px-6 bg-[var(--site-bg)] border-b border-[var(--site-border)]">
+        <div className="max-w-[1200px] mx-auto">
+          <p className="text-[var(--site-accent)] text-xs font-bold tracking-[0.15em] uppercase mb-3">
             Wochenplan
           </p>
-          <h1
-            style={{
-              color: "#f5f5f5",
-              fontSize: "clamp(32px, 5vw, 56px)",
-              fontWeight: 900,
-              letterSpacing: "-0.03em",
-              marginBottom: 16,
-            }}
-          >
+          <h1 className="text-[var(--site-text)] text-[clamp(32px,5vw,56px)] font-black tracking-[-0.03em] mb-4">
             Kursplan
           </h1>
-          <p style={{ color: "#737373", fontSize: 17, maxWidth: 540 }}>
+          <p className="text-[var(--site-muted)] text-[17px] max-w-[540px]">
             24 Kurse pro Woche, 7 Tage die Woche. Für Premium- und All-In-Mitglieder inklusive.
           </p>
         </div>
       </section>
 
-      {/* ── SCHEDULE ── */}
-      <section style={{ padding: "64px 24px", background: "#0a0a0a" }}>
-        <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-          {/* Day tabs (static – no JS needed for demo) */}
-          <div
-            style={{
-              display: "flex",
-              gap: 8,
-              marginBottom: 40,
-              overflowX: "auto",
-              paddingBottom: 4,
-            }}
-          >
+      {/* SCHEDULE */}
+      <section className="py-16 px-6 bg-[var(--site-bg)]">
+        <div className="max-w-[1200px] mx-auto">
+          {/* Day tabs */}
+          <div className="flex gap-2 mb-10 overflow-x-auto pb-1">
             {SCHEDULE.map((d, i) => (
               <div
                 key={d.day}
-                style={{
-                  flexShrink: 0,
-                  padding: "8px 18px",
-                  borderRadius: 8,
-                  fontSize: 13,
-                  fontWeight: 700,
-                  cursor: "default",
-                  background: i === 0 ? "#22c55e" : "#141414",
-                  color: i === 0 ? "#0a0a0a" : "#737373",
-                  border: i === 0 ? "none" : "1px solid #262626",
-                }}
+                className={`shrink-0 px-[18px] py-2 rounded-lg text-[13px] font-bold cursor-default ${
+                  i === 0
+                    ? "bg-[var(--site-accent)] text-[var(--site-bg)]"
+                    : "bg-[var(--site-surface)] text-[var(--site-muted)] border border-[var(--site-border)]"
+                }`}
               >
                 {d.short}
               </div>
             ))}
           </div>
 
-          {/* Show all days */}
-          <div style={{ display: "flex", flexDirection: "column", gap: 48 }}>
+          {/* All days */}
+          <div className="flex flex-col gap-12">
             {SCHEDULE.map((d, i) => (
               <div key={d.day}>
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 12,
-                    marginBottom: 20,
-                  }}
-                >
-                  <h2
-                    style={{
-                      color: i === 0 ? "#22c55e" : "#f5f5f5",
-                      fontWeight: 800,
-                      fontSize: 20,
-                      margin: 0,
-                    }}
-                  >
+                <div className="flex items-center gap-3 mb-5">
+                  <h2 className={`font-extrabold text-xl m-0 ${i === 0 ? "text-[var(--site-accent)]" : "text-[var(--site-text)]"}`}>
                     {d.day}
                   </h2>
-                  <span
-                    style={{
-                      color: "#404040",
-                      fontSize: 13,
-                    }}
-                  >
+                  <span className="text-neutral-600 text-[13px]">
                     {d.slots.length} Kurse
                   </span>
                 </div>
-                <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                <div className="flex flex-col gap-2.5">
                   {d.slots.map((slot) => (
                     <ScheduleRow key={`${d.day}-${slot.time}`} slot={slot} />
                   ))}
@@ -330,78 +269,56 @@ export default function KursePage() {
         </div>
       </section>
 
-      {/* ── COURSE DETAILS ── */}
-      <section style={{ padding: "96px 24px", background: "#070707", borderTop: "1px solid #262626" }}>
-        <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-          <div style={{ marginBottom: 56 }}>
-            <p style={{ color: "#22c55e", fontSize: 12, fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: 12 }}>
+      {/* COURSE DETAILS */}
+      <section className="py-24 px-6 bg-[#070707] border-t border-[var(--site-border)]">
+        <div className="max-w-[1200px] mx-auto">
+          <div className="mb-14">
+            <p className="text-[var(--site-accent)] text-xs font-bold tracking-[0.15em] uppercase mb-3">
               Details
             </p>
-            <h2 style={{ color: "#f5f5f5", fontSize: "clamp(26px, 4vw, 40px)", fontWeight: 900, letterSpacing: "-0.025em" }}>
+            <h2 className="text-[var(--site-text)] text-[clamp(26px,4vw,40px)] font-black tracking-tight">
               Alle Kurse im Überblick
             </h2>
           </div>
 
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))", gap: 24 }}>
+          <div className="grid grid-cols-[repeat(auto-fill,minmax(340px,1fr))] gap-6">
             {COURSE_DETAILS.map((c) => (
               <div
                 key={c.name}
-                style={{
-                  background: "#141414",
-                  border: "1px solid #262626",
-                  borderRadius: 16,
-                  padding: "28px",
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 20,
-                }}
+                className="bg-[var(--site-surface)] border border-[var(--site-border)] rounded-2xl p-7 flex flex-col gap-5"
               >
                 {/* Header */}
-                <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between" }}>
+                <div className="flex items-start justify-between">
                   <div>
-                    <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 6 }}>
-                      <span style={{ fontSize: 22 }}>{c.icon}</span>
-                      <h3 style={{ color: "#f5f5f5", fontWeight: 800, fontSize: 18, margin: 0 }}>{c.name}</h3>
+                    <div className="flex items-center gap-2.5 mb-1.5">
+                      <span className="text-[22px]">{c.icon}</span>
+                      <h3 className="text-[var(--site-text)] font-extrabold text-lg m-0">{c.name}</h3>
                     </div>
-                    <p style={{ color: "#737373", fontSize: 12, margin: 0 }}>
+                    <p className="text-[var(--site-muted)] text-xs m-0">
                       {c.trainer} · {c.duration}
                     </p>
                   </div>
-                  <span
-                    style={{
-                      background: `${c.levelColor}18`,
-                      color: c.levelColor,
-                      fontSize: 11,
-                      fontWeight: 700,
-                      padding: "4px 10px",
-                      borderRadius: 999,
-                      border: `1px solid ${c.levelColor}40`,
-                      whiteSpace: "nowrap",
-                      flexShrink: 0,
-                    }}
-                  >
-                    {c.level}
-                  </span>
+                  <LevelBadge level={c.level} color={c.levelColor} />
                 </div>
 
                 {/* Description */}
-                <p style={{ color: "#a3a3a3", fontSize: 14, lineHeight: 1.65, margin: 0 }}>
+                <p className="text-neutral-400 text-sm leading-[1.65] m-0">
                   {c.desc}
                 </p>
 
                 {/* Requirements + bring */}
-                <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                <div className="flex flex-col gap-3">
                   <div>
-                    <p style={{ color: "#737373", fontSize: 11, fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 4 }}>
+                    <p className="text-[var(--site-muted)] text-[11px] font-bold tracking-[0.08em] uppercase mb-1">
                       Voraussetzungen
                     </p>
-                    <p style={{ color: "#525252", fontSize: 13, lineHeight: 1.5, margin: 0 }}>{c.requirements}</p>
+                    <p className="text-neutral-600 text-[13px] leading-normal m-0">{c.requirements}</p>
                   </div>
                   <div>
-                    <p style={{ color: "#737373", fontSize: 11, fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 4 }}>
+                    <p className="text-[var(--site-muted)] text-[11px] font-bold tracking-[0.08em] uppercase mb-1">
                       Was mitbringen
                     </p>
-                    <p style={{ color: "#525252", fontSize: 13, lineHeight: 1.5, margin: 0 }}>{c.bring}</p>
+                    <p className="text-neutral-600 text-[13px] leading-normal m-0">{c.bring}</p>
                   </div>
                 </div>
               </div>
@@ -410,92 +327,50 @@ export default function KursePage() {
         </div>
       </section>
 
-      {/* ── INQUIRY FORM ── */}
-      <section id="anfrage" style={{ padding: "96px 24px", background: "#0a0a0a" }}>
-        <div style={{ maxWidth: 640, margin: "0 auto" }}>
-          <div style={{ marginBottom: 40 }}>
-            <p style={{ color: "#22c55e", fontSize: 12, fontWeight: 700, letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: 12 }}>
+      {/* INQUIRY FORM */}
+      <section id="anfrage" className="py-24 px-6 bg-[var(--site-bg)]">
+        <div className="max-w-[640px] mx-auto">
+          <div className="mb-10">
+            <p className="text-[var(--site-accent)] text-xs font-bold tracking-[0.15em] uppercase mb-3">
               Sonderanfragen
             </p>
-            <h2 style={{ color: "#f5f5f5", fontSize: "clamp(24px, 3.5vw, 36px)", fontWeight: 900, letterSpacing: "-0.025em", marginBottom: 12 }}>
+            <h2 className="text-[var(--site-text)] text-[clamp(24px,3.5vw,36px)] font-black tracking-tight mb-3">
               Privat- oder Firmenkurs anfragen
             </h2>
-            <p style={{ color: "#737373", fontSize: 15, lineHeight: 1.6 }}>
+            <p className="text-[var(--site-muted)] text-[15px] leading-relaxed">
               Team-Events, Firmenworkouts oder privater Gruppenunterricht – wir machen das möglich.
             </p>
           </div>
 
-          <form
-            style={{
-              background: "#141414",
-              border: "1px solid #262626",
-              borderRadius: 16,
-              padding: "36px",
-              display: "flex",
-              flexDirection: "column",
-              gap: 20,
-            }}
-          >
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+          <form className="bg-[var(--site-surface)] border border-[var(--site-border)] rounded-2xl p-9 flex flex-col gap-5">
+            <div className="grid grid-cols-2 gap-4">
               <div>
-                <label style={{ display: "block", color: "#737373", fontSize: 12, fontWeight: 600, marginBottom: 6, letterSpacing: "0.04em" }}>
+                <label className="block text-[var(--site-muted)] text-xs font-semibold mb-1.5 tracking-wide">
                   Name
                 </label>
                 <input
                   type="text"
                   placeholder="Dein Name"
-                  style={{
-                    width: "100%",
-                    background: "#1a1a1a",
-                    border: "1px solid #262626",
-                    borderRadius: 8,
-                    padding: "10px 14px",
-                    color: "#f5f5f5",
-                    fontSize: 14,
-                    outline: "none",
-                    boxSizing: "border-box",
-                  }}
+                  className="w-full bg-[#1a1a1a] border border-[var(--site-border)] rounded-lg px-3.5 py-2.5 text-[var(--site-text)] text-sm outline-none"
                 />
               </div>
               <div>
-                <label style={{ display: "block", color: "#737373", fontSize: 12, fontWeight: 600, marginBottom: 6, letterSpacing: "0.04em" }}>
+                <label className="block text-[var(--site-muted)] text-xs font-semibold mb-1.5 tracking-wide">
                   E-Mail
                 </label>
                 <input
                   type="email"
                   placeholder="deine@mail.de"
-                  style={{
-                    width: "100%",
-                    background: "#1a1a1a",
-                    border: "1px solid #262626",
-                    borderRadius: 8,
-                    padding: "10px 14px",
-                    color: "#f5f5f5",
-                    fontSize: 14,
-                    outline: "none",
-                    boxSizing: "border-box",
-                  }}
+                  className="w-full bg-[#1a1a1a] border border-[var(--site-border)] rounded-lg px-3.5 py-2.5 text-[var(--site-text)] text-sm outline-none"
                 />
               </div>
             </div>
 
             <div>
-              <label style={{ display: "block", color: "#737373", fontSize: 12, fontWeight: 600, marginBottom: 6, letterSpacing: "0.04em" }}>
+              <label className="block text-[var(--site-muted)] text-xs font-semibold mb-1.5 tracking-wide">
                 Kurstyp
               </label>
-              <select
-                style={{
-                  width: "100%",
-                  background: "#1a1a1a",
-                  border: "1px solid #262626",
-                  borderRadius: 8,
-                  padding: "10px 14px",
-                  color: "#f5f5f5",
-                  fontSize: 14,
-                  outline: "none",
-                  boxSizing: "border-box",
-                }}
-              >
+              <select className="w-full bg-[#1a1a1a] border border-[var(--site-border)] rounded-lg px-3.5 py-2.5 text-[var(--site-text)] text-sm outline-none">
                 <option value="">Kurstyp wählen…</option>
                 <option>Krafttraining</option>
                 <option>Yoga & Mindfulness</option>
@@ -508,41 +383,19 @@ export default function KursePage() {
             </div>
 
             <div>
-              <label style={{ display: "block", color: "#737373", fontSize: 12, fontWeight: 600, marginBottom: 6, letterSpacing: "0.04em" }}>
+              <label className="block text-[var(--site-muted)] text-xs font-semibold mb-1.5 tracking-wide">
                 Nachricht
               </label>
               <textarea
                 rows={4}
                 placeholder="Personenanzahl, Wunschtermine, besondere Anforderungen…"
-                style={{
-                  width: "100%",
-                  background: "#1a1a1a",
-                  border: "1px solid #262626",
-                  borderRadius: 8,
-                  padding: "10px 14px",
-                  color: "#f5f5f5",
-                  fontSize: 14,
-                  outline: "none",
-                  resize: "vertical",
-                  boxSizing: "border-box",
-                  fontFamily: "inherit",
-                }}
+                className="w-full bg-[#1a1a1a] border border-[var(--site-border)] rounded-lg px-3.5 py-2.5 text-[var(--site-text)] text-sm outline-none resize-y font-[inherit]"
               />
             </div>
 
             <button
               type="submit"
-              style={{
-                background: "#22c55e",
-                color: "#0a0a0a",
-                fontWeight: 800,
-                fontSize: 15,
-                padding: "13px",
-                borderRadius: 8,
-                border: "none",
-                cursor: "pointer",
-                letterSpacing: "-0.01em",
-              }}
+              className="bg-[var(--site-accent)] text-[var(--site-bg)] font-extrabold text-[15px] py-[13px] rounded-lg border-none cursor-pointer tracking-tight"
             >
               Anfrage senden
             </button>

@@ -1,69 +1,21 @@
-const C = {
-  bg: "#0c0a08",
-  text: "#faf6f0",
-  accent: "#c9a84c",
-  muted: "#8a7d6b",
-  surface: "#161410",
-  border: "#2a2519",
-}
+const inputClasses =
+  "w-full bg-[var(--site-bg)] border border-[var(--site-border)] text-[var(--site-text)] px-4 py-3 text-sm font-sans outline-none";
 
-const inputStyle: React.CSSProperties = {
-  width: "100%",
-  backgroundColor: "#0c0a08",
-  border: `1px solid ${C.border}`,
-  color: C.text,
-  padding: "0.75rem 1rem",
-  fontSize: "0.9rem",
-  fontFamily: "system-ui, sans-serif",
-  outline: "none",
-  borderRadius: 0,
-  boxSizing: "border-box",
-}
-
-const labelStyle: React.CSSProperties = {
-  display: "block",
-  color: C.muted,
-  fontSize: "0.75rem",
-  letterSpacing: "0.12em",
-  textTransform: "uppercase",
-  fontFamily: "system-ui, sans-serif",
-  marginBottom: "0.4rem",
-}
+const labelClasses =
+  "block text-[var(--site-muted)] text-xs tracking-[0.12em] uppercase font-sans mb-1.5";
 
 export default function ReservierungPage() {
   return (
     <>
       {/* Header */}
-      <section
-        style={{
-          backgroundColor: C.bg,
-          padding: "4.5rem 1.5rem 3rem",
-          borderBottom: `1px solid ${C.border}`,
-        }}
-      >
-        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
-          <p
-            style={{
-              color: C.accent,
-              fontStyle: "italic",
-              fontSize: "0.9rem",
-              letterSpacing: "0.12em",
-              marginBottom: "0.5rem",
-              fontFamily: "system-ui, sans-serif",
-            }}
-          >
+      <section className="bg-[var(--site-bg)] px-6 pt-[4.5rem] pb-12 border-b border-[var(--site-border)]">
+        <div className="max-w-[1100px] mx-auto">
+          <p className="text-[var(--site-accent)] italic text-[0.9rem] tracking-[0.12em] mb-2 font-sans">
             Willkommen zurück
           </p>
-          <h1
-            style={{
-              color: C.text,
-              fontSize: "clamp(2rem, 5vw, 3.5rem)",
-              fontWeight: 700,
-              lineHeight: 1.1,
-            }}
-          >
+          <h1 className="text-[var(--site-text)] text-[clamp(2rem,5vw,3.5rem)] font-bold leading-tight">
             Tisch{" "}
-            <span style={{ color: C.accent, fontStyle: "italic" }}>
+            <span className="text-[var(--site-accent)] italic">
               reservieren
             </span>
           </h1>
@@ -71,66 +23,43 @@ export default function ReservierungPage() {
       </section>
 
       {/* Main 2-col */}
-      <section
-        style={{
-          backgroundColor: C.bg,
-          padding: "4rem 1.5rem",
-        }}
-      >
-        <div
-          style={{
-            maxWidth: 1100,
-            margin: "0 auto",
-            display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: "4rem",
-            alignItems: "flex-start",
-          }}
-          className="grid-cols-1 md:grid-cols-2"
-        >
-          {/* ── Form ───────────────────────────────────────────────── */}
+      <section className="bg-[var(--site-bg)] px-6 py-16">
+        <div className="max-w-[1100px] mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
+          {/* Form */}
           <div>
-            <p
-              style={{
-                color: C.muted,
-                fontSize: "0.875rem",
-                lineHeight: 1.8,
-                fontFamily: "system-ui, sans-serif",
-                marginBottom: "2rem",
-              }}
-            >
+            <p className="text-[var(--site-muted)] text-sm leading-relaxed font-sans mb-8">
               Füllen Sie das Formular aus — wir bestätigen Ihre Reservierung
               telefonisch oder per E-Mail innerhalb von 2 Stunden.
             </p>
 
-            <form action="#" method="post" style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+            <form action="#" method="post" className="flex flex-col gap-5">
               {/* Name */}
               <div>
-                <label style={labelStyle}>Name</label>
+                <label className={labelClasses}>Name</label>
                 <input
                   type="text"
                   name="name"
                   placeholder="Ihr vollständiger Name"
                   required
-                  style={inputStyle}
+                  className={inputClasses}
                 />
               </div>
 
               {/* Datum + Uhrzeit */}
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+              <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label style={labelStyle}>Datum</label>
+                  <label className={labelClasses}>Datum</label>
                   <input
                     type="date"
                     name="datum"
                     required
-                    style={inputStyle}
+                    className={inputClasses}
                   />
                 </div>
                 <div>
-                  <label style={labelStyle}>Uhrzeit</label>
-                  <select name="uhrzeit" required style={inputStyle}>
-                    <option value="">Wählen…</option>
+                  <label className={labelClasses}>Uhrzeit</label>
+                  <select name="uhrzeit" required className={inputClasses}>
+                    <option value="">Wählen...</option>
                     <option value="12:00">12:00 Uhr</option>
                     <option value="13:00">13:00 Uhr</option>
                     <option value="18:00">18:00 Uhr</option>
@@ -142,11 +71,11 @@ export default function ReservierungPage() {
               </div>
 
               {/* Personen + Telefon */}
-              <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "1rem" }}>
+              <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label style={labelStyle}>Anzahl Personen</label>
-                  <select name="personen" required style={inputStyle}>
-                    <option value="">Wählen…</option>
+                  <label className={labelClasses}>Anzahl Personen</label>
+                  <select name="personen" required className={inputClasses}>
+                    <option value="">Wählen...</option>
                     {Array.from({ length: 10 }, (_, i) => i + 1).map((n) => (
                       <option key={n} value={n}>
                         {n} {n === 1 ? "Person" : "Personen"}
@@ -155,286 +84,127 @@ export default function ReservierungPage() {
                   </select>
                 </div>
                 <div>
-                  <label style={labelStyle}>Telefon</label>
+                  <label className={labelClasses}>Telefon</label>
                   <input
                     type="tel"
                     name="telefon"
-                    placeholder="+49 …"
+                    placeholder="+49 ..."
                     required
-                    style={inputStyle}
+                    className={inputClasses}
                   />
                 </div>
               </div>
 
               {/* Besondere Wünsche */}
               <div>
-                <label style={labelStyle}>Besondere Wünsche</label>
+                <label className={labelClasses}>Besondere Wünsche</label>
                 <textarea
                   name="wuensche"
                   rows={4}
-                  placeholder="Allergien, Geburtstag, Hochzeit, Sitzwünsche, vegetarisch …"
-                  style={{ ...inputStyle, resize: "vertical", lineHeight: 1.6 }}
+                  placeholder="Allergien, Geburtstag, Hochzeit, Sitzwünsche, vegetarisch ..."
+                  className={`${inputClasses} resize-y leading-relaxed`}
                 />
               </div>
 
               <button
                 type="submit"
-                style={{
-                  backgroundColor: C.accent,
-                  color: C.bg,
-                  border: "none",
-                  padding: "1rem 2rem",
-                  fontSize: "0.85rem",
-                  fontFamily: "system-ui, sans-serif",
-                  fontWeight: 700,
-                  letterSpacing: "0.1em",
-                  textTransform: "uppercase",
-                  cursor: "pointer",
-                  width: "100%",
-                }}
+                className="bg-[var(--site-accent)] text-[var(--site-bg)] border-none px-8 py-4 text-[0.85rem] font-sans font-bold tracking-[0.1em] uppercase cursor-pointer w-full"
               >
                 Tisch reservieren
               </button>
 
-              <p
-                style={{
-                  color: "#4a4035",
-                  fontSize: "0.78rem",
-                  fontFamily: "system-ui, sans-serif",
-                  lineHeight: 1.6,
-                  textAlign: "center",
-                }}
-              >
+              <p className="text-[#4a4035] text-[0.78rem] font-sans leading-relaxed text-center">
                 Ihre Daten werden ausschließlich zur Bearbeitung Ihrer
                 Reservierung verwendet und nicht an Dritte weitergegeben.
               </p>
             </form>
           </div>
 
-          {/* ── Info ───────────────────────────────────────────────── */}
-          <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+          {/* Info */}
+          <div className="flex flex-col gap-6">
             {/* Öffnungszeiten */}
-            <div
-              style={{
-                backgroundColor: C.surface,
-                border: `1px solid ${C.border}`,
-                padding: "1.75rem",
-              }}
-            >
-              <p
-                style={{
-                  color: C.text,
-                  fontSize: "0.75rem",
-                  letterSpacing: "0.15em",
-                  textTransform: "uppercase",
-                  fontFamily: "system-ui, sans-serif",
-                  marginBottom: "1rem",
-                }}
-              >
+            <div className="bg-[var(--site-surface)] border border-[var(--site-border)] p-7">
+              <p className="text-[var(--site-text)] text-xs tracking-[0.15em] uppercase font-sans mb-4">
                 Öffnungszeiten
               </p>
-              <table style={{ width: "100%", borderCollapse: "collapse" }}>
-                {[
-                  ["Dienstag – Donnerstag", "12:00 – 22:00 Uhr"],
-                  ["Freitag – Samstag", "12:00 – 23:00 Uhr"],
-                  ["Sonntag", "12:00 – 21:00 Uhr"],
-                  ["Montag", "Ruhetag"],
-                ].map(([day, hours]) => (
-                  <tr key={day}>
-                    <td
-                      style={{
-                        color: C.muted,
-                        fontSize: "0.85rem",
-                        fontFamily: "system-ui, sans-serif",
-                        padding: "0.4rem 0",
-                        paddingRight: "1rem",
-                      }}
-                    >
-                      {day}
-                    </td>
-                    <td
-                      style={{
-                        color: day === "Montag" ? "#4a4035" : C.text,
-                        fontSize: "0.85rem",
-                        fontFamily: "system-ui, sans-serif",
-                        padding: "0.4rem 0",
-                        textAlign: "right",
-                        fontStyle: day === "Montag" ? "italic" : "normal",
-                      }}
-                    >
-                      {hours}
-                    </td>
-                  </tr>
-                ))}
+              <table className="w-full border-collapse">
+                <tbody>
+                  {[
+                    { day: "Dienstag – Donnerstag", hours: "12:00 – 22:00 Uhr", closed: false },
+                    { day: "Freitag – Samstag", hours: "12:00 – 23:00 Uhr", closed: false },
+                    { day: "Sonntag", hours: "12:00 – 21:00 Uhr", closed: false },
+                    { day: "Montag", hours: "Ruhetag", closed: true },
+                  ].map((row) => (
+                    <tr key={row.day}>
+                      <td className="text-[var(--site-muted)] text-[0.85rem] font-sans py-1.5 pr-4">
+                        {row.day}
+                      </td>
+                      <td
+                        className={`text-[0.85rem] font-sans py-1.5 text-right ${
+                          row.closed
+                            ? "text-[#4a4035] italic"
+                            : "text-[var(--site-text)]"
+                        }`}
+                      >
+                        {row.hours}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
               </table>
             </div>
 
             {/* Map placeholder */}
-            <div
-              style={{
-                backgroundColor: C.surface,
-                border: `1px solid ${C.border}`,
-                padding: "1.75rem",
-              }}
-            >
-              <p
-                style={{
-                  color: C.text,
-                  fontSize: "0.75rem",
-                  letterSpacing: "0.15em",
-                  textTransform: "uppercase",
-                  fontFamily: "system-ui, sans-serif",
-                  marginBottom: "1rem",
-                }}
-              >
+            <div className="bg-[var(--site-surface)] border border-[var(--site-border)] p-7">
+              <p className="text-[var(--site-text)] text-xs tracking-[0.15em] uppercase font-sans mb-4">
                 Anfahrt
               </p>
 
               {/* Map visual */}
-              <div
-                style={{
-                  height: 180,
-                  background:
-                    "linear-gradient(135deg, #1a1408 0%, #2a1f0a 30%, #1e1608 60%, #261c0a 100%)",
-                  border: `1px solid ${C.border}`,
-                  borderRadius: 2,
-                  marginBottom: "1rem",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  flexDirection: "column",
-                  gap: 8,
-                  position: "relative",
-                  overflow: "hidden",
-                }}
-              >
+              <div className="h-[180px] bg-gradient-to-br from-[#1a1408] via-[#2a1f0a] via-30% to-[#261c0a] border border-[var(--site-border)] rounded-sm mb-4 flex items-center justify-center flex-col gap-2 relative overflow-hidden">
                 {/* Grid lines */}
                 <div
-                  aria-hidden
-                  style={{
-                    position: "absolute",
-                    inset: 0,
-                    backgroundImage: `linear-gradient(${C.border}30 1px, transparent 1px), linear-gradient(90deg, ${C.border}30 1px, transparent 1px)`,
-                    backgroundSize: "30px 30px",
-                  }}
+                  aria-hidden="true"
+                  className="absolute inset-0 bg-[linear-gradient(var(--site-border)/20_1px,transparent_1px),linear-gradient(90deg,var(--site-border)/20_1px,transparent_1px)] bg-[length:30px_30px]"
                 />
                 {/* Pin */}
-                <div
-                  style={{
-                    position: "relative",
-                    width: 12,
-                    height: 12,
-                    borderRadius: "50%",
-                    backgroundColor: C.accent,
-                    boxShadow: `0 0 0 4px ${C.accent}30`,
-                  }}
-                />
-                <p
-                  style={{
-                    position: "relative",
-                    color: C.accent,
-                    fontSize: "0.8rem",
-                    fontFamily: "system-ui, sans-serif",
-                    fontWeight: 600,
-                  }}
-                >
-                  Kortumstr. 18 · Bochum
+                <div className="relative w-3 h-3 rounded-full bg-[var(--site-accent)] shadow-[0_0_0_4px_rgba(201,168,76,0.19)]" />
+                <p className="relative text-[var(--site-accent)] text-[0.8rem] font-sans font-semibold">
+                  Kortumstr. 18 &middot; Bochum
                 </p>
               </div>
 
-              <div
-                style={{
-                  color: C.muted,
-                  fontSize: "0.85rem",
-                  lineHeight: 1.8,
-                  fontFamily: "system-ui, sans-serif",
-                }}
-              >
+              <div className="text-[var(--site-muted)] text-[0.85rem] leading-relaxed font-sans">
                 <p>Kortumstraße 18</p>
                 <p>44787 Bochum</p>
-                <p style={{ marginTop: 8, color: "#4a4035", fontSize: "0.78rem" }}>
-                  Parkplätze: Stadtpark-Garage (400 m) · ÖPNV: U35 Husemannplatz
+                <p className="mt-2 text-[#4a4035] text-[0.78rem]">
+                  Parkplätze: Stadtpark-Garage (400 m) &middot; ÖPNV: U35 Husemannplatz
                 </p>
               </div>
             </div>
 
             {/* Telefon */}
-            <div
-              style={{
-                backgroundColor: C.surface,
-                border: `1px solid ${C.border}`,
-                padding: "1.75rem",
-                textAlign: "center",
-              }}
-            >
-              <p
-                style={{
-                  color: C.muted,
-                  fontSize: "0.8rem",
-                  fontFamily: "system-ui, sans-serif",
-                  letterSpacing: "0.1em",
-                  textTransform: "uppercase",
-                  marginBottom: "0.75rem",
-                }}
-              >
+            <div className="bg-[var(--site-surface)] border border-[var(--site-border)] p-7 text-center">
+              <p className="text-[var(--site-muted)] text-[0.8rem] font-sans tracking-[0.1em] uppercase mb-3">
                 Oder direkt anrufen
               </p>
               <a
                 href="tel:+4923498765"
-                style={{
-                  color: C.accent,
-                  textDecoration: "none",
-                  fontSize: "1.75rem",
-                  fontFamily: "system-ui, sans-serif",
-                  fontWeight: 700,
-                  letterSpacing: "0.03em",
-                  display: "block",
-                }}
+                className="text-[var(--site-accent)] no-underline text-3xl font-sans font-bold tracking-wide block"
               >
                 0234 987 654
               </a>
-              <p
-                style={{
-                  color: "#4a4035",
-                  fontSize: "0.75rem",
-                  fontFamily: "system-ui, sans-serif",
-                  marginTop: "0.5rem",
-                }}
-              >
+              <p className="text-[#4a4035] text-xs font-sans mt-2">
                 Mo–Sa: 11:00 – 22:00 Uhr
               </p>
             </div>
 
             {/* Hinweis */}
-            <div
-              style={{
-                border: `1px solid ${C.accent}40`,
-                backgroundColor: "#1e180a",
-                padding: "1.25rem 1.5rem",
-                borderLeft: `3px solid ${C.accent}`,
-              }}
-            >
-              <p
-                style={{
-                  color: C.accent,
-                  fontSize: "0.75rem",
-                  letterSpacing: "0.1em",
-                  textTransform: "uppercase",
-                  fontFamily: "system-ui, sans-serif",
-                  fontWeight: 600,
-                  marginBottom: "0.5rem",
-                }}
-              >
+            <div className="border border-[var(--site-accent)]/25 bg-[#1e180a] px-6 py-5 border-l-[3px] border-l-[var(--site-accent)]">
+              <p className="text-[var(--site-accent)] text-xs tracking-[0.1em] uppercase font-sans font-semibold mb-2">
                 Wichtiger Hinweis
               </p>
-              <p
-                style={{
-                  color: C.muted,
-                  fontSize: "0.83rem",
-                  lineHeight: 1.7,
-                  fontFamily: "system-ui, sans-serif",
-                }}
-              >
+              <p className="text-[var(--site-muted)] text-[0.83rem] leading-relaxed font-sans">
                 Reservierungen ohne Bestätigung durch unser Team werden nach
                 15 Minuten automatisch freigegeben. Bei größeren Gruppen (8+
                 Personen) bitten wir um vorherige telefonische Rücksprache.
@@ -444,5 +214,5 @@ export default function ReservierungPage() {
         </div>
       </section>
     </>
-  )
+  );
 }

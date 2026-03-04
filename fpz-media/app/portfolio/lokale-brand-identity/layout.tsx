@@ -3,130 +3,95 @@ import Link from "next/link"
 
 const BASE = "/portfolio/lokale-brand-identity"
 
-const C = {
-  bg: "#0d1117",
-  text: "#e2e8f0",
-  accent: "#3b82f6",
-  muted: "#64748b",
-  surface: "#161c2a",
-  border: "#1e2d45",
-}
-
 export const metadata = {
   title: "Breuer & Partner Steuerberatung",
-  description: "Ihre verlässliche Steuerberatung im Ruhrgebiet seit 1998. Für Unternehmen und Privatpersonen.",
+  description:
+    "Ihre verlässliche Steuerberatung im Ruhrgebiet seit 1998. Für Unternehmen und Privatpersonen.",
 }
 
-const ShieldLogo = ({ size = 32 }: { size?: number }) => (
-  <svg width={size} height={size} viewBox="0 0 32 32" fill="none">
-    <path
-      d="M16 3L4 8v8c0 7.18 5.13 13.89 12 15.5C22.87 29.89 28 23.18 28 16V8L16 3z"
-      fill={C.accent}
-      opacity="0.15"
-    />
-    <path
-      d="M16 3L4 8v8c0 7.18 5.13 13.89 12 15.5C22.87 29.89 28 23.18 28 16V8L16 3z"
-      stroke={C.accent}
-      strokeWidth="1.5"
-      fill="none"
-    />
-    <path
-      d="M11 16l3.5 3.5L21 12"
-      stroke={C.accent}
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-)
+const navLinks = [
+  { label: "Leistungen", href: `${BASE}/leistungen` },
+  { label: "Team", href: `${BASE}#team` },
+  { label: "Kontakt", href: `${BASE}/kontakt` },
+]
+
+const footerHours = [
+  ["Mo – Do", "8:00 – 17:00"],
+  ["Fr", "8:00 – 13:00"],
+  ["Sa – So", "Geschlossen"],
+]
 
 export default function BreuerLayout({ children }: { children: ReactNode }) {
   return (
-    <div style={{ background: C.bg, color: C.text, minHeight: "100vh", fontFamily: "system-ui, -apple-system, sans-serif" }}>
-
+    <div
+      data-site="steuerberater"
+      className="min-h-screen bg-[var(--site-bg)] text-[var(--site-text)] font-sans"
+    >
       {/* Demo Banner */}
-      <div
-        style={{
-          background: C.accent,
-          color: "#fff",
-          textAlign: "center",
-          padding: "8px 16px",
-          fontSize: 13,
-          fontWeight: 500,
-          letterSpacing: "0.02em",
-        }}
-      >
+      <div className="bg-[var(--site-accent)] text-white text-center py-2 px-4 text-[13px] font-medium tracking-wide">
         Demo-Website — erstellt von{" "}
-        <a href="/" style={{ color: "#fff", fontWeight: 700, textDecoration: "underline" }}>
+        <Link href="/" className="text-white font-bold underline">
           fpz media
-        </a>
+        </Link>
       </div>
 
       {/* Navbar */}
-      <header
-        style={{
-          position: "sticky",
-          top: 0,
-          zIndex: 50,
-          background: "rgba(13,17,23,0.97)",
-          backdropFilter: "blur(10px)",
-          borderBottom: `1px solid ${C.border}`,
-        }}
-      >
-        <div
-          style={{
-            maxWidth: 1200,
-            margin: "0 auto",
-            padding: "0 24px",
-            height: 66,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
-        >
+      <header className="sticky top-0 z-50 bg-[var(--site-bg)]/97 backdrop-blur-[10px] border-b border-[var(--site-border)]">
+        <div className="max-w-[1200px] mx-auto px-6 h-[66px] flex items-center justify-between">
           {/* Logo */}
           <Link
             href={BASE}
-            style={{ display: "flex", alignItems: "center", gap: 10, textDecoration: "none" }}
+            className="flex items-center gap-2.5 no-underline"
           >
-            <ShieldLogo size={30} />
+            <svg
+              width="30"
+              height="30"
+              viewBox="0 0 32 32"
+              fill="none"
+              className="shrink-0"
+            >
+              <path
+                d="M16 3L4 8v8c0 7.18 5.13 13.89 12 15.5C22.87 29.89 28 23.18 28 16V8L16 3z"
+                className="fill-[var(--site-accent)]/15"
+              />
+              <path
+                d="M16 3L4 8v8c0 7.18 5.13 13.89 12 15.5C22.87 29.89 28 23.18 28 16V8L16 3z"
+                className="stroke-[var(--site-accent)]"
+                strokeWidth="1.5"
+                fill="none"
+              />
+              <path
+                d="M11 16l3.5 3.5L21 12"
+                className="stroke-[var(--site-accent)]"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
             <div>
-              <span style={{ color: C.text, fontWeight: 700, fontSize: 16, letterSpacing: "-0.02em", display: "block" }}>
+              <span className="text-[var(--site-text)] font-bold text-base tracking-tight block">
                 Breuer &amp; Partner
               </span>
-              <span style={{ color: C.muted, fontSize: 10, letterSpacing: "0.12em", display: "block" }}>
+              <span className="text-[var(--site-muted)] text-[10px] tracking-[0.12em] block">
                 STEUERBERATUNG
               </span>
             </div>
           </Link>
 
           {/* Nav */}
-          <nav style={{ display: "flex", alignItems: "center", gap: 28 }}>
-            {[
-              { label: "Leistungen", href: `${BASE}/leistungen` },
-              { label: "Team", href: `${BASE}#team` },
-              { label: "Kontakt", href: `${BASE}/kontakt` },
-            ].map((item) => (
+          <nav className="flex items-center gap-7">
+            {navLinks.map((item) => (
               <Link
                 key={item.label}
                 href={item.href}
-                style={{ color: C.muted, textDecoration: "none", fontSize: 14, fontWeight: 500 }}
+                className="text-[var(--site-muted)] no-underline text-sm font-medium hover:text-[var(--site-text)] transition-colors"
               >
                 {item.label}
               </Link>
             ))}
             <Link
               href={`${BASE}/kontakt`}
-              style={{
-                background: C.accent,
-                color: "#fff",
-                padding: "9px 20px",
-                borderRadius: 8,
-                fontSize: 13,
-                fontWeight: 600,
-                textDecoration: "none",
-                whiteSpace: "nowrap",
-              }}
+              className="bg-[var(--site-accent)] text-white px-5 py-2.5 rounded-lg text-[13px] font-semibold no-underline whitespace-nowrap hover:brightness-110 transition-all"
             >
               Erstgespräch buchen
             </Link>
@@ -138,50 +103,68 @@ export default function BreuerLayout({ children }: { children: ReactNode }) {
       <main>{children}</main>
 
       {/* Footer */}
-      <footer style={{ background: C.surface, borderTop: `1px solid ${C.border}` }}>
-        <div style={{ maxWidth: 1200, margin: "0 auto", padding: "56px 24px 32px" }}>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "2fr 1fr 1fr",
-              gap: 48,
-              marginBottom: 40,
-            }}
-          >
+      <footer className="bg-[var(--site-surface)] border-t border-[var(--site-border)]">
+        <div className="max-w-[1200px] mx-auto px-6 pt-14 pb-8">
+          <div className="grid grid-cols-[2fr_1fr_1fr] gap-12 mb-10">
             {/* Brand */}
             <div>
-              <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 14 }}>
-                <ShieldLogo size={26} />
-                <span style={{ fontWeight: 700, fontSize: 15, color: C.text }}>
+              <div className="flex items-center gap-2.5 mb-3.5">
+                <svg
+                  width="26"
+                  height="26"
+                  viewBox="0 0 32 32"
+                  fill="none"
+                >
+                  <path
+                    d="M16 3L4 8v8c0 7.18 5.13 13.89 12 15.5C22.87 29.89 28 23.18 28 16V8L16 3z"
+                    className="fill-[var(--site-accent)]/15"
+                  />
+                  <path
+                    d="M16 3L4 8v8c0 7.18 5.13 13.89 12 15.5C22.87 29.89 28 23.18 28 16V8L16 3z"
+                    className="stroke-[var(--site-accent)]"
+                    strokeWidth="1.5"
+                    fill="none"
+                  />
+                  <path
+                    d="M11 16l3.5 3.5L21 12"
+                    className="stroke-[var(--site-accent)]"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+                <span className="font-bold text-[15px] text-[var(--site-text)]">
                   Breuer &amp; Partner Steuerberatung
                 </span>
               </div>
-              <p style={{ color: C.muted, fontSize: 14, lineHeight: 1.7, maxWidth: 300 }}>
-                Ihre verlässliche Steuerberatungskanzlei im Ruhrgebiet. Seit 1998 für Unternehmen und Privatpersonen.
+              <p className="text-[var(--site-muted)] text-sm leading-[1.7] max-w-[300px]">
+                Ihre verlässliche Steuerberatungskanzlei im Ruhrgebiet. Seit
+                1998 für Unternehmen und Privatpersonen.
               </p>
             </div>
 
             {/* Kontakt */}
             <div>
-              <p style={{ fontWeight: 600, fontSize: 12, color: C.text, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 16 }}>
+              <p className="font-semibold text-xs text-[var(--site-text)] uppercase tracking-[0.1em] mb-4">
                 Kontakt
               </p>
-              <div style={{ display: "flex", flexDirection: "column", gap: 8, color: C.muted, fontSize: 14 }}>
+              <div className="flex flex-col gap-2 text-[var(--site-muted)] text-sm">
                 <span>Herner Str. 45, 44789 Bochum</span>
                 <span>+49 234 123 456-0</span>
                 <span>info@breuer-partner-stb.de</span>
               </div>
             </div>
 
-            {/* Öffnungszeiten */}
+            {/* Oeffnungszeiten */}
             <div>
-              <p style={{ fontWeight: 600, fontSize: 12, color: C.text, textTransform: "uppercase", letterSpacing: "0.1em", marginBottom: 16 }}>
+              <p className="font-semibold text-xs text-[var(--site-text)] uppercase tracking-[0.1em] mb-4">
                 Öffnungszeiten
               </p>
-              <div style={{ display: "flex", flexDirection: "column", gap: 6, color: C.muted, fontSize: 14 }}>
-                {[["Mo – Do", "8:00 – 17:00"], ["Fr", "8:00 – 13:00"], ["Sa – So", "Geschlossen"]].map(([d, h]) => (
-                  <div key={d} style={{ display: "flex", justifyContent: "space-between", gap: 16 }}>
-                    <span>{d}</span><span>{h}</span>
+              <div className="flex flex-col gap-1.5 text-[var(--site-muted)] text-sm">
+                {footerHours.map(([d, h]) => (
+                  <div key={d} className="flex justify-between gap-4">
+                    <span>{d}</span>
+                    <span>{h}</span>
                   </div>
                 ))}
               </div>
@@ -189,26 +172,32 @@ export default function BreuerLayout({ children }: { children: ReactNode }) {
           </div>
 
           {/* Bottom */}
-          <div
-            style={{
-              borderTop: `1px solid ${C.border}`,
-              paddingTop: 24,
-              display: "flex",
-              flexWrap: "wrap",
-              justifyContent: "space-between",
-              alignItems: "center",
-              gap: 12,
-            }}
-          >
-            <p style={{ color: C.muted, fontSize: 13 }}>
-              © 2026 Breuer &amp; Partner Steuerberatung GmbH. Alle Rechte vorbehalten.
+          <div className="border-t border-[var(--site-border)] pt-6 flex flex-wrap justify-between items-center gap-3">
+            <p className="text-[var(--site-muted)] text-[13px]">
+              © 2026 Breuer &amp; Partner Steuerberatung GmbH. Alle Rechte
+              vorbehalten.
             </p>
-            <div style={{ display: "flex", gap: 20, alignItems: "center" }}>
-              <a href="#" style={{ color: C.muted, fontSize: 13, textDecoration: "none" }}>Impressum</a>
-              <a href="#" style={{ color: C.muted, fontSize: 13, textDecoration: "none" }}>Datenschutz</a>
-              <span style={{ color: C.muted, fontSize: 13 }}>
+            <div className="flex gap-5 items-center">
+              <a
+                href="#"
+                className="text-[var(--site-muted)] text-[13px] no-underline"
+              >
+                Impressum
+              </a>
+              <a
+                href="#"
+                className="text-[var(--site-muted)] text-[13px] no-underline"
+              >
+                Datenschutz
+              </a>
+              <span className="text-[var(--site-muted)] text-[13px]">
                 Website by{" "}
-                <a href="/" style={{ color: C.accent, textDecoration: "none", fontWeight: 600 }}>fpz media</a>
+                <Link
+                  href="/"
+                  className="text-[var(--site-accent)] no-underline font-semibold"
+                >
+                  fpz media
+                </Link>
               </span>
             </div>
           </div>
