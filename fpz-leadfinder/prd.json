@@ -631,8 +631,8 @@
         "Verify in browser using dev-browser skill"
       ],
       "priority": 31,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "Erstellt: src/app/scan/page.tsx (Server Component, ScanLog History) + src/components/scan/ScanForm.tsx (Client Component, Stadt-Auswahl, Polling, Fortschritt, Ergebnis-Card). TypeCheck: 0 Fehler."
     },
     {
       "id": "US-032",

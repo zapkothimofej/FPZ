@@ -409,3 +409,13 @@ US-029 abgeschlossen.
 - Created: src/app/api/export/csv/route.ts (GET /api/export/csv mit Filtern: city/category/status/minScore/maxScore/search/ids)
 - Fix: Prisma import von @/generated/prisma/client statt @prisma/client
 - TypeCheck: 0 Fehler
+US-030 abgeschlossen. Erstellt:
+- `src/lib/export/csv.ts` — `generateLeadCSV()` mit UTF-8 BOM, Semikolon-Delimiter und RFC-konformem `escapeCSV`
+- `src/app/api/export/csv/route.ts` — `GET /api/export/csv` mit allen Filtern (city, category, status, minScore, maxScore, search, ids)
+--- Iteration 31 started at 23:19:22 ---
+--- Iteration 31 completed ---
+
+## US-031: Scan-Seite mit Stadt-Auswahl und Fortschritt — DONE
+- Created: src/app/scan/page.tsx (Server Component, Metadata, ScanLog History-Tabelle mit letzten 10 Scans)
+- Created: src/components/scan/ScanForm.tsx (Client Component: Stadt-Auswahl Grid, Alle/Keine Buttons, Scan-Button, Polling alle 2s, Fortschritts-Card, Ergebnis-Card)
+- TypeCheck: 0 Fehler
