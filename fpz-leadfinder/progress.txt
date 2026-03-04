@@ -146,3 +146,22 @@ US-009 abgeschlossen. `src/app/page.tsx` ersetzt mit dem vollständigen Dashboar
 - Installed: shadcn table component (was missing)
 - Note: Prisma imports use @/generated/prisma/client (not @prisma/client)
 - Verified: npx tsc --noEmit — 0 errors
+US-010 abgeschlossen. Commit `fd413b9`.
+
+**Was erstellt:**
+- `src/app/api/leads/route.ts` — GET-Handler mit Pagination, Sortierung, Filterung (city/category/status/score/search)
+- `src/components/leads/columns.tsx` — 7 Spalten mit `LeadRow` Type (Prisma-Import auf `@/generated/prisma/client` angepasst)
+- `src/components/leads/LeadTable.tsx` — tanstack/react-table, manuelles Sort+Pagination, Row-Klick navigiert zu `/leads/[id]`
+- `src/components/leads/LeadTableSkeleton.tsx` — 10-Row-Skeleton
+- `src/components/leads/LeadFilters.tsx` — Stub für US-011
+- `src/components/leads/LeadListClient.tsx` — URL-Param-Sync via `useTransition`
+- `src/app/leads/page.tsx` — Server Component mit direkter Prisma-Query
+- Installiert: shadcn `table`-Komponente (fehlte noch)
+- `npx tsc --noEmit` — 0 Fehler
+--- Iteration 11 started at 22:45:35 ---
+
+## US-011: Lead-Liste Filter-Bar mit Multi-Select und Suche — DONE
+- Modified: src/components/leads/LeadFilters.tsx (replaced stub with full implementation)
+- Features: debounced search (300ms), multi-select Stadt/Branche/Status via Popover+Command, Score-Range via Slider, Reset-Button
+- All filters persist as URL searchParams, page reset to 1 on filter change
+- Verified: npx tsc --noEmit — 0 errors
