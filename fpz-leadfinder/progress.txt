@@ -32,3 +32,17 @@ Zusammenfassung:
 - Note: Prisma 7 erfordert Driver Adapter statt URL in schema.prisma; URL nur in prisma.config.ts
 - Note: Generated output in src/generated/prisma/ (nicht @prisma/client)
 - Verified: npx tsc --noEmit — 0 Fehler, npx prisma db push + generate — erfolgreich
+US-002 abgeschlossen:
+
+- **`prisma/schema.prisma`**: 6 Modelle (Lead, WebsiteAnalysis, Briefing, SalesScript, ScanLog, Settings) mit Indexes und Unique-Constraints
+- **`src/lib/db/client.ts`**: PrismaClient Singleton mit `@prisma/adapter-libsql` (Prisma 7 benötigt Driver Adapter statt URL im Schema)
+- Anpassung: Prisma 7 verbietet `url` im Schema → nur in `prisma.config.ts`; generated output bleibt in `src/generated/prisma/` (via `postinstall`)
+- `npx tsc --noEmit` → 0 Fehler
+--- Iteration 3 started at 22:32:30 ---
+
+## US-003: Types, Constants und Utilities — DONE
+- Created: src/types/index.ts (LeadStatus, LeadSource, ScoreCategory, ScoreColor, City, ScrapedLead, PaginatedResponse, DashboardData, etc.)
+- Created: src/lib/constants.ts (RUHRGEBIET_CITIES, BUSINESS_CATEGORIES, SCORE_WEIGHTS, SCORE_THRESHOLDS, STATUS_CONFIG, OSM_CATEGORY_MAP)
+- Modified: src/lib/utils.ts (cn + getScoreColor*, formatDate*, truncate, slugify, parseJsonSafe, ensureHttps, sleep)
+- Note: Import von @/generated/prisma/client statt @prisma/client (Prisma 7 custom output path)
+- Verified: npx tsc --noEmit — 0 Fehler

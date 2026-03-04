@@ -73,8 +73,8 @@
         "Typecheck passes"
       ],
       "priority": 3,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "src/types/index.ts mit allen Interfaces/Types erstellt; src/lib/constants.ts mit 20 Städten, 35 Kategorien, SCORE_WEIGHTS, STATUS_CONFIG, OSM_CATEGORY_MAP; src/lib/utils.ts mit Score-Hilfsfunktionen, Datums-/String-Utils. Import von @/generated/prisma/client statt @prisma/client (Prisma 7 custom output). npx tsc --noEmit — 0 Fehler."
     },
     {
       "id": "US-004",
