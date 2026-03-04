@@ -113,8 +113,8 @@
         "Verify in browser using dev-browser skill"
       ],
       "priority": 5,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "getDashboardStats() in queries.ts, StatCards.tsx (Server Component, 4 Cards mit TrendIndicator), StatCardsSkeleton.tsx erstellt. npx tsc --noEmit — 0 Fehler."
     },
     {
       "id": "US-006",

@@ -65,3 +65,20 @@ US-003 abgeschlossen. Commit `1ecfd5b`.
 - Modified: src/app/globals.css (sidebar-expanded/collapsed CSS classes + media query)
 - Modified: src/app/layout.tsx (SidebarProvider, Sidebar, MobileNav, TopBar, MainContent, Toaster)
 - Verified: npx tsc --noEmit — 0 errors
+US-004 abgeschlossen. Commit `22f59f7`.
+
+**Was implementiert:**
+- `SidebarContext.tsx` — Context mit `collapsed`-State, localStorage-Persistenz
+- `Sidebar.tsx` — Collapsible Desktop-Sidebar (256px/64px), Tooltips im collapsed-Modus
+- `MobileNav.tsx` — Fixed Bottom-Nav für Mobile
+- `TopBar.tsx` — Sticky Header mit dynamischem Seitentitel
+- `MainContent.tsx` — Wrapper mit CSS-Klassen für Sidebar-Offset
+- `globals.css` — `.sidebar-expanded`/`.sidebar-collapsed` + Mobile-Override
+- `layout.tsx` — Vollständiges App-Layout mit Toaster
+--- Iteration 5 started at 22:36:51 ---
+
+## US-005: Dashboard Statistik-Cards — DONE
+- Created: src/lib/db/queries.ts (getDashboardStats mit 8 parallelen Prisma-Queries)
+- Created: src/components/dashboard/StatCards.tsx (async Server Component, 4 Cards mit TrendIndicator)
+- Created: src/components/dashboard/StatCardsSkeleton.tsx (Skeleton-Grid für Suspense)
+- Verified: npx tsc --noEmit — 0 Fehler
