@@ -598,3 +598,22 @@ US-042 abgeschlossen. Commit `9a58a5c`.
 - Modified: src/app/api/leads/route.ts (CORS Headers + OPTIONS Handler ergänzt)
 - Fix: spec hatte `script` als relation name → tatsächlich `salesScript`
 - TypeCheck: 0 Fehler
+US-043 abgeschlossen.
+
+**Was gemacht:**
+- `api/dashboard/route.ts` — ersetzt durch direktes Prisma mit CORS Headers (statt Query-Helpers)
+- `api/leads/[id]/route.ts` — neu: GET + PATCH + OPTIONS mit CORS (Fix: `salesScript` statt `script`)
+- `api/leads/route.ts` — CORS Headers + OPTIONS Handler ergänzt
+
+TypeCheck: 0 Fehler. Commit: `866990f`
+--- Iteration 46 started at 14:11:53 ---
+
+## US-044: Responsive Polish & Animations — DONE
+- Modified: src/app/globals.css (fadeIn/slideUp/scaleIn keyframes + @layer utilities + focus-visible + smooth transitions for button/a/[role=button])
+- Modified: src/components/dashboard/StatCards.tsx (grid-cols-2 lg:grid-cols-4, animate-fade-in mit animationDelay per card, hover:border-zinc-700)
+- Modified: src/components/dashboard/CityChart.tsx (ResponsiveContainer height="100%" in responsive div h-[250px] sm:h-[300px] lg:h-[350px])
+- Modified: src/components/leads/LeadTable.tsx (overflow-x-auto -mx-4 sm:mx-0 + min-w-[600px] sm:min-w-0 wrapper)
+- Modified: src/app/leads/[id]/page.tsx (animate-slide-up on main container)
+- Modified: src/components/shared/Sidebar.tsx (hidden lg:flex statt hidden md:flex)
+- Modified: src/components/leads/BulkActions.tsx (responsive fixed bar: full-width on mobile, centered on desktop)
+- TypeCheck: 0 Fehler

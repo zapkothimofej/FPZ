@@ -80,6 +80,8 @@ export function LeadTable({
 
   return (
     <div className="space-y-4">
+      <div className="overflow-x-auto -mx-4 sm:mx-0">
+      <div className="min-w-[600px] sm:min-w-0">
       <div className="rounded-lg border border-zinc-800 bg-zinc-900/50">
         <Table>
           <TableHeader>
@@ -120,6 +122,8 @@ export function LeadTable({
             )}
           </TableBody>
         </Table>
+      </div>
+      </div>
       </div>
 
       <div className="flex items-center justify-between px-2">

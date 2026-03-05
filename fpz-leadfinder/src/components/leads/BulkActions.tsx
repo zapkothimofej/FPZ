@@ -75,7 +75,7 @@ export function BulkActions({ selectedIds, onClear }: BulkActionsProps) {
 
   return (
     <>
-      <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-50 bg-zinc-900 border border-zinc-700 rounded-xl shadow-xl px-4 py-3 flex items-center gap-3">
+      <div className="fixed bottom-4 left-4 right-4 sm:left-1/2 sm:right-auto sm:-translate-x-1/2 z-50 bg-zinc-900 border border-zinc-700 rounded-xl shadow-xl px-3 py-2 sm:px-4 sm:py-3 flex flex-wrap items-center justify-center gap-2 sm:gap-3">
         <span className="text-sm text-zinc-300">
           {selectedIds.length} ausgewaehlt
         </span>

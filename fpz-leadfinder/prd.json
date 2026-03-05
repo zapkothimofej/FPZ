@@ -865,8 +865,8 @@
         "Verify in browser using dev-browser skill"
       ],
       "priority": 44,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "globals.css: fadeIn/slideUp/scaleIn keyframes + @layer utilities + focus-visible + smooth transitions + scrollbar. StatCards: grid-cols-2 lg:grid-cols-4 + animate-fade-in per card mit delay. CityChart: responsive height wrapper. LeadTable: overflow-x-auto mobile wrapper. LeadDetail page: animate-slide-up. Sidebar: hidden lg:flex (lg statt md). BulkActions: responsive fixed bar (full-width mobile, centered desktop)."
     },
     {
       "id": "US-045",
