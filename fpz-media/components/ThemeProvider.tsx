@@ -4,11 +4,13 @@ import { createContext, useContext, useEffect, useState } from "react"
 
 type Theme = "dark" | "light"
 
-const ThemeContext = createContext<{
+type ThemeContextType = {
   theme: Theme
   setTheme: (theme: Theme) => void
   toggleTheme: () => void
-} | null>(null)
+}
+
+const ThemeContext = createContext<ThemeContextType | null>(null)
 
 const STORAGE_KEY = "fpz-v6-theme"
 

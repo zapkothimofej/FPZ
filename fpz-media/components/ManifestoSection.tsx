@@ -1,12 +1,14 @@
 "use client"
 
-import React, { useRef } from "react"
+import { Fragment, useRef } from "react"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { manifesto } from "@/lib/content-de"
 
 gsap.registerPlugin(ScrollTrigger)
+
+const HIGHLIGHT_WORD = "unfairen"
 
 export function ManifestoSection() {
   const sectionRef = useRef<HTMLElement>(null)
@@ -93,9 +95,9 @@ export function ManifestoSection() {
   // Words at translateY(105%) start invisible behind overflow:hidden, GSAP animates to y:0
   const renderWords = (text: string) =>
     text.split(" ").map((word, i, arr) => {
-      const isHighlight = word === "unfairen"
+      const isHighlight = word === HIGHLIGHT_WORD
       return (
-        <React.Fragment key={i}>
+        <Fragment key={`${i}-${word}`}>
           {/* Outer span: clips overflowing content + optional rotation for highlight */}
           <span
             style={{
@@ -125,7 +127,7 @@ export function ManifestoSection() {
           </span>
           {/* Space between words, outside the overflow-hidden container */}
           {i < arr.length - 1 && "\u00A0"}
-        </React.Fragment>
+        </Fragment>
       )
     })
 

@@ -4,6 +4,9 @@ import { useRef, useEffect } from "react"
 import gsap from "gsap"
 import { services } from "@/lib/content-de"
 
+const PANEL_SCROLL_DURATION = 0.55  // seconds – GSAP horizontal-snap animation
+const INERTIA_COOLDOWN_MS   = 120   // ms – post-snap delay to absorb trackpad inertia
+
 export function ServicesSection() {
   const wrapperRef = useRef<HTMLDivElement>(null)
   const sliderRef  = useRef<HTMLDivElement>(null)
@@ -16,7 +19,9 @@ export function ServicesSection() {
     const panelW = () => window.innerWidth
 
     const updateDots = (idx: number) => {
-      document.querySelectorAll<HTMLElement>(".v6-panel-dot").forEach((dot, di) => {
+      const dots = document.querySelectorAll<HTMLElement>(".v6-panel-dot")
+      if (!dots || dots.length === 0) return
+      dots.forEach((dot, di) => {
         dot.style.width           = di === idx ? "24px" : "6px"
         dot.style.backgroundColor = di === idx ? "var(--v6-accent)" : "var(--v6-border)"
       })
@@ -62,7 +67,7 @@ export function ServicesSection() {
 
         gsap.to(slider, {
           scrollLeft : next * panelW(),
-          duration   : 0.55,
+          duration   : PANEL_SCROLL_DURATION,
           ease       : "power2.inOut",
           overwrite  : true,
           onComplete : () => {
@@ -77,7 +82,7 @@ export function ServicesSection() {
             // Short cooldown absorbs trackpad inertia events that arrive right
             // after the snap — without it they can trigger an immediate reverse
             // transition (e.g. panel 2→1 from a tiny upward momentum event).
-            setTimeout(() => { animating = false }, 120)
+            setTimeout(() => { animating = false }, INERTIA_COOLDOWN_MS)
           },
         })
       }

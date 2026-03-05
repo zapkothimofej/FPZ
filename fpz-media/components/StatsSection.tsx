@@ -8,7 +8,8 @@ import { stats } from "@/lib/content-de"
 
 gsap.registerPlugin(ScrollTrigger)
 
-const MARQUEE_TEXT = "WEB · FILM · AUTOMATION · RUHRGEBIET · FPZ-MEDIA · "
+const MARQUEE_TEXT   = "WEB · FILM · AUTOMATION · RUHRGEBIET · FPZ-MEDIA · "
+const MARQUEE_REPEAT = 6  // number of times the text is repeated per ticker span
 
 function parseStatValue(val: string): { prefix: string; num: number | null; suffix: string } {
   const match = val.match(/^([^0-9∞]*)([0-9]+(?:\.[0-9]+)?)(.*)$/)
@@ -41,10 +42,12 @@ export function StatsSection() {
             toggleActions: "play none none none",
           },
           onUpdate: () => {
+            const currentEl = numbersRef.current[i]
+            if (!currentEl) return
             const val = Number.isInteger(num)
               ? Math.round(obj.val).toString()
               : obj.val.toFixed(1)
-            el.textContent = `${prefix}${val}${suffix}`
+            currentEl.textContent = `${prefix}${val}${suffix}`
           },
         })
       })
@@ -142,7 +145,7 @@ export function StatsSection() {
               whiteSpace: "nowrap",
             }}
           >
-            {Array(6).fill(MARQUEE_TEXT).join("")}
+            {Array(MARQUEE_REPEAT).fill(MARQUEE_TEXT).join("")}
           </span>
           <span
             className="inline-flex shrink-0 animate-[stahl-marquee_20s_linear_infinite]"
@@ -155,7 +158,7 @@ export function StatsSection() {
             }}
             aria-hidden
           >
-            {Array(6).fill(MARQUEE_TEXT).join("")}
+            {Array(MARQUEE_REPEAT).fill(MARQUEE_TEXT).join("")}
           </span>
         </div>
       </div>

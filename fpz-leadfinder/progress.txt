@@ -617,3 +617,15 @@ TypeCheck: 0 Fehler. Commit: `866990f`
 - Modified: src/components/shared/Sidebar.tsx (hidden lg:flex statt hidden md:flex)
 - Modified: src/components/leads/BulkActions.tsx (responsive fixed bar: full-width on mobile, centered on desktop)
 - TypeCheck: 0 Fehler
+**US-044 abgeschlossen.** Commit `0fe620e`.
+
+**Was implementiert:**
+- `globals.css` — `fadeIn`/`slideUp`/`scaleIn` Keyframes + `@layer utilities` Klassen, `focus-visible` Outline (blue-500), smooth transitions für `button/a/[role=button]`
+- `StatCards.tsx` — Grid `grid-cols-2 lg:grid-cols-4`, `animate-fade-in` mit `animationDelay` pro Card, `hover:border-zinc-700`
+- `CityChart.tsx` — Responsive Höhen-Wrapper `h-[250px] sm:h-[300px] lg:h-[350px]`, `height="100%"` in ResponsiveContainer
+- `LeadTable.tsx` — `overflow-x-auto -mx-4 sm:mx-0` + `min-w-[600px] sm:min-w-0` Wrapper für Mobile
+- `leads/[id]/page.tsx` — `animate-slide-up` am Haupt-Container
+- `Sidebar.tsx` — `hidden lg:flex` statt `hidden md:flex` (Sidebar erst ab 1024px)
+- `BulkActions.tsx` — Responsive Fixed-Bar: full-width auf Mobile, zentriert auf Desktop
+
+TypeCheck: 0 Fehler.

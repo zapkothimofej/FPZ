@@ -115,7 +115,7 @@ export function ContactSection() {
               und wir melden uns innerhalb von 24 Stunden zurück.
             </p>
 
-            <div className="flex flex-col gap-4">
+            <address className="flex flex-col gap-4 not-italic">
               <div>
                 <p
                   className="text-[10px] tracking-[0.15em] uppercase mb-1"
@@ -146,7 +146,7 @@ export function ContactSection() {
                   Ruhrgebiet, NRW, Deutschland
                 </span>
               </div>
-            </div>
+            </address>
 
             {/* Separator */}
             <div style={{ height: "1px", backgroundColor: "var(--v6-border)", width: "100%" }} />
@@ -161,7 +161,7 @@ export function ContactSection() {
                   key={social.label}
                   href={social.href}
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="noopener noreferrer external"
                   className="text-[11px] tracking-[0.1em] uppercase transition-colors duration-200 text-[var(--v6-text-muted)] hover:text-[var(--v6-accent)]"
                   style={{ fontFamily: "var(--font-body)" }}
                 >

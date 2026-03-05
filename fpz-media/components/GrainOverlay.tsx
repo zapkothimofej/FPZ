@@ -1,4 +1,6 @@
-export function GrainOverlay() {
+import { memo } from "react"
+
+export const GrainOverlay = memo(function GrainOverlay() {
   return (
     <div className="fixed inset-0 pointer-events-none z-[100]" aria-hidden>
       <svg className="w-full h-full opacity-[0.035]">
@@ -15,4 +17,4 @@ export function GrainOverlay() {
       </svg>
     </div>
   )
-}
+})

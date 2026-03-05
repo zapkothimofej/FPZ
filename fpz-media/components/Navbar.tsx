@@ -6,15 +6,9 @@ import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { Logo } from "@/components/shared/Logo"
 import { useV6Theme } from "@/components/ThemeProvider"
+import { NAV_LINKS_BASE as NAV_LINKS } from "@/lib/navigation"
 
 gsap.registerPlugin(ScrollTrigger)
-
-const NAV_LINKS = [
-  { label: "Leistungen", href: "#services" },
-  { label: "Prozess", href: "#process" },
-  { label: "Portfolio", href: "#portfolio" },
-  { label: "Preise", href: "#pricing" },
-]
 
 function ThemeToggle({ className }: { className?: string }) {
   const { theme, toggleTheme } = useV6Theme()
@@ -46,6 +40,7 @@ function ThemeToggle({ className }: { className?: string }) {
 export function Navbar() {
   const navRef = useRef<HTMLElement>(null)
   const drawerRef = useRef<HTMLDivElement>(null)
+  const menuBtnRef = useRef<HTMLButtonElement>(null)
   const [open, setOpen] = useState(false)
 
   useGSAP(() => {
@@ -57,7 +52,7 @@ export function Navbar() {
       { y: 0, opacity: 1, duration: 1, ease: "power3.out", delay: 0.3 }
     )
 
-    ScrollTrigger.create({
+    const st = ScrollTrigger.create({
       start: "top+=80 top",
       onEnter: () => {
         const el = navRef.current
@@ -82,6 +77,7 @@ export function Navbar() {
         })
       },
     })
+    return () => { st.kill() }
   }, [])
 
   const toggleDrawer = () => {
@@ -104,7 +100,7 @@ export function Navbar() {
         opacity: 0,
         duration: 0.35,
         ease: "power3.in",
-        onComplete: () => setOpen(false),
+        onComplete: () => { setOpen(false); menuBtnRef.current?.focus() },
       })
     }
   }
@@ -116,7 +112,7 @@ export function Navbar() {
       opacity: 0,
       duration: 0.35,
       ease: "power3.in",
-      onComplete: () => setOpen(false),
+      onComplete: () => { setOpen(false); menuBtnRef.current?.focus() },
     })
   }
 
@@ -124,7 +120,8 @@ export function Navbar() {
   useEffect(() => {
     if (!open || !drawerRef.current) return
     const timeout = setTimeout(() => {
-      const firstFocusable = drawerRef.current?.querySelector<HTMLElement>(
+      if (!drawerRef.current) return
+      const firstFocusable = drawerRef.current.querySelector<HTMLElement>(
         'a[href], button:not([disabled])'
       )
       firstFocusable?.focus()
@@ -144,7 +141,7 @@ export function Navbar() {
           opacity: 0,
           duration: 0.35,
           ease: "power3.in",
-          onComplete: () => setOpen(false),
+          onComplete: () => { setOpen(false); menuBtnRef.current?.focus() },
         })
         return
       }
@@ -209,6 +206,7 @@ export function Navbar() {
         <div className="md:hidden flex items-center gap-3">
           <ThemeToggle />
           <button
+            ref={menuBtnRef}
             className="flex flex-col justify-center items-center w-10 h-10 gap-[6px]"
             onClick={toggleDrawer}
             aria-label={open ? "Menü schließen" : "Menü öffnen"}

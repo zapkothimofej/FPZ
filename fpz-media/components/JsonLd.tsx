@@ -2,7 +2,7 @@ import { services, pricing } from "@/lib/content-de"
 
 const SITE_URL = "https://fpz-media.de"
 
-function buildLocalBusiness() {
+function buildLocalBusiness(): Record<string, unknown> {
   return {
     "@type": "LocalBusiness",
     "@id": `${SITE_URL}/#business`,
@@ -30,7 +30,7 @@ function buildLocalBusiness() {
   }
 }
 
-function buildWebSite() {
+function buildWebSite(): Record<string, unknown> {
   return {
     "@type": "WebSite",
     "@id": `${SITE_URL}/#website`,
@@ -41,7 +41,7 @@ function buildWebSite() {
   }
 }
 
-function buildServices() {
+function buildServices(): Record<string, unknown>[] {
   return services.map((s) => ({
     "@type": "Service",
     "@id": `${SITE_URL}/#service-${s.id}`,
@@ -52,7 +52,7 @@ function buildServices() {
   }))
 }
 
-function buildOffers() {
+function buildOffers(): Record<string, unknown>[] {
   return pricing.map((p) => ({
     "@type": "Offer",
     name: p.name,
@@ -68,7 +68,7 @@ function buildOffers() {
   }))
 }
 
-function buildFAQ() {
+function buildFAQ(): Record<string, unknown> {
   const faqs = [
     {
       q: "Was kostet eine Website bei FPZ Media?",

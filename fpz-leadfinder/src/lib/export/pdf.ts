@@ -1,6 +1,6 @@
 import jsPDF from "jspdf";
 import "jspdf-autotable";
-import { formatDate, parseJsonSafe, slugify } from "@/lib/utils";
+import { formatDate, parseJsonSafe } from "@/lib/utils";
 import { STATUS_CONFIG, SCORE_CATEGORY_LABELS, SCORE_FIELD_MAP } from "@/lib/constants";
 import type { Lead, WebsiteAnalysis, Briefing, SalesScript, ScoreCategory } from "@/types";
 
