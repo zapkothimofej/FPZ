@@ -1,7 +1,7 @@
 "use client";
 
 import { Textarea } from "@/components/ui/textarea";
-import { updateLeadNotes } from "@/app/leads/[id]/actions";
+import { updateLeadNotes } from "@/app/(leadfinder)/secret/(app)/leads/[id]/actions";
 import { toast } from "sonner";
 import { useState, useRef } from "react";
 

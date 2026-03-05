@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/select";
 import { STATUS_CONFIG } from "@/lib/constants";
 import { cn } from "@/lib/utils";
-import { updateLeadStatus } from "@/app/leads/[id]/actions";
+import { updateLeadStatus } from "@/app/(leadfinder)/secret/(app)/leads/[id]/actions";
 import { toast } from "sonner";
 import { useState, useTransition } from "react";
 

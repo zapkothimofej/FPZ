@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/select";
 import { RUHRGEBIET_CITIES, BUSINESS_CATEGORIES } from "@/lib/constants";
 import { Plus } from "lucide-react";
-import { createLead } from "@/app/leads/actions";
+import { createLead } from "@/app/(leadfinder)/secret/(app)/leads/actions";
 import { toast } from "sonner";
 
 interface FormErrors {

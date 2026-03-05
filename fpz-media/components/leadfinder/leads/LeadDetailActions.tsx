@@ -14,7 +14,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { Sparkles, Trash2, Loader2 } from "lucide-react";
-import { deleteLead } from "@/app/leads/[id]/actions";
+import { deleteLead } from "@/app/(leadfinder)/secret/(app)/leads/[id]/actions";
 import { toast } from "sonner";
 
 interface LeadDetailActionsProps {

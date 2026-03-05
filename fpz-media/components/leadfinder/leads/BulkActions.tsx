@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { STATUS_CONFIG } from "@/lib/constants";
 import { cn } from "@/lib/utils";
-import { bulkUpdateStatus, bulkDelete } from "@/app/leads/actions";
+import { bulkUpdateStatus, bulkDelete } from "@/app/(leadfinder)/secret/(app)/leads/actions";
 import { ChevronDown, BarChart3, FileDown, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 

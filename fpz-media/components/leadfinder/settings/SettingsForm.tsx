@@ -10,7 +10,7 @@ import { RUHRGEBIET_CITIES, SCORE_CATEGORY_LABELS, SCORE_WEIGHTS } from "@/lib/c
 import { parseJsonSafe, cn } from "@/lib/utils";
 import { Eye, EyeOff, Zap, Check, X, Save } from "lucide-react";
 import { toast } from "sonner";
-import { saveSettings } from "@/app/settings/actions";
+import { saveSettings } from "@/app/(leadfinder)/secret/(app)/settings/actions";
 import type { Settings, ScanLog, ScoreCategory } from "@/types";
 
 interface SettingsFormProps {
