@@ -795,8 +795,8 @@
         "Typecheck passes"
       ],
       "priority": 40,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "DashboardScreen.tsx mit FlatList, 4 StatCards, Pull-to-Refresh, Loading/Error States implementiert. Dazu /api/dashboard Route im Next.js Backend erstellt."
     },
     {
       "id": "US-041",

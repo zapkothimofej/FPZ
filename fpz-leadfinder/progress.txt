@@ -542,3 +542,18 @@ US-038 abgeschlossen. Erstellt:
 - Created: fpz-leadfinder-mobile/src/screens/SettingsScreen.tsx (placeholder)
 - Modified: fpz-leadfinder-mobile/App.tsx (NavigationContainer DarkTheme, 4-tab navigator, LeadsStack nested navigator)
 - TypeCheck: 0 errors
+US-039 abgeschlossen. Commit `4743df5`.
+
+**Was erstellt:**
+- `fpz-leadfinder-mobile/` — Expo blank-typescript Projekt via `create-expo-app`
+- Navigation installiert: `@react-navigation/native`, `bottom-tabs`, `native-stack`, `react-native-screens`, `react-native-safe-area-context`, `@expo/vector-icons`
+- `App.tsx` — `NavigationContainer` mit `DarkTheme`, 4-Tab-Navigator (Dashboard/Leads/Scan/Einstellungen), `LeadsStack` mit LeadsList + LeadDetail
+- `src/lib/api.ts` — `apiFetch<T>()` Helper
+- `src/screens/` — 5 Placeholder-Screens (Dashboard, LeadsList, LeadDetail, Scan, Settings)
+- TypeCheck: 0 Fehler
+--- Iteration 42 started at 14:03:48 ---
+
+## US-040: Android App — Dashboard Screen — DONE
+- Modified: fpz-leadfinder-mobile/src/screens/DashboardScreen.tsx (vollständige Implementierung mit FlatList, 4 StatCards, Pull-to-Refresh, Loading/Error States)
+- Created: fpz-leadfinder/src/app/api/dashboard/route.ts (GET /api/dashboard — stats + recentLeads)
+- TypeCheck: 0 Fehler (beide Projekte)
