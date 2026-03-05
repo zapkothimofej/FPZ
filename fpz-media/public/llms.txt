@@ -1,0 +1,77 @@
+# FPZ Media — llms.txt
+# Full-Service Digitalagentur im Ruhrgebiet
+# https://fpz-media.de
+
+## Über FPZ Media
+
+FPZ Media ist eine Full-Service Digitalagentur für lokale Unternehmen im Ruhrgebiet (Nordrhein-Westfalen, Deutschland). Wir bieten Webentwicklung, Medienproduktion und Workflow-Automatisierung aus einer Hand.
+
+Inhaber: Stevan Frei
+Standort: Waltrop, 45731, Nordrhein-Westfalen, Deutschland
+Servicegebiet: Ruhrgebiet (50 km Radius), NRW, deutschlandweit
+Kontakt: hallo@fpz-media.de
+
+## Leistungen
+
+### Webentwicklung
+Maßgeschneiderte Websites mit Next.js, React und Tailwind CSS. Optimiert für Performance, SEO und Core Web Vitals. Mobile-First, barrierearm. Preise ab 699 €.
+
+### Medienproduktion
+Professionelle Fotografie und Videografie für Marken und lokale Unternehmen. Imagefilme, Social-Media-Reels, Produktfotografie, Drohnenaufnahmen, Postproduktion.
+
+### Automation (n8n)
+Workflow-Automatisierung mit n8n: Kontaktformular-zu-CRM, Lead-Generierung, E-Mail-Sequenzen, WhatsApp-Integrationen, automatische Reporting-Workflows.
+
+## Pakete & Preise
+
+- **Starter** (699 €): One-Page-Website, Mobile Optimierung, Kontaktformular, Basis-SEO, Deployment
+- **Professional** (1.500 €): Mehrseitige Website, Fotoshooting, Markenvideo, erweitertes SEO, n8n Lead Automation
+- **Complete** (2.000 €): Alles aus Professional + individuelle Automations, Drohnenaufnahmen, 30 Tage Prioritätssupport
+
+## Referenzen (Auswahl)
+
+- **Handwerk Digital**: Website + Imagefilm + n8n Automation → +70% Anfragen, Top-3 Google-Ranking (2024)
+- **Restaurant Kampagne**: 6 Reels/Monat + automatisches Social-Media-Posting → 4× Reichweite, +340 Follower (2024)
+- **Einzelhandel Launch**: Shopify-Shop + vollständig automatisierte Bestell- und Lagerprozesse → Launch in 3 Wochen (2025)
+- **Lokale Brand Identity**: Logo, Website, 90-Sekunden-Imagefilm → +40% Anfragen, −35% Absprungrate (2024)
+- **Fitness Studio**: Buchungsportal + SMS/Mail-Automatisierung für 450 Mitglieder → +35% Buchungen, −60% No-Shows (2025)
+- **Immobilien Portal**: Listing-Website + automatischer PDF-Exposé-Versand → Ø 12 Tage Verkaufszeit (2025)
+
+## Technologie-Stack
+
+- Frontend: Next.js 16, React 19, TypeScript, Tailwind CSS v4
+- Animation: GSAP, Three.js / React Three Fiber
+- Automation: n8n (Open-Source Workflow Platform)
+- Hosting: Vercel
+
+## Prozess
+
+1. **Verstehen** — Kostenlose Erstberatung, Zieldefinition
+2. **Design** — Transparente Iteration, Freigabe durch den Kunden
+3. **Bauen** — Sauberer Code mit modernen Tools, keine Page Builder
+4. **Launch** — Deployment, Domain-Setup, Go-Live-Support
+
+## Häufige Fragen
+
+**Was kostet eine Website?** Starter ab 699 €, Professional 1.500 €, Complete 2.000 €.
+**Wie lange dauert ein Projekt?** One-Pager: 1–2 Wochen. Mehrseitig mit Medien: 2–4 Wochen.
+**Wo ist FPZ Media?** Waltrop, Ruhrgebiet, NRW. Projekte deutschlandweit möglich.
+**Welche Technologien?** Next.js, React, Tailwind, n8n für Automation.
+**Was ist n8n?** Open-Source-Plattform zur Workflow-Automatisierung — für Leads, CRM, E-Mail und mehr.
+
+## Social Media
+
+- Instagram: https://instagram.com/fpzmedia
+- LinkedIn: https://linkedin.com/company/fpzmedia
+
+## Sitemap
+
+- https://fpz-media.de — Startseite
+- https://fpz-media.de/portfolio/handwerk-digital
+- https://fpz-media.de/portfolio/restaurant-kampagne
+- https://fpz-media.de/portfolio/einzelhandel-launch
+- https://fpz-media.de/portfolio/lokale-brand-identity
+- https://fpz-media.de/portfolio/fitness-studio
+- https://fpz-media.de/portfolio/immobilien-portal
+- https://fpz-media.de/impressum
+- https://fpz-media.de/datenschutz

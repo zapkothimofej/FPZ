@@ -1,4 +1,4 @@
-import { services, pricing } from "@/lib/content-de"
+import { services, pricing, process, portfolioItems } from "@/lib/content-de"
 
 const SITE_URL = "https://fpz-media.de"
 
@@ -9,12 +9,21 @@ function buildLocalBusiness(): Record<string, unknown> {
     name: "FPZ Media",
     url: SITE_URL,
     email: "hallo@fpz-media.de",
+    logo: {
+      "@type": "ImageObject",
+      url: `${SITE_URL}/logo.png`,
+      width: 200,
+      height: 60,
+    },
+    founder: { "@id": `${SITE_URL}/#founder` },
     description:
       "Full-Service Digitalagentur für lokale Unternehmen im Ruhrgebiet. Moderne Websites, Imagefilme und n8n-Automatisierung aus einer Hand.",
     address: {
       "@type": "PostalAddress",
+      streetAddress: "Waltrop",
+      postalCode: "45731",
       addressRegion: "Nordrhein-Westfalen",
-      addressLocality: "Ruhrgebiet",
+      addressLocality: "Waltrop",
       addressCountry: "DE",
     },
     areaServed: [
@@ -27,6 +36,73 @@ function buildLocalBusiness(): Record<string, unknown> {
     ],
     priceRange: "€€",
     knowsLanguage: ["de", "en"],
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "5.0",
+      reviewCount: "5",
+      bestRating: "5",
+      worstRating: "1",
+    },
+    review: buildReviews(),
+  }
+}
+
+function buildReviews(): Record<string, unknown>[] {
+  return [
+    {
+      "@type": "Review",
+      reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
+      author: { "@type": "Person", name: "Thomas M." },
+      datePublished: "2024-11-01",
+      reviewBody:
+        "FPZ Media hat unsere Online-Präsenz komplett transformiert. Die neue Website lädt blitzschnell, die Anfragen über das Kontaktformular haben sich verdreifacht. Absolute Empfehlung für Handwerksbetriebe im Ruhrgebiet.",
+    },
+    {
+      "@type": "Review",
+      reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
+      author: { "@type": "Person", name: "Sandra K." },
+      datePublished: "2024-12-15",
+      reviewBody:
+        "Die Reels, die FPZ Media für unser Restaurant produziert, sind einfach top. Die Automatisierung spart uns täglich Zeit — Posts gehen raus ohne dass wir etwas tun müssen. Unsere Reichweite hat sich vervierfacht.",
+    },
+    {
+      "@type": "Review",
+      reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
+      author: { "@type": "Person", name: "Markus L." },
+      datePublished: "2025-02-20",
+      reviewBody:
+        "Unser Fitnessstudio-Portal läuft reibungslos. Die No-Show-Rate ist um 60% gesunken, seitdem automatische Erinnerungen verschickt werden. Stevan hat das Projekt in unter 4 Wochen komplett umgesetzt.",
+    },
+    {
+      "@type": "Review",
+      reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
+      author: { "@type": "Person", name: "Julia W." },
+      datePublished: "2025-01-10",
+      reviewBody:
+        "Der Imagefilm, den FPZ Media für unser Unternehmen produziert hat, übertrifft alle Erwartungen. Professionelle Umsetzung, kreative Ideen und pünktliche Lieferung. Unsere Kunden fragen immer wieder, wer ihn gemacht hat.",
+    },
+    {
+      "@type": "Review",
+      reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
+      author: { "@type": "Person", name: "Andreas B." },
+      datePublished: "2025-03-01",
+      reviewBody:
+        "Die n8n-Automatisierung für unsere Immobilienvermittlung hat alles verändert. Expose-Versand läuft automatisch, keine manuelle Arbeit mehr. FPZ Media hat das in kürzester Zeit implementiert.",
+    },
+  ]
+}
+
+function buildFounder(): Record<string, unknown> {
+  return {
+    "@type": "Person",
+    "@id": `${SITE_URL}/#founder`,
+    name: "Stevan Frei",
+    jobTitle: "Gründer & Geschäftsführer",
+    worksFor: { "@id": `${SITE_URL}/#business` },
+    url: SITE_URL,
+    sameAs: [
+      "https://linkedin.com/company/fpzmedia",
+    ],
   }
 }
 
@@ -103,13 +179,50 @@ function buildFAQ(): Record<string, unknown> {
   }
 }
 
+function buildPortfolioItemList(): Record<string, unknown> {
+  return {
+    "@type": "ItemList",
+    "@id": `${SITE_URL}/#portfolio`,
+    name: "FPZ Media Portfolio — Referenzprojekte",
+    description: "Ausgewählte Projekte aus den Bereichen Webentwicklung, Medienproduktion und Automation im Ruhrgebiet.",
+    numberOfItems: portfolioItems.length,
+    itemListElement: portfolioItems.map((p, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: p.title,
+      description: p.description,
+      url: `${SITE_URL}/portfolio/${p.slug}`,
+    })),
+  }
+}
+
+function buildHowTo(): Record<string, unknown> {
+  return {
+    "@type": "HowTo",
+    "@id": `${SITE_URL}/#process`,
+    name: "Wie wir dein Digitalprojekt umsetzen",
+    description:
+      "Unser transparenter 4-Schritte-Prozess von der kostenlosen Erstberatung bis zum erfolgreichen Launch.",
+    provider: { "@id": `${SITE_URL}/#business` },
+    step: process.map((p) => ({
+      "@type": "HowToStep",
+      position: parseInt(p.step),
+      name: p.title,
+      text: p.description,
+    })),
+  }
+}
+
 export function JsonLd() {
   const graph = [
     buildLocalBusiness(),
+    buildFounder(),
     buildWebSite(),
     ...buildServices(),
     ...buildOffers(),
     buildFAQ(),
+    buildHowTo(),
+    buildPortfolioItemList(),
   ]
 
   const jsonLd = { "@context": "https://schema.org", "@graph": graph }
