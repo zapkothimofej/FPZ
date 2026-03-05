@@ -758,8 +758,8 @@
         "Typecheck passes"
       ],
       "priority": 38,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "KeyboardShortcuts.tsx + ShortcutHelpDialog.tsx erstellt, in layout.tsx eingebunden. g+d/l/s/e Navigation, / Suche, n Lead-Dialog, ? Hilfe, Esc Schliessen."
     },
     {
       "id": "US-039",

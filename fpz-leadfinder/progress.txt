@@ -513,3 +513,15 @@ Failed to authenticate. API Error: 401 {"type":"error","error":{"type":"authenti
 - Modified: src/app/leads/page.tsx (AddLeadDialog oben rechts im Header integriert)
 - createLead Server Action war bereits aus US-036 vorhanden
 - TypeCheck: 0 Fehler
+US-037 abgeschlossen.
+
+- `AddLeadDialog.tsx` erstellt mit vollständigem Formular (11 Felder), Client-side Validierung, `useTransition`, Toast + Navigation
+- In `leads/page.tsx` oben rechts integriert
+- TypeCheck: 0 Fehler, Commit: `56f4335`
+--- Iteration 40 started at 13:58:42 ---
+
+## US-038: Keyboard Shortcuts — DONE
+- Created: src/components/shared/KeyboardShortcuts.tsx (useEffect keydown, g+d/l/s/e Navigation, / Suche, n open-add-lead Event, ? Hilfe, Esc)
+- Created: src/components/shared/ShortcutHelpDialog.tsx (shadcn Dialog, Shortcuts-Tabelle)
+- Modified: src/app/layout.tsx (KeyboardShortcuts eingebunden)
+- TypeCheck: 0 Fehler

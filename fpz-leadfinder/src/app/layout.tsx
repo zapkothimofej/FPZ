@@ -8,6 +8,7 @@ import { MobileNav } from "@/components/shared/MobileNav";
 import { TopBar } from "@/components/shared/TopBar";
 import { MainContent } from "@/components/shared/MainContent";
 import { Toaster } from "sonner";
+import { KeyboardShortcuts } from "@/components/shared/KeyboardShortcuts";
 
 const geist = Geist({ subsets: ["latin"] });
 
@@ -40,6 +41,7 @@ export default function RootLayout({
           <MobileNav />
         </SidebarProvider>
         <Toaster position="bottom-right" theme="dark" richColors />
+        <KeyboardShortcuts />
       </body>
     </html>
   );
