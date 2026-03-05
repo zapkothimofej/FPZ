@@ -46,7 +46,7 @@ export function Sidebar() {
     <TooltipProvider delayDuration={0}>
       <aside
         className={cn(
-          "fixed left-0 top-0 h-screen z-40 hidden md:flex flex-col",
+          "fixed left-0 top-0 h-screen z-40 hidden lg:flex flex-col",
           "bg-zinc-900 border-r border-zinc-800 transition-all duration-300"
         )}
         style={{ width: collapsed ? 64 : 256 }}

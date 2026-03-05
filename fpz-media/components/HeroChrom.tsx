@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef, useEffect } from "react"
+import { useRef, useEffect, Component, ReactNode } from "react"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import dynamic from "next/dynamic"
@@ -10,6 +10,33 @@ const ChromeSphere = dynamic(
   () => import("@/components/ChromeSphere").then((m) => m.ChromeSphere),
   { ssr: false }
 )
+
+// Minimal error boundary — catches WebGL/Three.js runtime errors so the hero
+// never goes blank. Falls back to the same background gradient as the page.
+class SphereBoundary extends Component<
+  { children: ReactNode },
+  { failed: boolean }
+> {
+  state = { failed: false }
+  static getDerivedStateFromError() {
+    return { failed: true }
+  }
+  render() {
+    if (this.state.failed) {
+      return (
+        <div
+          aria-hidden="true"
+          style={{
+            position: "absolute",
+            inset: 0,
+            background: "radial-gradient(ellipse at 70% 50%, #1a1a2e 0%, #0a0a0a 70%)",
+          }}
+        />
+      )
+    }
+    return this.props.children
+  }
+}
 
 const MARQUEE_TEXT = "WEBENTWICKLUNG · MEDIENPRODUKTION · AUTOMATION · RUHRGEBIET · "
 
@@ -62,7 +89,9 @@ export function HeroChrom() {
         className="absolute inset-0 z-0 pointer-events-none"
         style={{ animation: "sphere-fadein 1.2s ease 0.4s both" }}
       >
-        <ChromeSphere scrollRef={scrollRef} />
+        <SphereBoundary>
+          <ChromeSphere scrollRef={scrollRef} />
+        </SphereBoundary>
       </div>
       <style>{`
         @keyframes sphere-fadein { from { opacity: 0; } to { opacity: 1; } }

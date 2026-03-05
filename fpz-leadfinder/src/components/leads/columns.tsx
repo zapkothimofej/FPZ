@@ -3,6 +3,7 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import type { Lead, WebsiteAnalysis } from "@/generated/prisma/client";
 import { Badge } from "@/components/ui/badge";
+import { Checkbox } from "@/components/ui/checkbox";
 import { ExternalLink, ArrowUpDown } from "lucide-react";
 import { cn, formatDate, getScoreColorClass, getScoreBgClass } from "@/lib/utils";
 import { STATUS_CONFIG } from "@/lib/constants";
@@ -14,6 +15,23 @@ export type LeadRow = Lead & {
 };
 
 export const columns: ColumnDef<LeadRow>[] = [
+  {
+    id: "select",
+    header: ({ table }) => (
+      <Checkbox
+        checked={table.getIsAllPageRowsSelected()}
+        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+      />
+    ),
+    cell: ({ row }) => (
+      <Checkbox
+        checked={row.getIsSelected()}
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        onClick={(e) => e.stopPropagation()}
+      />
+    ),
+    enableSorting: false,
+  },
   {
     accessorKey: "name",
     header: ({ column }) => (

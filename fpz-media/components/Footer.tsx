@@ -1,15 +1,9 @@
 import { Logo } from "@/components/shared/Logo"
+import { NAV_LINKS_FOOTER as NAV_LINKS } from "@/lib/navigation"
 
-const NAV_LINKS = [
-  { label: "Leistungen", href: "#services" },
-  { label: "Prozess", href: "#process" },
-  { label: "Portfolio", href: "#portfolio" },
-  { label: "Preise", href: "#pricing" },
-  { label: "Kontakt", href: "#contact" },
-]
+const CURRENT_YEAR = new Date().getFullYear()
 
 export function Footer() {
-  const year = new Date().getFullYear()
 
   return (
     <footer
@@ -47,7 +41,7 @@ export function Footer() {
             className="text-[12px]"
             style={{ color: "var(--v6-text-muted)", fontFamily: "var(--font-body)" }}
           >
-            &copy; {year} FPZ Media. Alle Rechte vorbehalten. Ruhrgebiet, Deutschland.
+            &copy; {CURRENT_YEAR} FPZ Media. Alle Rechte vorbehalten. Ruhrgebiet, Deutschland.
           </p>
 
           <div className="flex gap-6">

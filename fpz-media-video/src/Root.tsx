@@ -1,13 +1,31 @@
+import React from "react";
 import { Composition } from "remotion";
-import { FPZVideo } from "./Video";
-import "./tokens";
+import { VideoC1 } from "./VideoC1";
+import { VideoC2 } from "./VideoC2";
+import { VideoC3 } from "./VideoC3";
 
-export const RemotionRoot = () => (
+export const RemotionRoot = (): React.ReactElement => (
   <>
     <Composition
-      id="FPZMediaAd"
-      component={FPZVideo}
+      id="FPZCinematic"
+      component={VideoC1}
       durationInFrames={1800}
+      fps={60}
+      width={1920}
+      height={1080}
+    />
+    <Composition
+      id="FPZClean"
+      component={VideoC2}
+      durationInFrames={900}
+      fps={60}
+      width={1920}
+      height={1080}
+    />
+    <Composition
+      id="FPZMotion"
+      component={VideoC3}
+      durationInFrames={900}
       fps={60}
       width={1920}
       height={1080}

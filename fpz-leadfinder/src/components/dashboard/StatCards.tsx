@@ -46,13 +46,14 @@ export async function StatCards() {
   const stats = await getDashboardStats();
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-      {CARDS.map((card) => {
+    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+      {CARDS.map((card, index) => {
         const stat = stats[card.key];
         const Icon = card.icon;
 
         return (
-          <Card key={card.key} className="bg-zinc-900 border-zinc-800">
+          <div key={card.key} className="animate-fade-in" style={{ animationDelay: `${index * 50}ms` }}>
+          <Card className="bg-zinc-900 border-zinc-800 hover:border-zinc-700 transition-colors">
             <CardContent className="p-6">
               <div className="flex items-center gap-2 text-sm text-zinc-400">
                 <Icon className="h-4 w-4" />
@@ -64,6 +65,7 @@ export async function StatCards() {
               <TrendIndicator trend={stat.trend} />
             </CardContent>
           </Card>
+          </div>
         );
       })}
     </div>

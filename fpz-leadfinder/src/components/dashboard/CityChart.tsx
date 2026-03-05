@@ -18,7 +18,8 @@ export function CityChart({ data }: CityChartProps) {
   const router = useRouter();
 
   return (
-    <ResponsiveContainer width="100%" height={350}>
+    <div className="h-[250px] sm:h-[300px] lg:h-[350px]">
+    <ResponsiveContainer width="100%" height="100%">
       <BarChart
         data={data}
         layout="vertical"
@@ -64,5 +65,6 @@ export function CityChart({ data }: CityChartProps) {
         />
       </BarChart>
     </ResponsiveContainer>
+    </div>
   );
 }

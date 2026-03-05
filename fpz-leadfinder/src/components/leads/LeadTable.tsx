@@ -7,6 +7,7 @@ import {
   flexRender,
   type SortingState,
   type PaginationState,
+  type RowSelectionState,
 } from "@tanstack/react-table";
 import { columns, type LeadRow } from "./columns";
 import {
@@ -29,6 +30,8 @@ interface LeadTableProps {
   onPaginationChange: (page: number) => void;
   onSortingChange: (sorting: SortingState) => void;
   sorting: SortingState;
+  rowSelection: RowSelectionState;
+  onRowSelectionChange: (selection: RowSelectionState) => void;
 }
 
 export function LeadTable({
@@ -40,6 +43,8 @@ export function LeadTable({
   onPaginationChange,
   onSortingChange,
   sorting,
+  rowSelection,
+  onRowSelectionChange,
 }: LeadTableProps) {
   const router = useRouter();
 
@@ -54,19 +59,29 @@ export function LeadTable({
     state: {
       sorting,
       pagination,
+      rowSelection,
     },
     onSortingChange: (updater) => {
       const next = typeof updater === "function" ? updater(sorting) : updater;
       onSortingChange(next);
     },
+    onRowSelectionChange: (updater) => {
+      const next =
+        typeof updater === "function" ? updater(rowSelection) : updater;
+      onRowSelectionChange(next);
+    },
     getCoreRowModel: getCoreRowModel(),
     manualSorting: true,
     manualPagination: true,
     pageCount: totalPages,
+    enableRowSelection: true,
+    getRowId: (row) => row.id,
   });
 
   return (
     <div className="space-y-4">
+      <div className="overflow-x-auto -mx-4 sm:mx-0">
+      <div className="min-w-[600px] sm:min-w-0">
       <div className="rounded-lg border border-zinc-800 bg-zinc-900/50">
         <Table>
           <TableHeader>
@@ -89,6 +104,7 @@ export function LeadTable({
                   key={row.id}
                   className="border-zinc-800 cursor-pointer hover:bg-zinc-800/50 transition-colors"
                   onClick={() => router.push(`/leads/${row.original.id}`)}
+                  data-state={row.getIsSelected() ? "selected" : undefined}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
@@ -106,6 +122,8 @@ export function LeadTable({
             )}
           </TableBody>
         </Table>
+      </div>
+      </div>
       </div>
 
       <div className="flex items-center justify-between px-2">

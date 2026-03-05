@@ -502,8 +502,8 @@
         "Typecheck passes"
       ],
       "priority": 23,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "Erstellt: design.ts (6 Checks: Viewport/Tables/Flash/InlineStyles/ModernCSS/WebFonts), age.ts (4 Checks: Copyright/LastModified/Generator/Wayback), content.ts (KI via @/lib/ai mit Heuristik-Fallback). Stub src/lib/ai.ts erstellt (vollständige Impl. folgt US-025)."
     },
     {
       "id": "US-024",
@@ -517,8 +517,8 @@
         "Typecheck passes"
       ],
       "priority": 24,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "Scoring-Funktion, Analyse-Orchestrierung (alle 7 Analyzer parallel), POST /api/analyze und POST /api/analyze/batch implementiert"
     },
     {
       "id": "US-025",
@@ -531,8 +531,8 @@
         "Typecheck passes"
       ],
       "priority": 25,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "Erstellt: src/lib/ai/groq.ts (Groq Client mit RateLimitError, Singleton), src/lib/ai/huggingface.ts (HF Fallback via fetch), src/lib/ai/index.ts (generateText mit 3-stufigem Retry). Stub src/lib/ai.ts geloescht. TypeCheck: 0 Fehler."
     },
     {
       "id": "US-026",
@@ -546,8 +546,8 @@
         "Typecheck passes"
       ],
       "priority": 26,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "src/lib/ai/briefing.ts erstellt (generateBriefing mit System-Prompt, JSON-Parsing, Validation). src/app/api/briefing/generate/route.ts ersetzt Stub mit vollständiger Implementierung (POST, Prisma upsert). TypeCheck: 0 Fehler."
     },
     {
       "id": "US-027",
@@ -563,8 +563,8 @@
         "Typecheck passes"
       ],
       "priority": 27,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "generateSalesScript() in src/lib/ai/script.ts + POST /api/script/generate route implementiert"
     },
     {
       "id": "US-028",
@@ -577,8 +577,8 @@
         "Typecheck passes"
       ],
       "priority": 28,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "GET /api/cron route mit Bearer-Auth, Scan, Analyse und Briefing-Generierung. vercel.json mit Cron-Schedule 0 3 * * *."
     },
     {
       "id": "US-029",
@@ -598,8 +598,8 @@
         "Verify in browser using dev-browser skill"
       ],
       "priority": 29,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "generateLeadPDF (4 Seiten: Deckblatt, Kontakt+Scores, Briefing, Skript) + GET /api/export/pdf/[leadId] Route"
     },
     {
       "id": "US-030",
@@ -612,8 +612,8 @@
         "Verify in browser using dev-browser skill"
       ],
       "priority": 30,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "generateLeadCSV (UTF-8 BOM, Semikolon-Delimiter, escapeCSV) + GET /api/export/csv mit allen Filtern (city/category/status/score/search/ids)"
     },
     {
       "id": "US-031",
@@ -631,8 +631,8 @@
         "Verify in browser using dev-browser skill"
       ],
       "priority": 31,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "Erstellt: src/app/scan/page.tsx (Server Component, ScanLog History) + src/components/scan/ScanForm.tsx (Client Component, Stadt-Auswahl, Polling, Fortschritt, Ergebnis-Card). TypeCheck: 0 Fehler."
     },
     {
       "id": "US-032",
@@ -650,8 +650,8 @@
         "Verify in browser using dev-browser skill"
       ],
       "priority": 32,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "Settings page with API key management, default cities, scoring weights, and stats. Server Action for upsert."
     },
     {
       "id": "US-033",
@@ -664,8 +664,8 @@
         "Typecheck passes"
       ],
       "priority": 33,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "Alle Toast-Aufrufe waren bereits aus vorherigen Iterationen vorhanden: Toaster in layout.tsx (US-004), StatusDropdown, LeadNotes, BriefingView, ScriptView, ScanForm, SettingsForm, ExportSection, LeadDetailActions alle mit korrekten toast.success/error/info-Aufrufen. TypeCheck: 0 Fehler."
     },
     {
       "id": "US-034",
@@ -685,8 +685,8 @@
         "Typecheck passes"
       ],
       "priority": 34,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "prisma/seed.ts erstellt mit 50 Leads, 10 WebsiteAnalysis, 5 Briefings, 3 SalesScripts, 2 ScanLogs, 1 Settings. Import via ../src/generated/prisma/client mit PrismaLibSql Adapter. npm run db:seed läuft fehlerfrei."
     },
     {
       "id": "US-035",
@@ -705,8 +705,8 @@
         "Verify in browser using dev-browser skill"
       ],
       "priority": 35,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "8 Dateien erstellt: error.tsx, not-found.tsx, loading.tsx (root), leads/loading.tsx, leads/[id]/loading.tsx, leads/[id]/error.tsx, scan/loading.tsx, settings/loading.tsx. TypeCheck: 0 Fehler."
     },
     {
       "id": "US-036",
@@ -723,8 +723,8 @@
         "Verify in browser using dev-browser skill"
       ],
       "priority": 36,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "actions.ts (bulkUpdateStatus, bulkDelete, createLead), columns.tsx (Checkbox-Spalte bereits vorhanden), BulkActions.tsx (fixed bottom bar mit Status/Analyse/CSV/Delete), LeadListClient.tsx + LeadTable.tsx (rowSelection integration)"
     },
     {
       "id": "US-037",
@@ -741,8 +741,8 @@
         "Verify in browser using dev-browser skill"
       ],
       "priority": 37,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "AddLeadDialog.tsx erstellt mit Client-side Validierung, createLead Server Action, Toast + Navigation zu neuem Lead. In leads/page.tsx oben rechts integriert."
     },
     {
       "id": "US-038",
@@ -758,8 +758,8 @@
         "Typecheck passes"
       ],
       "priority": 38,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "KeyboardShortcuts.tsx + ShortcutHelpDialog.tsx erstellt, in layout.tsx eingebunden. g+d/l/s/e Navigation, / Suche, n Lead-Dialog, ? Hilfe, Esc Schliessen."
     },
     {
       "id": "US-039",
@@ -777,8 +777,8 @@
         "Typecheck passes"
       ],
       "priority": 39,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "Expo project created at D:/FPZ/fpz-leadfinder-mobile with blank-typescript template. Navigation installed (@react-navigation/native, bottom-tabs, native-stack). App.tsx with DarkTheme NavigationContainer, 4-tab navigator (Dashboard/Leads/Scan/Einstellungen), LeadsStack nested navigator. Placeholder screens for all 5 screens. src/lib/api.ts with apiFetch. TypeCheck: 0 errors."
     },
     {
       "id": "US-040",
@@ -795,8 +795,8 @@
         "Typecheck passes"
       ],
       "priority": 40,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "DashboardScreen.tsx mit FlatList, 4 StatCards, Pull-to-Refresh, Loading/Error States implementiert. Dazu /api/dashboard Route im Next.js Backend erstellt."
     },
     {
       "id": "US-041",
@@ -814,8 +814,8 @@
         "Typecheck passes"
       ],
       "priority": 41,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "LeadsListScreen: FlatList mit Suche (debounced), Infinite Scroll, Score/Status-Farbkodierung, Navigation zu LeadDetail. LeadDetailScreen: ScrollView mit Header, Status-Chips, Kontakt-Buttons, 4 Tabs (Info/Scores/Briefing/Skript), ScoreBar-Komponente, Status-PATCH via API."
     },
     {
       "id": "US-042",
@@ -829,8 +829,8 @@
         "Typecheck passes"
       ],
       "priority": 42,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "ScanScreen mit Stadt-Chips, Alle-Toggle, Scan-Button mit ActivityIndicator, Ergebnis-/Fehlerkarte. SettingsScreen mit AsyncStorage-Persistenz, API-URL + API-Key-Felder (secureTextEntry), Speichern-Button. @react-native-async-storage/async-storage installiert."
     },
     {
       "id": "US-043",
@@ -844,8 +844,8 @@
         "Typecheck passes"
       ],
       "priority": 43,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "dashboard/route.ts mit direkten Prisma-Queries + CORS; leads/[id]/route.ts GET+PATCH+OPTIONS; leads/route.ts CORS ergänzt"
     },
     {
       "id": "US-044",
@@ -865,8 +865,8 @@
         "Verify in browser using dev-browser skill"
       ],
       "priority": 44,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "globals.css: fadeIn/slideUp/scaleIn keyframes + @layer utilities + focus-visible + smooth transitions + scrollbar. StatCards: grid-cols-2 lg:grid-cols-4 + animate-fade-in per card mit delay. CityChart: responsive height wrapper. LeadTable: overflow-x-auto mobile wrapper. LeadDetail page: animate-slide-up. Sidebar: hidden lg:flex (lg statt md). BulkActions: responsive fixed bar (full-width mobile, centered desktop)."
     },
     {
       "id": "US-045",

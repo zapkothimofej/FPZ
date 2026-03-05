@@ -60,7 +60,7 @@ export default async function LeadDetailPage({
   const defaultTab = lead.analysis ? "analyse" : "analyse";
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 animate-slide-up">
       <Link
         href="/leads"
         className="inline-flex items-center gap-1 text-sm text-zinc-400 hover:text-zinc-200 transition-colors mb-4"

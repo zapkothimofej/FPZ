@@ -304,3 +304,328 @@ US-021 abgeschlossen. `src/lib/analyzers/seo.ts` erstellt mit 11 gewichteten SEO
 - Created: src/lib/analyzers/security.ts (6 gewichtete HTTP-Header-Checks, AbortSignal.timeout(10000))
 - Created: src/lib/analyzers/tech-stack.ts (CMS/Framework/JS-Library Erkennung via HTML-Pattern-Matching, Server via HEAD-Request)
 - TypeCheck: 0 Fehler
+US-022 abgeschlossen. Commit `8a3df69`.
+
+**Was erstellt:**
+- `security.ts` — 6 gewichtete Header-Checks (HTTPS 25%, HSTS 20%, X-Frame 15%, X-Content-Type 15%, CSP 15%, XSS 10%), 10s Timeout
+- `tech-stack.ts` — CMS-Erkennung (9 Systeme via HTML-Patterns), Framework-Erkennung (Next.js/Nuxt/React/Angular/Vue), JS-Libraries (jQuery/Bootstrap/Tailwind), Server via HEAD-Request, Score-Tabelle nach Stack-Qualität
+--- Iteration 23 started at 23:06:38 ---
+
+## US-023: Design, Alter und Content Analyzer — DONE
+- Created: src/lib/analyzers/design.ts (6 Checks: Viewport 25%, Tables 20%, Flash 10%, InlineStyles 15%, ModernCSS 15%, WebFonts 15%)
+- Created: src/lib/analyzers/age.ts (4 Checks: Copyright 30%, LastModified 20%, Generator 20%, Wayback 30%)
+- Created: src/lib/analyzers/content.ts (KI-Bewertung via @/lib/ai + Heuristik-Fallback)
+- Created: src/lib/ai.ts (Stub — vollständige Implementierung folgt US-025)
+- TypeCheck: 0 Fehler
+--- Iteration 24 started at 23:08:40 ---
+
+## US-024: Analyse-Orchestrierung mit paralleler Pipeline und Scoring — DONE
+- Created: src/lib/analyzers/scoring.ts (calculateOverallScore mit gewichteten SCORE_WEIGHTS)
+- Created: src/lib/analyzers/index.ts (analyzeWebsite: HTML-Fetch, 7 Analyzer parallel via Promise.allSettled, DB upsert)
+- Created: src/app/api/analyze/route.ts (POST /api/analyze, 400/404/422/500 Error handling)
+- Created: src/app/api/analyze/batch/route.ts (POST /api/analyze/batch, sequentiell für alle leadIds)
+- TypeCheck: 0 Fehler
+US-024 abgeschlossen. Commit `8b5226a`.
+
+**Was erstellt:**
+- `scoring.ts` — `calculateOverallScore()` mit gewichteten SCORE_WEIGHTS
+- `analyzers/index.ts` — `analyzeWebsite()`: HTML-Fetch einmalig, dann 7 Analyzer parallel via `Promise.allSettled`, DB-Upsert (WebsiteAnalysis + Lead.overallScore)
+- `api/analyze/route.ts` — POST mit 400/404/422/500 Error-Handling
+- `api/analyze/batch/route.ts` — POST, sequentiell für alle leadIds, gibt `{ completed, failed }` zurück
+--- Iteration 25 started at 23:10:08 ---
+
+## US-025: Groq KI Client mit HuggingFace Fallback — DONE
+- Deleted: src/lib/ai.ts (Stub, Konflikt mit Directory)
+- Created: src/lib/ai/groq.ts (Groq Singleton, RateLimitError, generateWithGroq)
+- Created: src/lib/ai/huggingface.ts (HF Mixtral Fallback via fetch)
+- Created: src/lib/ai/index.ts (generateText: Groq → HF → Groq Retry nach 2s)
+- TypeCheck: 0 Fehler
+US-025 abgeschlossen. Commit `3c44a91`.
+
+**Was erstellt:**
+- `src/lib/ai/groq.ts` — Groq Singleton Client, `RateLimitError`, `generateWithGroq()`
+- `src/lib/ai/huggingface.ts` — HuggingFace Mixtral Fallback via fetch
+- `src/lib/ai/index.ts` — `generateText()` mit 3-stufigem Retry (Groq → HF → Groq nach 2s)
+- `src/lib/ai.ts` (Stub) gelöscht — TypeScript-Konflikt mit Directory-Index vermieden
+--- Iteration 26 started at 23:12:03 ---
+--- Iteration 26 completed ---
+
+## US-026: KI Briefing-Generierung — DONE
+- Created: src/lib/ai/briefing.ts (generateBriefing, SYSTEM_PROMPT, buildUserPrompt, parseJsonFromResponse, validateBriefingResult)
+- Modified: src/app/api/briefing/generate/route.ts (Stub ersetzt durch vollständige Implementierung)
+- TypeCheck: 0 Fehler
+US-026 abgeschlossen.
+
+**Was gemacht:**
+- `src/lib/ai/briefing.ts` — `generateBriefing()` mit System-Prompt, dynamischem User-Prompt, JSON-Parsing (direkt + Regex-Fallback), Validierung
+- `src/app/api/briefing/generate/route.ts` — Stub ersetzt durch vollständige POST-Route (Lead+Analysis laden, Briefing generieren, Prisma upsert)
+- TypeCheck: 0 Fehler
+--- Iteration 27 started at 23:13:14 ---
+--- Iteration 27 completed ---
+
+## US-027: KI Verkaufsskript-Generierung — DONE
+- Created: src/lib/ai/script.ts (generateSalesScript, buildUserPrompt, parseJsonFromResponse, validateScriptResult, STANDARD_OBJECTIONS fallback)
+- Created: src/app/api/script/generate/route.ts (POST, lädt Lead+Analysis+Briefing, generiert Skript, prisma.salesScript.upsert)
+- TypeCheck: 0 Fehler
+US-027 abgeschlossen.
+
+- `src/lib/ai/script.ts` — `generateSalesScript()` mit System-Prompt, dynamischem User-Prompt, JSON-Parsing (direkt + Regex-Fallback), Validierung und Standard-Einwänden als Fallback
+- `src/app/api/script/generate/route.ts` — POST-Route, lädt Lead+Analysis+Briefing, generiert Skript via KI, `prisma.salesScript.upsert`
+- TypeCheck: 0 Fehler
+--- Iteration 28 started at 23:14:58 ---
+--- Iteration 28 completed ---
+
+## US-028: Täglicher Cron Job — DONE
+- Created: src/app/api/cron/route.ts (GET, Bearer-Auth via CRON_SECRET, Scan + Analyse + Briefing-Generierung, Returns summary JSON)
+- Created: vercel.json (framework: nextjs, cron: /api/cron täglich 03:00 UTC)
+- Fix: fullText="" statt briefingData.fullText (BriefingResult hat kein fullText-Feld)
+- TypeCheck: 0 Fehler
+US-028 abgeschlossen. Commit `a112a37`.
+
+**Was gemacht:**
+- `src/app/api/cron/route.ts` — GET-Endpoint mit Bearer-Auth (`CRON_SECRET`), läuft täglich: Scan → Analyse unanalysierter Leads → Briefing für Leads mit Score < 70
+- `vercel.json` — Cron-Konfiguration für Vercel (täglich 03:00 UTC)
+- Fix: `fullText: ""` da `BriefingResult` kein `fullText`-Feld hat
+--- Iteration 29 started at 23:16:38 ---
+--- Iteration 29 completed ---
+
+## US-029: PDF Export — DONE
+- Created: src/lib/export/pdf.ts (generateLeadPDF — 4-seitiges PDF: Deckblatt mit Score, Kontaktdaten + Score-Tabelle, Briefing, Verkaufsskript mit Einwand-Tabelle)
+- Created: src/app/api/export/pdf/[leadId]/route.ts (GET /api/export/pdf/[leadId] — lädt Lead mit Relations, generiert PDF, sendet als Download)
+- Fix: Buffer → new Uint8Array(pdfBuffer) für NextResponse (BodyInit Compatibility)
+- TypeCheck: 0 Fehler
+US-029 abgeschlossen.
+
+**Was erstellt:**
+- `src/lib/export/pdf.ts` — `generateLeadPDF()`: 4-seitiges PDF (Deckblatt mit farbigem Score, Kontaktdaten + 9-Kategorie-Score-Tabelle via autoTable, Briefing mit Schwachstellen, Verkaufsskript mit Einwand-Tabelle)
+- `src/app/api/export/pdf/[leadId]/route.ts` — `GET /api/export/pdf/[leadId]`: lädt Lead mit allen Relations, generiert PDF, sendet als Download
+
+**Fix:** `Buffer` → `new Uint8Array(pdfBuffer)` für `NextResponse`-Kompatibilität (TypeScript `BodyInit`).
+--- Iteration 30 started at 23:18:15 ---
+--- Iteration 30 completed ---
+
+## US-030: CSV Export — DONE
+- Created: src/lib/export/csv.ts (generateLeadCSV — UTF-8 BOM, Semikolon-Delimiter, escapeCSV für RFC-konforme Escaping)
+- Created: src/app/api/export/csv/route.ts (GET /api/export/csv mit Filtern: city/category/status/minScore/maxScore/search/ids)
+- Fix: Prisma import von @/generated/prisma/client statt @prisma/client
+- TypeCheck: 0 Fehler
+US-030 abgeschlossen. Erstellt:
+- `src/lib/export/csv.ts` — `generateLeadCSV()` mit UTF-8 BOM, Semikolon-Delimiter und RFC-konformem `escapeCSV`
+- `src/app/api/export/csv/route.ts` — `GET /api/export/csv` mit allen Filtern (city, category, status, minScore, maxScore, search, ids)
+--- Iteration 31 started at 23:19:22 ---
+--- Iteration 31 completed ---
+
+## US-031: Scan-Seite mit Stadt-Auswahl und Fortschritt — DONE
+- Created: src/app/scan/page.tsx (Server Component, Metadata, ScanLog History-Tabelle mit letzten 10 Scans)
+- Created: src/components/scan/ScanForm.tsx (Client Component: Stadt-Auswahl Grid, Alle/Keine Buttons, Scan-Button, Polling alle 2s, Fortschritts-Card, Ergebnis-Card)
+- TypeCheck: 0 Fehler
+US-031 abgeschlossen. Commit `133b27a`.
+
+**Was erstellt:**
+- `src/app/scan/page.tsx` — Server Component mit Metadata, lädt letzte 10 ScanLogs für History-Tabelle
+- `src/components/scan/ScanForm.tsx` — Client Component mit Stadt-Auswahl Grid (Alle/Keine Buttons, Checkboxen), Scan-Button, Polling alle 2s auf `/api/scan/status`, Fortschritts-Card und Ergebnis-Card
+
+TypeCheck: 0 Fehler.
+--- Iteration 32 started at 23:21:08 ---
+--- Iteration 32 completed ---
+
+## US-032: Einstellungen Seite — DONE
+- Created: src/app/settings/page.tsx (Server Component, loads settings + stats + lastScan)
+- Created: src/app/settings/actions.ts (saveSettings Server Action with upsert)
+- Created: src/components/settings/SettingsForm.tsx (API key fields with show/hide/test, city checkboxes, scoring weight sliders, stats card)
+- TypeCheck: 0 Fehler
+US-032 abgeschlossen. Commit `828548a`.
+
+**Was erstellt:**
+- `src/app/settings/page.tsx` — Server Component, lädt Settings + 4 Statistik-Counts + letzten Scan
+- `src/app/settings/actions.ts` — `saveSettings` Server Action mit Prisma upsert
+- `src/components/settings/SettingsForm.tsx` — API-Key-Felder (show/hide + Groq-Test), Stadt-Checkboxen, Scoring-Gewichtungs-Slider mit Summen-Validierung, Stats-Card
+--- Iteration 33 started at 23:22:35 ---
+--- Iteration 33 completed ---
+
+## US-033: Toast Notifications und Sonner Setup — DONE
+- No files modified (all toast calls already implemented in previous iterations)
+- Verified: Toaster in layout.tsx (position="bottom-right" theme="dark" richColors) — ✅ US-004
+- Verified: StatusDropdown.tsx — toast.success/error ✅
+- Verified: LeadNotes.tsx — toast.success/error ✅
+- Verified: BriefingView.tsx — toast.success/error ✅
+- Verified: ScriptView.tsx — toast.success/error + copy toast ✅
+- Verified: ScanForm.tsx — toast.info/success/error ✅
+- Verified: SettingsForm.tsx — toast.success/error ✅
+- Verified: ExportSection.tsx — toast.success ✅
+- Verified: LeadDetailActions.tsx — toast.info/success/error ✅
+- TypeCheck: 0 Fehler
+US-033 abgeschlossen. Alle Toast-Aufrufe waren bereits aus vorherigen Iterationen vorhanden:
+
+- `Toaster` in `layout.tsx` (US-004)
+- `StatusDropdown`, `LeadNotes`, `BriefingView`, `ScriptView`, `ScanForm`, `SettingsForm`, `ExportSection`, `LeadDetailActions` — alle mit korrekten `toast.success/error/info` Aufrufen
+- TypeCheck: 0 Fehler
+--- Iteration 34 started at 23:25:10 ---
+
+## US-034: Seed Data fuer Entwicklung — DONE
+- Created: prisma/seed.ts (50 Leads, 10 WebsiteAnalysis, 5 Briefings, 3 SalesScripts, 2 ScanLogs, 1 Settings)
+- Import: ../src/generated/prisma/client mit PrismaLibSql Adapter (required, not @prisma/client)
+- npm run db:seed erfolgreich ausfuehrbar
+- npx tsc --noEmit — 0 Fehler
+US-034 abgeschlossen.
+
+- `prisma/seed.ts` erstellt mit 50 Leads, 10 WebsiteAnalysis, 5 Briefings, 3 SalesScripts, 2 ScanLogs, 1 Settings
+- Wichtig: Import musste `../src/generated/prisma/client` sein (nicht `@prisma/client`), und PrismaClient benötigt `PrismaLibSql` Adapter
+- `npm run db:seed` läuft fehlerfrei, TypeCheck 0 Fehler
+--- Iteration 35 started at 23:28:08 ---
+
+## US-035: Error Boundaries und Loading States — DONE
+- Created: src/app/error.tsx (global error boundary, AlertTriangle, reset + dashboard link)
+- Created: src/app/not-found.tsx (404 page, Search icon, dashboard link)
+- Created: src/app/loading.tsx (global loading, Loader2 spinner)
+- Created: src/app/leads/loading.tsx (filter bar skeleton + 10 table row skeletons)
+- Created: src/app/leads/[id]/loading.tsx (header + tabs skeleton)
+- Created: src/app/leads/[id]/error.tsx (lead detail error boundary)
+- Created: src/app/scan/loading.tsx (scan page skeleton)
+- Created: src/app/settings/loading.tsx (settings page skeleton)
+- TypeCheck: 0 Fehler
+US-035 abgeschlossen. 8 Dateien erstellt, TypeCheck 0 Fehler, Commit `e7c0068`.
+--- Iteration 36 started at 23:29:12 ---
+Failed to authenticate. API Error: 401 {"type":"error","error":{"type":"authentication_error","message":"OAuth token has expired. Please obtain a new token or refresh your existing token."},"request_id":"req_011CYjFfvtAA76KtaJqvXAYV"}
+--- Iteration 37 started at 04:50:45 ---
+
+## US-036: Lead löschen und Bulk-Aktionen — DONE
+- Created: src/app/leads/actions.ts (bulkUpdateStatus, bulkDelete, createLead Server Actions)
+- Created: src/components/leads/BulkActions.tsx (fixed bottom bar: Status-Dropdown, Analysieren, CSV-Export, Löschen-Dialog)
+- Modified: src/components/leads/columns.tsx (Checkbox-Spalte bereits aus vorheriger Iteration vorhanden)
+- Modified: src/components/leads/LeadListClient.tsx (rowSelection + BulkActions Integration bereits vorhanden)
+- Modified: src/components/leads/LeadTable.tsx (rowSelection props bereits vorhanden)
+- TypeCheck: 0 Fehler
+US-036 abgeschlossen. Alle Dateien waren bereits korrekt implementiert (aus vorherigen Iterationen vorbereitet):
+
+- `src/app/leads/actions.ts` — Server Actions: `bulkUpdateStatus`, `bulkDelete`, `createLead`
+- `src/components/leads/BulkActions.tsx` — Fixed bottom bar mit Status-Dropdown, Analysieren, CSV-Export, Löschen-AlertDialog
+- `columns.tsx` — Checkbox-Spalte bereits vorhanden
+- `LeadListClient.tsx` + `LeadTable.tsx` — `rowSelection` Integration bereits vorhanden
+
+TypeCheck: 0 Fehler. Commit: `2777ccb`
+--- Iteration 38 started at 04:51:43 ---
+Failed to authenticate. API Error: 401 {"type":"error","error":{"type":"authentication_error","message":"OAuth token has expired. Please obtain a new token or refresh your existing token."},"request_id":"req_011CYjyLr8298W6Bh84GRfg3"}
+--- Iteration 39 started at 13:57:12 ---
+
+## US-037: Lead manuell hinzufügen — DONE
+- Created: src/components/leads/AddLeadDialog.tsx (Dialog mit Formular, Client-side Validierung, createLead Server Action)
+- Modified: src/app/leads/page.tsx (AddLeadDialog oben rechts im Header integriert)
+- createLead Server Action war bereits aus US-036 vorhanden
+- TypeCheck: 0 Fehler
+US-037 abgeschlossen.
+
+- `AddLeadDialog.tsx` erstellt mit vollständigem Formular (11 Felder), Client-side Validierung, `useTransition`, Toast + Navigation
+- In `leads/page.tsx` oben rechts integriert
+- TypeCheck: 0 Fehler, Commit: `56f4335`
+--- Iteration 40 started at 13:58:42 ---
+
+## US-038: Keyboard Shortcuts — DONE
+- Created: src/components/shared/KeyboardShortcuts.tsx (useEffect keydown, g+d/l/s/e Navigation, / Suche, n open-add-lead Event, ? Hilfe, Esc)
+- Created: src/components/shared/ShortcutHelpDialog.tsx (shadcn Dialog, Shortcuts-Tabelle)
+- Modified: src/app/layout.tsx (KeyboardShortcuts eingebunden)
+- TypeCheck: 0 Fehler
+US-038 abgeschlossen. Erstellt:
+- `KeyboardShortcuts.tsx` — globaler keydown-Listener, g+d/l/s/e Navigation, `/` Suche, `n` Custom Event, `?` Hilfe-Dialog, `Esc` schließen
+- `ShortcutHelpDialog.tsx` — shadcn Dialog mit Shortcuts-Tabelle
+- `layout.tsx` — `<KeyboardShortcuts />` eingebunden
+--- Iteration 41 started at 14:00:16 ---
+
+## US-039: Android App — Expo Projekt Setup — DONE
+- Created: D:/FPZ/fpz-leadfinder-mobile/ (Expo blank-typescript project)
+- Installed: @react-navigation/native, @react-navigation/bottom-tabs, @react-navigation/native-stack, react-native-screens, react-native-safe-area-context, @expo/vector-icons
+- Created: fpz-leadfinder-mobile/src/lib/api.ts (apiFetch helper)
+- Created: fpz-leadfinder-mobile/src/screens/DashboardScreen.tsx (placeholder)
+- Created: fpz-leadfinder-mobile/src/screens/LeadsListScreen.tsx (placeholder)
+- Created: fpz-leadfinder-mobile/src/screens/LeadDetailScreen.tsx (placeholder)
+- Created: fpz-leadfinder-mobile/src/screens/ScanScreen.tsx (placeholder)
+- Created: fpz-leadfinder-mobile/src/screens/SettingsScreen.tsx (placeholder)
+- Modified: fpz-leadfinder-mobile/App.tsx (NavigationContainer DarkTheme, 4-tab navigator, LeadsStack nested navigator)
+- TypeCheck: 0 errors
+US-039 abgeschlossen. Commit `4743df5`.
+
+**Was erstellt:**
+- `fpz-leadfinder-mobile/` — Expo blank-typescript Projekt via `create-expo-app`
+- Navigation installiert: `@react-navigation/native`, `bottom-tabs`, `native-stack`, `react-native-screens`, `react-native-safe-area-context`, `@expo/vector-icons`
+- `App.tsx` — `NavigationContainer` mit `DarkTheme`, 4-Tab-Navigator (Dashboard/Leads/Scan/Einstellungen), `LeadsStack` mit LeadsList + LeadDetail
+- `src/lib/api.ts` — `apiFetch<T>()` Helper
+- `src/screens/` — 5 Placeholder-Screens (Dashboard, LeadsList, LeadDetail, Scan, Settings)
+- TypeCheck: 0 Fehler
+--- Iteration 42 started at 14:03:48 ---
+
+## US-040: Android App — Dashboard Screen — DONE
+- Modified: fpz-leadfinder-mobile/src/screens/DashboardScreen.tsx (vollständige Implementierung mit FlatList, 4 StatCards, Pull-to-Refresh, Loading/Error States)
+- Created: fpz-leadfinder/src/app/api/dashboard/route.ts (GET /api/dashboard — stats + recentLeads)
+- TypeCheck: 0 Fehler (beide Projekte)
+US-040 abgeschlossen. Commit `c047521`.
+
+**Was gemacht:**
+- `fpz-leadfinder-mobile/src/screens/DashboardScreen.tsx` — vollständige Implementierung mit FlatList, 4 Stat-Cards (2x2 Grid), Pull-to-Refresh, Loading-Spinner, Error-State mit Retry-Button, Score-Farbkodierung, Navigation zu LeadDetail
+- `fpz-leadfinder/src/app/api/dashboard/route.ts` — `GET /api/dashboard` Endpoint der `stats` + `recentLeads` zusammenführt
+- TypeCheck: 0 Fehler in beiden Projekten
+--- Iteration 43 started at 14:05:56 ---
+
+## US-041: Android App — Lead-Liste und Detail Screen — DONE
+- Modified: fpz-leadfinder-mobile/src/screens/LeadsListScreen.tsx (FlatList, Suche, Infinite Scroll, Score/Status-Farben, Navigation)
+- Modified: fpz-leadfinder-mobile/src/screens/LeadDetailScreen.tsx (ScrollView, Status-Chips, Kontakt-Buttons, Tabs: Info/Scores/Briefing/Skript, ScoreBar, PATCH-Status)
+- TypeCheck: 0 Fehler
+US-041 abgeschlossen.
+US-041 abgeschlossen. Commit `79f3f7c`.
+
+**Was implementiert:**
+- `LeadsListScreen.tsx` — FlatList mit debounced Suche (400ms), Infinite Scroll via `onEndReached`, Pull-to-Refresh, Score/Status-Farbkodierung, Navigation zu `LeadDetail`
+- `LeadDetailScreen.tsx` — ScrollView mit Header (Name, Adresse, Gesamt-Score), Status-Chips (inline PATCH), Kontakt-Buttons (Anrufen/Email/Website via `Linking`), 4 Tabs (Info/Scores/Briefing/Skript), `ScoreBar`-Komponente mit Farbbalken
+- TypeCheck: 0 Fehler (Fix: `useRef` benötigt in React 19 explizites `undefined` als Initialwert)
+--- Iteration 44 started at 14:08:37 ---
+
+## US-042: Android App — Scan & Settings Screens — DONE
+- Modified: fpz-leadfinder-mobile/src/screens/ScanScreen.tsx (Stadt-Chip-Grid, Alle-Toggle, Scan-Button mit ActivityIndicator, apiFetch POST /api/scan, Ergebnis-/Fehlerkarte)
+- Modified: fpz-leadfinder-mobile/src/screens/SettingsScreen.tsx (AsyncStorage-Persistenz, API-URL + Groq/HF API-Key-Felder mit secureTextEntry, Speichern-Button, Info-Card)
+- Installed: @react-native-async-storage/async-storage
+- TypeCheck: 0 Fehler
+US-042 abgeschlossen. Commit `9a58a5c`.
+
+**Was gemacht:**
+- `ScanScreen.tsx` — Stadt-Chip-Grid (20 Städte), Alle/Keine-Toggle, Scan-Button mit `ActivityIndicator`, `apiFetch` POST `/api/scan`, Ergebnis- und Fehlerkarte
+- `SettingsScreen.tsx` — `AsyncStorage`-Persistenz, API-URL + Groq/HF API-Key-Felder (`secureTextEntry`), Speichern-Button mit "Gespeichert!"-Feedback, Info-Card
+- `@react-native-async-storage/async-storage` installiert (Expo SDK 55 kompatibel)
+- TypeCheck: 0 Fehler
+--- Iteration 45 started at 14:10:30 ---
+
+## US-043: Web API Dashboard Route für Mobile App — DONE
+- Modified: src/app/api/dashboard/route.ts (direktes Prisma + CORS Headers)
+- Created: src/app/api/leads/[id]/route.ts (GET+PATCH+OPTIONS mit CORS)
+- Modified: src/app/api/leads/route.ts (CORS Headers + OPTIONS Handler ergänzt)
+- Fix: spec hatte `script` als relation name → tatsächlich `salesScript`
+- TypeCheck: 0 Fehler
+US-043 abgeschlossen.
+
+**Was gemacht:**
+- `api/dashboard/route.ts` — ersetzt durch direktes Prisma mit CORS Headers (statt Query-Helpers)
+- `api/leads/[id]/route.ts` — neu: GET + PATCH + OPTIONS mit CORS (Fix: `salesScript` statt `script`)
+- `api/leads/route.ts` — CORS Headers + OPTIONS Handler ergänzt
+
+TypeCheck: 0 Fehler. Commit: `866990f`
+--- Iteration 46 started at 14:11:53 ---
+
+## US-044: Responsive Polish & Animations — DONE
+- Modified: src/app/globals.css (fadeIn/slideUp/scaleIn keyframes + @layer utilities + focus-visible + smooth transitions for button/a/[role=button])
+- Modified: src/components/dashboard/StatCards.tsx (grid-cols-2 lg:grid-cols-4, animate-fade-in mit animationDelay per card, hover:border-zinc-700)
+- Modified: src/components/dashboard/CityChart.tsx (ResponsiveContainer height="100%" in responsive div h-[250px] sm:h-[300px] lg:h-[350px])
+- Modified: src/components/leads/LeadTable.tsx (overflow-x-auto -mx-4 sm:mx-0 + min-w-[600px] sm:min-w-0 wrapper)
+- Modified: src/app/leads/[id]/page.tsx (animate-slide-up on main container)
+- Modified: src/components/shared/Sidebar.tsx (hidden lg:flex statt hidden md:flex)
+- Modified: src/components/leads/BulkActions.tsx (responsive fixed bar: full-width on mobile, centered on desktop)
+- TypeCheck: 0 Fehler
+**US-044 abgeschlossen.** Commit `0fe620e`.
+
+**Was implementiert:**
+- `globals.css` — `fadeIn`/`slideUp`/`scaleIn` Keyframes + `@layer utilities` Klassen, `focus-visible` Outline (blue-500), smooth transitions für `button/a/[role=button]`
+- `StatCards.tsx` — Grid `grid-cols-2 lg:grid-cols-4`, `animate-fade-in` mit `animationDelay` pro Card, `hover:border-zinc-700`
+- `CityChart.tsx` — Responsive Höhen-Wrapper `h-[250px] sm:h-[300px] lg:h-[350px]`, `height="100%"` in ResponsiveContainer
+- `LeadTable.tsx` — `overflow-x-auto -mx-4 sm:mx-0` + `min-w-[600px] sm:min-w-0` Wrapper für Mobile
+- `leads/[id]/page.tsx` — `animate-slide-up` am Haupt-Container
+- `Sidebar.tsx` — `hidden lg:flex` statt `hidden md:flex` (Sidebar erst ab 1024px)
+- `BulkActions.tsx` — Responsive Fixed-Bar: full-width auf Mobile, zentriert auf Desktop
+
+TypeCheck: 0 Fehler.

@@ -39,7 +39,14 @@ function ChromeMesh({ scrollRef }: { scrollRef: React.MutableRefObject<number> }
       <pointLight position={[-8, -4, -6]} intensity={0.8} color="#c8c8c8" />
       {/* Sphere + Environment in same Suspense — neither renders until HDR is ready,
           preventing the dark→reflective flash on initial load */}
-      <Suspense fallback={null}>
+      <Suspense
+        fallback={
+          <mesh>
+            <sphereGeometry args={[2, 32, 32]} />
+            <meshStandardMaterial color="#0a0a0a" metalness={0} roughness={1} />
+          </mesh>
+        }
+      >
         <Environment preset="city" />
         <Sphere ref={meshRef} args={[2, 128, 128]}>
           <meshStandardMaterial
