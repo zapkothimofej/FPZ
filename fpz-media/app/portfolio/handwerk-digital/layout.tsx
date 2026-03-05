@@ -5,6 +5,13 @@ export const metadata: Metadata = {
   title: "Müller Haustechnik GmbH — Heizung · Sanitär · Elektro",
   description:
     "Ihr zuverlässiger Handwerksbetrieb im Ruhrgebiet seit 1987. Heizung, Sanitär und Elektro aus einer Hand.",
+  openGraph: {
+    type: "website",
+    title: "Müller Haustechnik GmbH — Heizung · Sanitär · Elektro",
+    description:
+      "Ihr zuverlässiger Handwerksbetrieb im Ruhrgebiet seit 1987. Heizung, Sanitär und Elektro aus einer Hand.",
+    url: "https://fpz-media.de/portfolio/handwerk-digital",
+  },
 }
 
 type Props = { children: React.ReactNode }
@@ -69,6 +76,21 @@ export default function HandwerkLayout({ children }: Props) {
           </div>
         </div>
       </nav>
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://fpz-media.de" },
+              { "@type": "ListItem", "position": 2, "name": "Portfolio", "item": "https://fpz-media.de/portfolio" },
+              { "@type": "ListItem", "position": 3, "name": "Müller Haustechnik", "item": "https://fpz-media.de/portfolio/handwerk-digital" },
+            ],
+          }),
+        }}
+      />
 
       {children}
 

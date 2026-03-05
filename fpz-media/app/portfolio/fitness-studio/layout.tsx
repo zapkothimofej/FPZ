@@ -1,10 +1,18 @@
+import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import Link from "next/link";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "FitBase Essen – Stärker werden. Jeden Tag.",
   description:
     "Dein Fitnessstudio in Essen. Krafttraining, Kurse, Personal Training. Über 450 Mitglieder vertrauen FitBase Essen.",
+  openGraph: {
+    type: "website",
+    title: "FitBase Essen – Stärker werden. Jeden Tag.",
+    description:
+      "Dein Fitnessstudio in Essen. Krafttraining, Kurse, Personal Training. Über 450 Mitglieder vertrauen FitBase Essen.",
+    url: "https://fpz-media.de/portfolio/fitness-studio",
+  },
 };
 
 const NAV_LINKS = [
@@ -80,6 +88,21 @@ export default function FitnessStudioLayout({ children }: { children: ReactNode 
           </Link>
         </div>
       </nav>
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://fpz-media.de" },
+              { "@type": "ListItem", "position": 2, "name": "Portfolio", "item": "https://fpz-media.de/portfolio" },
+              { "@type": "ListItem", "position": 3, "name": "FitBase Essen", "item": "https://fpz-media.de/portfolio/fitness-studio" },
+            ],
+          }),
+        }}
+      />
 
       {/* Page content */}
       <main>{children}</main>

@@ -1,12 +1,20 @@
+import type { Metadata } from "next"
 import type { ReactNode } from "react"
 import Link from "next/link"
 
 const BASE = "/portfolio/lokale-brand-identity"
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Breuer & Partner Steuerberatung",
   description:
     "Ihre verlässliche Steuerberatung im Ruhrgebiet seit 1998. Für Unternehmen und Privatpersonen.",
+  openGraph: {
+    type: "website",
+    title: "Breuer & Partner Steuerberatung",
+    description:
+      "Ihre verlässliche Steuerberatung im Ruhrgebiet seit 1998. Für Unternehmen und Privatpersonen.",
+    url: "https://fpz-media.de/portfolio/lokale-brand-identity",
+  },
 }
 
 const navLinks = [
@@ -98,6 +106,21 @@ export default function BreuerLayout({ children }: { children: ReactNode }) {
           </nav>
         </div>
       </header>
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://fpz-media.de" },
+              { "@type": "ListItem", "position": 2, "name": "Portfolio", "item": "https://fpz-media.de/portfolio" },
+              { "@type": "ListItem", "position": 3, "name": "Breuer & Partner Steuerberatung", "item": "https://fpz-media.de/portfolio/lokale-brand-identity" },
+            ],
+          }),
+        }}
+      />
 
       {/* Page */}
       <main>{children}</main>

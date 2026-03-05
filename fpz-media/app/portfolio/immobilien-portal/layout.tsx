@@ -1,7 +1,17 @@
+import type { Metadata } from "next"
 import Link from "next/link"
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Krause Immobilien — Ihr Makler im Ruhrgebiet",
+  description:
+    "Ihr zertifizierter Immobilienmakler im Ruhrgebiet. Kaufen, verkaufen und bewerten lassen — Krause Immobilien in Essen.",
+  openGraph: {
+    type: "website",
+    title: "Krause Immobilien — Ihr Makler im Ruhrgebiet",
+    description:
+      "Ihr zertifizierter Immobilienmakler im Ruhrgebiet. Kaufen, verkaufen und bewerten lassen — Krause Immobilien in Essen.",
+    url: "https://fpz-media.de/portfolio/immobilien-portal",
+  },
 }
 
 type Props = { children: React.ReactNode }
@@ -43,6 +53,21 @@ export default function KrauseLayout({ children }: Props) {
           </div>
         </div>
       </nav>
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://fpz-media.de" },
+              { "@type": "ListItem", "position": 2, "name": "Portfolio", "item": "https://fpz-media.de/portfolio" },
+              { "@type": "ListItem", "position": 3, "name": "Krause Immobilien", "item": "https://fpz-media.de/portfolio/immobilien-portal" },
+            ],
+          }),
+        }}
+      />
 
       {children}
 

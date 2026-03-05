@@ -1,9 +1,17 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Il Grano Ristorante — Cucina italiana autentica, Bochum",
   description:
     "Authentische italienische Küche im Herzen Bochums. Frische Zutaten, traditionsreiche Rezepte, unvergessliche Abende.",
+  openGraph: {
+    type: "website",
+    title: "Il Grano Ristorante — Cucina italiana autentica, Bochum",
+    description:
+      "Authentische italienische Küche im Herzen Bochums. Frische Zutaten, traditionsreiche Rezepte, unvergessliche Abende.",
+    url: "https://fpz-media.de/portfolio/restaurant-kampagne",
+  },
 };
 
 export default function RestaurantLayout({
@@ -60,6 +68,21 @@ export default function RestaurantLayout({
           </Link>
         </div>
       </header>
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://fpz-media.de" },
+              { "@type": "ListItem", "position": 2, "name": "Portfolio", "item": "https://fpz-media.de/portfolio" },
+              { "@type": "ListItem", "position": 3, "name": "Il Grano Ristorante", "item": "https://fpz-media.de/portfolio/restaurant-kampagne" },
+            ],
+          }),
+        }}
+      />
 
       {/* Page content */}
       <main>{children}</main>

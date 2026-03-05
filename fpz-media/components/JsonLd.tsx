@@ -2,51 +2,6 @@ import { services, pricing, process, portfolioItems } from "@/lib/content-de"
 
 const SITE_URL = "https://fpz-media.de"
 
-function buildLocalBusiness(): Record<string, unknown> {
-  return {
-    "@type": "LocalBusiness",
-    "@id": `${SITE_URL}/#business`,
-    name: "FPZ Media",
-    url: SITE_URL,
-    email: "hallo@fpz-media.de",
-    logo: {
-      "@type": "ImageObject",
-      url: `${SITE_URL}/logo.png`,
-      width: 200,
-      height: 60,
-    },
-    founder: { "@id": `${SITE_URL}/#founder` },
-    description:
-      "Full-Service Digitalagentur für lokale Unternehmen im Ruhrgebiet. Moderne Websites, Imagefilme und n8n-Automatisierung aus einer Hand.",
-    address: {
-      "@type": "PostalAddress",
-      streetAddress: "Waltrop",
-      postalCode: "45731",
-      addressRegion: "Nordrhein-Westfalen",
-      addressLocality: "Waltrop",
-      addressCountry: "DE",
-    },
-    areaServed: [
-      { "@type": "GeoCircle", geoMidpoint: { "@type": "GeoCoordinates", latitude: 51.45, longitude: 7.01 }, geoRadius: "50000" },
-      { "@type": "AdministrativeArea", name: "Nordrhein-Westfalen" },
-    ],
-    sameAs: [
-      "https://instagram.com/fpzmedia",
-      "https://linkedin.com/company/fpzmedia",
-    ],
-    priceRange: "€€",
-    knowsLanguage: ["de", "en"],
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "5.0",
-      reviewCount: "5",
-      bestRating: "5",
-      worstRating: "1",
-    },
-    review: buildReviews(),
-  }
-}
-
 function buildReviews(): Record<string, unknown>[] {
   return [
     {
@@ -92,6 +47,60 @@ function buildReviews(): Record<string, unknown>[] {
   ]
 }
 
+function buildLocalBusiness(): Record<string, unknown> {
+  return {
+    "@type": "LocalBusiness",
+    "@id": `${SITE_URL}/#business`,
+    name: "FPZ Media",
+    url: SITE_URL,
+    telephone: "+49 176 55692511",
+    email: "hallo@fpz-media.de",
+    logo: {
+      "@type": "ImageObject",
+      url: `${SITE_URL}/logo.svg`,
+      width: 200,
+      height: 60,
+    },
+    founder: { "@id": `${SITE_URL}/#founder` },
+    description:
+      "Full-Service Digitalagentur für lokale Unternehmen im Ruhrgebiet. Moderne Websites, Imagefilme und n8n-Automatisierung aus einer Hand.",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "Im Siepen 66",
+      postalCode: "45731",
+      addressLocality: "Waltrop",
+      addressRegion: "Nordrhein-Westfalen",
+      addressCountry: "DE",
+    },
+    areaServed: [
+      { "@type": "GeoCircle", geoMidpoint: { "@type": "GeoCoordinates", latitude: 51.45, longitude: 7.01 }, geoRadius: "50000" },
+      { "@type": "AdministrativeArea", name: "Nordrhein-Westfalen" },
+    ],
+    sameAs: [
+      "https://instagram.com/fpzmedia",
+      "https://linkedin.com/company/fpzmedia",
+    ],
+    priceRange: "€€",
+    knowsLanguage: ["de", "en"],
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        opens: "09:00",
+        closes: "18:00",
+      },
+    ],
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "5.0",
+      reviewCount: "5",
+      bestRating: "5",
+      worstRating: "1",
+    },
+    review: buildReviews(),
+  }
+}
+
 function buildFounder(): Record<string, unknown> {
   return {
     "@type": "Person",
@@ -100,9 +109,6 @@ function buildFounder(): Record<string, unknown> {
     jobTitle: "Gründer & Geschäftsführer",
     worksFor: { "@id": `${SITE_URL}/#business` },
     url: SITE_URL,
-    sameAs: [
-      "https://linkedin.com/company/fpzmedia",
-    ],
   }
 }
 
@@ -114,6 +120,14 @@ function buildWebSite(): Record<string, unknown> {
     name: "FPZ Media",
     publisher: { "@id": `${SITE_URL}/#business` },
     inLanguage: "de-DE",
+    potentialAction: {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: `${SITE_URL}/?q={search_term_string}`,
+      },
+      "query-input": "required name=search_term_string",
+    },
   }
 }
 
@@ -196,6 +210,35 @@ function buildPortfolioItemList(): Record<string, unknown> {
   }
 }
 
+function buildWebPage(): Record<string, unknown> {
+  return {
+    "@type": "WebPage",
+    "@id": `${SITE_URL}/#webpage`,
+    url: SITE_URL,
+    name: "FPZ Media — Webentwicklung, Film & Automation im Ruhrgebiet",
+    isPartOf: { "@id": `${SITE_URL}/#website` },
+    about: { "@id": `${SITE_URL}/#business` },
+    inLanguage: "de-DE",
+    description:
+      "FPZ Media ist Ihre Full-Service Digitalagentur im Ruhrgebiet — professionelle Webentwicklung, Filmproduktion und intelligente Automation für lokale Unternehmen in NRW.",
+  }
+}
+
+function buildBreadcrumb(): Record<string, unknown> {
+  return {
+    "@type": "BreadcrumbList",
+    "@id": `${SITE_URL}/#breadcrumb`,
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: SITE_URL,
+      },
+    ],
+  }
+}
+
 function buildHowTo(): Record<string, unknown> {
   return {
     "@type": "HowTo",
@@ -223,6 +266,8 @@ export function JsonLd() {
     buildFAQ(),
     buildHowTo(),
     buildPortfolioItemList(),
+    buildWebPage(),
+    buildBreadcrumb(),
   ]
 
   const jsonLd = { "@context": "https://schema.org", "@graph": graph }

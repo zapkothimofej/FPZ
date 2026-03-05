@@ -43,21 +43,12 @@ export const metadata: Metadata = {
     siteName: "FPZ Media",
     locale: "de_DE",
     type: "website",
-    images: [
-      {
-        url: "https://fpz-media.de/og-image.jpg",
-        width: 1200,
-        height: 630,
-        alt: "FPZ Media — Digitalagentur Ruhrgebiet",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "FPZ Media — Webentwicklung, Film & Automation im Ruhrgebiet",
     description:
       "Full-Service Digitalagentur im Ruhrgebiet. Web. Film. Automation.",
-    images: ["https://fpz-media.de/og-image.jpg"],
   },
 }
 

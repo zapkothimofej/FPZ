@@ -1,10 +1,18 @@
+import type { Metadata } from "next";
 import type { ReactNode } from "react";
 import Link from "next/link";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Mila Mode — Zeitlose Mode für jeden Anlass",
   description:
     "Mila Mode in Bochum: Nachhaltige, zeitlose Damenmode für jeden Anlass. Entdecke unsere aktuelle Frühjahrskollektion.",
+  openGraph: {
+    type: "website",
+    title: "Mila Mode — Zeitlose Mode für jeden Anlass",
+    description:
+      "Mila Mode in Bochum: Nachhaltige, zeitlose Damenmode für jeden Anlass. Entdecke unsere aktuelle Frühjahrskollektion.",
+    url: "https://fpz-media.de/portfolio/einzelhandel-launch",
+  },
 };
 
 const BASE = "/portfolio/einzelhandel-launch";
@@ -76,6 +84,21 @@ export default function MilaLayout({ children }: { children: ReactNode }) {
           </button>
         </div>
       </header>
+
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://fpz-media.de" },
+              { "@type": "ListItem", "position": 2, "name": "Portfolio", "item": "https://fpz-media.de/portfolio" },
+              { "@type": "ListItem", "position": 3, "name": "Mila Mode", "item": "https://fpz-media.de/portfolio/einzelhandel-launch" },
+            ],
+          }),
+        }}
+      />
 
       {/* Main */}
       <main className="flex-1">{children}</main>
