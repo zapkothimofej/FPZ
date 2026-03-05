@@ -1,11 +1,12 @@
 "use client";
 
-import { useCallback, useTransition } from "react";
+import { useCallback, useState, useTransition } from "react";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
-import type { SortingState } from "@tanstack/react-table";
+import type { SortingState, RowSelectionState } from "@tanstack/react-table";
 import { LeadTable } from "./LeadTable";
 import { LeadFilters } from "./LeadFilters";
 import { LeadTableSkeleton } from "./LeadTableSkeleton";
+import { BulkActions } from "./BulkActions";
 import type { PaginatedResponse } from "@/types";
 import type { LeadRow } from "./columns";
 
@@ -18,6 +19,7 @@ export function LeadListClient({ initialData }: LeadListClientProps) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [isPending, startTransition] = useTransition();
+  const [rowSelection, setRowSelection] = useState<RowSelectionState>({});
 
   const sortField = searchParams.get("sort") ?? "createdAt";
   const sortOrder = searchParams.get("order") ?? "desc";
@@ -68,6 +70,8 @@ export function LeadListClient({ initialData }: LeadListClientProps) {
     [updateParams]
   );
 
+  const selectedIds = Object.keys(rowSelection);
+
   return (
     <div className="space-y-4">
       <LeadFilters />
@@ -83,8 +87,14 @@ export function LeadListClient({ initialData }: LeadListClientProps) {
           onPaginationChange={handlePaginationChange}
           onSortingChange={handleSortingChange}
           sorting={sorting}
+          rowSelection={rowSelection}
+          onRowSelectionChange={setRowSelection}
         />
       )}
+      <BulkActions
+        selectedIds={selectedIds}
+        onClear={() => setRowSelection({})}
+      />
     </div>
   );
 }

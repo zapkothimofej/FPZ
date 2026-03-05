@@ -723,8 +723,8 @@
         "Verify in browser using dev-browser skill"
       ],
       "priority": 36,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "actions.ts (bulkUpdateStatus, bulkDelete, createLead), columns.tsx (Checkbox-Spalte bereits vorhanden), BulkActions.tsx (fixed bottom bar mit Status/Analyse/CSV/Delete), LeadListClient.tsx + LeadTable.tsx (rowSelection integration)"
     },
     {
       "id": "US-037",

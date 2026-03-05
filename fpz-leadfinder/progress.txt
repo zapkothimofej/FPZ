@@ -484,3 +484,15 @@ US-034 abgeschlossen.
 - Created: src/app/scan/loading.tsx (scan page skeleton)
 - Created: src/app/settings/loading.tsx (settings page skeleton)
 - TypeCheck: 0 Fehler
+US-035 abgeschlossen. 8 Dateien erstellt, TypeCheck 0 Fehler, Commit `e7c0068`.
+--- Iteration 36 started at 23:29:12 ---
+Failed to authenticate. API Error: 401 {"type":"error","error":{"type":"authentication_error","message":"OAuth token has expired. Please obtain a new token or refresh your existing token."},"request_id":"req_011CYjFfvtAA76KtaJqvXAYV"}
+--- Iteration 37 started at 04:50:45 ---
+
+## US-036: Lead löschen und Bulk-Aktionen — DONE
+- Created: src/app/leads/actions.ts (bulkUpdateStatus, bulkDelete, createLead Server Actions)
+- Created: src/components/leads/BulkActions.tsx (fixed bottom bar: Status-Dropdown, Analysieren, CSV-Export, Löschen-Dialog)
+- Modified: src/components/leads/columns.tsx (Checkbox-Spalte bereits aus vorheriger Iteration vorhanden)
+- Modified: src/components/leads/LeadListClient.tsx (rowSelection + BulkActions Integration bereits vorhanden)
+- Modified: src/components/leads/LeadTable.tsx (rowSelection props bereits vorhanden)
+- TypeCheck: 0 Fehler

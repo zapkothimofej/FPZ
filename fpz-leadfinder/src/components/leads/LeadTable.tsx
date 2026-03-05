@@ -7,6 +7,7 @@ import {
   flexRender,
   type SortingState,
   type PaginationState,
+  type RowSelectionState,
 } from "@tanstack/react-table";
 import { columns, type LeadRow } from "./columns";
 import {
@@ -29,6 +30,8 @@ interface LeadTableProps {
   onPaginationChange: (page: number) => void;
   onSortingChange: (sorting: SortingState) => void;
   sorting: SortingState;
+  rowSelection: RowSelectionState;
+  onRowSelectionChange: (selection: RowSelectionState) => void;
 }
 
 export function LeadTable({
@@ -40,6 +43,8 @@ export function LeadTable({
   onPaginationChange,
   onSortingChange,
   sorting,
+  rowSelection,
+  onRowSelectionChange,
 }: LeadTableProps) {
   const router = useRouter();
 
@@ -54,15 +59,23 @@ export function LeadTable({
     state: {
       sorting,
       pagination,
+      rowSelection,
     },
     onSortingChange: (updater) => {
       const next = typeof updater === "function" ? updater(sorting) : updater;
       onSortingChange(next);
     },
+    onRowSelectionChange: (updater) => {
+      const next =
+        typeof updater === "function" ? updater(rowSelection) : updater;
+      onRowSelectionChange(next);
+    },
     getCoreRowModel: getCoreRowModel(),
     manualSorting: true,
     manualPagination: true,
     pageCount: totalPages,
+    enableRowSelection: true,
+    getRowId: (row) => row.id,
   });
 
   return (
@@ -89,6 +102,7 @@ export function LeadTable({
                   key={row.id}
                   className="border-zinc-800 cursor-pointer hover:bg-zinc-800/50 transition-colors"
                   onClick={() => router.push(`/leads/${row.original.id}`)}
+                  data-state={row.getIsSelected() ? "selected" : undefined}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
