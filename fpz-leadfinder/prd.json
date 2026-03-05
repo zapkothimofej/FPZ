@@ -741,8 +741,8 @@
         "Verify in browser using dev-browser skill"
       ],
       "priority": 37,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "AddLeadDialog.tsx erstellt mit Client-side Validierung, createLead Server Action, Toast + Navigation zu neuem Lead. In leads/page.tsx oben rechts integriert."
     },
     {
       "id": "US-038",

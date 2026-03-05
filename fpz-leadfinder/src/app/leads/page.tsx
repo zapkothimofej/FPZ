@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/db/client";
 import { LeadListClient } from "@/components/leads/LeadListClient";
+import { AddLeadDialog } from "@/components/leads/AddLeadDialog";
 import type { PaginatedResponse } from "@/types";
 import type { LeadRow } from "@/components/leads/columns";
 
@@ -93,6 +94,7 @@ export default async function LeadsPage({ searchParams }: LeadsPageProps) {
             {total} Lead{total !== 1 ? "s" : ""} gefunden
           </p>
         </div>
+        <AddLeadDialog />
       </div>
 
       <LeadListClient initialData={initialData} />
