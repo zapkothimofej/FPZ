@@ -829,8 +829,8 @@
         "Typecheck passes"
       ],
       "priority": 42,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "ScanScreen mit Stadt-Chips, Alle-Toggle, Scan-Button mit ActivityIndicator, Ergebnis-/Fehlerkarte. SettingsScreen mit AsyncStorage-Persistenz, API-URL + API-Key-Felder (secureTextEntry), Speichern-Button. @react-native-async-storage/async-storage installiert."
     },
     {
       "id": "US-043",

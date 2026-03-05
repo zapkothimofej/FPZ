@@ -570,3 +570,16 @@ US-040 abgeschlossen. Commit `c047521`.
 - Modified: fpz-leadfinder-mobile/src/screens/LeadDetailScreen.tsx (ScrollView, Status-Chips, Kontakt-Buttons, Tabs: Info/Scores/Briefing/Skript, ScoreBar, PATCH-Status)
 - TypeCheck: 0 Fehler
 US-041 abgeschlossen.
+US-041 abgeschlossen. Commit `79f3f7c`.
+
+**Was implementiert:**
+- `LeadsListScreen.tsx` — FlatList mit debounced Suche (400ms), Infinite Scroll via `onEndReached`, Pull-to-Refresh, Score/Status-Farbkodierung, Navigation zu `LeadDetail`
+- `LeadDetailScreen.tsx` — ScrollView mit Header (Name, Adresse, Gesamt-Score), Status-Chips (inline PATCH), Kontakt-Buttons (Anrufen/Email/Website via `Linking`), 4 Tabs (Info/Scores/Briefing/Skript), `ScoreBar`-Komponente mit Farbbalken
+- TypeCheck: 0 Fehler (Fix: `useRef` benötigt in React 19 explizites `undefined` als Initialwert)
+--- Iteration 44 started at 14:08:37 ---
+
+## US-042: Android App — Scan & Settings Screens — DONE
+- Modified: fpz-leadfinder-mobile/src/screens/ScanScreen.tsx (Stadt-Chip-Grid, Alle-Toggle, Scan-Button mit ActivityIndicator, apiFetch POST /api/scan, Ergebnis-/Fehlerkarte)
+- Modified: fpz-leadfinder-mobile/src/screens/SettingsScreen.tsx (AsyncStorage-Persistenz, API-URL + Groq/HF API-Key-Felder mit secureTextEntry, Speichern-Button, Info-Card)
+- Installed: @react-native-async-storage/async-storage
+- TypeCheck: 0 Fehler
