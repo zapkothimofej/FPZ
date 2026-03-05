@@ -1,16 +1,11 @@
 import "dotenv/config";
 import { defineConfig } from "prisma/config";
-import { PrismaLibSql } from "@prisma/adapter-libsql";
 
+// Runtime DB connection is handled via @prisma/adapter-libsql in lib/db/client.ts
+// This config is only used for local migrations (prisma db push via setup-db.mjs)
 export default defineConfig({
   schema: "prisma/schema.prisma",
   migrations: {
     path: "prisma/migrations",
-  },
-  datasource: {
-    adapter: new PrismaLibSql({
-      url: process.env["DATABASE_URL"]!,
-      authToken: process.env["DATABASE_AUTH_TOKEN"],
-    }),
   },
 });
