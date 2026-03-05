@@ -844,8 +844,8 @@
         "Typecheck passes"
       ],
       "priority": 43,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "dashboard/route.ts mit direkten Prisma-Queries + CORS; leads/[id]/route.ts GET+PATCH+OPTIONS; leads/route.ts CORS ergänzt"
     },
     {
       "id": "US-044",

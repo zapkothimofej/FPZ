@@ -583,3 +583,18 @@ US-041 abgeschlossen. Commit `79f3f7c`.
 - Modified: fpz-leadfinder-mobile/src/screens/SettingsScreen.tsx (AsyncStorage-Persistenz, API-URL + Groq/HF API-Key-Felder mit secureTextEntry, Speichern-Button, Info-Card)
 - Installed: @react-native-async-storage/async-storage
 - TypeCheck: 0 Fehler
+US-042 abgeschlossen. Commit `9a58a5c`.
+
+**Was gemacht:**
+- `ScanScreen.tsx` — Stadt-Chip-Grid (20 Städte), Alle/Keine-Toggle, Scan-Button mit `ActivityIndicator`, `apiFetch` POST `/api/scan`, Ergebnis- und Fehlerkarte
+- `SettingsScreen.tsx` — `AsyncStorage`-Persistenz, API-URL + Groq/HF API-Key-Felder (`secureTextEntry`), Speichern-Button mit "Gespeichert!"-Feedback, Info-Card
+- `@react-native-async-storage/async-storage` installiert (Expo SDK 55 kompatibel)
+- TypeCheck: 0 Fehler
+--- Iteration 45 started at 14:10:30 ---
+
+## US-043: Web API Dashboard Route für Mobile App — DONE
+- Modified: src/app/api/dashboard/route.ts (direktes Prisma + CORS Headers)
+- Created: src/app/api/leads/[id]/route.ts (GET+PATCH+OPTIONS mit CORS)
+- Modified: src/app/api/leads/route.ts (CORS Headers + OPTIONS Handler ergänzt)
+- Fix: spec hatte `script` als relation name → tatsächlich `salesScript`
+- TypeCheck: 0 Fehler
