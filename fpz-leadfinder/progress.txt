@@ -557,3 +557,16 @@ US-039 abgeschlossen. Commit `4743df5`.
 - Modified: fpz-leadfinder-mobile/src/screens/DashboardScreen.tsx (vollständige Implementierung mit FlatList, 4 StatCards, Pull-to-Refresh, Loading/Error States)
 - Created: fpz-leadfinder/src/app/api/dashboard/route.ts (GET /api/dashboard — stats + recentLeads)
 - TypeCheck: 0 Fehler (beide Projekte)
+US-040 abgeschlossen. Commit `c047521`.
+
+**Was gemacht:**
+- `fpz-leadfinder-mobile/src/screens/DashboardScreen.tsx` — vollständige Implementierung mit FlatList, 4 Stat-Cards (2x2 Grid), Pull-to-Refresh, Loading-Spinner, Error-State mit Retry-Button, Score-Farbkodierung, Navigation zu LeadDetail
+- `fpz-leadfinder/src/app/api/dashboard/route.ts` — `GET /api/dashboard` Endpoint der `stats` + `recentLeads` zusammenführt
+- TypeCheck: 0 Fehler in beiden Projekten
+--- Iteration 43 started at 14:05:56 ---
+
+## US-041: Android App — Lead-Liste und Detail Screen — DONE
+- Modified: fpz-leadfinder-mobile/src/screens/LeadsListScreen.tsx (FlatList, Suche, Infinite Scroll, Score/Status-Farben, Navigation)
+- Modified: fpz-leadfinder-mobile/src/screens/LeadDetailScreen.tsx (ScrollView, Status-Chips, Kontakt-Buttons, Tabs: Info/Scores/Briefing/Skript, ScoreBar, PATCH-Status)
+- TypeCheck: 0 Fehler
+US-041 abgeschlossen.

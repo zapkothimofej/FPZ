@@ -814,8 +814,8 @@
         "Typecheck passes"
       ],
       "priority": 41,
-      "passes": false,
-      "notes": ""
+      "passes": true,
+      "notes": "LeadsListScreen: FlatList mit Suche (debounced), Infinite Scroll, Score/Status-Farbkodierung, Navigation zu LeadDetail. LeadDetailScreen: ScrollView mit Header, Status-Chips, Kontakt-Buttons, 4 Tabs (Info/Scores/Briefing/Skript), ScoreBar-Komponente, Status-PATCH via API."
     },
     {
       "id": "US-042",
