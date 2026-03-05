@@ -525,3 +525,20 @@ US-037 abgeschlossen.
 - Created: src/components/shared/ShortcutHelpDialog.tsx (shadcn Dialog, Shortcuts-Tabelle)
 - Modified: src/app/layout.tsx (KeyboardShortcuts eingebunden)
 - TypeCheck: 0 Fehler
+US-038 abgeschlossen. Erstellt:
+- `KeyboardShortcuts.tsx` — globaler keydown-Listener, g+d/l/s/e Navigation, `/` Suche, `n` Custom Event, `?` Hilfe-Dialog, `Esc` schließen
+- `ShortcutHelpDialog.tsx` — shadcn Dialog mit Shortcuts-Tabelle
+- `layout.tsx` — `<KeyboardShortcuts />` eingebunden
+--- Iteration 41 started at 14:00:16 ---
+
+## US-039: Android App — Expo Projekt Setup — DONE
+- Created: D:/FPZ/fpz-leadfinder-mobile/ (Expo blank-typescript project)
+- Installed: @react-navigation/native, @react-navigation/bottom-tabs, @react-navigation/native-stack, react-native-screens, react-native-safe-area-context, @expo/vector-icons
+- Created: fpz-leadfinder-mobile/src/lib/api.ts (apiFetch helper)
+- Created: fpz-leadfinder-mobile/src/screens/DashboardScreen.tsx (placeholder)
+- Created: fpz-leadfinder-mobile/src/screens/LeadsListScreen.tsx (placeholder)
+- Created: fpz-leadfinder-mobile/src/screens/LeadDetailScreen.tsx (placeholder)
+- Created: fpz-leadfinder-mobile/src/screens/ScanScreen.tsx (placeholder)
+- Created: fpz-leadfinder-mobile/src/screens/SettingsScreen.tsx (placeholder)
+- Modified: fpz-leadfinder-mobile/App.tsx (NavigationContainer DarkTheme, 4-tab navigator, LeadsStack nested navigator)
+- TypeCheck: 0 errors
