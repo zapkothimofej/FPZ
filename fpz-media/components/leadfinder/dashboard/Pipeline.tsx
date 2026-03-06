@@ -59,7 +59,7 @@ export async function Pipeline() {
           {steps.map((step, i) => (
             <div key={step.statusKey} className="contents">
               <Link
-                href={`/leads?status=${step.statusKey}`}
+                href={`/secret/leads?status=${step.statusKey}`}
                 className="flex-1 flex flex-col items-center gap-1 p-4 rounded-lg hover:bg-zinc-800/30 transition-colors cursor-pointer"
               >
                 <div className={cn("text-2xl font-bold", step.colorClass)}>

@@ -22,7 +22,7 @@ export async function CityChartWrapper() {
             <Search className="h-8 w-8 mb-2" />
             <p>Noch keine Leads vorhanden.</p>
             <Link
-              href="/scan"
+              href="/secret/scan"
               className="text-blue-400 hover:text-blue-300 mt-1 text-sm"
             >
               Starte einen Scan →

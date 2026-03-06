@@ -38,7 +38,7 @@ export async function RecentLeads() {
           Neueste Leads
         </CardTitle>
         <Link
-          href="/leads"
+          href="/secret/leads"
           className="text-sm text-blue-400 hover:text-blue-300"
         >
           Alle anzeigen →
@@ -54,7 +54,7 @@ export async function RecentLeads() {
             return (
               <Link
                 key={lead.id}
-                href={`/leads/${lead.id}`}
+                href={`/secret/leads/${lead.id}`}
                 className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-zinc-800/50 transition-colors group"
               >
                 <div
