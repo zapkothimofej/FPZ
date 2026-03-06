@@ -113,7 +113,7 @@ export function PricingSection() {
       {/* Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-[var(--v6-border)]">
         {pricing.map((plan, i) => {
-          const { prefix, num, suffix } = parsePrice(plan.price)
+          const { num } = parsePrice(plan.price)
           return (
             <div
               key={plan.name}

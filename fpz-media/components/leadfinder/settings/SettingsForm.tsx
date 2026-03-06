@@ -11,7 +11,7 @@ import { parseJsonSafe, cn } from "@/lib/utils";
 import { Eye, EyeOff, Zap, Check, X, Save } from "lucide-react";
 import { toast } from "sonner";
 import { saveSettings } from "@/app/(leadfinder)/secret/(app)/settings/actions";
-import type { Settings, ScanLog, ScoreCategory } from "@/types";
+import type { Settings, ScoreCategory } from "@/types";
 
 interface SettingsFormProps {
   initialSettings: Settings | null;
@@ -21,13 +21,11 @@ interface SettingsFormProps {
     briefingCount: number;
     scriptCount: number;
   };
-  lastScan: ScanLog | null;
 }
 
 export function SettingsForm({
   initialSettings,
   stats,
-  lastScan,
 }: SettingsFormProps) {
   const [isPending, startTransition] = useTransition();
   const [groqKey, setGroqKey] = useState(initialSettings?.groqApiKey ?? "");
@@ -37,7 +35,6 @@ export function SettingsForm({
     initialSettings?.huggingfaceToken ?? ""
   );
   const [showHf, setShowHf] = useState(false);
-  const [hfOk, setHfOk] = useState<boolean | null>(null);
   const [defaultCities, setDefaultCities] = useState<string[]>(
     parseJsonSafe<string[]>(initialSettings?.defaultCities ?? null, [])
   );

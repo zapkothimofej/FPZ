@@ -209,7 +209,7 @@ export default async function LeadDetailPage({
           <ScriptView script={lead.salesScript} leadId={lead.id} hasBriefing={!!lead.briefing} />
         </TabsContent>
         <TabsContent value="export">
-          <ExportSection leadId={lead.id} leadName={lead.name} hasData={!!lead.briefing} />
+          <ExportSection leadId={lead.id} hasData={!!lead.briefing} />
         </TabsContent>
       </Tabs>
     </div>

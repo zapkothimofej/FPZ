@@ -43,7 +43,7 @@ export function LeadFilters() {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const [isPending, startTransition] = useTransition();
+  const [, startTransition] = useTransition();
 
   const [searchValue, setSearchValue] = useState(searchParams.get("search") ?? "");
   const debouncedSearch = useDebounce(searchValue, 300);

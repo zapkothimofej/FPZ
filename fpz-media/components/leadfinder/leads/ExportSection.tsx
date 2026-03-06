@@ -7,13 +7,11 @@ import { toast } from "sonner";
 
 interface ExportSectionProps {
   leadId: string;
-  leadName: string;
   hasData: boolean;
 }
 
 export function ExportSection({
   leadId,
-  leadName,
   hasData,
 }: ExportSectionProps) {
   return (

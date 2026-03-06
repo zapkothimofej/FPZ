@@ -19,18 +19,12 @@ export default async function SettingsPage() {
       prisma.salesScript.count(),
     ]);
 
-  const lastScan = await prisma.scanLog.findFirst({
-    orderBy: { startedAt: "desc" },
-    where: { status: "completed" },
-  });
-
   return (
     <div className="space-y-6">
       <h1 className="text-2xl font-bold text-zinc-50">Einstellungen</h1>
       <SettingsForm
         initialSettings={settings}
         stats={{ leadCount, analyzedCount, briefingCount, scriptCount }}
-        lastScan={lastScan}
       />
     </div>
   );
