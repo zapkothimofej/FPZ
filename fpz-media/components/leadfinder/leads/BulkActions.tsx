@@ -116,7 +116,7 @@ export function BulkActions({ selectedIds, onClear }: BulkActionsProps) {
           size="sm"
           onClick={() =>
             window.open(
-              `/api/export/csv?ids=${selectedIds.join(",")}`,
+              `/api/secret/export/csv?ids=${selectedIds.join(",")}`,
               "_blank"
             )
           }

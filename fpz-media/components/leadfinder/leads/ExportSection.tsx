@@ -25,7 +25,7 @@ export function ExportSection({
         <div className="flex gap-3">
           <Button
             onClick={() => {
-              window.open(`/api/export/pdf/${leadId}`, "_blank");
+              window.open(`/api/secret/export/pdf/${leadId}`, "_blank");
               toast.success("Download gestartet");
             }}
             disabled={!hasData}
