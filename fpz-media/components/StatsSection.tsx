@@ -39,7 +39,7 @@ export function StatsSection() {
           scrollTrigger: {
             trigger: sectionRef.current,
             start: "top 75%",
-            toggleActions: "play none none none",
+            toggleActions: "play none none reverse",
           },
           onUpdate: () => {
             const currentEl = numbersRef.current[i]
