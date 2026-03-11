@@ -1,121 +1,54 @@
 "use client"
 
-import { useRef, useEffect } from "react"
+import { useRef } from "react"
+import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { services } from "@/lib/content-de"
 
-const PANEL_SCROLL_DURATION = 0.55  // seconds – GSAP horizontal-snap animation
-const INERTIA_COOLDOWN_MS   = 120   // ms – post-snap delay to absorb trackpad inertia
+gsap.registerPlugin(ScrollTrigger)
 
 export function ServicesSection() {
   const wrapperRef = useRef<HTMLDivElement>(null)
   const sliderRef  = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
+  useGSAP(() => {
     const wrapper = wrapperRef.current
     const slider  = sliderRef.current
     if (!wrapper || !slider) return
 
-    const panelW = () => window.innerWidth
+    const totalScrollWidth = (services.length - 1) * window.innerWidth
 
-    // Cache absolute top for reliable sticky detection during fast scroll.
-    // getBoundingClientRect() can be stale mid-scroll and cause the section to be skipped.
-    let wrapperAbsTop = 0
-    const recalcTop = () => {
-      let el: HTMLElement | null = wrapper
-      let top = 0
-      while (el) {
-        top += el.offsetTop
-        el = el.offsetParent as HTMLElement | null
-      }
-      wrapperAbsTop = top
-    }
-    recalcTop()
-    window.addEventListener("resize", recalcTop)
-
-    const updateDots = (idx: number) => {
-      const dots = document.querySelectorAll<HTMLElement>(".v6-panel-dot")
-      if (!dots || dots.length === 0) return
-      dots.forEach((dot, di) => {
-        dot.style.width           = di === idx ? "24px" : "6px"
-        dot.style.backgroundColor = di === idx ? "var(--v6-accent)" : "var(--v6-border)"
+    const updateDots = (progress: number) => {
+      const activeIdx = Math.round(progress * (services.length - 1))
+      document.querySelectorAll<HTMLElement>(".v6-panel-dot").forEach((dot, i) => {
+        dot.style.width           = i === activeIdx ? "24px" : "6px"
+        dot.style.backgroundColor = i === activeIdx ? "var(--v6-accent)" : "var(--v6-border)"
       })
     }
 
-    // Snap dot on scroll (fires after CSS snap settles)
-    const onScroll = () => {
-      const idx = Math.round(slider.scrollLeft / panelW())
-      updateDots(idx)
-    }
-    slider.addEventListener("scroll", onScroll, { passive: true })
-
-    // One wheel tick → one panel.
-    // targetPanel tracks the logical destination to avoid relying on
-    // scrollLeft mid-animation (rounding can give wrong atEnd/atStart).
-    let targetPanel = 0
-    let animating   = false
-    const onWheel = (e: WheelEvent) => {
-      const maxStickyScroll = wrapperAbsTop + wrapper.offsetHeight - window.innerHeight
-      const isSticky = window.scrollY >= wrapperAbsTop - 1 && window.scrollY <= maxStickyScroll + 1
-      if (!isSticky) return
-
-      // Block ALL vertical scroll while a horizontal animation is running.
-      // Without this, mid-animation scrollLeft rounds to the target panel,
-      // atEnd/atStart can become true, and e.preventDefault() isn't called.
-      if (animating) {
-        e.preventDefault()
-        return
-      }
-
-      const atEnd   = targetPanel >= services.length - 1 && e.deltaY > 0
-      const atStart = targetPanel <= 0                   && e.deltaY < 0
-
-      if (!atEnd && !atStart) e.preventDefault()
-
-      if (!atEnd && !atStart) {
-        animating = true
-        const next = e.deltaY > 0 ? targetPanel + 1 : targetPanel - 1
-        targetPanel = next
-        updateDots(next)
-
-        gsap.to(slider, {
-          scrollLeft : next * panelW(),
-          duration   : PANEL_SCROLL_DURATION,
-          ease       : "power2.inOut",
-          overwrite  : true,
-          onComplete : () => {
-            // Pre-position page for clean exit AFTER animation, not before —
-            // doing it before caused a visible vertical jump on the 2nd/3rd panel.
-            const absTop = wrapper.getBoundingClientRect().top + window.scrollY
-            if (next === services.length - 1) {
-              window.scrollTo({ top: absTop + wrapper.offsetHeight - window.innerHeight - 2 })
-            } else if (next === 0) {
-              window.scrollTo({ top: absTop })
-            }
-            // Short cooldown absorbs trackpad inertia events that arrive right
-            // after the snap — without it they can trigger an immediate reverse
-            // transition (e.g. panel 2→1 from a tiny upward momentum event).
-            setTimeout(() => { animating = false }, INERTIA_COOLDOWN_MS)
-          },
-        })
-      }
-    }
-
-    window.addEventListener("wheel", onWheel, { passive: false })
-    updateDots(0)
-
-    return () => {
-      window.removeEventListener("wheel", onWheel)
-      window.removeEventListener("resize", recalcTop)
-      slider.removeEventListener("scroll", onScroll)
-    }
-  }, [])
+    ScrollTrigger.create({
+      trigger : wrapper,
+      start   : "top top",
+      end     : "bottom bottom",
+      scrub   : 1,
+      snap    : {
+        snapTo  : 1 / (services.length - 1),
+        duration: { min: 0.2, max: 0.5 },
+        ease    : "power2.inOut",
+      },
+      onUpdate: (self) => {
+        slider.scrollLeft = self.progress * totalScrollWidth
+        updateDots(self.progress)
+      },
+    })
+  }, { scope: wrapperRef })
 
   return (
-    <div ref={wrapperRef} id="services" style={{ height: "130vh" }}>
+    <div ref={wrapperRef} id="services" style={{ height: `${services.length * 100}vh` }}>
       <section className="sticky top-0 overflow-hidden" style={{ height: "100vh" }}>
 
-        {/* Section heading (visible as label, semantic h2 for SEO) */}
+        {/* Section heading */}
         <div className="absolute top-8 left-8 md:left-16 lg:left-24 z-10 pointer-events-none">
           <h2 className="text-[11px] tracking-[0.2em] uppercase"
             style={{ color: "var(--v6-text-muted)", fontFamily: "var(--font-body)", fontWeight: "normal" }}>
@@ -131,15 +64,11 @@ export function ServicesSection() {
           ))}
         </div>
 
-        {/* Horizontal slider — CSS snap handles alignment */}
+        {/* Horizontal slider — scrollLeft driven by ScrollTrigger, not user interaction */}
         <div
           ref={sliderRef}
-          className="flex h-full [&::-webkit-scrollbar]:hidden"
-          style={{
-            overflowX       : "scroll",
-            msOverflowStyle : "none",
-            scrollbarWidth  : "none",
-          } as React.CSSProperties}
+          className="flex h-full"
+          style={{ overflowX: "hidden" }}
         >
           {services.map((service, i) => (
             <div
@@ -149,8 +78,8 @@ export function ServicesSection() {
                 minWidth       : "100vw",
                 height         : "100%",
                 backgroundColor: "var(--v6-bg-elevated)",
-                borderRight   : i < services.length - 1 ? "1px solid var(--v6-border)" : "none",
-                flexShrink    : 0,
+                borderRight    : i < services.length - 1 ? "1px solid var(--v6-border)" : "none",
+                flexShrink     : 0,
               } as React.CSSProperties}
             >
               {/* Background number */}
