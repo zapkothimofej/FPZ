@@ -63,7 +63,7 @@ export function PricingSection() {
           scrollTrigger: {
             trigger: sectionRef.current,
             start: "top 70%",
-            toggleActions: "play none none reverse",
+            scrub: 1,
           },
           onUpdate: () => {
             if (!priceRefs.current[i]) return
