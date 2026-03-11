@@ -10,7 +10,6 @@ import { HeroChrom }        from "@/components/HeroChrom"
 import { ManifestoSection } from "@/components/ManifestoSection"
 import { ServicesSection }  from "@/components/ServicesSection"
 import { ProcessSection }   from "@/components/ProcessSection"
-import { StatsSection }     from "@/components/StatsSection"
 import { PricingSection }   from "@/components/PricingSection"
 import { PortfolioSection } from "@/components/PortfolioSection"
 import { ContactSection }   from "@/components/ContactSection"
@@ -64,7 +63,6 @@ export default function HomePage() {
           <ManifestoSection />
           <ServicesSection />
           <ProcessSection />
-          <StatsSection />
           <PortfolioSection />
           <PricingSection />
           <ContactSection />

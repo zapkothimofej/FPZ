@@ -18,6 +18,21 @@ export function ServicesSection() {
 
     const panelW = () => window.innerWidth
 
+    // Cache absolute top for reliable sticky detection during fast scroll.
+    // getBoundingClientRect() can be stale mid-scroll and cause the section to be skipped.
+    let wrapperAbsTop = 0
+    const recalcTop = () => {
+      let el: HTMLElement | null = wrapper
+      let top = 0
+      while (el) {
+        top += el.offsetTop
+        el = el.offsetParent as HTMLElement | null
+      }
+      wrapperAbsTop = top
+    }
+    recalcTop()
+    window.addEventListener("resize", recalcTop)
+
     const updateDots = (idx: number) => {
       const dots = document.querySelectorAll<HTMLElement>(".v6-panel-dot")
       if (!dots || dots.length === 0) return
@@ -40,10 +55,8 @@ export function ServicesSection() {
     let targetPanel = 0
     let animating   = false
     const onWheel = (e: WheelEvent) => {
-      const rect = wrapper.getBoundingClientRect()
-      // 1px buffer: sub-pixel float can make rect.top = 0.3 on section entry,
-      // causing the first fast wheel event to slip through as vertical scroll.
-      const isSticky = rect.top <= 1 && rect.bottom >= window.innerHeight
+      const maxStickyScroll = wrapperAbsTop + wrapper.offsetHeight - window.innerHeight
+      const isSticky = window.scrollY >= wrapperAbsTop - 1 && window.scrollY <= maxStickyScroll + 1
       if (!isSticky) return
 
       // Block ALL vertical scroll while a horizontal animation is running.
@@ -93,6 +106,7 @@ export function ServicesSection() {
 
     return () => {
       window.removeEventListener("wheel", onWheel)
+      window.removeEventListener("resize", recalcTop)
       slider.removeEventListener("scroll", onScroll)
     }
   }, [])

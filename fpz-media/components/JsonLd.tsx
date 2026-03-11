@@ -42,7 +42,7 @@ function buildReviews(): Record<string, unknown>[] {
       author: { "@type": "Person", name: "Andreas B." },
       datePublished: "2025-03-01",
       reviewBody:
-        "Die n8n-Automatisierung für unsere Immobilienvermittlung hat alles verändert. Expose-Versand läuft automatisch, keine manuelle Arbeit mehr. FPZ Media hat das in kürzester Zeit implementiert.",
+        "Die n8n-Automatisierung für unsere Immobilienvermittlung hat alles verändert. Exposé-Versand läuft automatisch, keine manuelle Arbeit mehr. FPZ Media hat das in kürzester Zeit implementiert.",
     },
   ]
 }

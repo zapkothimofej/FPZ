@@ -1,42 +1,9 @@
 "use client"
 
-import { useRef, useEffect, Component, ReactNode } from "react"
+import { useRef } from "react"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
-import dynamic from "next/dynamic"
 import { manifesto } from "@/lib/content-de"
-
-const ChromeSphere = dynamic(
-  () => import("@/components/ChromeSphere").then((m) => m.ChromeSphere),
-  { ssr: false }
-)
-
-// Minimal error boundary — catches WebGL/Three.js runtime errors so the hero
-// never goes blank. Falls back to the same background gradient as the page.
-class SphereBoundary extends Component<
-  { children: ReactNode },
-  { failed: boolean }
-> {
-  state = { failed: false }
-  static getDerivedStateFromError() {
-    return { failed: true }
-  }
-  render() {
-    if (this.state.failed) {
-      return (
-        <div
-          aria-hidden="true"
-          style={{
-            position: "absolute",
-            inset: 0,
-            background: "radial-gradient(ellipse at 70% 50%, #1a1a2e 0%, #0a0a0a 70%)",
-          }}
-        />
-      )
-    }
-    return this.props.children
-  }
-}
 
 const MARQUEE_TEXT = "WEBENTWICKLUNG · MEDIENPRODUKTION · AUTOMATION · RUHRGEBIET · "
 
@@ -47,16 +14,6 @@ export function HeroChrom() {
   const word3Ref = useRef<HTMLSpanElement>(null)
   const subRef = useRef<HTMLParagraphElement>(null)
   const ctaRef = useRef<HTMLDivElement>(null)
-  const scrollRef = useRef<number>(0)
-
-  useEffect(() => {
-    const onScroll = () => {
-      scrollRef.current = Math.min(1, Math.max(0, window.scrollY / 700))
-    }
-    window.addEventListener("scroll", onScroll, { passive: true })
-    return () => window.removeEventListener("scroll", onScroll)
-  }, [])
-
   useGSAP(
     () => {
       const tl = gsap.timeline({ defaults: { ease: "power3.out" } })
@@ -81,22 +38,9 @@ export function HeroChrom() {
         justifyContent: "center",
         minHeight: "100vh",
         overflow: "hidden",
-        backgroundColor: "var(--v6-bg)",
+        background: "radial-gradient(ellipse at 70% 50%, #1a1a2e 0%, #0a0a0a 70%)",
       }}
     >
-      {/* Chrome sphere — fades in after mount so HDR has time to load before appearing */}
-      <div
-        className="absolute inset-0 z-0 pointer-events-none"
-        style={{ animation: "sphere-fadein 1.2s ease 0.4s both" }}
-      >
-        <SphereBoundary>
-          <ChromeSphere scrollRef={scrollRef} />
-        </SphereBoundary>
-      </div>
-      <style>{`
-        @keyframes sphere-fadein { from { opacity: 0; } to { opacity: 1; } }
-      `}</style>
-
       {/* Left-to-right gradient so text stays readable — stronger on mobile */}
       <div
         aria-hidden="true"

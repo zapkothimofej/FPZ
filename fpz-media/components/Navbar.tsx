@@ -12,7 +12,10 @@ gsap.registerPlugin(ScrollTrigger)
 
 function ThemeToggle({ className }: { className?: string }) {
   const { theme, toggleTheme } = useV6Theme()
-  const isDark = theme === "dark"
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => { setMounted(true) }, [])
+
+  const isDark = mounted ? theme === "dark" : true
 
   return (
     <button
@@ -20,6 +23,7 @@ function ThemeToggle({ className }: { className?: string }) {
       className={`flex items-center justify-center w-9 h-9 border transition-all duration-300 border-[var(--v6-border)] text-[var(--v6-text-muted)] hover:border-[var(--v6-accent)] hover:text-[var(--v6-accent)] ${className ?? ""}`}
       aria-label={isDark ? "Helles Design aktivieren" : "Dunkles Design aktivieren"}
       title={isDark ? "Light Mode" : "Dark Mode"}
+      suppressHydrationWarning
     >
       {isDark ? (
         /* Sun icon */

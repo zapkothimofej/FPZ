@@ -25,7 +25,7 @@ const nextConfig: NextConfig = {
               "style-src 'self' 'unsafe-inline'",
               "img-src 'self' data: blob:",
               "font-src 'self'",
-              "connect-src 'self' https://va.vercel-scripts.com",
+              "connect-src 'self' https://va.vercel-scripts.com https://raw.githack.com https://raw.githubusercontent.com https://dl.polyhaven.org",
               "worker-src blob:",
               "frame-ancestors 'none'",
             ].join("; "),
