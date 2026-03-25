@@ -43,7 +43,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="de">
+    <html lang="de" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem("fpz-v6-theme");document.documentElement.style.backgroundColor=t==="light"?"#f5f5f5":"#0a0a0a"}catch(e){}})()`,
+          }}
+        />
+      </head>
       <body className="antialiased">
         <a
           href="#main-content"

@@ -188,6 +188,9 @@
   * {
     @apply border-border outline-ring/50;
   }
+  html {
+    background-color: #0a0a0a;
+  }
   body {
     @apply bg-background text-foreground;
     overflow-x: hidden;

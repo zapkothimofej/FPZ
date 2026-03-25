@@ -38,7 +38,7 @@ export function HeroChrom() {
         justifyContent: "center",
         minHeight: "100vh",
         overflow: "hidden",
-        background: "radial-gradient(ellipse at 70% 50%, #1a1a2e 0%, #0a0a0a 70%)",
+        background: "radial-gradient(ellipse at 70% 50%, var(--v6-hero-gradient-start) 0%, var(--v6-hero-gradient-mid) 70%)",
       }}
     >
       {/* Left-to-right gradient so text stays readable — stronger on mobile */}

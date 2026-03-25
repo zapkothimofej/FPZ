@@ -9,7 +9,7 @@ html:has([data-theme]) {
   --v6-bg: #0a0a0a;
   --v6-bg-elevated: #141414;
   --v6-text: #ebebeb;
-  --v6-text-muted: #707070;
+  --v6-text-muted: #8a8a8a;
   --v6-accent: #c8c8c8;
   --v6-accent-hover: #ebebeb;
   --v6-border: #222222;
@@ -17,6 +17,8 @@ html:has([data-theme]) {
   --v6-nav-scrolled-bg: rgba(10, 10, 10, 0.95);
   --v6-nav-scrolled-border: #222222;
   --v6-hero-gradient-end: #0a0a0a;
+  --v6-hero-gradient-start: #1a1a2e;
+  --v6-hero-gradient-mid: #0a0a0a;
   --v6-grain-opacity: 0.035;
   --v6-price-highlight: linear-gradient(90deg, transparent 25%, rgba(200, 200, 200, 0.06) 50%, transparent 75%);
   --v6-shadow-step: 0 0 10px rgba(200, 200, 200, 0.25), 0 0 20px rgba(200, 200, 200, 0.08);
@@ -37,6 +39,8 @@ html:has([data-theme]) {
   --v6-nav-scrolled-bg: rgba(245, 245, 245, 0.95);
   --v6-nav-scrolled-border: #e5e5e5;
   --v6-hero-gradient-end: #f5f5f5;
+  --v6-hero-gradient-start: #d8d8e8;
+  --v6-hero-gradient-mid: #f5f5f5;
   --v6-grain-opacity: 0.04;
   --v6-price-highlight: linear-gradient(90deg, transparent 25%, rgba(64, 64, 64, 0.08) 50%, transparent 75%);
   --v6-shadow-step: 0 0 10px rgba(64, 64, 64, 0.3), 0 0 20px rgba(64, 64, 64, 0.1);
