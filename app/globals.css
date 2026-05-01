@@ -1,26 +1,76 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: var(--font-dm-sans);
+  --font-display: var(--font-cormorant);
+
+  --color-cream: #F7F3EE;
+  --color-parchment: #EDE9E3;
+  --color-stone: #D8D4CE;
+  --color-muted: #8E8C87;
+  --color-mid: #5A5850;
+  --color-ink: #131310;
+  --color-dark: #0E0D0B;
+  --color-dark-soft: #1A1916;
+  --color-gold: #C4A040;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #F7F3EE;
+  color: #131310;
+  -webkit-font-smoothing: antialiased;
+}
+
+.dark body {
+  background-color: #0E0D0B;
+  color: #F7F3EE;
+}
+
+/* Animated grain overlay */
+body::after {
+  content: '';
+  position: fixed;
+  top: -150%;
+  left: -150%;
+  width: 400%;
+  height: 400%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.04;
+  pointer-events: none;
+  z-index: 9999;
+  animation: grain 8s steps(10) infinite;
+}
+
+@keyframes grain {
+  0%   { transform: translate(0, 0) }
+  10%  { transform: translate(-4%, -5%) }
+  20%  { transform: translate(-8%, 5%) }
+  30%  { transform: translate(5%, -8%) }
+  40%  { transform: translate(-4%, 12%) }
+  50%  { transform: translate(-12%, 4%) }
+  60%  { transform: translate(4%, 0) }
+  70%  { transform: translate(-8%, 8%) }
+  80%  { transform: translate(8%, 4%) }
+  90%  { transform: translate(4%, -4%) }
+  100% { transform: translate(0, 0) }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0) }
+  to   { transform: translateX(-50%) }
+}
+
+::selection {
+  background: #131310;
+  color: #F7F3EE;
+}
+.dark ::selection {
+  background: #F7F3EE;
+  color: #131310;
 }
