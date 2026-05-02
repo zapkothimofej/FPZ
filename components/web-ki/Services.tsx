@@ -13,12 +13,6 @@ const services = [
     body: "Manuelle Prozesse kosten Zeit und Geld. Wir digitalisieren Ihre Workflows — von E-Mail-Automation über Datenpipelines bis zu integrierten Geschäftsprozessen.",
     tags: ["n8n", "Zapier", "API-Integration", "Webhooks"],
   },
-  {
-    num: "03",
-    title: "OpenAI-Anbindungen",
-    body: "Intelligente KI-Assistenten, die in Ihre bestehenden Systeme integriert werden. Chatbots, automatisierte Datenauswertung, individuelle Sprachmodell-Lösungen.",
-    tags: ["GPT-4o", "Assistants API", "RAG", "Fine-tuning"],
-  },
 ]
 
 export function WebKiServices() {
