@@ -14,13 +14,22 @@ export function FotoVideoContact() {
     const data = new FormData(form)
 
     try {
-      const res = await fetch("https://formspree.io/f/YOUR_FORM_ID", {
+      const res = await fetch("https://formsubmit.co/ajax/zapkothimofej@gmail.com", {
         method: "POST",
-        body: data,
-        headers: { Accept: "application/json" },
+        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+        body: JSON.stringify({
+          _subject: "Neue Anfrage — FPZ Foto & Video",
+          _captcha: "false",
+          name: data.get("name"),
+          phone: data.get("phone"),
+          email: data.get("email"),
+          project_type: data.get("project_type"),
+          message: data.get("message"),
+        }),
       })
 
-      if (res.ok) {
+      const json = await res.json()
+      if (res.ok && (json.success === "true" || json.success === true)) {
         setStatus("sent")
         form.reset()
       } else {
@@ -83,13 +92,14 @@ export function FotoVideoContact() {
               <Field label="E-Mail" name="email" type="email" required placeholder="max@example.de" />
 
               <div className="space-y-1.5">
-                <label className="block text-[10px] tracking-[0.18em] uppercase text-cream/35">
+                <label htmlFor="project_type" className="block text-[10px] tracking-[0.18em] uppercase text-cream/35">
                   Art des Projekts
                 </label>
                 <div className="relative">
                   <select
+                    id="project_type"
                     name="project_type"
-                    className="w-full px-4 py-3 text-sm bg-white/[0.04] border border-white/10 text-cream focus:outline-none focus:border-gold/50 transition-colors appearance-none cursor-pointer rounded-lg"
+                    className="w-full px-4 py-3 text-sm bg-white/[0.04] border border-white/10 text-cream focus:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 focus-visible:ring-offset-1 focus-visible:ring-offset-ink focus:border-gold/50 transition-colors appearance-none cursor-pointer rounded-lg"
                   >
                     <option value="" className="bg-ink">Bitte wählen…</option>
                     <option value="produktfotografie" className="bg-ink">Produktfotografie</option>
@@ -101,6 +111,7 @@ export function FotoVideoContact() {
                   <svg
                     className="absolute right-4 top-1/2 -translate-y-1/2 text-cream/30 pointer-events-none"
                     width="12" height="12" viewBox="0 0 12 12" fill="none"
+                    aria-hidden="true"
                   >
                     <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round"/>
                   </svg>
@@ -108,20 +119,22 @@ export function FotoVideoContact() {
               </div>
 
               <div className="space-y-1.5">
-                <label className="block text-[10px] tracking-[0.18em] uppercase text-cream/35">
+                <label htmlFor="message" className="block text-[10px] tracking-[0.18em] uppercase text-cream/35">
                   Projektbeschreibung
                 </label>
                 <textarea
+                  id="message"
                   name="message"
                   required
+                  aria-required={true}
                   rows={5}
                   placeholder="Beschreiben Sie Ihr Projekt, Zeitplan und Budget…"
-                  className="w-full px-4 py-3 text-sm bg-white/[0.04] border border-white/10 text-cream placeholder:text-cream/25 focus:outline-none focus:border-gold/50 transition-colors resize-none rounded-lg"
+                  className="w-full px-4 py-3 text-sm bg-white/[0.04] border border-white/10 text-cream placeholder:text-cream/25 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 focus-visible:ring-offset-1 focus-visible:ring-offset-ink focus:border-gold/50 transition-colors resize-none rounded-lg"
                 />
               </div>
 
               {status === "error" && (
-                <p className="text-sm text-red-400">
+                <p role="alert" className="text-sm text-red-400">
                   Fehler beim Senden. Bitte versuchen Sie es erneut.
                 </p>
               )}
@@ -156,16 +169,18 @@ function Field({
 }) {
   return (
     <div className="space-y-1.5">
-      <label className="block text-[10px] tracking-[0.18em] uppercase text-cream/35">
+      <label htmlFor={name} className="block text-[10px] tracking-[0.18em] uppercase text-cream/35">
         {label}
-        {required && <span className="ml-1 text-gold/70">*</span>}
+        {required && <span className="ml-1 text-gold/70" aria-hidden="true">*</span>}
       </label>
       <input
+        id={name}
         type={type}
         name={name}
         required={required}
+        aria-required={required ? true : undefined}
         placeholder={placeholder}
-        className="w-full px-4 py-3 text-sm bg-white/[0.04] border border-white/10 text-cream placeholder:text-cream/25 focus:outline-none focus:border-gold/50 transition-colors rounded-lg"
+        className="w-full px-4 py-3 text-sm bg-white/[0.04] border border-white/10 text-cream placeholder:text-cream/25 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 focus-visible:ring-offset-1 focus-visible:ring-offset-ink focus:border-gold/50 transition-colors rounded-lg"
       />
     </div>
   )

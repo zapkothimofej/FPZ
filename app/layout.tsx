@@ -17,20 +17,40 @@ const dmSans = DM_Sans({
 })
 
 export const metadata: Metadata = {
-  title: "FPZ — Web, KI & Foto/Video",
+  metadataBase: new URL("https://fpz-website.vercel.app"),
+  title: {
+    default: "FPZ — Web, KI & Foto/Video",
+    template: "%s | FPZ",
+  },
   description:
-    "FPZ: Digitale Exzellenz für moderne Unternehmen. Professionelle Websites, KI-Automatisierungen und Foto/Video-Produktionen.",
+    "FPZ: Digitale Exzellenz für moderne Unternehmen. Professionelle Websites, KI-Automatisierungen und Foto/Video-Produktionen aus Bochum.",
+  keywords: [
+    "Webseitenerstellung",
+    "KI-Automatisierungen",
+    "Produktfotografie",
+    "Imagefilm",
+    "Bochum",
+    "NRW",
+    "Next.js Agentur",
+    "OpenAI Integration",
+  ],
   openGraph: {
+    type: "website",
+    siteName: "FPZ",
+    locale: "de_DE",
+    url: "https://fpz-website.vercel.app",
     title: "FPZ — Web, KI & Foto/Video",
     description:
-      "Websites, KI-Automatisierungen und professionelle Foto/Video-Produktionen.",
-    locale: "de_DE",
+      "Websites, KI-Automatisierungen und professionelle Foto/Video-Produktionen aus Bochum.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "FPZ — Web, KI & Foto/Video",
+    description: "Websites, KI-Automatisierungen und Foto/Video-Produktionen aus Bochum.",
   },
 }
 
-export default function RootLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="de" className={`${cormorant.variable} ${dmSans.variable}`}>
       <body className="min-h-screen antialiased">{children}</body>

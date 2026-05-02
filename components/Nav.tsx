@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import { useEffect, useState } from "react"
 import { Logo } from "./Logo"
 import { ThemeToggle } from "./ThemeToggle"
 
@@ -9,16 +10,39 @@ export function Nav() {
   const path = usePathname()
   const isWebKi = path.startsWith("/web-ki")
   const isFotoVideo = path.startsWith("/foto-video")
+  const isSubPage = isWebKi || isFotoVideo
+
+  const [menuOpen, setMenuOpen] = useState(false)
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    setMenuOpen(false)
+  }, [path])
+
+  const anchorLinks = isWebKi
+    ? [
+        { label: "Leistungen", href: "#leistungen" },
+        { label: "Über uns", href: "#ueber-uns" },
+        { label: "Kontakt", href: "#kontakt" },
+      ]
+    : isFotoVideo
+    ? [
+        { label: "Leistungen", href: "#leistungen" },
+        { label: "Portfolio", href: "#portfolio" },
+        { label: "Kontakt", href: "#kontakt" },
+      ]
+    : []
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-cream/85 dark:bg-dark/85 backdrop-blur-md border-b border-stone/50 dark:border-stone/10">
+      {/* Main nav row */}
       <div className="flex items-center justify-between px-6 md:px-10 lg:px-14 h-14">
         {/* Logo */}
         <Link href="/" className="transition-opacity hover:opacity-60">
           <Logo size="sm" />
         </Link>
 
-        {/* Center nav */}
+        {/* Center nav pills — desktop only */}
         <div className="hidden md:flex items-center gap-1">
           <NavPill href="/web-ki" active={isWebKi}>
             Web &amp; KI
@@ -31,7 +55,8 @@ export function Nav() {
 
         {/* Right side */}
         <div className="flex items-center gap-4">
-          {(isWebKi || isFotoVideo) && (
+          {/* Desktop CTA */}
+          {isSubPage && (
             <Link
               href="#kontakt"
               className="hidden sm:inline-flex text-xs tracking-[0.12em] uppercase font-medium px-4 py-2 rounded-full bg-ink text-cream dark:bg-cream dark:text-ink hover:opacity-75 transition-opacity"
@@ -39,25 +64,54 @@ export function Nav() {
               Anfrage
             </Link>
           )}
+
+          {/* Hamburger button — mobile only */}
+          <button
+            type="button"
+            onClick={() => setMenuOpen((prev) => !prev)}
+            aria-label={menuOpen ? "Menü schließen" : "Menü öffnen"}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-menu"
+            className="md:hidden p-2 text-ink dark:text-cream hover:opacity-60 transition-opacity"
+          >
+            {menuOpen ? (
+              // X icon
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <line x1="3" y1="3" x2="17" y2="17" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" />
+                <line x1="17" y1="3" x2="3" y2="17" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" />
+              </svg>
+            ) : (
+              // Hamburger icon
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
+                fill="none"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <line x1="2" y1="5" x2="18" y2="5" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" />
+                <line x1="2" y1="10" x2="18" y2="10" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" />
+                <line x1="2" y1="15" x2="18" y2="15" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" />
+              </svg>
+            )}
+          </button>
+
           <ThemeToggle />
         </div>
       </div>
 
-      {/* Sub-page anchor links */}
-      {(isWebKi || isFotoVideo) && (
+      {/* Desktop sub-page anchor links */}
+      {isSubPage && (
         <div className="hidden md:flex items-center gap-6 px-10 lg:px-14 h-9 border-t border-stone/30 dark:border-stone/10">
-          {(isWebKi
-            ? [
-                { label: "Leistungen", href: "#leistungen" },
-                { label: "Über uns", href: "#ueber-uns" },
-                { label: "Kontakt", href: "#kontakt" },
-              ]
-            : [
-                { label: "Leistungen", href: "#leistungen" },
-                { label: "Portfolio", href: "#portfolio" },
-                { label: "Kontakt", href: "#kontakt" },
-              ]
-          ).map((link) => (
+          {anchorLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
@@ -66,6 +120,49 @@ export function Nav() {
               {link.label}
             </a>
           ))}
+        </div>
+      )}
+
+      {/* Mobile dropdown menu */}
+      {menuOpen && (
+        <div
+          id="mobile-menu"
+          className="md:hidden absolute left-0 right-0 z-40 bg-cream/95 dark:bg-dark/95 backdrop-blur-md border-b border-stone/50 dark:border-stone/10 px-6 py-6"
+        >
+          <div className="space-y-1">
+            {/* Main navigation links */}
+            <Link
+              href="/web-ki"
+              className="block py-3 text-sm font-medium text-ink dark:text-cream border-b border-stone/30 dark:border-stone/10"
+            >
+              Web &amp; KI
+            </Link>
+            <Link
+              href="/foto-video"
+              className="block py-3 text-sm font-medium text-ink dark:text-cream border-b border-stone/30 dark:border-stone/10"
+            >
+              Foto &amp; Video
+            </Link>
+
+            {/* Sub-page anchor links */}
+            {anchorLinks.map((link) => (
+              <a
+                key={link.href}
+                href={link.href}
+                className="block py-2 text-xs tracking-[0.14em] uppercase text-muted dark:text-muted hover:text-ink dark:hover:text-cream transition-colors"
+              >
+                {link.label}
+              </a>
+            ))}
+
+            {/* CTA — always visible in mobile menu */}
+            <Link
+              href="#kontakt"
+              className="mt-4 w-full py-3 text-xs tracking-[0.12em] uppercase font-medium bg-ink text-cream dark:bg-cream dark:text-ink rounded-full text-center block"
+            >
+              Anfrage starten
+            </Link>
+          </div>
         </div>
       )}
     </nav>

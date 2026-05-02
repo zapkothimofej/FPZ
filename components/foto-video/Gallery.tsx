@@ -33,7 +33,7 @@ const photos = [
 
 export function FotoVideoGallery() {
   return (
-    <section id="portfolio" className="py-24 md:py-36 px-8 md:px-16 lg:px-24 bg-parchment dark:bg-ink">
+    <section id="portfolio" className="py-24 md:py-36 px-6 md:px-12 lg:px-16 bg-parchment dark:bg-ink">
       <FadeIn>
         <p className="text-[10px] tracking-[0.28em] uppercase text-gold mb-3 font-medium">Portfolio</p>
         <h2 className="font-display font-light italic text-[clamp(2.5rem,5vw,5rem)] leading-tight text-ink dark:text-cream mb-16 md:mb-24">
