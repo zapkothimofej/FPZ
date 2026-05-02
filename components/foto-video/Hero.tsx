@@ -22,7 +22,7 @@ export function FotoVideoHero() {
       })
 
       tl.from(".fv-reveal", {
-        yPercent: 110,
+        yPercent: 145,
         duration: 1.0,
         stagger: 0.08,
       }, "-=1.0")
@@ -74,7 +74,7 @@ export function FotoVideoHero() {
       <div className="relative z-10 py-16 md:py-20 max-w-4xl">
         <div className="space-y-0">
           {["Visuals,", "die wirken."].map((line) => (
-            <div key={line} className="overflow-hidden leading-none">
+            <div key={line} style={{ clipPath: "inset(-30% 0 -30% 0)" }}>
               <h1 className="fv-reveal font-display font-light italic text-[clamp(3rem,7.5vw,7.5rem)] leading-[1.05] tracking-[-0.01em] text-white">
                 {line}
               </h1>

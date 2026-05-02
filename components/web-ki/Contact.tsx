@@ -32,23 +32,47 @@ export function WebKiContact() {
   }
 
   return (
-    <section id="kontakt" className="py-24 md:py-36 px-8 md:px-16 lg:px-24">
-      <div className="max-w-2xl mx-auto">
+    <section id="kontakt" className="bg-ink py-24 md:py-36 px-6 md:px-12 lg:px-16">
+      <div className="max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
+
+        {/* Left — info */}
         <FadeIn>
-          <p className="text-xs tracking-[0.25em] uppercase text-muted mb-4">Kontakt</p>
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-ink dark:text-cream mb-4 leading-tight">
+          <p className="text-[10px] tracking-[0.28em] uppercase text-gold font-medium mb-4">
+            Kontakt
+          </p>
+          <h2 className="font-display font-light italic text-[clamp(2.5rem,5vw,4.5rem)] leading-tight text-cream mb-8">
             Projekt starten.
           </h2>
-          <p className="text-mid dark:text-muted mb-12 leading-relaxed">
-            Beschreiben Sie Ihr Vorhaben. Wir melden uns innerhalb von 24 Stunden.
+          <p className="text-cream/50 text-sm md:text-base leading-relaxed max-w-sm mb-12">
+            Beschreiben Sie Ihr Vorhaben. Wir melden uns innerhalb von 24 Stunden mit einer konkreten Einschätzung.
           </p>
+
+          <div className="space-y-6">
+            {[
+              { label: "E-Mail", value: "kontakt@fpz.de" },
+              { label: "Standort", value: "Bochum, NRW" },
+              { label: "Reaktionszeit", value: "< 24 Stunden" },
+            ].map((item) => (
+              <div key={item.label} className="flex items-start gap-4">
+                <span className="w-3 h-px bg-gold/50 mt-[0.65em] flex-shrink-0" />
+                <div>
+                  <p className="text-[10px] tracking-[0.2em] uppercase text-cream/30 mb-0.5">{item.label}</p>
+                  <p className="text-cream/70 text-sm">{item.value}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </FadeIn>
 
+        {/* Right — form */}
         <FadeIn delay={0.1}>
           {status === "sent" ? (
-            <div className="py-12 text-center">
-              <p className="text-2xl font-semibold text-ink dark:text-cream mb-2">Nachricht erhalten.</p>
-              <p className="text-mid dark:text-muted">Wir melden uns bald.</p>
+            <div className="h-full flex flex-col justify-center py-12">
+              <div className="h-px bg-gold/30 w-12 mb-8" />
+              <p className="font-display font-light italic text-[clamp(1.8rem,3vw,2.5rem)] text-cream mb-3">
+                Nachricht erhalten.
+              </p>
+              <p className="text-cream/40 text-sm">Wir melden uns bald bei Ihnen.</p>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-5">
@@ -58,7 +82,7 @@ export function WebKiContact() {
               </div>
               <Field label="E-Mail" name="email" type="email" required placeholder="max@musterfirma.de" />
               <div className="space-y-1.5">
-                <label className="block text-xs tracking-[0.1em] uppercase text-muted">
+                <label className="block text-[10px] tracking-[0.18em] uppercase text-cream/35">
                   Nachricht
                 </label>
                 <textarea
@@ -66,12 +90,12 @@ export function WebKiContact() {
                   required
                   rows={5}
                   placeholder="Erzählen Sie uns von Ihrem Projekt…"
-                  className="w-full px-4 py-3 text-sm bg-off-white dark:bg-stone/10 border border-stone dark:border-stone/20 rounded-xl text-ink dark:text-cream placeholder:text-muted focus:outline-none focus:border-ink dark:focus:border-cream transition-colors resize-none"
+                  className="w-full px-4 py-3 text-sm bg-white/[0.04] border border-white/10 text-cream placeholder:text-cream/25 focus:outline-none focus:border-gold/50 transition-colors resize-none rounded-lg"
                 />
               </div>
 
               {status === "error" && (
-                <p className="text-sm text-red-500">
+                <p className="text-sm text-red-400">
                   Fehler beim Senden. Bitte versuchen Sie es erneut.
                 </p>
               )}
@@ -79,7 +103,7 @@ export function WebKiContact() {
               <button
                 type="submit"
                 disabled={status === "sending"}
-                className="w-full py-4 text-sm font-medium bg-ink text-cream dark:bg-cream dark:text-ink rounded-full hover:opacity-80 transition-opacity disabled:opacity-50"
+                className="w-full py-4 text-xs tracking-[0.15em] uppercase font-medium bg-cream text-ink hover:bg-white transition-colors disabled:opacity-50 rounded-full"
               >
                 {status === "sending" ? "Wird gesendet…" : "Nachricht senden"}
               </button>
@@ -106,16 +130,16 @@ function Field({
 }) {
   return (
     <div className="space-y-1.5">
-      <label className="block text-xs tracking-[0.1em] uppercase text-muted">
+      <label className="block text-[10px] tracking-[0.18em] uppercase text-cream/35">
         {label}
-        {required && <span className="ml-1 text-ink dark:text-cream">*</span>}
+        {required && <span className="ml-1 text-gold/70">*</span>}
       </label>
       <input
         type={type}
         name={name}
         required={required}
         placeholder={placeholder}
-        className="w-full px-4 py-3 text-sm bg-off-white dark:bg-stone/10 border border-stone dark:border-stone/20 rounded-xl text-ink dark:text-cream placeholder:text-muted focus:outline-none focus:border-ink dark:focus:border-cream transition-colors"
+        className="w-full px-4 py-3 text-sm bg-white/[0.04] border border-white/10 text-cream placeholder:text-cream/25 focus:outline-none focus:border-gold/50 transition-colors rounded-lg"
       />
     </div>
   )

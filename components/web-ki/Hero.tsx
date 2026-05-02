@@ -1,6 +1,7 @@
 "use client"
 
 import { useRef } from "react"
+import Image from "next/image"
 import gsap from "gsap"
 import { useGSAP } from "@gsap/react"
 import Link from "next/link"
@@ -12,10 +13,16 @@ export function WebKiHero() {
 
   useGSAP(
     () => {
+      gsap.fromTo(".wk-img", { scale: 1.08 }, {
+        scale: 1.0,
+        duration: 2.2,
+        ease: "power2.out",
+      })
+
       const tl = gsap.timeline({ delay: 0.15, defaults: { ease: "power4.out" } })
 
       tl.from(".wk-reveal", {
-        yPercent: 110,
+        yPercent: 145,
         duration: 1.0,
         stagger: 0.08,
       })
@@ -33,18 +40,31 @@ export function WebKiHero() {
   return (
     <section
       ref={root}
-      className="relative min-h-screen flex flex-col justify-between bg-ink dark:bg-dark px-6 md:px-12 lg:px-16 pt-28 pb-14 overflow-hidden"
+      className="relative min-h-screen flex flex-col justify-between px-6 md:px-12 lg:px-16 pt-28 pb-14 overflow-hidden"
     >
+      {/* Background image */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="https://images.unsplash.com/photo-1484788984921-03950022c9ef?w=1800&q=80"
+          alt=""
+          fill
+          priority
+          className="wk-img object-cover"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-ink/80 via-ink/60 to-ink/90" />
+      </div>
+
       {/* Large background FPZ watermark */}
       <span
-        className="absolute -bottom-8 -right-4 font-display font-light text-[22vw] leading-none text-white/[0.03] pointer-events-none select-none"
+        className="absolute -bottom-8 -right-4 z-10 font-display font-light text-[22vw] leading-none text-white/[0.03] pointer-events-none select-none"
         aria-hidden="true"
       >
         FPZ
       </span>
 
       {/* Top */}
-      <div className="flex items-end justify-between pt-4">
+      <div className="relative z-10 flex items-end justify-between pt-4">
         <div className="overflow-hidden">
           <p className="wk-reveal text-[10px] tracking-[0.28em] uppercase text-white/40 font-medium">
             FPZ — Web &amp; KI
@@ -58,10 +78,10 @@ export function WebKiHero() {
       </div>
 
       {/* Main heading */}
-      <div className="py-16 md:py-20 max-w-4xl">
+      <div className="relative z-10 py-16 md:py-20 max-w-4xl">
         <div className="space-y-0">
           {["Digitale Präsenz,", "die überzeugt."].map((line) => (
-            <div key={line} className="overflow-hidden leading-none">
+            <div key={line} style={{ clipPath: "inset(-30% 0 -30% 0)" }}>
               <h1 className="wk-reveal font-display font-light italic text-[clamp(3rem,7.5vw,7.5rem)] leading-[1.05] tracking-[-0.01em] text-white">
                 {line}
               </h1>
@@ -71,7 +91,7 @@ export function WebKiHero() {
       </div>
 
       {/* Bottom content */}
-      <div className="flex flex-col md:flex-row md:items-end gap-10 md:gap-20">
+      <div className="relative z-10 flex flex-col md:flex-row md:items-end gap-10 md:gap-20">
         <p className="wk-fade text-white/55 text-base md:text-lg leading-relaxed max-w-md">
           Wir entwickeln Websites und KI-Systeme, die Ihr Unternehmen
           voranbringen — messbar, zuverlässig, modern.
@@ -94,7 +114,7 @@ export function WebKiHero() {
       </div>
 
       {/* Thin gold bottom rule */}
-      <div className="mt-14 h-px bg-gold/30" />
+      <div className="relative z-10 mt-14 h-px bg-gold/30" />
     </section>
   )
 }
