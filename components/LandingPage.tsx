@@ -194,7 +194,7 @@ function SectionCard({
       {/* Content */}
       <div className="relative z-10 h-full flex flex-col justify-between p-10 md:p-14 lg:p-16">
         <div className="flex items-start justify-between">
-          <span className="font-display text-5xl font-light text-white/15 leading-none">
+          <span className="font-display text-5xl font-light text-white/35 leading-none">
             {num}
           </span>
           <span className="text-[10px] tracking-[0.25em] uppercase text-gold font-medium">

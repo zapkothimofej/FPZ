@@ -67,7 +67,7 @@ export function FotoVideoServices() {
           <FadeIn key={s.num} delay={i * 0.08}>
             <div className="p-8 md:p-10 border border-stone/60 dark:border-stone/10 rounded-2xl hover:border-ink dark:hover:border-cream/30 transition-colors group h-full">
               <div className="flex items-start justify-between mb-6">
-                <span className="font-display text-3xl font-light text-stone dark:text-stone/50 leading-none">{s.num}</span>
+                <span className="font-display text-3xl font-light text-ink/35 dark:text-cream/50 leading-none">{s.num}</span>
                 <span className="text-ink/40 dark:text-cream/30 group-hover:text-gold transition-colors duration-300">
                   {s.icon}
                 </span>
