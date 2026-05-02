@@ -55,14 +55,6 @@ export function WebKiHero() {
         <div className="absolute inset-0 bg-gradient-to-b from-ink/80 via-ink/60 to-ink/90" />
       </div>
 
-      {/* Large background FPZ watermark */}
-      <span
-        className="absolute -bottom-8 -right-4 z-10 font-display font-light text-[22vw] leading-none text-white/[0.03] pointer-events-none select-none"
-        aria-hidden="true"
-      >
-        FPZ
-      </span>
-
       {/* Top */}
       <div className="relative z-10 flex items-end justify-between pt-4">
         <div className="overflow-hidden">
