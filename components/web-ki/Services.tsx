@@ -40,7 +40,7 @@ export function WebKiServices() {
         {services.map((s, i) => (
           <FadeIn key={s.num} delay={i * 0.06}>
             <div className="grid grid-cols-1 md:grid-cols-[64px_1fr_200px] gap-4 md:gap-12 py-10 md:py-12 group">
-              <span className="font-display text-3xl font-light text-stone dark:text-stone/20 leading-none pt-1">
+              <span className="font-display text-3xl font-light text-stone dark:text-stone/50 leading-none pt-1">
                 {s.num}
               </span>
 

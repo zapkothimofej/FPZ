@@ -39,7 +39,7 @@ export function FotoVideoProcess() {
         {steps.map((step, i) => (
           <FadeIn key={step.num} delay={i * 0.08}>
             <div className="p-8 md:p-10 border-t border-white/10 lg:border-t-0 lg:border-l lg:first:border-l-0 hover:bg-white/[0.03] transition-colors">
-              <span className="font-display text-[3.5rem] font-light leading-none text-white/15 block mb-6">
+              <span className="font-display text-[3.5rem] font-light leading-none text-white/40 block mb-6">
                 {step.num}
               </span>
               <h3 className="text-base font-medium text-white mb-3 tracking-tight">
