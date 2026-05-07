@@ -44,7 +44,7 @@ export function LandingPage() {
   )
 
   return (
-    <div ref={root} className="min-h-svh flex flex-col bg-ink">
+    <div ref={root} className="md:min-h-svh flex flex-col bg-ink">
 
       {/* ── Hero ─────────────────────────────────────────── */}
       <section className="flex-1 flex flex-col px-6 md:px-12 lg:px-16 pt-24 pb-0">
@@ -82,10 +82,10 @@ export function LandingPage() {
             <Link
               href="#bereiche"
               aria-label="Bereiche entdecken"
-              className="hero-meta inline-flex items-center gap-2 text-xs tracking-[0.18em] uppercase text-white/40 hover:text-white/80 transition-colors self-start sm:self-auto"
+              className="hero-meta inline-flex items-center gap-2 text-xs tracking-[0.18em] uppercase text-white/60 sm:text-white/40 hover:text-white/80 transition-colors self-start sm:self-auto"
             >
               <span>Entdecken</span>
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="animate-bounce">
                 <path d="M7 2v10M2 7l5 5 5-5" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round"/>
               </svg>
             </Link>

@@ -15,7 +15,7 @@ export function FotoVideoContact() {
     const data = new FormData(form)
 
     try {
-      const res = await fetch("https://formsubmit.co/ajax/zapkothimofej@gmail.com", {
+      const res = await fetch("https://formsubmit.co/ajax/dc1680c158855bc1fa8160692cdd812d", {
         method: "POST",
         headers: { "Content-Type": "application/json", "Accept": "application/json" },
         body: JSON.stringify({

@@ -48,6 +48,31 @@ body::after {
   animation: grain 8s steps(10) infinite;
 }
 
+/* Mobile: 400%×400% element hits GPU limits — use tiling + bg-position shift instead */
+@media (max-width: 767px) {
+  body::after {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: 250px 250px;
+    transform: none;
+    animation: grain-sm 5s steps(8) infinite;
+  }
+}
+
+@keyframes grain-sm {
+  0%   { background-position: 0 0 }
+  12%  { background-position: -32px -18px }
+  25%  { background-position: 18px -44px }
+  37%  { background-position: -44px 28px }
+  50%  { background-position: 12px -55px }
+  62%  { background-position: -55px 18px }
+  75%  { background-position: 32px 8px }
+  87%  { background-position: -18px -32px }
+  100% { background-position: 0 0 }
+}
+
 @media (prefers-reduced-motion: reduce) {
   body::after {
     animation: none;
