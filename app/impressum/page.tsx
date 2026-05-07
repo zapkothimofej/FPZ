@@ -20,7 +20,7 @@ export default function ImpressumPage() {
 
           <div className="space-y-12 text-cream/70 text-sm leading-relaxed">
             <Section title="Angaben gemäß § 5 TMG">
-              <p>[DEIN NAME / FIRMENNAME]<br />[STRASSE UND HAUSNUMMER]<br />[PLZ] [STADT]</p>
+              <p>Stevan Fre<br />Im Siepen 66<br />45731 Waltrop</p>
             </Section>
 
             <Section title="Kontakt">
@@ -29,13 +29,13 @@ export default function ImpressumPage() {
 
             <Section title="Umsatzsteuer">
               <p>
-                Umsatzsteuer-Identifikationsnummer gemäß § 27 a Umsatzsteuergesetz:<br />
-                [USTID EINTRAGEN — oder: Kleinunternehmer gemäß § 19 UStG, daher keine Umsatzsteuer-ID]
+                Gemäß § 19 UStG wird keine Umsatzsteuer berechnet und ausgewiesen
+                (Kleinunternehmerregelung).
               </p>
             </Section>
 
             <Section title="Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV">
-              <p>[NAME]<br />[ADRESSE]</p>
+              <p>Stevan Fre<br />Im Siepen 66<br />45731 Waltrop</p>
             </Section>
 
             <Section title="Haftungsausschluss">

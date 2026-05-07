@@ -3,10 +3,7 @@
 import { useRef } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import gsap from "gsap"
-import { useGSAP } from "@gsap/react"
-
-gsap.registerPlugin(useGSAP)
+import { gsap, useGSAP } from "@/lib/gsap"
 
 export function LandingPage() {
   const root = useRef<HTMLDivElement>(null)
@@ -47,7 +44,7 @@ export function LandingPage() {
   )
 
   return (
-    <div ref={root} className="min-h-screen flex flex-col bg-ink">
+    <div ref={root} className="min-h-svh flex flex-col bg-ink">
 
       {/* ── Hero ─────────────────────────────────────────── */}
       <section className="flex-1 flex flex-col px-6 md:px-12 lg:px-16 pt-24 pb-0">
@@ -68,15 +65,13 @@ export function LandingPage() {
 
         {/* Main heading */}
         <div className="flex-1 flex flex-col justify-center">
-          <div className="space-y-1">
+          <h1 className="font-display font-light italic text-[clamp(3.8rem,8.5vw,8.5rem)] leading-[1.05] tracking-[-0.01em] text-white space-y-1">
             {["Websites.", "KI-Systeme.", "Visuals."].map((word) => (
               <div key={word} style={{ clipPath: "inset(-30% 0 -30% 0)" }}>
-                <h1 className="reveal-line font-display font-light italic text-[clamp(3.8rem,8.5vw,8.5rem)] leading-[1.05] tracking-[-0.01em] text-white">
-                  {word}
-                </h1>
+                <span className="reveal-line block">{word}</span>
               </div>
             ))}
-          </div>
+          </h1>
 
           <div className="mt-10 md:mt-14 flex flex-col sm:flex-row sm:items-end gap-6 sm:justify-between max-w-5xl">
             <p className="hero-meta text-white/50 text-base md:text-lg leading-relaxed max-w-sm">
@@ -86,6 +81,7 @@ export function LandingPage() {
             </p>
             <Link
               href="#bereiche"
+              aria-label="Bereiche entdecken"
               className="hero-meta inline-flex items-center gap-2 text-xs tracking-[0.18em] uppercase text-white/40 hover:text-white/80 transition-colors self-start sm:self-auto"
             >
               <span>Entdecken</span>
@@ -125,7 +121,7 @@ export function LandingPage() {
           title="Web & KI"
           tagline="B2B — Digitale Systeme"
           desc="Professionelle Websites, Prozessautomatisierungen und KI-Integrationen — für Unternehmen, die wachsen wollen."
-          services={["Webseitenerstellung", "Automatisierungen", "OpenAI-Anbindungen"]}
+          services={["Webseitenerstellung", "Automatisierungen"]}
           image="https://images.unsplash.com/photo-1484788984921-03950022c9ef?w=900&q=80"
           borderRight
         />
@@ -146,7 +142,6 @@ export function LandingPage() {
 const MARQUEE_ITEMS = [
   "Webseitenerstellung",
   "Automatisierungen",
-  "OpenAI-Anbindungen",
   "Produktfotografie",
   "Imagefilm",
   "Event-Dokumentation",
@@ -175,7 +170,7 @@ function SectionCard({
   return (
     <Link
       href={href}
-      className={`section-card group relative block overflow-hidden min-h-[480px] md:min-h-[560px] ${
+      className={`section-card group relative block overflow-hidden min-h-[480px] md:min-h-[560px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-gold/60 ${
         borderRight ? "md:border-r border-white/8" : ""
       }`}
     >

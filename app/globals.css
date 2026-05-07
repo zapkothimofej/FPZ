@@ -44,9 +44,18 @@ body::after {
   opacity: 0.04;
   pointer-events: none;
   z-index: 9999;
-  will-change: transform;
   transform: translateZ(0);
   animation: grain 8s steps(10) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::after {
+    animation: none;
+  }
+  @keyframes marquee {
+    from { transform: translateX(0) }
+    to   { transform: translateX(0) }
+  }
 }
 
 @keyframes grain {

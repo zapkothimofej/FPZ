@@ -1,12 +1,9 @@
 "use client"
 
 import { useRef } from "react"
-import gsap from "gsap"
-import { useGSAP } from "@gsap/react"
+import { gsap, useGSAP } from "@/lib/gsap"
 import Link from "next/link"
 import Image from "next/image"
-
-gsap.registerPlugin(useGSAP)
 
 export function FotoVideoHero() {
   const root = useRef<HTMLDivElement>(null)
@@ -40,7 +37,7 @@ export function FotoVideoHero() {
   return (
     <section
       ref={root}
-      className="relative min-h-screen flex flex-col justify-between px-6 md:px-12 lg:px-16 pt-28 pb-14 overflow-hidden"
+      className="relative min-h-svh flex flex-col justify-between px-6 md:px-12 lg:px-16 pt-28 pb-14 overflow-hidden"
     >
       {/* Background */}
       <div className="fv-img absolute inset-0 z-0">
@@ -72,15 +69,13 @@ export function FotoVideoHero() {
 
       {/* Main heading */}
       <div className="relative z-10 py-16 md:py-20 max-w-4xl">
-        <div className="space-y-0">
+        <h1 className="font-display font-light italic text-[clamp(3rem,7.5vw,7.5rem)] leading-[1.05] tracking-[-0.01em] text-white">
           {["Visuals,", "die wirken."].map((line) => (
             <div key={line} style={{ clipPath: "inset(-30% 0 -30% 0)" }}>
-              <h1 className="fv-reveal font-display font-light italic text-[clamp(3rem,7.5vw,7.5rem)] leading-[1.05] tracking-[-0.01em] text-white">
-                {line}
-              </h1>
+              <span className="fv-reveal block">{line}</span>
             </div>
           ))}
-        </div>
+        </h1>
       </div>
 
       {/* Bottom */}

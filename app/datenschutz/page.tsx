@@ -21,8 +21,9 @@ export default function DatenschutzPage() {
           <div className="space-y-12 text-cream/70 text-sm leading-relaxed">
             <Section title="Verantwortlicher">
               <p>
-                [NAME / FIRMENNAME]<br />
-                [ADRESSE]<br />
+                Stevan Fre<br />
+                Im Siepen 66<br />
+                45731 Waltrop<br />
                 E-Mail: kontakt@fpz.de
               </p>
             </Section>

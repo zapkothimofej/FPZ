@@ -41,9 +41,9 @@ export function FotoVideoGallery() {
         </h2>
       </FadeIn>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 auto-rows-[260px] gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-3 auto-rows-[160px] md:auto-rows-[260px] gap-4">
         {photos.map((photo, i) => (
-          <FadeIn key={i} delay={i * 0.06} className={photo.span}>
+          <FadeIn key={photo.src} delay={i * 0.06} className={photo.span}>
             <div className="relative w-full h-full rounded-xl overflow-hidden bg-stone dark:bg-stone/10 group">
               <Image
                 src={photo.src}

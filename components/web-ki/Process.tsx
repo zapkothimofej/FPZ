@@ -38,7 +38,7 @@ export function WebKiProcess() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0">
         {steps.map((step, i) => (
           <FadeIn key={step.num} delay={i * 0.08}>
-            <div className="group p-8 md:p-10 border-l border-white/10 first:border-l-0 sm:first:border-l sm:border-l-0 sm:[&:nth-child(odd)]:border-l-0 lg:border-l lg:first:border-l-0 hover:bg-white/[0.03] transition-colors">
+            <div className="group p-8 md:p-10 border-white/10 sm:[&:nth-child(even)]:border-l lg:border-l lg:first:border-l-0 hover:bg-white/[0.03] transition-colors">
               <span className="font-display text-[3.5rem] font-light leading-none text-white/40 block mb-6">
                 {step.num}
               </span>
@@ -53,7 +53,7 @@ export function WebKiProcess() {
         ))}
       </div>
 
-      <div className="mt-0 h-px bg-gold/20" />
+      <div className="h-px bg-gold/20" />
     </section>
   )
 }

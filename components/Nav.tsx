@@ -38,7 +38,7 @@ export function Nav() {
       {/* Main nav row */}
       <div className="flex items-center justify-between px-6 md:px-10 lg:px-14 h-14">
         {/* Logo */}
-        <Link href="/" className="transition-opacity hover:opacity-60">
+        <Link href="/" aria-label="FPZ Startseite" className="transition-opacity hover:opacity-60">
           <Logo size="sm" />
         </Link>
 
@@ -72,7 +72,7 @@ export function Nav() {
             aria-label={menuOpen ? "Menü schließen" : "Menü öffnen"}
             aria-expanded={menuOpen}
             aria-controls="mobile-menu"
-            className="md:hidden p-2 text-ink dark:text-cream hover:opacity-60 transition-opacity"
+            className="md:hidden p-3 -mr-1 text-ink dark:text-cream hover:opacity-60 transition-opacity"
           >
             {menuOpen ? (
               // X icon

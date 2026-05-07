@@ -32,7 +32,6 @@ export const metadata: Metadata = {
     "Bochum",
     "NRW",
     "Next.js Agentur",
-    "OpenAI Integration",
   ],
   openGraph: {
     type: "website",

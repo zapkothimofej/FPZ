@@ -7,7 +7,9 @@ export function ThemeToggle() {
 
   useEffect(() => {
     const stored = localStorage.getItem("theme")
-    if (stored === "dark") {
+    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches
+    const isDark = stored === "dark" || (stored === null && prefersDark)
+    if (isDark) {
       document.documentElement.classList.add("dark")
       setDark(true)
     }
@@ -22,6 +24,7 @@ export function ThemeToggle() {
 
   return (
     <button
+      type="button"
       onClick={toggle}
       aria-label={dark ? "Helles Design aktivieren" : "Dunkles Design aktivieren"}
       className="w-8 h-8 rounded-full flex items-center justify-center border border-stone/70 dark:border-stone/25 text-muted dark:text-muted hover:text-ink dark:hover:text-cream hover:border-ink dark:hover:border-cream transition-colors cursor-pointer"
