@@ -2,13 +2,13 @@ import { Nav } from "@/components/Nav"
 import { LandingPage } from "@/components/LandingPage"
 
 export const metadata = {
-  title: "FPZ — Web, KI & Foto/Video",
+  title: "FPZ — Websites, Automationen, Foto & Video",
   description:
-    "FPZ aus Bochum: Professionelle Websites, KI-Automatisierungen und Foto/Video-Produktionen für moderne Unternehmen.",
+    "FPZ aus Bochum baut klare Websites, einfache Automationen und Foto/Video-Content für Unternehmen, Marken und Produkte.",
   openGraph: {
     url: "https://fpz-website.vercel.app",
-    title: "FPZ — Web, KI & Foto/Video",
-    description: "Websites, KI-Automatisierungen und Foto/Video-Produktionen aus Bochum.",
+    title: "FPZ — Websites, Automationen, Foto & Video",
+    description: "Klare Websites, einfache Automationen und Foto/Video-Content aus Bochum.",
   },
   twitter: {
     card: "summary_large_image" as const,

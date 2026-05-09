@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import Link from "next/link"
 import { FadeIn } from "@/components/FadeIn"
 import { Field } from "@/components/Field"
 
@@ -53,8 +54,10 @@ export function FotoVideoContact() {
           <h2 className="font-display font-light italic text-[clamp(2.5rem,5vw,4.5rem)] leading-tight text-cream mb-8">
             Angebot anfragen.
           </h2>
-          <p className="text-cream/50 text-sm md:text-base leading-relaxed max-w-sm mb-12">
-            Erzählen Sie uns von Ihrem Projekt. Wir erstellen innerhalb von 24 Stunden ein unverbindliches Angebot.
+          <p className="text-cream/72 text-sm md:text-base leading-relaxed max-w-sm mb-12">
+            Beschreiben Sie kurz, wofür die Bilder oder Videos gebraucht
+            werden. Wir prüfen Umfang, Vorbereitung und passende Formate,
+            bevor ein Angebot entsteht.
           </p>
 
           <div className="space-y-6">
@@ -66,8 +69,8 @@ export function FotoVideoContact() {
               <div key={item.label} className="flex items-start gap-4">
                 <span className="w-3 h-px bg-gold/50 mt-[0.65em] flex-shrink-0" />
                 <div>
-                  <p className="text-[10px] tracking-[0.2em] uppercase text-cream/30 mb-0.5">{item.label}</p>
-                  <p className="text-cream/70 text-sm">{item.value}</p>
+                  <p className="text-[10px] tracking-[0.2em] uppercase text-cream/50 mb-0.5">{item.label}</p>
+                  <p className="text-cream/82 text-sm">{item.value}</p>
                 </div>
               </div>
             ))}
@@ -82,7 +85,7 @@ export function FotoVideoContact() {
               <p className="font-display font-light italic text-[clamp(1.8rem,3vw,2.5rem)] text-cream mb-3">
                 Anfrage erhalten.
               </p>
-              <p className="text-cream/40 text-sm">Wir melden uns bald bei Ihnen.</p>
+              <p className="text-cream/70 text-sm">Wir melden uns bald bei Ihnen.</p>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-5">
@@ -93,14 +96,14 @@ export function FotoVideoContact() {
               <Field label="E-Mail" name="email" type="email" required placeholder="max@example.de" />
 
               <div className="space-y-1.5">
-                <label htmlFor="project_type" className="block text-[10px] tracking-[0.18em] uppercase text-cream/60">
+                <label htmlFor="project_type" className="block text-[10px] tracking-[0.18em] uppercase text-cream/72">
                   Art des Projekts
                 </label>
                 <div className="relative">
                   <select
                     id="project_type"
                     name="project_type"
-                    className="w-full px-4 py-3 text-sm bg-white/[0.04] border border-white/10 text-cream focus:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 focus-visible:ring-offset-1 focus-visible:ring-offset-ink focus:border-gold/50 transition-colors appearance-none cursor-pointer rounded-lg"
+                    className="w-full px-4 py-3 text-sm bg-white/[0.04] border border-white/16 text-cream focus:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 focus-visible:ring-offset-1 focus-visible:ring-offset-ink focus:border-gold/50 transition-colors appearance-none cursor-pointer rounded-lg"
                   >
                     <option value="" className="bg-ink">Bitte wählen…</option>
                     <option value="produktfotografie" className="bg-ink">Produktfotografie</option>
@@ -110,7 +113,7 @@ export function FotoVideoContact() {
                     <option value="sonstiges" className="bg-ink">Sonstiges</option>
                   </select>
                   <svg
-                    className="absolute right-4 top-1/2 -translate-y-1/2 text-cream/30 pointer-events-none"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-cream/58 pointer-events-none"
                     width="12" height="12" viewBox="0 0 12 12" fill="none"
                     aria-hidden="true"
                   >
@@ -120,7 +123,7 @@ export function FotoVideoContact() {
               </div>
 
               <div className="space-y-1.5">
-                <label htmlFor="message" className="block text-[10px] tracking-[0.18em] uppercase text-cream/60">
+                <label htmlFor="message" className="block text-[10px] tracking-[0.18em] uppercase text-cream/72">
                   Projektbeschreibung
                 </label>
                 <textarea
@@ -129,14 +132,22 @@ export function FotoVideoContact() {
                   required
                   aria-required={true}
                   rows={5}
-                  placeholder="Beschreiben Sie Ihr Projekt, Zeitplan und Budget…"
-                  className="w-full px-4 py-3 text-sm bg-white/[0.04] border border-white/10 text-cream placeholder:text-cream/25 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 focus-visible:ring-offset-1 focus-visible:ring-offset-ink focus:border-gold/50 transition-colors resize-none rounded-lg"
+                  placeholder="Wofür brauchen Sie das Material und wo soll es eingesetzt werden?"
+                  className="w-full px-4 py-3 text-sm bg-white/[0.04] border border-white/16 text-cream placeholder:text-cream/42 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold/60 focus-visible:ring-offset-1 focus-visible:ring-offset-ink focus:border-gold/50 transition-colors resize-none rounded-lg"
                 />
               </div>
+              <p className="text-xs leading-relaxed text-cream/58">
+                Beim Absenden werden Ihre Angaben über FormSubmit verarbeitet
+                und per E-Mail an FPZ weitergeleitet. Details stehen in der{" "}
+                <Link href="/datenschutz" className="text-cream underline underline-offset-4 hover:text-gold">
+                  Datenschutzerklärung
+                </Link>
+                .
+              </p>
 
               {status === "error" && (
                 <p role="alert" className="text-sm text-red-400">
-                  Fehler beim Senden. Bitte versuchen Sie es erneut.
+                  Fehler beim Senden. Bitte schreiben Sie direkt an kontakt@fpz.de.
                 </p>
               )}
 
@@ -154,4 +165,3 @@ export function FotoVideoContact() {
     </section>
   )
 }
-

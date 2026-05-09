@@ -19,11 +19,11 @@ const dmSans = DM_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL("https://fpz-website.vercel.app"),
   title: {
-    default: "FPZ — Web, KI & Foto/Video",
+    default: "FPZ — Websites, Automationen, Foto & Video",
     template: "%s | FPZ",
   },
   description:
-    "FPZ: Digitale Exzellenz für moderne Unternehmen. Professionelle Websites, KI-Automatisierungen und Foto/Video-Produktionen aus Bochum.",
+    "FPZ aus Bochum baut klare Websites, einfache Automationen und Foto/Video-Content für Unternehmen, Marken und Produkte.",
   keywords: [
     "Webseitenerstellung",
     "KI-Automatisierungen",
@@ -38,14 +38,14 @@ export const metadata: Metadata = {
     siteName: "FPZ",
     locale: "de_DE",
     url: "https://fpz-website.vercel.app",
-    title: "FPZ — Web, KI & Foto/Video",
+    title: "FPZ — Websites, Automationen, Foto & Video",
     description:
-      "Websites, KI-Automatisierungen und professionelle Foto/Video-Produktionen aus Bochum.",
+      "Klare Websites, einfache Automationen und Foto/Video-Content aus Bochum.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "FPZ — Web, KI & Foto/Video",
-    description: "Websites, KI-Automatisierungen und Foto/Video-Produktionen aus Bochum.",
+    title: "FPZ — Websites, Automationen, Foto & Video",
+    description: "Websites, Automationen und Foto/Video-Content aus Bochum.",
   },
 }
 

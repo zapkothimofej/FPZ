@@ -30,18 +30,18 @@ export default function DatenschutzPage() {
 
             <Section title="Erhebung und Verarbeitung personenbezogener Daten">
               <p>
-                Wir erheben personenbezogene Daten ausschließlich, wenn Sie uns diese im Rahmen des
-                Kontaktformulars freiwillig mitteilen. Dies umfasst Ihren Namen, Ihre E-Mail-Adresse
-                und die Inhalte Ihrer Nachricht. Diese Daten werden ausschließlich zur Bearbeitung
-                Ihrer Anfrage verwendet und nicht an Dritte weitergegeben.
+                Wir erheben personenbezogene Daten, wenn Sie uns diese im Rahmen des
+                Kontaktformulars freiwillig mitteilen. Dies umfasst je nach Formular
+                Name, E-Mail-Adresse, Telefonnummer, Unternehmen und die Inhalte Ihrer
+                Nachricht. Diese Daten verwenden wir zur Bearbeitung Ihrer Anfrage.
               </p>
             </Section>
 
             <Section title="Kontaktformular">
               <p>
-                Die Übermittlung des Kontaktformulars erfolgt über den Dienst Formsubmit
-                (formsubmit.co). Ihre Eingaben werden verschlüsselt übertragen. Die
-                Rechtsgrundlage für die Verarbeitung ist Art. 6 Abs. 1 lit. b DSGVO.
+                Die Übermittlung des Kontaktformulars erfolgt über den Dienst FormSubmit
+                (formsubmit.co). Ihre Eingaben werden an FormSubmit übertragen und per
+                E-Mail an uns weitergeleitet. Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO.
               </p>
             </Section>
 
@@ -56,8 +56,8 @@ export default function DatenschutzPage() {
 
             <Section title="Cookies">
               <p>
-                Diese Website verwendet keine Tracking-Cookies und kein Web-Analytics.
-                Es werden lediglich technisch notwendige Cookies gesetzt.
+                Diese Website verwendet kein Web-Analytics und setzt selbst keine
+                Marketing- oder Tracking-Cookies.
               </p>
             </Section>
 
@@ -90,9 +90,9 @@ function Section({ title, children }: { title: string; children: React.ReactNode
     <div>
       <div className="flex items-center gap-4 mb-4">
         <span className="w-3 h-px bg-gold/50 flex-shrink-0" />
-        <h2 className="text-xs tracking-[0.18em] uppercase text-cream/40">{title}</h2>
+        <h2 className="text-xs tracking-[0.18em] uppercase text-cream/62">{title}</h2>
       </div>
-      <div className="pl-7 text-cream/65">{children}</div>
+      <div className="pl-7 text-cream/78">{children}</div>
     </div>
   )
 }

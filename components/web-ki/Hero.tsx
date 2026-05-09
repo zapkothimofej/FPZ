@@ -55,13 +55,13 @@ export function WebKiHero() {
       {/* Top */}
       <div className="relative z-10 flex items-end justify-between pt-4">
         <div className="overflow-hidden">
-          <p className="wk-reveal text-[10px] tracking-[0.28em] uppercase text-white/40 font-medium">
+          <p className="wk-reveal text-[10px] tracking-[0.28em] uppercase text-white/62 font-medium">
             FPZ — Web &amp; KI
           </p>
         </div>
         <div className="overflow-hidden">
-          <span className="wk-reveal text-[10px] tracking-[0.28em] uppercase text-white/30">
-            B2B
+          <span className="wk-reveal text-[10px] tracking-[0.28em] uppercase text-white/50">
+            Websites + Automationen
           </span>
         </div>
       </div>
@@ -69,7 +69,7 @@ export function WebKiHero() {
       {/* Main heading */}
       <div className="relative z-10 py-16 md:py-20 max-w-4xl">
         <h1 className="font-display font-light italic text-[clamp(3rem,7.5vw,7.5rem)] leading-[1.05] tracking-[-0.01em] text-white">
-          {["Digitale Präsenz,", "die überzeugt."].map((line) => (
+          {["Mehr Anfragen.", "Weniger Handarbeit."].map((line) => (
             <div key={line} style={{ clipPath: "inset(-30% 0 -30% 0)" }}>
               <span className="wk-reveal block">{line}</span>
             </div>
@@ -79,21 +79,21 @@ export function WebKiHero() {
 
       {/* Bottom content */}
       <div className="relative z-10 flex flex-col md:flex-row md:items-end gap-10 md:gap-20">
-        <p className="wk-fade text-white/55 text-base md:text-lg leading-relaxed max-w-md">
-          Wir entwickeln Websites und KI-Systeme, die Ihr Unternehmen
-          voranbringen — messbar, zuverlässig, modern.
+        <p className="wk-fade text-white/76 text-base md:text-lg leading-relaxed max-w-md">
+          Wir bauen klare Websites und kleine Automationen für Unternehmen,
+          die online professioneller wirken und interne Arbeit reduzieren wollen.
         </p>
 
-        <div className="wk-fade flex flex-col sm:flex-row gap-3 flex-shrink-0">
+        <div className="wk-fade grid grid-cols-1 sm:flex sm:flex-row gap-3 w-full sm:w-auto flex-shrink-0">
           <Link
             href="#kontakt"
-            className="inline-flex items-center justify-center px-7 py-3.5 text-xs tracking-[0.12em] uppercase font-medium bg-cream text-ink hover:bg-white transition-colors rounded-full"
+            className="inline-flex min-h-12 w-full sm:w-auto items-center justify-center px-7 py-3.5 text-xs tracking-[0.12em] uppercase font-medium bg-cream text-ink hover:bg-white transition-colors rounded-full"
           >
-            Projekt starten
+            Gespräch anfragen
           </Link>
           <Link
             href="#leistungen"
-            className="inline-flex items-center justify-center px-7 py-3.5 text-xs tracking-[0.12em] uppercase font-medium border border-white/20 text-white/70 hover:border-white/40 hover:text-white transition-colors rounded-full"
+            className="inline-flex min-h-12 w-full sm:w-auto items-center justify-center px-7 py-3.5 text-xs tracking-[0.12em] uppercase font-medium border border-white/35 text-white/82 hover:border-white/55 hover:text-white transition-colors rounded-full"
           >
             Leistungen
           </Link>

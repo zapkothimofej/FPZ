@@ -61,8 +61,8 @@ export function FotoVideoHero() {
           </p>
         </div>
         <div className="overflow-hidden">
-          <span className="fv-reveal text-[10px] tracking-[0.28em] uppercase text-white/30">
-            B2C
+          <span className="fv-reveal text-[10px] tracking-[0.28em] uppercase text-white/50">
+            Foto + Video
           </span>
         </div>
       </div>
@@ -70,7 +70,7 @@ export function FotoVideoHero() {
       {/* Main heading */}
       <div className="relative z-10 py-16 md:py-20 max-w-4xl">
         <h1 className="font-display font-light italic text-[clamp(3rem,7.5vw,7.5rem)] leading-[1.05] tracking-[-0.01em] text-white">
-          {["Visuals,", "die wirken."].map((line) => (
+          {["Bilder,", "die verkaufen."].map((line) => (
             <div key={line} style={{ clipPath: "inset(-30% 0 -30% 0)" }}>
               <span className="fv-reveal block">{line}</span>
             </div>
@@ -80,21 +80,21 @@ export function FotoVideoHero() {
 
       {/* Bottom */}
       <div className="relative z-10 flex flex-col md:flex-row md:items-end gap-10 md:gap-20">
-        <p className="fv-fade text-white/55 text-base md:text-lg leading-relaxed max-w-md">
-          Professionelle Foto- und Videoproduktionen für Ihre Marke — von
-          der Idee bis zum fertigen Schnitt.
+        <p className="fv-fade text-white/76 text-base md:text-lg leading-relaxed max-w-md">
+          Produktfotos, kurze Videos und Content-Pakete für Marken, die
+          hochwertiger auftreten und schneller verstanden werden wollen.
         </p>
 
-        <div className="fv-fade flex flex-col sm:flex-row gap-3 flex-shrink-0">
+        <div className="fv-fade grid grid-cols-1 sm:flex sm:flex-row gap-3 w-full sm:w-auto flex-shrink-0">
           <Link
             href="#kontakt"
-            className="inline-flex items-center justify-center px-7 py-3.5 text-xs tracking-[0.12em] uppercase font-medium bg-white text-ink hover:bg-cream transition-colors rounded-full"
+            className="inline-flex min-h-12 w-full sm:w-auto items-center justify-center px-7 py-3.5 text-xs tracking-[0.12em] uppercase font-medium bg-white text-ink hover:bg-cream transition-colors rounded-full"
           >
             Angebot anfragen
           </Link>
           <Link
             href="#portfolio"
-            className="inline-flex items-center justify-center px-7 py-3.5 text-xs tracking-[0.12em] uppercase font-medium border border-white/20 text-white/70 hover:border-white/40 hover:text-white transition-colors rounded-full"
+            className="inline-flex min-h-12 w-full sm:w-auto items-center justify-center px-7 py-3.5 text-xs tracking-[0.12em] uppercase font-medium border border-white/35 text-white/82 hover:border-white/55 hover:text-white transition-colors rounded-full"
           >
             Portfolio
           </Link>

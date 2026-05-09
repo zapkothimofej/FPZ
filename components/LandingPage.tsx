@@ -51,11 +51,11 @@ export function LandingPage() {
 
         {/* Top meta row */}
         <div className="flex items-end justify-between pt-8 pb-12">
-          <span className="hero-meta flex items-center gap-2 text-xs tracking-[0.22em] uppercase text-white/40">
+          <span className="hero-meta flex items-center gap-2 text-xs tracking-[0.22em] uppercase text-white/62">
             <span className="w-1.5 h-1.5 rounded-full bg-gold/70" />
             Bochum, NRW
           </span>
-          <span className="hero-meta text-xs tracking-[0.22em] uppercase text-white/30">
+          <span className="hero-meta text-xs tracking-[0.22em] uppercase text-white/55">
             2025
           </span>
         </div>
@@ -66,7 +66,7 @@ export function LandingPage() {
         {/* Main heading */}
         <div className="flex-1 flex flex-col justify-center">
           <h1 className="font-display font-light italic text-[clamp(3.8rem,8.5vw,8.5rem)] leading-[1.05] tracking-[-0.01em] text-white space-y-1">
-            {["Websites.", "KI-Systeme.", "Visuals."].map((word) => (
+            {["Klarer Auftritt.", "Smarte Abläufe.", "Starke Bilder."].map((word) => (
               <div key={word} style={{ clipPath: "inset(-30% 0 -30% 0)" }}>
                 <span className="reveal-line block">{word}</span>
               </div>
@@ -74,15 +74,15 @@ export function LandingPage() {
           </h1>
 
           <div className="mt-10 md:mt-14 flex flex-col sm:flex-row sm:items-end gap-6 sm:justify-between max-w-5xl">
-            <p className="hero-meta text-white/50 text-base md:text-lg leading-relaxed max-w-sm">
-              Zwei Bereiche. Ein Anspruch.
+            <p className="hero-meta text-white/72 text-base md:text-lg leading-relaxed max-w-md">
+              Websites, Automatisierungen und visuelle Inhalte, die nicht nur gut aussehen.
               <br />
-              Digitale Exzellenz für moderne Unternehmen.
+              Sondern Kunden schneller verstehen lassen, warum sie anfragen sollen.
             </p>
             <Link
               href="#bereiche"
               aria-label="Bereiche entdecken"
-              className="hero-meta inline-flex items-center gap-2 text-xs tracking-[0.18em] uppercase text-white/60 sm:text-white/40 hover:text-white/80 transition-colors self-start sm:self-auto"
+              className="hero-meta inline-flex items-center gap-2 text-xs tracking-[0.18em] uppercase text-white/70 hover:text-white transition-colors self-start sm:self-auto"
             >
               <span>Entdecken</span>
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="animate-bounce">
@@ -101,7 +101,7 @@ export function LandingPage() {
         >
           {[...MARQUEE_ITEMS, ...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((item, i) => (
             <span key={i} className="inline-flex items-center gap-10 pl-10">
-              <span className="text-[11px] tracking-[0.22em] uppercase text-white/25">
+              <span className="text-[11px] tracking-[0.22em] uppercase text-white/48">
                 {item}
               </span>
               <span className="text-white/15 text-xs select-none">·</span>
@@ -119,9 +119,9 @@ export function LandingPage() {
           num="01"
           href="/web-ki"
           title="Web & KI"
-          tagline="B2B — Digitale Systeme"
-          desc="Professionelle Websites, Prozessautomatisierungen und KI-Integrationen — für Unternehmen, die wachsen wollen."
-          services={["Webseitenerstellung", "Automatisierungen"]}
+          tagline="B2B — Website & Automation"
+          desc="Für Unternehmen, die eine bessere Website brauchen oder wiederkehrende Arbeit aus ihren Abläufen holen wollen."
+          services={["Websites", "Automationen", "KI-Anbindungen"]}
           image="https://images.unsplash.com/photo-1484788984921-03950022c9ef?w=900&q=80"
           borderRight
         />
@@ -129,9 +129,9 @@ export function LandingPage() {
           num="02"
           href="/foto-video"
           title="Foto & Video"
-          tagline="B2C — Visuelle Produktion"
-          desc="Produktfotografie, Imagefilme, Event-Dokumentationen und Social Media Content, der bleibt."
-          services={["Produktfotografie", "Imagefilm", "Social Content"]}
+          tagline="B2C — Foto & Video"
+          desc="Für Marken, Produkte und Events, die klarer, hochwertiger und verkaufsnäher gezeigt werden sollen."
+          services={["Produktfotos", "Imagefilm", "Social Content"]}
           image="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=900&q=80"
         />
       </section>
@@ -189,7 +189,7 @@ function SectionCard({
       {/* Content */}
       <div className="relative z-10 h-full flex flex-col justify-between p-10 md:p-14 lg:p-16">
         <div className="flex items-start justify-between">
-          <span className="font-display text-5xl font-light text-white/35 leading-none">
+          <span className="font-display text-5xl font-light text-white/50 leading-none">
             {num}
           </span>
           <span className="text-[10px] tracking-[0.25em] uppercase text-gold font-medium">
@@ -202,7 +202,7 @@ function SectionCard({
             <h2 className="font-display font-light italic text-[clamp(2.5rem,4vw,4rem)] leading-tight text-white mb-4">
               {title}
             </h2>
-            <p className="text-white/50 text-sm md:text-base leading-relaxed max-w-xs group-hover:text-white/70 transition-colors duration-300">
+            <p className="text-white/72 text-sm md:text-base leading-relaxed max-w-sm group-hover:text-white/85 transition-colors duration-300">
               {desc}
             </p>
           </div>
@@ -211,7 +211,7 @@ function SectionCard({
             {services.map((s) => (
               <li
                 key={s}
-                className="text-xs tracking-[0.1em] text-white/35 flex items-center gap-2 group-hover:text-white/55 transition-colors duration-300"
+                className="text-xs tracking-[0.1em] text-white/58 flex items-center gap-2 group-hover:text-white/75 transition-colors duration-300"
               >
                 <span className="w-3 h-px bg-gold/50 inline-block flex-shrink-0" />
                 {s}
@@ -219,7 +219,7 @@ function SectionCard({
             ))}
           </ul>
 
-          <div className="flex items-center gap-2 text-xs tracking-[0.18em] uppercase text-white/60 font-medium group-hover:gap-3 transition-all duration-300 group-hover:text-white">
+          <div className="flex items-center gap-2 text-xs tracking-[0.18em] uppercase text-white/78 font-medium group-hover:gap-3 transition-all duration-300 group-hover:text-white">
             <span>Mehr erfahren</span>
             <svg width="14" height="10" viewBox="0 0 14 10" fill="none" className="transition-transform duration-300 group-hover:translate-x-1">
               <path d="M1 5h12M8 1l4 4-4 4" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round"/>

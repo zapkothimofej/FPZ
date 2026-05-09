@@ -68,9 +68,9 @@ function Section({ title, children }: { title: string; children: React.ReactNode
     <div>
       <div className="flex items-center gap-4 mb-4">
         <span className="w-3 h-px bg-gold/50 flex-shrink-0" />
-        <h2 className="text-xs tracking-[0.18em] uppercase text-cream/40">{title}</h2>
+        <h2 className="text-xs tracking-[0.18em] uppercase text-cream/62">{title}</h2>
       </div>
-      <div className="pl-7 text-cream/65">{children}</div>
+      <div className="pl-7 text-cream/78">{children}</div>
     </div>
   )
 }
