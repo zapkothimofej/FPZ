@@ -19,22 +19,13 @@ export function LandingPage() {
         ease: "power3.inOut",
       })
 
-      tl.from(".reveal-line", {
-        yPercent: 145,
-        duration: 1.05,
-        stagger: 0.09,
-        ease: "power4.out",
-      }, "-=0.55")
-
-      tl.from(".hero-meta", {
-        autoAlpha: 0,
-        y: 14,
-        duration: 0.7,
+      tl.from(".hero-copy", {
+        y: 12,
+        duration: 0.8,
         stagger: 0.08,
       }, "-=0.45")
 
       tl.from(".section-card", {
-        autoAlpha: 0,
         y: 32,
         duration: 0.9,
         stagger: 0.12,
@@ -47,48 +38,50 @@ export function LandingPage() {
     <div ref={root} className="md:min-h-svh flex flex-col bg-ink">
 
       {/* ── Hero ─────────────────────────────────────────── */}
-      <section className="flex-1 flex flex-col px-6 md:px-12 lg:px-16 pt-24 pb-0">
+      <section className="flex-1 flex flex-col px-6 md:px-12 lg:px-16 pt-24 pb-0 overflow-hidden">
 
         {/* Top meta row */}
-        <div className="flex items-end justify-between pt-8 pb-12">
-          <span className="hero-meta flex items-center gap-2 text-xs tracking-[0.22em] uppercase text-white/62">
+        <div className="flex items-end justify-between pt-8 pb-10">
+          <span className="hero-copy flex items-center gap-2 text-xs tracking-[0.22em] uppercase text-white/62">
             <span className="w-1.5 h-1.5 rounded-full bg-gold/70" />
-            Bochum, NRW
+            FPZ aus Bochum
           </span>
-          <span className="hero-meta text-xs tracking-[0.22em] uppercase text-white/55">
-            2025
+          <span className="hero-copy hidden sm:inline text-xs tracking-[0.22em] uppercase text-white/55">
+            Web · KI · Foto · Video
           </span>
         </div>
 
         {/* Decorative rule */}
-        <div className="deco-rule h-px bg-white/10 mb-14" />
+        <div className="deco-rule h-px bg-white/10 mb-12" />
 
         {/* Main heading */}
-        <div className="flex-1 flex flex-col justify-center">
-          <h1 className="font-display font-light italic text-[clamp(3.8rem,8.5vw,8.5rem)] leading-[1.05] tracking-[-0.01em] text-white space-y-1">
-            {["Klarer Auftritt.", "Smarte Abläufe.", "Starke Bilder."].map((word) => (
-              <div key={word} style={{ clipPath: "inset(-30% 0 -30% 0)" }}>
-                <span className="reveal-line block">{word}</span>
-              </div>
-            ))}
+        <div className="flex-1 flex flex-col justify-center min-w-0 w-full">
+          <h1 className="hero-copy font-display font-light italic text-[clamp(2.55rem,7.5vw,8rem)] leading-[1.03] text-white max-w-full md:max-w-6xl">
+            <span className="block md:inline">Websites &amp;</span>{" "}
+            <span className="block md:inline">Automationen.</span>
+            <span className="block">Foto &amp; Video für Unternehmen.</span>
           </h1>
 
-          <div className="mt-10 md:mt-14 flex flex-col sm:flex-row sm:items-end gap-6 sm:justify-between max-w-5xl">
-            <p className="hero-meta text-white/72 text-base md:text-lg leading-relaxed max-w-md">
-              Websites, Automatisierungen und visuelle Inhalte, die nicht nur gut aussehen.
-              <br />
-              Sondern Kunden schneller verstehen lassen, warum sie anfragen sollen.
+          <div className="mt-8 md:mt-10 flex flex-col lg:flex-row lg:items-start gap-8 lg:justify-between w-full max-w-80 md:max-w-6xl">
+            <p className="hero-copy text-white/74 text-base md:text-lg leading-relaxed max-w-full md:max-w-xl">
+              Wählen Sie direkt, was Sie brauchen: Web &amp; KI für Websites und
+              Workflows oder Foto &amp; Video für Produkte, Events und Content.
             </p>
-            <Link
-              href="#bereiche"
-              aria-label="Bereiche entdecken"
-              className="hero-meta inline-flex items-center gap-2 text-xs tracking-[0.18em] uppercase text-white/70 hover:text-white transition-colors self-start sm:self-auto"
-            >
-              <span>Entdecken</span>
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="animate-bounce">
-                <path d="M7 2v10M2 7l5 5 5-5" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
-            </Link>
+
+            <div className="hero-copy grid grid-cols-1 sm:grid-cols-2 gap-3 w-full max-w-full lg:max-w-xl">
+              <HeroChoice
+                href="/web-ki"
+                label="Website / Automation"
+                title="Web & KI"
+                body="Für Unternehmen, die online klarer wirken oder manuelle Arbeit reduzieren wollen."
+              />
+              <HeroChoice
+                href="/foto-video"
+                label="Fotos / Videos"
+                title="Foto & Video"
+                body="Für Produkte, Marken und Events, die hochwertiger gezeigt werden sollen."
+              />
+            </div>
           </div>
         </div>
       </section>
@@ -119,7 +112,7 @@ export function LandingPage() {
           num="01"
           href="/web-ki"
           title="Web & KI"
-          tagline="B2B — Website & Automation"
+          tagline="Website & Automation"
           desc="Für Unternehmen, die eine bessere Website brauchen oder wiederkehrende Arbeit aus ihren Abläufen holen wollen."
           services={["Websites", "Automationen", "KI-Anbindungen"]}
           image="https://images.unsplash.com/photo-1484788984921-03950022c9ef?w=900&q=80"
@@ -129,13 +122,54 @@ export function LandingPage() {
           num="02"
           href="/foto-video"
           title="Foto & Video"
-          tagline="B2C — Foto & Video"
+          tagline="Fotos, Video, Social"
           desc="Für Marken, Produkte und Events, die klarer, hochwertiger und verkaufsnäher gezeigt werden sollen."
           services={["Produktfotos", "Imagefilm", "Social Content"]}
           image="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=900&q=80"
         />
       </section>
     </div>
+  )
+}
+
+function HeroChoice({
+  href,
+  label,
+  title,
+  body,
+}: {
+  href: string
+  label: string
+  title: string
+  body: string
+}) {
+  return (
+    <Link
+      href={href}
+      className="group min-w-0 border border-white/14 rounded-lg p-4 md:p-5 bg-white/[0.035] hover:bg-white/[0.07] hover:border-gold/45 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold/60"
+    >
+      <span className="text-[10px] tracking-[0.2em] uppercase text-gold/82">
+        {label}
+      </span>
+      <span className="mt-3 flex items-center justify-between gap-4">
+        <span className="font-display text-3xl font-light italic text-white leading-none">
+          {title}
+        </span>
+        <svg
+          width="16"
+          height="12"
+          viewBox="0 0 16 12"
+          fill="none"
+          className="text-white/62 group-hover:text-white group-hover:translate-x-1 transition-all"
+          aria-hidden="true"
+        >
+          <path d="M1 6h14M10 1l5 5-5 5" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </span>
+      <span className="mt-3 block text-sm leading-relaxed text-white/64 group-hover:text-white/76 transition-colors">
+        {body}
+      </span>
+    </Link>
   )
 }
 

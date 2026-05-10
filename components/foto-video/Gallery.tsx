@@ -5,28 +5,28 @@ import { FadeIn } from "@/components/FadeIn"
 
 const photos = [
   {
-    src: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&q=80",
-    alt: "Produktfotografie — Uhr auf dunkler Fläche",
+    src: "https://images.pexels.com/photos/8111827/pexels-photo-8111827.jpeg?auto=compress&cs=tinysrgb&w=1000",
+    alt: "Modernes Business-Portrait in einem hochwertigen Office",
     span: "col-span-1 row-span-1",
   },
   {
-    src: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&q=80",
-    alt: "Kamera Setup",
+    src: "https://images.pexels.com/photos/14025964/pexels-photo-14025964.jpeg?auto=compress&cs=tinysrgb&w=1000",
+    alt: "Businesswoman im schwarzen Anzug in urbaner Abendstimmung",
     span: "col-span-1 row-span-2",
   },
   {
-    src: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80",
-    alt: "Event Dokumentation",
+    src: "https://images.pexels.com/photos/14156490/pexels-photo-14156490.jpeg?auto=compress&cs=tinysrgb&w=1000",
+    alt: "Freundliches Business-Portrait im modernen Office",
     span: "col-span-1 row-span-1",
   },
   {
-    src: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=800&q=80",
-    alt: "Behind the Scenes",
+    src: "https://images.pexels.com/photos/29995889/pexels-photo-29995889.jpeg?auto=compress&cs=tinysrgb&w=1000",
+    alt: "Klares Corporate Headshot mit schwarzem Blazer",
     span: "col-span-1 row-span-1",
   },
   {
-    src: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=800&q=80",
-    alt: "Event — Crowd Perspektive",
+    src: "https://images.pexels.com/photos/36753133/pexels-photo-36753133.jpeg?auto=compress&cs=tinysrgb&w=1200",
+    alt: "Elegantes Business-Portrait mit dunklem Hintergrund",
     span: "col-span-2 row-span-1",
   },
 ]
@@ -37,7 +37,7 @@ export function FotoVideoGallery() {
       <FadeIn>
         <p className="text-[10px] tracking-[0.28em] uppercase text-gold mb-3 font-medium">Portfolio</p>
         <h2 className="font-display font-light italic text-[clamp(2.5rem,5vw,5rem)] leading-tight text-ink mb-16 md:mb-24">
-          Ausgewählte Arbeiten.
+          Business-Portraits.
         </h2>
       </FadeIn>
 
