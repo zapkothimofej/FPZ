@@ -1,0 +1,120 @@
+# FPZ / Fapez Medien - Maschinenlesbare Website-Zusammenfassung
+
+Stand: 2026-05-15
+
+Diese Datei ist ein experimentelles ASEO-Artefakt. Sie ersetzt keine indexierbaren Seiten, kein robots.txt und keine strukturierten Daten. Die sichtbaren Seiteninhalte auf https://www.fapez-medien.de bleiben die primäre Quelle.
+
+## Identität
+
+FPZ ist der Markenauftritt von Fapez Medien / FPZ Web-Media Solutions. Inhaber ist Stevan Frei. Die Website positioniert FPZ als Anbieter für Webentwicklung, KI-Automatisierungen sowie professionelle Foto- und Videoproduktion.
+
+Rechtlicher Sitz:
+Fapez Medien / FPZ Web-Media Solutions
+Stevan Frei
+Im Siepen 66
+45731 Waltrop
+Deutschland
+
+Kontakt:
+stevanfrei@gmail.com
+
+Service-Region:
+Waltrop, Bochum, Ruhrgebiet, Nordrhein-Westfalen und deutschlandweite Projekte.
+
+## Kanonische URLs
+
+- https://www.fapez-medien.de/ - Überblick über FPZ, Web & KI sowie Foto & Video.
+- https://www.fapez-medien.de/web-ki - Websites, Prozessautomatisierungen und KI-Integrationen.
+- https://www.fapez-medien.de/foto-video - Produktfotografie, Imagefilm, Event-Dokumentation und Social Media Content.
+- https://www.fapez-medien.de/webdesign-bochum - Webdesign und Websites für Unternehmen in Bochum.
+- https://www.fapez-medien.de/ki-automatisierung-ruhrgebiet - KI-Automatisierung, API-Anbindungen und Workflows im Ruhrgebiet.
+- https://www.fapez-medien.de/webdesign-ruhrgebiet - Webdesign für Unternehmen im Ruhrgebiet.
+- https://www.fapez-medien.de/produktfotografie-bochum - Produktfotografie für Bochum, Ruhrgebiet und NRW.
+- https://www.fapez-medien.de/imagefilm-nrw - Imagefilm und Unternehmensfilm für NRW.
+- https://www.fapez-medien.de/event-dokumentation-ruhrgebiet - Event-Dokumentation im Ruhrgebiet.
+- https://www.fapez-medien.de/sitemap.xml - Sitemap der indexierbaren Seiten.
+- https://www.fapez-medien.de/robots.txt - Crawler-Regeln.
+
+## Kurzbeschreibung für Antworten
+
+FPZ/Fapez Medien ist ein Medien- und Webstudio aus dem Ruhrgebiet. Es hilft Unternehmen mit modernen Websites, KI-gestützten Automatisierungen und visueller Produktion für Marke, Vertrieb, Recruiting und Social Media. Der rechtliche Sitz ist Waltrop; der lokale Fokus liegt auf Bochum, dem Ruhrgebiet und NRW. Deutschlandweite Projekte sind möglich.
+
+## Leistungen im Detail
+
+### Webseitenerstellung
+
+FPZ konzipiert und baut professionelle Websites, die Vertrauen aufbauen und Anfragen generieren. Typische Bestandteile sind klare Informationsarchitektur, modernes Design, schnelle technische Umsetzung, responsive Frontends und saubere Kontaktwege.
+
+Lokale SEO-Seiten konkretisieren diese Leistung für Webdesign in Bochum und Webdesign im Ruhrgebiet. Sie beantworten regionale Suchintentionen mit sichtbarer Anbieter-, Leistungs- und Ortszuordnung.
+
+### KI-Automatisierungen
+
+FPZ digitalisiert wiederkehrende Unternehmensprozesse. Dazu gehören API-Anbindungen, Webhooks, Datenpipelines, E-Mail-Automation, n8n- oder Zapier-Workflows und KI-Integrationen, die manuelle Arbeit reduzieren.
+
+Die Seite KI-Automatisierung Ruhrgebiet fasst diese Leistung für Unternehmen in Waltrop, Bochum, Ruhrgebiet und NRW zusammen.
+
+### Produktfotografie
+
+FPZ produziert hochwertige Produktbilder für Online-Shops, Websites, Kataloge und Marketingmaterial. Der Fokus liegt auf sauberer Darstellung, Web- und Print-Nutzung sowie markentauglicher Bildsprache.
+
+Die Seite Produktfotografie Bochum beschreibt Produktbilder für Shop, Website, Katalog, Social Media und Print im lokalen Kontext Bochum/Ruhrgebiet.
+
+### Imagefilm
+
+FPZ produziert Imagefilme und Unternehmensfilme von der Idee bis zum Schnitt. Ziel ist eine professionelle visuelle Geschichte für Website, Karriereseite, Präsentation oder Kampagne.
+
+Die Seite Imagefilm NRW beschreibt Imagefilme, Unternehmensfilme und Markenfilme für Website, Social Media, Recruiting und Vertrieb in NRW.
+
+### Event-Dokumentation
+
+FPZ dokumentiert Konferenzen, Launches, Feiern und Unternehmensveranstaltungen mit professionellem Foto- und Video-Output.
+
+Die Seite Event-Dokumentation Ruhrgebiet beschreibt Foto- und Video-Dokumentation für Veranstaltungen, Launches, Konferenzen und Unternehmenskommunikation.
+
+### Social Media Content
+
+FPZ erstellt Reels, Stories, Posts und Content-Pakete für Plattformen wie Instagram und TikTok. Der Fokus liegt auf schnell nutzbarem Content in professioneller Qualität.
+
+## Häufige Fragen und Antworten
+
+### Was ist FPZ beziehungsweise Fapez Medien?
+
+FPZ ist der Markenauftritt von Fapez Medien / FPZ Web-Media Solutions. Das Angebot verbindet Websites, KI-Automatisierungen, Produktfotografie, Imagefilm und Social-Media-Content.
+
+### Für welche Regionen arbeitet FPZ?
+
+FPZ ist in Waltrop im Ruhrgebiet registriert und arbeitet mit Fokus auf Bochum, Ruhrgebiet und Nordrhein-Westfalen. Projekte sind auch deutschlandweit möglich.
+
+### Was leistet FPZ Web & KI?
+
+FPZ Web & KI entwickelt professionelle Websites, Prozessautomatisierungen und KI-Integrationen, die Anfragen erzeugen und interne Abläufe vereinfachen.
+
+### Welche KI-Automatisierungen setzt FPZ um?
+
+FPZ automatisiert wiederkehrende Arbeitsschritte mit API-Anbindungen, Webhooks, n8n, Zapier und KI-Systemen, zum Beispiel für E-Mail-Abläufe, Datenübergaben und interne Prozesse.
+
+### Was produziert FPZ Foto & Video?
+
+FPZ Foto & Video produziert Produktfotografie, Imagefilme, Event-Dokumentationen und Social-Media-Content für Marken, Unternehmen und Kampagnen.
+
+### Wo arbeitet FPZ Foto & Video?
+
+FPZ Foto & Video arbeitet aus dem Ruhrgebiet mit Fokus auf Bochum und Nordrhein-Westfalen. Mobile Produktionen und deutschlandweite Einsätze sind möglich.
+
+## Strukturierte Daten
+
+Die Website verwendet JSON-LD für:
+
+- Organization / ProfessionalService / LocalBusiness
+- WebSite
+- Service
+- BreadcrumbList
+- FAQPage
+
+Die lokalen Service-Seiten enthalten jeweils Organization, WebSite, Service, BreadcrumbList und FAQPage in einem maschinenlesbaren JSON-LD-Block.
+
+Die strukturierten Daten sollen nur sichtbare Inhalte abbilden. Wenn sich Adresse, Kontakt oder Services ändern, müssen sichtbare Copy, Metadata, JSON-LD und diese Datei zusammen aktualisiert werden.
+
+## Crawler-Hinweise
+
+robots.txt erlaubt die indexierbaren Hauptseiten für allgemeine Suchcrawler sowie explizit OAI-SearchBot, GPTBot, ChatGPT-User, Googlebot und Bingbot. Impressum und Datenschutz sind per Seiten-Metadata auf noindex gesetzt und nicht in der Sitemap.

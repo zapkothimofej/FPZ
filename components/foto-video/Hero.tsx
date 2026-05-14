@@ -70,7 +70,7 @@ export function FotoVideoHero() {
       {/* Main heading */}
       <div className="relative z-10 py-16 md:py-20 max-w-4xl">
         <h1 className="font-display font-light italic text-[clamp(3rem,7.5vw,7.5rem)] leading-[1.05] tracking-[-0.01em] text-white">
-          {["Visuals,", "die wirken."].map((line) => (
+          {["Foto & Video,", "für Bochum und NRW."].map((line) => (
             <div key={line} style={{ clipPath: "inset(-30% 0 -30% 0)" }}>
               <span className="fv-reveal block">{line}</span>
             </div>
@@ -81,8 +81,8 @@ export function FotoVideoHero() {
       {/* Bottom */}
       <div className="relative z-10 flex flex-col md:flex-row md:items-end gap-10 md:gap-20">
         <p className="fv-fade text-white/55 text-base md:text-lg leading-relaxed max-w-md">
-          Professionelle Foto- und Videoproduktionen für Ihre Marke — von
-          der Idee bis zum fertigen Schnitt.
+          Professionelle Produktfotografie, Imagefilme und Event-Dokumentation
+          für Bochum, das Ruhrgebiet und NRW.
         </p>
 
         <div className="fv-fade flex flex-col sm:flex-row gap-3 flex-shrink-0">

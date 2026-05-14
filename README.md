@@ -1,36 +1,40 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# FPZ Website
 
-## Getting Started
+Next.js 16 App-Router-Website für FPZ / Fapez Medien.
 
-First, run the development server:
+## Development
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Lokaler Standard: http://localhost:3000
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Verification
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run lint
+npm run build
+```
 
-## Learn More
+## SEO / ASEO Runbook
 
-To learn more about Next.js, take a look at the following resources:
+- Canonical-Domain: `https://www.fapez-medien.de`
+- Indexierbare Hauptseiten: `/`, `/web-ki`, `/foto-video`
+- Indexierbare lokale Service-Seiten: `/webdesign-bochum`, `/ki-automatisierung-ruhrgebiet`, `/webdesign-ruhrgebiet`, `/produktfotografie-bochum`, `/imagefilm-nrw`, `/event-dokumentation-ruhrgebiet`
+- Nicht indexieren: `/impressum`, `/datenschutz`
+- Crawler-Dateien: `/robots.txt`, `/sitemap.xml`, `/llms.txt`, `/llms-full.txt`
+- Zentrale SEO-Daten: `lib/seo.ts`
+- Lokale SEO-Seiten: `lib/local-seo.ts` und `app/[slug]/page.tsx`
+- Sichtbare FAQ-/Answer-Inhalte: `lib/seo-content.ts`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Nach jedem Deployment:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Google Search Console: Domain prüfen, Sitemap submitten, URL Inspection für `/`, `/web-ki`, `/foto-video` und die lokalen Service-Seiten.
+2. Google Rich Results Test: JSON-LD auf Hauptseiten und lokalen Service-Seiten prüfen.
+3. Bing Webmaster Tools: Site verifizieren, Sitemap submitten, Crawl-Fehler prüfen.
+4. Bing AI Performance: nach Datenverfügbarkeit citierte URLs und Grounding Queries prüfen.
+5. PageSpeed Insights: Core Web Vitals und mobile Darstellung der drei Hauptseiten prüfen.
+6. Optional IndexNow: bei häufigen Content-Updates einrichten, damit Bing/teilnehmende Suchmaschinen Änderungen schneller entdecken.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+ASEO-Hinweis: `llms.txt` und `llms-full.txt` sind experimentelle Hilfsdateien. Sie ersetzen keine normale SEO, keine indexierbaren HTML-Inhalte und keine strukturierten Daten.

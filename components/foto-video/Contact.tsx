@@ -60,7 +60,7 @@ export function FotoVideoContact() {
           <div className="space-y-6">
             {[
               { label: "E-Mail", value: "stevanfrei@gmail.com" },
-              { label: "Standort", value: "Bochum, NRW" },
+              { label: "Standort", value: "Im Siepen 66, 45731 Waltrop / Bochum, NRW" },
               { label: "Reaktionszeit", value: "< 24 Stunden" },
             ].map((item) => (
               <div key={item.label} className="flex items-start gap-4">

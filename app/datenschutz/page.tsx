@@ -4,7 +4,9 @@ import { Footer } from "@/components/Footer"
 
 export const metadata: Metadata = {
   title: "Datenschutz",
-  robots: { index: false, follow: false },
+  description: "Datenschutzhinweise von Fapez Medien / FPZ Web-Media Solutions.",
+  alternates: { canonical: "/datenschutz" },
+  robots: { index: false, follow: true },
 }
 
 export default function DatenschutzPage() {

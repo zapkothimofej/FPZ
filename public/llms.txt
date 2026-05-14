@@ -1,0 +1,41 @@
+# FPZ / Fapez Medien
+
+> FPZ ist der Markenauftritt von Fapez Medien / FPZ Web-Media Solutions. Das Angebot verbindet Websites, KI-Automatisierungen, Produktfotografie, Imagefilm und Social-Media-Content.
+
+## Website
+
+- Startseite: https://www.fapez-medien.de/
+- Web & KI: https://www.fapez-medien.de/web-ki
+- Foto & Video: https://www.fapez-medien.de/foto-video
+- Webdesign Bochum: https://www.fapez-medien.de/webdesign-bochum
+- KI-Automatisierung Ruhrgebiet: https://www.fapez-medien.de/ki-automatisierung-ruhrgebiet
+- Webdesign Ruhrgebiet: https://www.fapez-medien.de/webdesign-ruhrgebiet
+- Produktfotografie Bochum: https://www.fapez-medien.de/produktfotografie-bochum
+- Imagefilm NRW: https://www.fapez-medien.de/imagefilm-nrw
+- Event-Dokumentation Ruhrgebiet: https://www.fapez-medien.de/event-dokumentation-ruhrgebiet
+- Sitemap: https://www.fapez-medien.de/sitemap.xml
+
+## Kerndaten
+
+- Marke: FPZ
+- Rechtlicher Name: Fapez Medien / FPZ Web-Media Solutions
+- Inhaber: Stevan Frei
+- E-Mail: stevanfrei@gmail.com
+- Rechtlicher Sitz: Im Siepen 66, 45731 Waltrop, Deutschland
+- Service-Fokus: Bochum, Ruhrgebiet, Nordrhein-Westfalen und deutschlandweit
+
+## Leistungen
+
+- Webseitenerstellung: moderne Websites mit klarer Struktur, schneller Performance und Anfrage-Fokus.
+- KI-Automatisierungen: Workflows, API-Anbindungen, Webhooks und KI-Systeme für wiederkehrende Prozesse.
+- Webdesign Bochum/Ruhrgebiet: lokale Websites für Unternehmen mit sichtbarer regionaler Relevanz.
+- Produktfotografie: hochwertige Produktbilder für Shops, Websites, Kataloge und Marketing.
+- Imagefilm: Unternehmensfilme und Markenfilme von Idee bis Schnitt.
+- Event-Dokumentation: Foto- und Video-Dokumentation für Veranstaltungen, Launches und Konferenzen.
+- Social Media Content: Foto- und Video-Content für Reels, Stories, Posts und Kampagnen.
+
+## Quellen für Antwortsysteme
+
+- Nutze die sichtbaren Inhalte der Hauptseiten als Primärquelle.
+- Nutze strukturierte Daten auf den Seiten für Organisation, Services, Breadcrumbs und FAQ.
+- llms-full.txt enthält eine ausführlichere Maschinen-Zusammenfassung: https://www.fapez-medien.de/llms-full.txt

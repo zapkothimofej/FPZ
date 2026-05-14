@@ -6,24 +6,35 @@ import { FotoVideoProcess } from "@/components/foto-video/Process"
 import { FotoVideoGallery } from "@/components/foto-video/Gallery"
 import { FotoVideoContact } from "@/components/foto-video/Contact"
 import { Footer } from "@/components/Footer"
+import { JsonLd } from "@/components/JsonLd"
+import { SeoAnswerSection } from "@/components/SeoAnswerSection"
+import { fotoVideoFaq } from "@/lib/seo-content"
+import {
+  breadcrumbJsonLd,
+  faqJsonLd,
+  organizationJsonLd,
+  pageMetadata,
+  serviceJsonLd,
+  websiteJsonLd,
+} from "@/lib/seo"
 
-export const metadata = {
-  title: "FPZ — Foto & Video | Produktfotografie, Imagefilm, Social Content",
-  description:
-    "FPZ Foto & Video aus Bochum. Professionelle Produktfotografie, Imagefilme, Event-Dokumentationen und Social Media Content. Bundesweit tätig.",
-  openGraph: {
-    url: "https://www.fapez-medien.de/foto-video",
-    title: "FPZ — Foto & Video",
-    description: "Produktfotografie, Imagefilme und Social Content aus Bochum. Bundesweit tätig.",
-  },
-  twitter: {
-    card: "summary_large_image" as const,
-  },
-}
+export const metadata = pageMetadata("fotoVideo")
 
 export default function FotoVideoPage() {
   return (
     <>
+      <JsonLd
+        data={[
+          organizationJsonLd(),
+          websiteJsonLd(),
+          ...serviceJsonLd("fotoVideo"),
+          breadcrumbJsonLd([
+            { name: "Startseite", path: "/" },
+            { name: "Foto & Video", path: "/foto-video" },
+          ]),
+          faqJsonLd(fotoVideoFaq),
+        ]}
+      />
       <Nav />
       <main>
         <FotoVideoHero />
@@ -31,6 +42,17 @@ export default function FotoVideoPage() {
         <FotoVideoAbout />
         <FotoVideoProcess />
         <FotoVideoGallery />
+        <SeoAnswerSection
+          eyebrow="Foto & Video Antworten"
+          title="Foto- und Videoproduktion für Markenwirkung."
+          summary="FPZ Foto & Video liefert visuelle Inhalte, die auf Websites, in Shops, auf Karriereseiten und in Social Media klar nutzbar sind."
+          facts={[
+            "Schwerpunkte: Produktfotografie, Imagefilm, Event-Dokumentation und Social Media Content.",
+            "Region: Ruhrgebiet mit Fokus auf Bochum und NRW, deutschlandweite Einsätze möglich.",
+            "Output: Bilder, Filme und Content-Pakete für digitale und gedruckte Markenkommunikation.",
+          ]}
+          questions={fotoVideoFaq}
+        />
         <FotoVideoContact />
       </main>
       <Footer variant="foto-video" />

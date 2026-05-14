@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { Cormorant_Garamond, DM_Sans } from "next/font/google"
+import { defaultRobots, routes, site } from "@/lib/seo"
 import "./globals.css"
 
 const cormorant = Cormorant_Garamond({
@@ -17,35 +18,37 @@ const dmSans = DM_Sans({
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.fapez-medien.de"),
+  metadataBase: new URL(site.url),
   title: {
-    default: "FPZ — Web, KI & Foto/Video",
+    default: routes.home.title,
     template: "%s | FPZ",
   },
-  description:
-    "FPZ: Digitale Exzellenz für moderne Unternehmen. Professionelle Websites, KI-Automatisierungen und Foto/Video-Produktionen aus Bochum.",
-  keywords: [
-    "Webseitenerstellung",
-    "KI-Automatisierungen",
-    "Produktfotografie",
-    "Imagefilm",
-    "Bochum",
-    "NRW",
-    "Next.js Agentur",
-  ],
+  description: routes.home.description,
+  alternates: {
+    canonical: routes.home.path,
+  },
+  robots: defaultRobots,
   openGraph: {
     type: "website",
-    siteName: "FPZ",
+    siteName: site.name,
     locale: "de_DE",
-    url: "https://www.fapez-medien.de",
-    title: "FPZ — Web, KI & Foto/Video",
-    description:
-      "Websites, KI-Automatisierungen und professionelle Foto/Video-Produktionen aus Bochum.",
+    url: routes.home.path,
+    title: routes.home.ogTitle,
+    description: routes.home.ogDescription,
+    images: [
+      {
+        url: site.ogImage,
+        width: 1200,
+        height: 630,
+        alt: "FPZ - Web, KI, Foto und Video",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "FPZ — Web, KI & Foto/Video",
-    description: "Websites, KI-Automatisierungen und Foto/Video-Produktionen aus Bochum.",
+    title: routes.home.ogTitle,
+    description: routes.home.ogDescription,
+    images: [site.ogImage],
   },
 }
 

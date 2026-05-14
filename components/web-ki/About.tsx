@@ -24,10 +24,10 @@ export function WebKiAbout() {
           </h2>
           <div className="space-y-4 text-mid dark:text-muted leading-relaxed text-sm md:text-base max-w-md">
             <p>
-              FPZ ist in Bochum ansässig und steht für digitale Lösungen,
-              die funktionieren — nicht nur gut aussehen. Wir verbinden
-              technisches Know-how mit einem klaren Blick für das
-              Wesentliche: Ihr Wachstum.
+              FPZ ist in Waltrop im Ruhrgebiet registriert und arbeitet
+              mit Fokus auf Bochum, NRW und deutschlandweite Projekte.
+              Wir verbinden technisches Know-how mit einem klaren Blick
+              für das Wesentliche: Ihr Wachstum.
             </p>
             <p>
               Von der ersten Konzeption bis zum laufenden Betrieb begleiten

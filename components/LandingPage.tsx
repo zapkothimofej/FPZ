@@ -53,7 +53,7 @@ export function LandingPage() {
         <div className="flex items-end justify-between pt-8 pb-12">
           <span className="hero-meta flex items-center gap-2 text-xs tracking-[0.22em] uppercase text-white/40">
             <span className="w-1.5 h-1.5 rounded-full bg-gold/70" />
-            Bochum, NRW
+            Ruhrgebiet, NRW
           </span>
           <span className="hero-meta text-xs tracking-[0.22em] uppercase text-white/30">
             2025
@@ -66,7 +66,7 @@ export function LandingPage() {
         {/* Main heading */}
         <div className="flex-1 flex flex-col justify-center">
           <h1 className="font-display font-light italic text-[clamp(3.8rem,8.5vw,8.5rem)] leading-[1.05] tracking-[-0.01em] text-white space-y-1">
-            {["Websites.", "KI-Systeme.", "Visuals."].map((word) => (
+            {["Websites & KI.", "Foto & Video.", "Aus dem Ruhrgebiet."].map((word) => (
               <div key={word} style={{ clipPath: "inset(-30% 0 -30% 0)" }}>
                 <span className="reveal-line block">{word}</span>
               </div>
@@ -75,7 +75,7 @@ export function LandingPage() {
 
           <div className="mt-10 md:mt-14 flex flex-col sm:flex-row sm:items-end gap-6 sm:justify-between max-w-5xl">
             <p className="hero-meta text-white/50 text-base md:text-lg leading-relaxed max-w-sm">
-              Zwei Bereiche. Ein Anspruch.
+              Webdesign, Automatisierung und Medienproduktion.
               <br />
               Digitale Exzellenz für moderne Unternehmen.
             </p>

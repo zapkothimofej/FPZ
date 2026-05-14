@@ -69,7 +69,7 @@ export function WebKiHero() {
       {/* Main heading */}
       <div className="relative z-10 py-16 md:py-20 max-w-4xl">
         <h1 className="font-display font-light italic text-[clamp(3rem,7.5vw,7.5rem)] leading-[1.05] tracking-[-0.01em] text-white">
-          {["Digitale Präsenz,", "die überzeugt."].map((line) => (
+          {["Websites & KI-Systeme,", "für Bochum und NRW."].map((line) => (
             <div key={line} style={{ clipPath: "inset(-30% 0 -30% 0)" }}>
               <span className="wk-reveal block">{line}</span>
             </div>
@@ -80,8 +80,8 @@ export function WebKiHero() {
       {/* Bottom content */}
       <div className="relative z-10 flex flex-col md:flex-row md:items-end gap-10 md:gap-20">
         <p className="wk-fade text-white/55 text-base md:text-lg leading-relaxed max-w-md">
-          Wir entwickeln Websites und KI-Systeme, die Ihr Unternehmen
-          voranbringen — messbar, zuverlässig, modern.
+          Wir entwickeln Websites, Automatisierungen und KI-Integrationen für Unternehmen
+          in Bochum, dem Ruhrgebiet und NRW.
         </p>
 
         <div className="wk-fade flex flex-col sm:flex-row gap-3 flex-shrink-0">

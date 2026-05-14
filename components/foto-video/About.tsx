@@ -26,7 +26,7 @@ export function FotoVideoAbout() {
             {/* Location tag */}
             <div className="absolute bottom-5 left-5 px-3 py-1.5 bg-ink/70 backdrop-blur-sm rounded-full">
               <span className="text-[10px] tracking-[0.2em] uppercase text-white/80">
-                Bochum, NRW
+                Ruhrgebiet, NRW
               </span>
             </div>
           </div>
@@ -38,15 +38,15 @@ export function FotoVideoAbout() {
             Über FPZ Foto &amp; Video
           </p>
           <h2 className="font-display font-light italic text-[clamp(2.5rem,5vw,4.5rem)] leading-tight text-ink dark:text-cream mb-8">
-            Aus Bochum.
+            Aus dem Ruhrgebiet.
             <br />
-            Für Deutschland.
+            Für NRW und Deutschland.
           </h2>
           <div className="space-y-4 text-mid dark:text-muted leading-relaxed text-sm md:text-base max-w-md">
             <p>
-              FPZ Foto &amp; Video sitzt im Herzen des Ruhrgebiets — Bochum. Wir produzieren
-              für Marken, Unternehmen und Privatpersonen, die verstehen, dass
-              Visuals keine Nebensache sind.
+              FPZ Foto &amp; Video ist in Waltrop im Ruhrgebiet registriert
+              und produziert mit Fokus auf Bochum, NRW und deutschlandweite
+              Einsätze für Marken, Unternehmen und Privatpersonen.
             </p>
             <p>
               Ob Produktbild für den Online-Shop, Imagefilm für die Karriereseite

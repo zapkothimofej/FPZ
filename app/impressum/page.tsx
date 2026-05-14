@@ -4,7 +4,9 @@ import { Footer } from "@/components/Footer"
 
 export const metadata: Metadata = {
   title: "Impressum",
-  robots: { index: false, follow: false },
+  description: "Impressum und Anbieterkennzeichnung von Fapez Medien / FPZ Web-Media Solutions.",
+  alternates: { canonical: "/impressum" },
+  robots: { index: false, follow: true },
 }
 
 export default function ImpressumPage() {
