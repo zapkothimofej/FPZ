@@ -15,12 +15,12 @@ export function WebKiContact() {
     const data = new FormData(form)
 
     try {
-      const res = await fetch("https://formsubmit.co/ajax/dc1680c158855bc1fa8160692cdd812d", {
+      const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json", "Accept": "application/json" },
         body: JSON.stringify({
-          _subject: "Neue Anfrage — FPZ Web & KI",
-          _captcha: "false",
+          kind: "web-ki",
+          website: data.get("website"),
           name: data.get("name"),
           email: data.get("email"),
           company: data.get("company"),
@@ -58,7 +58,7 @@ export function WebKiContact() {
 
           <div className="space-y-6">
             {[
-              { label: "E-Mail", value: "kontakt@fpz.de" },
+              { label: "E-Mail", value: "stevanfrei@gmail.com" },
               { label: "Standort", value: "Bochum, NRW" },
               { label: "Reaktionszeit", value: "< 24 Stunden" },
             ].map((item) => (
@@ -85,6 +85,7 @@ export function WebKiContact() {
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-5">
+              <input type="text" name="website" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden="true" />
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                 <Field label="Name" name="name" type="text" required placeholder="Max Mustermann" />
                 <Field label="Unternehmen" name="company" type="text" placeholder="Musterfirma GmbH" />
@@ -107,7 +108,7 @@ export function WebKiContact() {
 
               {status === "error" && (
                 <p role="alert" className="text-sm text-red-400">
-                  Fehler beim Senden. Bitte versuchen Sie es erneut.
+                  Fehler beim Senden. Bitte schreiben Sie direkt an stevanfrei@gmail.com.
                 </p>
               )}
 
@@ -125,4 +126,3 @@ export function WebKiContact() {
     </section>
   )
 }
-

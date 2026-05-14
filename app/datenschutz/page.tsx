@@ -21,10 +21,12 @@ export default function DatenschutzPage() {
           <div className="space-y-12 text-cream/70 text-sm leading-relaxed">
             <Section title="Verantwortlicher">
               <p>
-                Stevan Fre<br />
+                Fapez Medien / FPZ Web-Media Solutions<br />
+                Inhaber: Stevan Frei<br />
                 Im Siepen 66<br />
                 45731 Waltrop<br />
-                E-Mail: kontakt@fpz.de
+                Deutschland<br />
+                E-Mail: stevanfrei@gmail.com
               </p>
             </Section>
 
@@ -65,7 +67,7 @@ export default function DatenschutzPage() {
               <p>
                 Sie haben das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung
                 der Verarbeitung Ihrer personenbezogenen Daten sowie das Recht auf
-                Datenübertragbarkeit. Wenden Sie sich dazu an: kontakt@fpz.de
+                Datenübertragbarkeit. Wenden Sie sich dazu an: stevanfrei@gmail.com
               </p>
             </Section>
 

@@ -19,31 +19,50 @@ export default function ImpressumPage() {
           </h1>
 
           <div className="space-y-12 text-cream/70 text-sm leading-relaxed">
-            <Section title="Angaben gemäß § 5 TMG">
-              <p>Stevan Fre<br />Im Siepen 66<br />45731 Waltrop</p>
+            <Section title="Angaben gemäß § 5 DDG">
+              <p>
+                Fapez Medien / FPZ Web-Media Solutions<br />
+                Inhaber: Stevan Frei<br />
+                Im Siepen 66<br />
+                45731 Waltrop<br />
+                Deutschland
+              </p>
             </Section>
 
             <Section title="Kontakt">
-              <p>E-Mail: kontakt@fpz.de</p>
+              <p>E-Mail: stevanfrei@gmail.com</p>
             </Section>
 
-            <Section title="Umsatzsteuer">
+            <Section title="Register und Steuern">
+              <p>
+                Nicht im Handelsregister eingetragen.<br />
+                Umsatzsteuer-Identifikationsnummer: nicht vorhanden.<br />
+                Wirtschafts-Identifikationsnummer: nicht vorhanden.
+              </p>
+            </Section>
+
+            <Section title="Kleinunternehmerregelung">
               <p>
                 Gemäß § 19 UStG wird keine Umsatzsteuer berechnet und ausgewiesen
                 (Kleinunternehmerregelung).
               </p>
             </Section>
 
-            <Section title="Verantwortlich für den Inhalt nach § 55 Abs. 2 RStV">
-              <p>Stevan Fre<br />Im Siepen 66<br />45731 Waltrop</p>
+            <Section title="Verantwortlich für eigene Inhalte">
+              <p>
+                Stevan Frei<br />
+                Im Siepen 66<br />
+                45731 Waltrop<br />
+                Deutschland
+              </p>
             </Section>
 
-            <Section title="Haftungsausschluss">
+            <Section title="Haftung für Inhalte">
               <p>
                 Die Inhalte dieser Website wurden mit größtmöglicher Sorgfalt erstellt. Für die Richtigkeit,
                 Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen.
-                Als Diensteanbieter sind wir gemäß § 7 Abs. 1 TMG für eigene Inhalte auf diesen Seiten
-                nach den allgemeinen Gesetzen verantwortlich.
+                Als Diensteanbieter sind wir nach den allgemeinen Gesetzen für eigene Inhalte auf diesen Seiten
+                verantwortlich.
               </p>
             </Section>
 
@@ -53,6 +72,13 @@ export default function ImpressumPage() {
                 dem deutschen Urheberrecht. Die Vervielfältigung, Bearbeitung, Verbreitung und jede Art
                 der Verwertung außerhalb der Grenzen des Urheberrechtes bedürfen der schriftlichen
                 Zustimmung des jeweiligen Autors bzw. Erstellers.
+              </p>
+            </Section>
+
+            <Section title="Bildnachweise">
+              <p>
+                Einzelne Bildmotive können von Unsplash stammen. Soweit nicht anders angegeben,
+                liegen die Rechte an eigenen Texten, Designs und Medien bei Fapez Medien.
               </p>
             </Section>
           </div>
