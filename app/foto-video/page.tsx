@@ -12,7 +12,7 @@ export const metadata = {
   description:
     "FPZ Foto & Video aus Bochum. Professionelle Produktfotografie, Imagefilme, Event-Dokumentationen und Social Media Content. Bundesweit tätig.",
   openGraph: {
-    url: "https://fpz-website.vercel.app/foto-video",
+    url: "https://www.fapez-medien.de/foto-video",
     title: "FPZ — Foto & Video",
     description: "Produktfotografie, Imagefilme und Social Content aus Bochum. Bundesweit tätig.",
   },

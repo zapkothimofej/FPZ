@@ -11,7 +11,7 @@ export const metadata = {
   description:
     "Professionelle Websites, Prozessautomatisierungen und KI-Integrationen für Ihr Unternehmen. FPZ aus Bochum — deutschlandweit tätig.",
   openGraph: {
-    url: "https://fpz-website.vercel.app/web-ki",
+    url: "https://www.fapez-medien.de/web-ki",
     title: "FPZ — Web & KI",
     description: "Professionelle Websites, Automatisierungen und KI-Integrationen aus Bochum.",
   },

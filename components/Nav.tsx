@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { Logo } from "./Logo"
 import { ThemeToggle } from "./ThemeToggle"
 
@@ -13,11 +13,6 @@ export function Nav() {
   const isSubPage = isWebKi || isFotoVideo
 
   const [menuOpen, setMenuOpen] = useState(false)
-
-  // Close mobile menu on route change
-  useEffect(() => {
-    setMenuOpen(false)
-  }, [path])
 
   const anchorLinks = isWebKi
     ? [
@@ -133,12 +128,14 @@ export function Nav() {
             {/* Main navigation links */}
             <Link
               href="/web-ki"
+              onClick={() => setMenuOpen(false)}
               className="block py-3 text-sm font-medium text-ink dark:text-cream border-b border-stone/30 dark:border-stone/10"
             >
               Web &amp; KI
             </Link>
             <Link
               href="/foto-video"
+              onClick={() => setMenuOpen(false)}
               className="block py-3 text-sm font-medium text-ink dark:text-cream border-b border-stone/30 dark:border-stone/10"
             >
               Foto &amp; Video
@@ -149,6 +146,7 @@ export function Nav() {
               <a
                 key={link.href}
                 href={link.href}
+                onClick={() => setMenuOpen(false)}
                 className="block py-2 text-xs tracking-[0.14em] uppercase text-muted dark:text-muted hover:text-ink dark:hover:text-cream transition-colors"
               >
                 {link.label}
@@ -158,6 +156,7 @@ export function Nav() {
             {/* CTA — always visible in mobile menu */}
             <Link
               href="#kontakt"
+              onClick={() => setMenuOpen(false)}
               className="mt-4 w-full py-3 text-xs tracking-[0.12em] uppercase font-medium bg-ink text-cream dark:bg-cream dark:text-ink rounded-full text-center block"
             >
               Anfrage starten

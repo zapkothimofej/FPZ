@@ -17,7 +17,7 @@ const dmSans = DM_Sans({
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://fpz-website.vercel.app"),
+  metadataBase: new URL("https://www.fapez-medien.de"),
   title: {
     default: "FPZ — Web, KI & Foto/Video",
     template: "%s | FPZ",
@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     type: "website",
     siteName: "FPZ",
     locale: "de_DE",
-    url: "https://fpz-website.vercel.app",
+    url: "https://www.fapez-medien.de",
     title: "FPZ — Web, KI & Foto/Video",
     description:
       "Websites, KI-Automatisierungen und professionelle Foto/Video-Produktionen aus Bochum.",

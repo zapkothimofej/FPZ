@@ -1,25 +1,21 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useSyncExternalStore } from "react"
+
+const themeChangeEvent = "fpz-theme-change"
 
 export function ThemeToggle() {
-  const [dark, setDark] = useState(false)
+  const dark = useSyncExternalStore(subscribeToTheme, readDarkPreference, () => false)
 
   useEffect(() => {
-    const stored = localStorage.getItem("theme")
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches
-    const isDark = stored === "dark" || (stored === null && prefersDark)
-    if (isDark) {
-      document.documentElement.classList.add("dark")
-      setDark(true)
-    }
-  }, [])
+    document.documentElement.classList.toggle("dark", dark)
+  }, [dark])
 
   function toggle() {
     const next = !dark
-    setDark(next)
     document.documentElement.classList.toggle("dark", next)
     localStorage.setItem("theme", next ? "dark" : "light")
+    window.dispatchEvent(new Event(themeChangeEvent))
   }
 
   return (
@@ -32,6 +28,25 @@ export function ThemeToggle() {
       {dark ? <SunIcon /> : <MoonIcon />}
     </button>
   )
+}
+
+function subscribeToTheme(callback: () => void) {
+  const media = window.matchMedia("(prefers-color-scheme: dark)")
+
+  window.addEventListener("storage", callback)
+  window.addEventListener(themeChangeEvent, callback)
+  media.addEventListener("change", callback)
+
+  return () => {
+    window.removeEventListener("storage", callback)
+    window.removeEventListener(themeChangeEvent, callback)
+    media.removeEventListener("change", callback)
+  }
+}
+
+function readDarkPreference() {
+  const stored = localStorage.getItem("theme")
+  return stored === "dark" || (stored === null && window.matchMedia("(prefers-color-scheme: dark)").matches)
 }
 
 function SunIcon() {

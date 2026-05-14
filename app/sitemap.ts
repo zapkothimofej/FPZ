@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next"
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = "https://fpz-website.vercel.app"
+  const base = "https://www.fapez-medien.de"
   return [
     { url: base, lastModified: new Date(), changeFrequency: "monthly", priority: 1 },
     { url: `${base}/web-ki`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.9 },

@@ -6,7 +6,7 @@ export const metadata = {
   description:
     "FPZ aus Bochum: Professionelle Websites, KI-Automatisierungen und Foto/Video-Produktionen für moderne Unternehmen.",
   openGraph: {
-    url: "https://fpz-website.vercel.app",
+    url: "https://www.fapez-medien.de",
     title: "FPZ — Web, KI & Foto/Video",
     description: "Websites, KI-Automatisierungen und Foto/Video-Produktionen aus Bochum.",
   },

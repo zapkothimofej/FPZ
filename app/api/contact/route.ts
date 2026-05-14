@@ -5,7 +5,7 @@ type ContactKind = "web-ki" | "foto-video"
 const contactFormEndpoint =
   process.env.CONTACT_FORM_ENDPOINT ??
   process.env.FORMSUBMIT_ENDPOINT ??
-  "https://formsubmit.co/ajax/stevanfrei@gmail.com"
+  "https://formsubmit.co/ajax/dc1680c158855bc1fa8160692cdd812d"
 
 const subjects: Record<ContactKind, string> = {
   "web-ki": "Neue Anfrage - FPZ Web & KI",
