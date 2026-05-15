@@ -33,10 +33,10 @@ const photos = [
 
 export function FotoVideoGallery() {
   return (
-    <section id="portfolio" className="py-24 md:py-36 px-6 md:px-12 lg:px-16 bg-parchment dark:bg-ink">
+    <section id="portfolio" className="py-24 md:py-36 px-6 md:px-12 lg:px-16 bg-parchment">
       <FadeIn>
         <p className="text-[10px] tracking-[0.28em] uppercase text-gold mb-3 font-medium">Portfolio</p>
-        <h2 className="font-display font-light italic text-[clamp(2.5rem,5vw,5rem)] leading-tight text-ink dark:text-cream mb-16 md:mb-24">
+        <h2 className="font-display font-light italic text-[clamp(2.5rem,5vw,5rem)] leading-tight text-ink mb-16 md:mb-24">
           Ausgewählte Arbeiten.
         </h2>
       </FadeIn>
@@ -44,7 +44,7 @@ export function FotoVideoGallery() {
       <div className="grid grid-cols-2 md:grid-cols-3 auto-rows-[160px] md:auto-rows-[260px] gap-4">
         {photos.map((photo, i) => (
           <FadeIn key={photo.src} delay={i * 0.06} className={photo.span}>
-            <div className="relative w-full h-full rounded-xl overflow-hidden bg-stone dark:bg-stone/10 group">
+            <div className="relative w-full h-full rounded-xl overflow-hidden bg-stone group">
               <Image
                 src={photo.src}
                 alt={photo.alt}

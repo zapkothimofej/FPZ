@@ -25,7 +25,7 @@ const steps = [
 
 export function FotoVideoProcess() {
   return (
-    <section className="py-24 md:py-36 px-6 md:px-12 lg:px-16 bg-ink dark:bg-dark">
+    <section className="py-24 md:py-36 px-6 md:px-12 lg:px-16 bg-ink">
       <FadeIn className="mb-20 md:mb-28">
         <p className="text-[10px] tracking-[0.28em] uppercase text-gold mb-3 font-medium">
           Ablauf

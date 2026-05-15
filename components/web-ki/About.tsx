@@ -10,19 +10,19 @@ const stats = [
 
 export function WebKiAbout() {
   return (
-    <section id="ueber-uns" className="py-24 md:py-36 px-6 md:px-12 lg:px-16 bg-parchment dark:bg-dark-soft">
+    <section id="ueber-uns" className="py-24 md:py-36 px-6 md:px-12 lg:px-16 bg-parchment">
       <div className="max-w-6xl grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
 
         <FadeIn>
           <p className="text-[10px] tracking-[0.28em] uppercase text-gold mb-4 font-medium">
             Über FPZ
           </p>
-          <h2 className="font-display font-light italic text-[clamp(2.5rem,5vw,4.5rem)] leading-tight text-ink dark:text-cream mb-8">
+          <h2 className="font-display font-light italic text-[clamp(2.5rem,5vw,4.5rem)] leading-tight text-ink mb-8">
             Digitale Kompetenz
             <br />
             mit Anspruch.
           </h2>
-          <div className="space-y-4 text-mid dark:text-muted leading-relaxed text-sm md:text-base max-w-md">
+          <div className="space-y-4 text-mid leading-relaxed text-sm md:text-base max-w-md">
             <p>
               FPZ ist in Waltrop im Ruhrgebiet registriert und arbeitet
               mit Fokus auf Bochum, NRW und deutschlandweite Projekte.
@@ -44,7 +44,7 @@ export function WebKiAbout() {
           <dl className="grid grid-cols-2 gap-x-8 gap-y-10 mt-12">
             {stats.map((s) => (
               <div key={s.label}>
-                <dt className="font-display font-light text-[3rem] leading-none text-ink dark:text-cream">
+                <dt className="font-display font-light text-[3rem] leading-none text-ink">
                   {s.val}
                 </dt>
                 <dd className="text-xs tracking-[0.1em] uppercase text-muted mt-2">
@@ -56,7 +56,7 @@ export function WebKiAbout() {
         </FadeIn>
 
         <FadeIn delay={0.15}>
-          <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-stone/30 dark:bg-stone/10">
+          <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-stone/30">
             <Image
               src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&q=80"
               alt="Code Editor — dunkles Setup"

@@ -4,7 +4,6 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useState } from "react"
 import { Logo } from "./Logo"
-import { ThemeToggle } from "./ThemeToggle"
 
 export function Nav() {
   const path = usePathname()
@@ -29,7 +28,7 @@ export function Nav() {
     : []
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-cream/85 dark:bg-dark/85 backdrop-blur-md border-b border-stone/50 dark:border-stone/10">
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-cream/85 backdrop-blur-md border-b border-stone/50">
       {/* Main nav row */}
       <div className="flex items-center justify-between px-6 md:px-10 lg:px-14 h-14">
         {/* Logo */}
@@ -42,7 +41,7 @@ export function Nav() {
           <NavPill href="/web-ki" active={isWebKi}>
             Web &amp; KI
           </NavPill>
-          <span className="text-stone dark:text-stone/30 px-1 select-none">·</span>
+          <span className="text-stone px-1 select-none">·</span>
           <NavPill href="/foto-video" active={isFotoVideo}>
             Foto &amp; Video
           </NavPill>
@@ -54,7 +53,7 @@ export function Nav() {
           {isSubPage && (
             <Link
               href="#kontakt"
-              className="hidden sm:inline-flex text-xs tracking-[0.12em] uppercase font-medium px-4 py-2 rounded-full bg-ink text-cream dark:bg-cream dark:text-ink hover:opacity-75 transition-opacity"
+              className="hidden sm:inline-flex text-xs tracking-[0.12em] uppercase font-medium px-4 py-2 rounded-full bg-ink text-cream hover:opacity-75 transition-opacity"
             >
               Anfrage
             </Link>
@@ -67,7 +66,7 @@ export function Nav() {
             aria-label={menuOpen ? "Menü schließen" : "Menü öffnen"}
             aria-expanded={menuOpen}
             aria-controls="mobile-menu"
-            className="md:hidden p-3 -mr-1 text-ink dark:text-cream hover:opacity-60 transition-opacity"
+            className="md:hidden p-3 -mr-1 text-ink hover:opacity-60 transition-opacity"
           >
             {menuOpen ? (
               // X icon
@@ -98,19 +97,17 @@ export function Nav() {
               </svg>
             )}
           </button>
-
-          <ThemeToggle />
         </div>
       </div>
 
       {/* Desktop sub-page anchor links */}
       {isSubPage && (
-        <div className="hidden md:flex items-center gap-6 px-10 lg:px-14 h-9 border-t border-stone/30 dark:border-stone/10">
+        <div className="hidden md:flex items-center gap-6 px-10 lg:px-14 h-9 border-t border-stone/30">
           {anchorLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
-              className="text-xs tracking-[0.14em] uppercase text-muted dark:text-muted hover:text-ink dark:hover:text-cream transition-colors"
+              className="text-xs tracking-[0.14em] uppercase text-muted hover:text-ink transition-colors"
             >
               {link.label}
             </a>
@@ -122,21 +119,21 @@ export function Nav() {
       {menuOpen && (
         <div
           id="mobile-menu"
-          className="md:hidden absolute left-0 right-0 z-40 bg-cream/95 dark:bg-dark/95 backdrop-blur-md border-b border-stone/50 dark:border-stone/10 px-6 py-6"
+          className="md:hidden absolute left-0 right-0 z-40 bg-cream/95 backdrop-blur-md border-b border-stone/50 px-6 py-6"
         >
           <div className="space-y-1">
             {/* Main navigation links */}
             <Link
               href="/web-ki"
               onClick={() => setMenuOpen(false)}
-              className="block py-3 text-sm font-medium text-ink dark:text-cream border-b border-stone/30 dark:border-stone/10"
+              className="block py-3 text-sm font-medium text-ink border-b border-stone/30"
             >
               Web &amp; KI
             </Link>
             <Link
               href="/foto-video"
               onClick={() => setMenuOpen(false)}
-              className="block py-3 text-sm font-medium text-ink dark:text-cream border-b border-stone/30 dark:border-stone/10"
+              className="block py-3 text-sm font-medium text-ink border-b border-stone/30"
             >
               Foto &amp; Video
             </Link>
@@ -147,7 +144,7 @@ export function Nav() {
                 key={link.href}
                 href={link.href}
                 onClick={() => setMenuOpen(false)}
-                className="block py-2 text-xs tracking-[0.14em] uppercase text-muted dark:text-muted hover:text-ink dark:hover:text-cream transition-colors"
+                className="block py-2 text-xs tracking-[0.14em] uppercase text-muted hover:text-ink transition-colors"
               >
                 {link.label}
               </a>
@@ -157,7 +154,7 @@ export function Nav() {
             <Link
               href="#kontakt"
               onClick={() => setMenuOpen(false)}
-              className="mt-4 w-full py-3 text-xs tracking-[0.12em] uppercase font-medium bg-ink text-cream dark:bg-cream dark:text-ink rounded-full text-center block"
+              className="mt-4 w-full py-3 text-xs tracking-[0.12em] uppercase font-medium bg-ink text-cream rounded-full text-center block"
             >
               Anfrage starten
             </Link>
@@ -182,8 +179,8 @@ function NavPill({
       href={href}
       className={`relative text-xs tracking-[0.14em] uppercase px-3 py-1 rounded transition-colors ${
         active
-          ? "text-ink dark:text-cream font-medium"
-          : "text-muted dark:text-muted hover:text-ink dark:hover:text-cream"
+          ? "text-ink font-medium"
+          : "text-muted hover:text-ink"
       }`}
     >
       {children}

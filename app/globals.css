@@ -1,7 +1,5 @@
 @import "tailwindcss";
 
-@custom-variant dark (&:where(.dark, .dark *));
-
 @theme {
   --font-sans: var(--font-dm-sans);
   --font-display: var(--font-cormorant);
@@ -12,8 +10,6 @@
   --color-muted: #8E8C87;
   --color-mid: #5A5850;
   --color-ink: #131310;
-  --color-dark: #0E0D0B;
-  --color-dark-soft: #1A1916;
   --color-gold: #C4A040;
 }
 
@@ -25,11 +21,6 @@ body {
   background-color: #F7F3EE;
   color: #131310;
   -webkit-font-smoothing: antialiased;
-}
-
-.dark body {
-  background-color: #0E0D0B;
-  color: #F7F3EE;
 }
 
 /* Animated grain overlay */
@@ -105,8 +96,4 @@ body::after {
 ::selection {
   background: #131310;
   color: #F7F3EE;
-}
-.dark ::selection {
-  background: #F7F3EE;
-  color: #131310;
 }

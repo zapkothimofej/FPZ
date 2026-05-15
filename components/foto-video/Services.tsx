@@ -54,10 +54,10 @@ const services = [
 
 export function FotoVideoServices() {
   return (
-    <section id="leistungen" className="py-24 md:py-36 px-6 md:px-12 lg:px-16 bg-cream dark:bg-dark">
+    <section id="leistungen" className="py-24 md:py-36 px-6 md:px-12 lg:px-16 bg-cream">
       <FadeIn>
         <p className="text-[10px] tracking-[0.28em] uppercase text-gold mb-3 font-medium">Leistungen</p>
-        <h2 className="font-display font-light italic text-[clamp(2.5rem,5vw,5rem)] leading-tight text-ink dark:text-cream mb-16 md:mb-24">
+        <h2 className="font-display font-light italic text-[clamp(2.5rem,5vw,5rem)] leading-tight text-ink mb-16 md:mb-24">
           Was wir produzieren.
         </h2>
       </FadeIn>
@@ -65,17 +65,17 @@ export function FotoVideoServices() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {services.map((s, i) => (
           <FadeIn key={s.num} delay={i * 0.08}>
-            <div className="p-8 md:p-10 border border-stone/60 dark:border-stone/10 rounded-2xl hover:border-ink dark:hover:border-cream/30 transition-colors group h-full">
+            <div className="p-8 md:p-10 border border-stone/60 rounded-2xl hover:border-ink transition-colors group h-full">
               <div className="flex items-start justify-between mb-6">
-                <span className="font-display text-3xl font-light text-ink/35 dark:text-cream/50 leading-none">{s.num}</span>
-                <span className="text-ink/40 dark:text-cream/30 group-hover:text-gold transition-colors duration-300">
+                <span className="font-display text-3xl font-light text-ink/35 leading-none">{s.num}</span>
+                <span className="text-ink/40 group-hover:text-gold transition-colors duration-300">
                   {s.icon}
                 </span>
               </div>
-              <h3 className="text-xl font-medium text-ink dark:text-cream mb-3 tracking-tight">
+              <h3 className="text-xl font-medium text-ink mb-3 tracking-tight">
                 {s.title}
               </h3>
-              <p className="text-mid dark:text-muted leading-relaxed text-sm">
+              <p className="text-mid leading-relaxed text-sm">
                 {s.body}
               </p>
             </div>

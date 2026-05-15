@@ -11,7 +11,7 @@ export function Footer({ variant = "default" }: FooterProps) {
   const isFotoVideo = variant === "foto-video"
 
   return (
-    <footer className="border-t border-stone dark:border-stone/10 px-8 md:px-16 lg:px-24 py-12">
+    <footer className="border-t border-stone px-8 md:px-16 lg:px-24 py-12">
       <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
         <div className="space-y-3">
           <Logo size="sm" />
@@ -34,28 +34,28 @@ export function Footer({ variant = "default" }: FooterProps) {
           </p>
         </div>
 
-        <div className="flex flex-col gap-8 text-sm text-mid dark:text-muted sm:flex-row">
+        <div className="flex flex-col gap-8 text-sm text-mid sm:flex-row">
           <div className="space-y-2">
             <p className="text-xs tracking-[0.15em] uppercase text-muted">Navigation</p>
             <ul className="space-y-1.5">
               <li>
-                <Link href="/" className="hover:text-ink dark:hover:text-cream transition-colors">
+                <Link href="/" className="hover:text-ink transition-colors">
                   Startseite
                 </Link>
               </li>
               <li>
-                <Link href="/web-ki" className="hover:text-ink dark:hover:text-cream transition-colors">
+                <Link href="/web-ki" className="hover:text-ink transition-colors">
                   Web & KI
                 </Link>
               </li>
               <li>
-                <Link href="/foto-video" className="hover:text-ink dark:hover:text-cream transition-colors">
+                <Link href="/foto-video" className="hover:text-ink transition-colors">
                   Foto & Video
                 </Link>
               </li>
 	              {variant !== "default" && (
 	                <li>
-	                  <a href="#leistungen" className="hover:text-ink dark:hover:text-cream transition-colors">
+	                  <a href="#leistungen" className="hover:text-ink transition-colors">
 	                    Leistungen
 	                  </a>
 	                </li>
@@ -63,7 +63,7 @@ export function Footer({ variant = "default" }: FooterProps) {
 	              <li>
 	                <a
 	                  href={variant === "default" ? "/web-ki#kontakt" : "#kontakt"}
-	                  className="hover:text-ink dark:hover:text-cream transition-colors"
+	                  className="hover:text-ink transition-colors"
 	                >
 	                  Kontakt
 	                </a>
@@ -77,7 +77,7 @@ export function Footer({ variant = "default" }: FooterProps) {
               <li>
                 <Link
                   href={isFotoVideo ? "/web-ki" : "/foto-video"}
-                  className="hover:text-ink dark:hover:text-cream transition-colors"
+                  className="hover:text-ink transition-colors"
                 >
                   {isFotoVideo ? "FPZ Web & KI →" : "FPZ Foto & Video →"}
                 </Link>
@@ -92,7 +92,7 @@ export function Footer({ variant = "default" }: FooterProps) {
                 <li key={page.slug}>
                   <Link
                     href={`/${page.slug}`}
-                    className="hover:text-ink dark:hover:text-cream transition-colors"
+                    className="hover:text-ink transition-colors"
                   >
                     {page.serviceName}
                   </Link>
@@ -103,13 +103,13 @@ export function Footer({ variant = "default" }: FooterProps) {
         </div>
       </div>
 
-      <div className="mt-12 pt-6 border-t border-stone dark:border-stone/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs text-muted">
+      <div className="mt-12 pt-6 border-t border-stone flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs text-muted">
         <p>© {new Date().getFullYear()} FPZ. Alle Rechte vorbehalten.</p>
         <div className="flex gap-4">
-          <Link href="/impressum" className="hover:text-ink dark:hover:text-cream transition-colors">
+          <Link href="/impressum" className="hover:text-ink transition-colors">
             Impressum
           </Link>
-          <Link href="/datenschutz" className="hover:text-ink dark:hover:text-cream transition-colors">
+          <Link href="/datenschutz" className="hover:text-ink transition-colors">
             Datenschutz
           </Link>
         </div>
