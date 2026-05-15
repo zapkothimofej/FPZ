@@ -15,12 +15,22 @@
 
 html {
   scroll-behavior: smooth;
+  color-scheme: only light;
+  background-color: #F7F3EE;
 }
 
 body {
   background-color: #F7F3EE;
   color: #131310;
+  color-scheme: only light;
   -webkit-font-smoothing: antialiased;
+}
+
+input,
+textarea,
+select,
+button {
+  color-scheme: only light;
 }
 
 /* Animated grain overlay */

@@ -1,4 +1,4 @@
-import type { Metadata } from "next"
+import type { Metadata, Viewport } from "next"
 import { Cormorant_Garamond, DM_Sans } from "next/font/google"
 import { defaultRobots, routes, site } from "@/lib/seo"
 import "./globals.css"
@@ -52,9 +52,14 @@ export const metadata: Metadata = {
   },
 }
 
+export const viewport: Viewport = {
+  colorScheme: "light",
+  themeColor: "#F7F3EE",
+}
+
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="de" className={`${cormorant.variable} ${dmSans.variable}`}>
+    <html lang="de" className={`${cormorant.variable} ${dmSans.variable}`} style={{ colorScheme: "light" }}>
       <body className="min-h-screen antialiased">{children}</body>
     </html>
   )
