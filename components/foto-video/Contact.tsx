@@ -53,7 +53,7 @@ export function FotoVideoContact() {
           <h2 className="font-display font-light italic text-[clamp(2.5rem,5vw,4.5rem)] leading-tight text-cream mb-8">
             Angebot anfragen.
           </h2>
-          <p className="text-cream/50 text-sm md:text-base leading-relaxed max-w-sm mb-12">
+          <p className="text-cream/65 text-sm md:text-base leading-relaxed max-w-sm mb-12">
             Erzählen Sie uns von Ihrem Projekt. Wir erstellen innerhalb von 24 Stunden ein unverbindliches Angebot.
           </p>
 

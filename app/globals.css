@@ -15,6 +15,8 @@
 
 html {
   scroll-behavior: smooth;
+  /* Anker-Sprünge nicht unter der fixierten Nav landen lassen. */
+  scroll-padding-top: 6rem;
 }
 
 body {
@@ -65,12 +67,11 @@ body::after {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
   body::after {
     animation: none;
-  }
-  @keyframes marquee {
-    from { transform: translateX(0) }
-    to   { transform: translateX(0) }
   }
 }
 
@@ -91,6 +92,16 @@ body::after {
 @keyframes marquee {
   from { transform: translateX(0) }
   to   { transform: translateX(-50%) }
+}
+
+/* Muss NACH der bewegten Definition stehen: Bei gleichem Namen gewinnt die
+   zuletzt registrierte @keyframes-Regel. So friert das Marquee (Inline-Style)
+   bei Reduced Motion ein. */
+@media (prefers-reduced-motion: reduce) {
+  @keyframes marquee {
+    from { transform: translateX(0) }
+    to   { transform: translateX(0) }
+  }
 }
 
 ::selection {

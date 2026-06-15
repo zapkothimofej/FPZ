@@ -31,6 +31,7 @@ export default function Home() {
             "Leistungen: Websites, KI-Automatisierungen, Produktfotografie, Imagefilm und Social Content.",
           ]}
           questions={homeFaq}
+          ctaHref="/web-ki#kontakt"
         />
       </main>
       <Footer />
