@@ -5,7 +5,7 @@ const stats = [
   { val: "80+", label: "Shootings & Produktionen" },
   { val: "4K", label: "Videoqualität Standard" },
   { val: "48h", label: "Lieferzeit Erstentwurf" },
-  { val: "∞", label: "Revisionen möglich" },
+  { val: "2×", label: "Korrekturschleifen inkl." },
 ]
 
 export function FotoVideoAbout() {

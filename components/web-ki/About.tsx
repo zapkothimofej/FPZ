@@ -4,7 +4,7 @@ import Image from "next/image"
 const stats = [
   { val: "50+", label: "Projekte umgesetzt" },
   { val: "3×", label: "schnellere Prozesse" },
-  { val: "100%", label: "Kundenzufriedenheit" },
+  { val: "100%", label: "DSGVO-konform" },
   { val: "24h", label: "Reaktionszeit" },
 ]
 
