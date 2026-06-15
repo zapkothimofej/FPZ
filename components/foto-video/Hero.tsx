@@ -10,6 +10,8 @@ export function FotoVideoHero() {
 
   useGSAP(
     () => {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
+
       const tl = gsap.timeline({ delay: 0.15, defaults: { ease: "power4.out" } })
 
       tl.from(".fv-img", {
@@ -80,7 +82,7 @@ export function FotoVideoHero() {
 
       {/* Bottom */}
       <div className="relative z-10 flex flex-col md:flex-row md:items-end gap-10 md:gap-20">
-        <p className="fv-fade text-white/55 text-base md:text-lg leading-relaxed max-w-md">
+        <p className="fv-fade text-white/70 text-base md:text-lg leading-relaxed max-w-md">
           Professionelle Produktfotografie, Imagefilme und Event-Dokumentation
           für Bochum, das Ruhrgebiet und NRW.
         </p>

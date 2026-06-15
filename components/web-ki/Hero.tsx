@@ -10,6 +10,8 @@ export function WebKiHero() {
 
   useGSAP(
     () => {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
+
       gsap.fromTo(".wk-img", { scale: 1.08 }, {
         scale: 1.0,
         duration: 2.2,
@@ -79,7 +81,7 @@ export function WebKiHero() {
 
       {/* Bottom content */}
       <div className="relative z-10 flex flex-col md:flex-row md:items-end gap-10 md:gap-20">
-        <p className="wk-fade text-white/55 text-base md:text-lg leading-relaxed max-w-md">
+        <p className="wk-fade text-white/70 text-base md:text-lg leading-relaxed max-w-md">
           Wir entwickeln Websites, Automatisierungen und KI-Integrationen für Unternehmen
           in Bochum, dem Ruhrgebiet und NRW.
         </p>

@@ -45,7 +45,7 @@ export function FotoVideoProcess() {
               <h3 className="text-base font-medium text-white mb-3 tracking-tight">
                 {step.title}
               </h3>
-              <p className="text-sm text-white/45 leading-relaxed">
+              <p className="text-sm text-white/60 leading-relaxed">
                 {step.desc}
               </p>
             </div>

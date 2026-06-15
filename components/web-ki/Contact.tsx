@@ -52,7 +52,7 @@ export function WebKiContact() {
           <h2 className="font-display font-light italic text-[clamp(2.5rem,5vw,4.5rem)] leading-tight text-cream mb-8">
             Projekt starten.
           </h2>
-          <p className="text-cream/50 text-sm md:text-base leading-relaxed max-w-sm mb-12">
+          <p className="text-cream/65 text-sm md:text-base leading-relaxed max-w-sm mb-12">
             Beschreiben Sie Ihr Vorhaben. Wir melden uns innerhalb von 24 Stunden mit einer konkreten Einschätzung.
           </p>
 

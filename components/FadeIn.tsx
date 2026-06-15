@@ -1,11 +1,7 @@
 "use client"
 
 import { useRef } from "react"
-import gsap from "gsap"
-import { ScrollTrigger } from "gsap/ScrollTrigger"
-import { useGSAP } from "@gsap/react"
-
-gsap.registerPlugin(ScrollTrigger, useGSAP)
+import { gsap, useGSAP } from "@/lib/gsap"
 
 interface FadeInProps {
   children: React.ReactNode
@@ -19,6 +15,8 @@ export function FadeIn({ children, className = "", delay = 0, y = 28 }: FadeInPr
 
   useGSAP(
     () => {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
+
       gsap.from(ref.current, {
         y,
         autoAlpha: 0,

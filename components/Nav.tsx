@@ -13,6 +13,9 @@ export function Nav() {
 
   const [menuOpen, setMenuOpen] = useState(false)
 
+  // Auf der Startseite existiert kein #kontakt-Anker -> auf die Web-&-KI-Anfrage leiten.
+  const contactHref = isSubPage ? "#kontakt" : "/web-ki#kontakt"
+
   const anchorLinks = isWebKi
     ? [
         { label: "Leistungen", href: "#leistungen" },
@@ -52,7 +55,7 @@ export function Nav() {
           {/* Desktop CTA */}
           {isSubPage && (
             <Link
-              href="#kontakt"
+              href={contactHref}
               className="hidden sm:inline-flex text-xs tracking-[0.12em] uppercase font-medium px-4 py-2 rounded-full bg-ink text-cream hover:opacity-75 transition-opacity"
             >
               Anfrage
@@ -152,7 +155,7 @@ export function Nav() {
 
             {/* CTA — always visible in mobile menu */}
             <Link
-              href="#kontakt"
+              href={contactHref}
               onClick={() => setMenuOpen(false)}
               className="mt-4 w-full py-3 text-xs tracking-[0.12em] uppercase font-medium bg-ink text-cream rounded-full text-center block"
             >

@@ -11,12 +11,14 @@ export function SeoAnswerSection({
   summary,
   facts,
   questions,
+  ctaHref = "#kontakt",
 }: {
   eyebrow: string
   title: string
   summary: string
   facts: string[]
   questions: SeoQuestion[]
+  ctaHref?: string
 }) {
   return (
     <section className="bg-cream py-20 md:py-28 px-6 md:px-12 lg:px-16">
@@ -54,7 +56,7 @@ export function SeoAnswerSection({
           ))}
           <div className="py-6">
             <Link
-              href="#kontakt"
+              href={ctaHref}
               className="inline-flex items-center justify-center rounded-full bg-ink px-6 py-3 text-xs font-medium uppercase tracking-[0.14em] text-cream transition-opacity hover:opacity-80"
             >
               Anfrage starten

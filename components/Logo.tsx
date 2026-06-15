@@ -6,16 +6,16 @@ interface LogoProps {
 
 export function Logo({ className = "", size = "md", inverted = false }: LogoProps) {
   const sizes = {
-    sm: { mark: 20, gap: 2, text: "text-sm" },
-    md: { mark: 26, gap: 3, text: "text-base" },
-    lg: { mark: 32, gap: 4, text: "text-xl" },
+    sm: { mark: 20, gap: "gap-2", text: "text-sm" },
+    md: { mark: 26, gap: "gap-3", text: "text-base" },
+    lg: { mark: 32, gap: "gap-4", text: "text-xl" },
   }
 
   const s = sizes[size]
   const color = inverted ? "#FAFAF9" : "currentColor"
 
   return (
-    <div className={`flex items-center gap-${s.gap} ${className}`}>
+    <div className={`flex items-center ${s.gap} ${className}`}>
       <svg
         width={s.mark}
         height={Math.round(s.mark * 0.65)}

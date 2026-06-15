@@ -10,6 +10,8 @@ export function LandingPage() {
 
   useGSAP(
     () => {
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return
+
       const tl = gsap.timeline({ defaults: { ease: "power4.out" } })
 
       tl.from(".deco-rule", {
@@ -56,7 +58,7 @@ export function LandingPage() {
             Ruhrgebiet, NRW
           </span>
           <span className="hero-meta text-xs tracking-[0.22em] uppercase text-white/30">
-            2025
+            {new Date().getFullYear()}
           </span>
         </div>
 
@@ -74,7 +76,7 @@ export function LandingPage() {
           </h1>
 
           <div className="mt-10 md:mt-14 flex flex-col sm:flex-row sm:items-end gap-6 sm:justify-between max-w-5xl">
-            <p className="hero-meta text-white/50 text-base md:text-lg leading-relaxed max-w-sm">
+            <p className="hero-meta text-white/65 text-base md:text-lg leading-relaxed max-w-sm">
               Webdesign, Automatisierung und Medienproduktion.
               <br />
               Digitale Exzellenz für moderne Unternehmen.
@@ -202,7 +204,7 @@ function SectionCard({
             <h2 className="font-display font-light italic text-[clamp(2.5rem,4vw,4rem)] leading-tight text-white mb-4">
               {title}
             </h2>
-            <p className="text-white/50 text-sm md:text-base leading-relaxed max-w-xs group-hover:text-white/70 transition-colors duration-300">
+            <p className="text-white/65 text-sm md:text-base leading-relaxed max-w-xs group-hover:text-white/80 transition-colors duration-300">
               {desc}
             </p>
           </div>
