@@ -17,20 +17,23 @@ const photos = [
     sizes: "(max-width: 768px) 100vw, 33vw",
   },
   {
-    src: "/foto-video/fpz-gallery-03.jpg",
-    alt: "Portfolio Bild 3",
+    // TODO: Platzhalter – durch echtes FPZ-Foto ersetzen
+    src: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&q=80",
+    alt: "Platzhalter – Sportwagen Detailaufnahme",
     span: "col-span-1 row-span-1",
     sizes: "(max-width: 768px) 50vw, 33vw",
   },
   {
-    src: "/foto-video/fpz-gallery-04.jpg",
-    alt: "Portfolio Bild 4",
+    // TODO: Platzhalter – durch echtes FPZ-Foto ersetzen
+    src: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=80",
+    alt: "Platzhalter – Produktfotografie",
     span: "col-span-1 row-span-1",
     sizes: "(max-width: 768px) 50vw, 33vw",
   },
   {
-    src: "/foto-video/fpz-gallery-05.jpg",
-    alt: "Portfolio Bild 5",
+    // TODO: Platzhalter – durch echtes FPZ-Foto ersetzen
+    src: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1600&q=80",
+    alt: "Platzhalter – Event-Dokumentation",
     span: "col-span-2 row-span-1",
     sizes: "100vw",
   },
@@ -46,7 +49,7 @@ export function FotoVideoGallery() {
         </h2>
       </FadeIn>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 auto-rows-[160px] md:auto-rows-[260px] gap-4">
+      <div className="relative z-[10000] grid grid-cols-2 md:grid-cols-3 auto-rows-[160px] md:auto-rows-[260px] gap-4">
         {photos.map((photo, i) => (
           <FadeIn key={photo.src} delay={i * 0.06} className={photo.span}>
             <div className="relative w-full h-full rounded-xl overflow-hidden bg-stone group">
