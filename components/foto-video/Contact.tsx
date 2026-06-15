@@ -77,7 +77,7 @@ export function FotoVideoContact() {
         {/* Right — form */}
         <FadeIn delay={0.1}>
           {status === "sent" ? (
-            <div className="h-full flex flex-col justify-center py-12">
+            <div role="status" className="h-full flex flex-col justify-center py-12">
               <div className="h-px bg-gold/30 w-12 mb-8" />
               <p className="font-display font-light italic text-[clamp(1.8rem,3vw,2.5rem)] text-cream mb-3">
                 Anfrage erhalten.
