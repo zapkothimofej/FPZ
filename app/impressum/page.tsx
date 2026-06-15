@@ -50,12 +50,20 @@ export default function ImpressumPage() {
               </p>
             </Section>
 
-            <Section title="Verantwortlich für eigene Inhalte">
+            <Section title="Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV">
               <p>
                 Stevan Frei<br />
                 Im Siepen 66<br />
                 45731 Waltrop<br />
                 Deutschland
+              </p>
+            </Section>
+
+            <Section title="Verbraucherstreitbeilegung">
+              <p>
+                Wir sind nicht bereit und nicht verpflichtet, an Streitbeilegungsverfahren vor einer
+                Verbraucherschlichtungsstelle im Sinne des Verbraucherstreitbeilegungsgesetzes (VSBG)
+                teilzunehmen.
               </p>
             </Section>
 
@@ -65,6 +73,16 @@ export default function ImpressumPage() {
                 Vollständigkeit und Aktualität der Inhalte können wir jedoch keine Gewähr übernehmen.
                 Als Diensteanbieter sind wir nach den allgemeinen Gesetzen für eigene Inhalte auf diesen Seiten
                 verantwortlich.
+              </p>
+            </Section>
+
+            <Section title="Haftung für Links">
+              <p>
+                Unser Angebot enthält gegebenenfalls Links zu externen Websites Dritter, auf deren
+                Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch
+                keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige
+                Anbieter oder Betreiber verantwortlich. Bei Bekanntwerden von Rechtsverletzungen
+                entfernen wir derartige Links umgehend.
               </p>
             </Section>
 
