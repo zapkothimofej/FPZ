@@ -79,7 +79,7 @@ export function LandingPage() {
             <p className="hero-meta text-white/65 text-base md:text-lg leading-relaxed max-w-sm">
               Webdesign, Automatisierung und Medienproduktion.
               <br />
-              Digitale Exzellenz für moderne Unternehmen.
+              Alles aus einer Hand, aus dem Ruhrgebiet.
             </p>
             <Link
               href="#bereiche"
@@ -121,8 +121,8 @@ export function LandingPage() {
           num="01"
           href="/web-ki"
           title="Web & KI"
-          tagline="B2B — Digitale Systeme"
-          desc="Professionelle Websites, Prozessautomatisierungen und KI-Integrationen — für Unternehmen, die wachsen wollen."
+          tagline="B2B · Digitale Systeme"
+          desc="Professionelle Websites, Prozessautomatisierungen und KI-Integrationen für Firmen, die wachsen wollen."
           services={["Webseitenerstellung", "Automatisierungen"]}
           image="https://images.unsplash.com/photo-1484788984921-03950022c9ef?w=900&q=80"
           borderRight
@@ -131,7 +131,7 @@ export function LandingPage() {
           num="02"
           href="/foto-video"
           title="Foto & Video"
-          tagline="B2C — Visuelle Produktion"
+          tagline="B2C · Visuelle Produktion"
           desc="Produktfotografie, Imagefilme, Event-Dokumentationen und Social Media Content, der bleibt."
           services={["Produktfotografie", "Imagefilm", "Social Content"]}
           image="https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=900&q=80"

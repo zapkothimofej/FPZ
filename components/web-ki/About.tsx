@@ -2,8 +2,8 @@ import { FadeIn } from "@/components/FadeIn"
 import Image from "next/image"
 
 const stats = [
-  { val: "50+", label: "Projekte umgesetzt" },
-  { val: "3×", label: "schnellere Prozesse" },
+  { val: "0€", label: "Erstgespräch" },
+  { val: "Festpreis", label: "statt Stundenzettel" },
   { val: "100%", label: "DSGVO-konform" },
   { val: "24h", label: "Reaktionszeit" },
 ]
@@ -15,29 +15,29 @@ export function WebKiAbout() {
 
         <FadeIn>
           <p className="text-[10px] tracking-[0.28em] uppercase text-gold mb-4 font-medium">
-            Über FPZ
+            Über Fapez Medien
           </p>
           <h2 className="font-display font-light italic text-[clamp(2.5rem,5vw,4.5rem)] leading-tight text-ink mb-8">
-            Digitale Kompetenz
+            Sauber gebaut.
             <br />
-            mit Anspruch.
+            Ehrlich geliefert.
           </h2>
           <div className="space-y-4 text-mid leading-relaxed text-sm md:text-base max-w-md">
             <p>
-              FPZ ist in Waltrop im Ruhrgebiet registriert und arbeitet
+              Fapez Medien ist in Waltrop im Ruhrgebiet registriert und arbeitet
               mit Fokus auf Bochum, NRW und deutschlandweite Projekte.
-              Wir verbinden technisches Know-how mit einem klaren Blick
-              für das Wesentliche: Ihr Wachstum.
+              Wir verbinden solides technisches Handwerk mit einem klaren Blick
+              für das, was Ihr Geschäft wirklich voranbringt.
             </p>
             <p>
               Von der ersten Konzeption bis zum laufenden Betrieb begleiten
-              wir Sie. Transparent, pünktlich, messbar. Deutschlandweit tätig.
+              wir Sie. Feste Termine, klare Preise, ein direkter Ansprechpartner.
             </p>
           </div>
           <div className="flex items-center gap-2 mt-6">
             <span className="w-1.5 h-1.5 rounded-full bg-gold/70" />
             <span className="text-[10px] tracking-[0.2em] uppercase text-muted">
-              Bochum, Ruhrgebiet — deutschlandweit tätig
+              Bochum, Ruhrgebiet, deutschlandweit tätig
             </span>
           </div>
 
@@ -59,7 +59,7 @@ export function WebKiAbout() {
           <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-stone/30">
             <Image
               src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=1200&q=80"
-              alt="Code Editor — dunkles Setup"
+              alt="Code-Editor, dunkles Setup"
               fill
               className="object-cover"
               sizes="(max-width: 1024px) 100vw, 50vw"

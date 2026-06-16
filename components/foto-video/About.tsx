@@ -2,7 +2,7 @@ import { FadeIn } from "@/components/FadeIn"
 import Image from "next/image"
 
 const stats = [
-  { val: "80+", label: "Shootings & Produktionen" },
+  { val: "NRW", label: "vor Ort & mobil" },
   { val: "4K", label: "Videoqualität Standard" },
   { val: "48h", label: "Lieferzeit Erstentwurf" },
   { val: "2×", label: "Korrekturschleifen inkl." },
@@ -44,7 +44,7 @@ export function FotoVideoAbout() {
           </h2>
           <div className="space-y-4 text-mid leading-relaxed text-sm md:text-base max-w-md">
             <p>
-              FPZ Foto &amp; Video ist in Waltrop im Ruhrgebiet registriert
+              Fapez Medien ist in Waltrop im Ruhrgebiet registriert
               und produziert mit Fokus auf Bochum, NRW und deutschlandweite
               Einsätze für Marken, Unternehmen und Privatpersonen.
             </p>

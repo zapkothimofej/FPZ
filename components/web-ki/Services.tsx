@@ -4,13 +4,13 @@ const services = [
   {
     num: "01",
     title: "Webseitenerstellung",
-    body: "Professionelle Websites, die konvertieren. Von der Konzeption über das Design bis zum Go-Live — wir liefern digitale Präsenzen, die Vertrauen aufbauen und Anfragen generieren.",
+    body: "Professionelle Websites, die konvertieren. Von der Konzeption über das Design bis zum Go-Live. Wir bauen Seiten, die Vertrauen schaffen und Anfragen bringen.",
     tags: ["Next.js", "React", "Tailwind", "CMS"],
   },
   {
     num: "02",
     title: "Automatisierungen",
-    body: "Manuelle Prozesse kosten Zeit und Geld. Wir digitalisieren Ihre Workflows — von E-Mail-Automation über Datenpipelines bis zu integrierten Geschäftsprozessen.",
+    body: "Manuelle Prozesse kosten Zeit und Geld. Wir digitalisieren wiederkehrende Abläufe: E-Mail-Automation, Datenübergaben und verbundene Systeme.",
     tags: ["n8n", "Zapier", "API-Integration", "Webhooks"],
   },
 ]

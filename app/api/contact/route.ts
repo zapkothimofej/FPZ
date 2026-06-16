@@ -26,7 +26,7 @@ const maxLength = {
 // Bevorzugter Versand: Resend (eigene Domain). Fallback: FormSubmit.
 const resendApiKey = process.env.RESEND_API_KEY
 const fromEmail = process.env.CONTACT_FROM_EMAIL ?? "FPZ Website <kontakt@fapez-medien.de>"
-const toEmail = process.env.CONTACT_TO_EMAIL ?? "stevanfrei@gmail.com"
+const toEmail = process.env.CONTACT_TO_EMAIL ?? "zapkothimofej@gmail.com"
 
 const formSubmitEndpoint =
   process.env.CONTACT_FORM_ENDPOINT ??

@@ -58,7 +58,7 @@ export function WebKiHero() {
       <div className="relative z-10 flex items-end justify-between pt-4">
         <div className="overflow-hidden">
           <p className="wk-reveal text-[10px] tracking-[0.28em] uppercase text-white/40 font-medium">
-            FPZ — Web &amp; KI
+            FPZ · Web &amp; KI
           </p>
         </div>
         <div className="overflow-hidden">

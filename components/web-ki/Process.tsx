@@ -4,22 +4,22 @@ const steps = [
   {
     num: "01",
     title: "Erstgespräch",
-    desc: "Kostenlos, unverbindlich. Wir hören zu — verstehen Ihr Unternehmen, Ihre Ziele, Ihre Engpässe. Kein Pitch, kein Druck.",
+    desc: "Kostenlos und unverbindlich. Wir hören zu und verstehen Ihr Unternehmen, Ihre Ziele und Ihre Engpässe. Kein Pitch, kein Druck.",
   },
   {
     num: "02",
     title: "Konzept & Angebot",
-    desc: "Klare Roadmap, transparente Kalkulation. Sie wissen vorab genau, was zu welchem Preis geliefert wird — keine Überraschungen.",
+    desc: "Klare Roadmap, transparente Kalkulation. Sie wissen vorab genau, was zu welchem Preis geliefert wird, ohne böse Überraschungen.",
   },
   {
     num: "03",
     title: "Entwicklung",
-    desc: "Wir bauen schnell und strukturiert. Regelmäßige Updates, kurze Feedbackschleifen, direkter Draht zum Team — aus Bochum.",
+    desc: "Wir bauen in kurzen Etappen. Regelmäßige Updates, schnelle Feedbackschleifen und ein direkter Draht zum Team in Bochum.",
   },
   {
     num: "04",
     title: "Go-Live & Support",
-    desc: "Launch, Übergabe, Einweisung. Sie erhalten alles für den eigenständigen Betrieb — und wir bleiben langfristig erreichbar.",
+    desc: "Launch, Übergabe und Einweisung. Sie erhalten alles für den eigenständigen Betrieb. Und wir bleiben langfristig erreichbar.",
   },
 ]
 

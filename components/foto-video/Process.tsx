@@ -4,7 +4,7 @@ const steps = [
   {
     num: "01",
     title: "Briefing",
-    desc: "Telefonat oder Meeting — wir klären Stil, Stimmung, Zielgruppe und Budget. Kein Fragebogen, direktes Gespräch.",
+    desc: "Telefonat oder Meeting, in dem wir Stil, Stimmung, Zielgruppe und Budget klären. Kein Fragebogen, ein echtes Gespräch.",
   },
   {
     num: "02",
@@ -14,7 +14,7 @@ const steps = [
   {
     num: "03",
     title: "Shooting / Dreh",
-    desc: "Professionelles Equipment, effiziente Drehtage. Wir kommen zu Ihnen — in Bochum, NRW oder bundesweit.",
+    desc: "Professionelles Equipment, effiziente Drehtage. Wir kommen zu Ihnen, in Bochum, NRW oder bundesweit.",
   },
   {
     num: "04",

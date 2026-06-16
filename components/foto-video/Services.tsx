@@ -4,7 +4,7 @@ const services = [
   {
     num: "01",
     title: "Produktfotografie",
-    body: "Bilder, die verkaufen. Cleane, hochwertige Aufnahmen für Shop, Katalog und Marketing — optimiert für Web und Print.",
+    body: "Bilder, die verkaufen. Cleane, hochwertige Aufnahmen für Shop, Katalog und Marketing, optimiert für Web und Print.",
     icon: (
       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
         <path d="M1 7h2l1.5-2.5h9L15 7h2a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1z" stroke="currentColor" strokeWidth="1.25" strokeLinejoin="round"/>
@@ -28,7 +28,7 @@ const services = [
   {
     num: "03",
     title: "Event-Dokumentation",
-    body: "Konferenzen, Launches, Feiern — professionell festgehalten. Kompakte Lieferzeiten, keine kompromittierte Qualität.",
+    body: "Konferenzen, Launches, Feiern, professionell festgehalten. Schnelle Lieferung, ohne Abstriche bei der Qualität.",
     icon: (
       <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
         <rect x="2" y="4" width="16" height="14" rx="1.5" stroke="currentColor" strokeWidth="1.25"/>
