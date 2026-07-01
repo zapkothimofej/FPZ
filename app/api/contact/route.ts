@@ -31,7 +31,7 @@ const toEmail = process.env.CONTACT_TO_EMAIL ?? "zapkothimofej@gmail.com"
 const formSubmitEndpoint =
   process.env.CONTACT_FORM_ENDPOINT ??
   process.env.FORMSUBMIT_ENDPOINT ??
-  "https://formsubmit.co/ajax/dc1680c158855bc1fa8160692cdd812d"
+  `https://formsubmit.co/ajax/${toEmail}`
 
 type ContactInput = {
   kind: ContactKind
