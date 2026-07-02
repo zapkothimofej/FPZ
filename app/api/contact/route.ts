@@ -23,15 +23,10 @@ const maxLength = {
   website: 200,
 }
 
-// Bevorzugter Versand: Resend (eigene Domain). Fallback: FormSubmit.
+// Versand ausschließlich über Resend (eigene Domain) — siehe Datenschutzerklärung Ziffer 4.
 const resendApiKey = process.env.RESEND_API_KEY
 const fromEmail = process.env.CONTACT_FROM_EMAIL ?? "FPZ Website <kontakt@fapez-medien.de>"
-const toEmail = process.env.CONTACT_TO_EMAIL ?? "zapkothimofej@gmail.com"
-
-const formSubmitEndpoint =
-  process.env.CONTACT_FORM_ENDPOINT ??
-  process.env.FORMSUBMIT_ENDPOINT ??
-  `https://formsubmit.co/ajax/${toEmail}`
+const toEmail = process.env.CONTACT_TO_EMAIL ?? "kontakt@fapez-medien.de"
 
 type ContactInput = {
   kind: ContactKind
@@ -77,6 +72,10 @@ export async function POST(request: Request) {
     return NextResponse.json({ success: false, error: "rate_limited" }, { status: 429 })
   }
 
+  if (!resendApiKey) {
+    return NextResponse.json({ success: false, error: "submit_unavailable" }, { status: 502 })
+  }
+
   const input: ContactInput = {
     kind,
     name,
@@ -88,11 +87,7 @@ export async function POST(request: Request) {
   }
 
   try {
-    const delivered = resendApiKey
-      ? await sendViaResend(input)
-      : await sendViaFormSubmit(input, request)
-
-    if (delivered) {
+    if (await sendViaResend(input)) {
       return NextResponse.json({ success: true })
     }
 
@@ -133,39 +128,6 @@ async function sendViaResend(input: ContactInput): Promise<boolean> {
   return res.ok
 }
 
-async function sendViaFormSubmit(input: ContactInput, request: Request): Promise<boolean> {
-  const sourceUrl =
-    request.headers.get("referer") ??
-    request.headers.get("origin") ??
-    "https://www.fapez-medien.de"
-
-  const body: Record<string, string> = {
-    _subject: subjects[input.kind],
-    _captcha: "false",
-    _template: "table",
-    _url: sourceUrl,
-    name: input.name,
-    email: input.email,
-    message: input.message,
-  }
-
-  if (input.company) body.company = input.company
-  if (input.phone) body.phone = input.phone
-  if (input.projectType) body.project_type = input.projectType
-
-  const res = await fetch(formSubmitEndpoint, {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(body),
-  })
-
-  const data = await readJson(res)
-  return res.ok && (data?.success === true || data?.success === "true" || data?.ok === true)
-}
-
 function readKind(value: unknown): ContactKind | null {
   return value === "web-ki" || value === "foto-video" ? value : null
 }
@@ -177,12 +139,4 @@ function readString(value: unknown, limit: number) {
 
 function isValidEmail(value: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
-}
-
-async function readJson(response: Response) {
-  try {
-    return (await response.json()) as { ok?: boolean; success?: boolean | string } | null
-  } catch {
-    return null
-  }
 }

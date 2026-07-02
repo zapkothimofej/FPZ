@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import Link from "next/link"
 import { FadeIn } from "@/components/FadeIn"
 import { Field } from "@/components/Field"
 
@@ -58,7 +59,7 @@ export function WebKiContact() {
 
           <div className="space-y-6">
             {[
-              { label: "E-Mail", value: "stevanfrei@gmail.com" },
+              { label: "E-Mail", value: "kontakt@fapez-medien.de" },
               { label: "Standort", value: "Im Siepen 66, 45731 Waltrop / Bochum, NRW" },
               { label: "Reaktionszeit", value: "< 24 Stunden" },
             ].map((item) => (
@@ -108,9 +109,18 @@ export function WebKiContact() {
 
               {status === "error" && (
                 <p role="alert" className="text-sm text-red-400">
-                  Fehler beim Senden. Bitte schreiben Sie direkt an stevanfrei@gmail.com.
+                  Fehler beim Senden. Bitte schreiben Sie direkt an kontakt@fapez-medien.de.
                 </p>
               )}
+
+              <p className="text-xs text-cream/40 leading-relaxed">
+                Mit dem Absenden erklären Sie sich damit einverstanden, dass wir Ihre Angaben zur
+                Bearbeitung Ihrer Anfrage verarbeiten. Details in der{" "}
+                <Link href="/datenschutz" className="underline underline-offset-2 text-cream/60 hover:text-cream transition-colors">
+                  Datenschutzerklärung
+                </Link>
+                .
+              </p>
 
               <button
                 type="submit"

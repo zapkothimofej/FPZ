@@ -32,7 +32,7 @@ export default function ImpressumPage() {
             </Section>
 
             <Section title="Kontakt">
-              <p>E-Mail: stevanfrei@gmail.com</p>
+              <p>E-Mail: kontakt@fapez-medien.de</p>
             </Section>
 
             <Section title="Register und Steuern">

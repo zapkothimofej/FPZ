@@ -5,7 +5,7 @@ export const site = {
   name: "FPZ",
   legalName: "Fapez Medien / FPZ Web-Media Solutions",
   owner: "Stevan Frei",
-  email: "stevanfrei@gmail.com",
+  email: "kontakt@fapez-medien.de",
   address: {
     streetAddress: "Im Siepen 66",
     postalCode: "45731",

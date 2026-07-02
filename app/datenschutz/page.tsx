@@ -31,7 +31,7 @@ export default function DatenschutzPage() {
                 Im Siepen 66<br />
                 45731 Waltrop<br />
                 Deutschland<br />
-                E-Mail: stevanfrei@gmail.com
+                E-Mail: kontakt@fapez-medien.de
               </p>
             </Section>
 
@@ -141,7 +141,7 @@ export default function DatenschutzPage() {
                 Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18), Datenübertragbarkeit
                 (Art. 20) sowie Widerspruch gegen die Verarbeitung (Art. 21). Eine erteilte
                 Einwilligung können Sie jederzeit mit Wirkung für die Zukunft widerrufen. Zur
-                Ausübung Ihrer Rechte genügt eine Nachricht an: stevanfrei@gmail.com
+                Ausübung Ihrer Rechte genügt eine Nachricht an: kontakt@fapez-medien.de
               </p>
             </Section>
 

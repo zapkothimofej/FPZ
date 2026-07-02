@@ -30,7 +30,7 @@ export function Footer({ variant = "default" }: FooterProps) {
           </div>
           <p className="max-w-sm text-xs leading-relaxed text-muted">
             Fapez Medien / FPZ Web-Media Solutions · Im Siepen 66, 45731 Waltrop ·
-            stevanfrei@gmail.com
+            kontakt@fapez-medien.de
           </p>
         </div>
 
